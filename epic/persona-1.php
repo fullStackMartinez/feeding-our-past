@@ -5,6 +5,6 @@
 		<title>Capstone persona-1</title>
 	</head>
 	<body>
-		<h1>Hello, World! :D</h1>
+		<h1>Persona 1</h1>
 	</body>
 </html>
