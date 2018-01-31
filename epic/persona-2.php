@@ -55,7 +55,27 @@
 			recieve the help I need.</p>
 
 		<h2>Use Case and Interaction Flow</h2>
+<!--	Example Structure/Info...need to edit:
+	<p>As a new Medium account member (@RebeccaBaker24), Rebecca wants to find and read stories about Entrepreneurship. She wants to be able to “clap for” and save stories she finds relevant and inspirational.</p>
 
+		<p>Usage precondition: Rebecca verified her new Medium account</p>
+
+		<p>Usage postcondition: Rebecca discovers stories about Entrepreneurship, claps for them, and saves them to her offline reading list</p>
+
+		<p>Interaction flow:</p>
+		<ol>
+			<li>Rebecca logs in to her Medium account</li>
+			<li>The site opens at the homepage</li>
+			<li>Rebecca clicks on the Entrepreneurship category</li>
+			<li>The site shows her articles tagged for the Entrepreneurship category</li>
+			<li>Rebecca opens an article of interest</li>
+			<li>The site takes her to the article’s page</li>
+			<li>Rebecca enjoys the article and clicks on Clap</li>
+			<li>The site saves her Clap and increments a counter</li>
+			<li>Rebecca clicks to save the article for reading offline later</li>
+			<li>The site exports the article</li>
+		</ol>
+-->
 
 	</body>
 </html>
