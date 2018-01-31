@@ -6,6 +6,7 @@
 	</head>
 	<body>
 		<h1>Feeding Our Past: Persona 2</h1>
+		<h2>"People Seeking Assistance"</h2>
 
 		<!-- Define a Persona representing the target audience for the capstone project:
 		This persona will be a person who is seeking information to help a senior-aged family member, friend, or neighbor. -->
@@ -22,7 +23,7 @@
 		<p>Persona-1  Name: Elizabeth Brown
 			Age: 73
 
-			Family:  She is a Widower, no childen or extended family.
+			Family:  She is a Widow, no childen or extended family.
 
 			Profession: Elizabeth was a housewife as her husband had a good job.  She
 			lives on a fixed income, recieving a pension from her husband's company
@@ -52,6 +53,9 @@
 
 			User story:		As a user, I need to overcome both the negative feelings of adult hunger insecurity and the complications of bigger websites to
 			recieve the help I need.</p>
+
+		<h2>Use Case and Interaction Flow</h2>
+
 
 	</body>
 </html>
