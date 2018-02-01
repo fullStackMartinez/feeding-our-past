@@ -14,9 +14,36 @@ I am Tammy Tomlinson. I am the executive director at a local food bank in Albuqu
 We have a great team, our technology needs are met, and our operation is very successful. Actually our success is a bit of a golden problem. We need additional volunteers to help process and distribute food boxes at the warehouse. Additionally, we could serve a larger portion of the needy in Albuquerque if we had a team of volunteer drivers to transport seniors to and from the warehouse as well as deliver food boxes to seniors (angels) home. We have devloped a comprehensive plan to recruit volunteers. Our greatest challenge is that we can not make changes to our web site. We need an app or additional website that we can use to coordinate, direct, and manage volunteer activities. Ideally, we would be able to log into the app/site, review our volunteers and cdm their activites. 
 
 		user story
-As a user I need to be able to direct volunteers
+As a user I need to be able to direct volunteers to the application/website to register to volunteer at our orginazation which will be especially useful to include in our marketing materials. Additionally, I would like to get new volunteer's contact information from the application/website so I can contact and follow up with the new volunteers in a timly manner.
 
 		use case
 
 		process flow
+		request page
+		page returned
+		select create new account
+		present new account window
+		User provides...
+			name
+			address
+			phone
+			e-mail
+			userlogin
+			password
+		Account setup confirmed with an e-mail
+		User confirms receipt of e-mail
+		User selects volunteer opportunity type
+		opportunity type confirmed
+		user selects volunteer location
+		location confirmed
+
+
+		  Tammy requests page
+		  page returned to Tammy
+		  Tammy logs in
+		  Tammy is authenticated
+		  Tammy is given a list of volunteers who want to work
+
+
+
 	</body>
