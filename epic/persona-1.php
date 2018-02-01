@@ -63,7 +63,7 @@
 			<h3>Frequency of Use</h3>
 			<p>Andrew is a one time volunteer, meaning he is using our web site/app in order to take care of a one time drop off of donated food. We plan on having two types of volunteers, those that are one time volunteers, and those that want to continue to help in the future, many times a year.</p>
 		</section>
-		<!--Since we have 2 volunteer types, I will edit the above Persona, Andrew Candelaria, as a volunteer who wants to continue volunteering in Albuquerque long term, and so makes a profile on our web site/ app-->
+		<!--Since we have 2 volunteer types, I will edit the above Persona, Andrew Candelaria, as a volunteer who wants to continue volunteering in Albuquerque long term, and so makes a profile on our web site/ app
 		<section>
 				<h3>Andrew Candelaria</h3>
 				<p>Age: 24 years old</p>
@@ -89,8 +89,22 @@
 			<p>Andrew was born in Albuquerque, having lived here most of his life. He grew up in poverty, but through hard work and study he was able to get a quality education and a good job right out of college. After getting adjusted to his new job and busy life, he visits his grandmother who lives in Downtown Albuquerque. After a good visit, he starts to think about her life and how he always had what he needed in life because of the strong elders in his life.
 			Andrew decided to give back to his community by finding local organizations that need volunteers to help feed the elderly. He has free time on the weekends, and would like to spend a few hours of that free time to help with anything those organizations might need. He doesn't exactly know where to get started, but knows he wants to find a hub where he can be in constant contact with said organizations. </p>
 			<p>Usage Preconditions: Andrew has access to the internet and free time on the weekends</p>
-			<p>Usage Postconditions: Andrew connects with an Albuquerque food bank to become a part-time volunteer</p>
+			<p>Usage Postconditions: Andrew creates a profile as a part-time volunteer</p>
 		</section>
-
+		<section>
+			<h3>Interaction Flow</h3>
+			<ul>
+				<li>Andrew: opens our website</li>
+				<li>Site: the landing page loads and shows an easy user interface</li>
+				<li>Andrew: clicks on the button labeled Volunteer/Donate </li>
+				<li>Site: takes Andrew to the Volunteer prompt</li>
+				<li>Andrew: clicks on the button to sign up as a volunteer</li>
+				<li>Site: takes Andrew to the sign up form</li>
+				<li>Andrew: completes and submits information</li>
+				<li>Site: displays volunteer page</li>
+			</ul>
+			<h3>Frequency of Use</h3>
+			<p>Andrew is a return user of the website. He gets messaged from organizations that have tasks to do, or need help with a certain event or job. He also checks the site often to check for new organizations or events.</p>
+		</section> -->
 	</body>
 </html>
