@@ -14,6 +14,7 @@ I am Tammy Tomlinson. I am the executive director at a local food bank in Albuqu
 We have a great team, our technology needs are met, and our operation is very successful. Actually our success is a bit of a golden problem. We need additional volunteers to help process and distribute food boxes at the warehouse. Additionally, we could serve a larger portion of the needy in Albuquerque if we had a team of volunteer drivers to transport seniors to and from the warehouse as well as deliver food boxes to seniors (angels) home. We have devloped a comprehensive plan to recruit volunteers. Our greatest challenge is that we can not make changes to our web site. We need an app or additional website that we can use to coordinate, direct, and manage volunteer activities. Ideally, we would be able to log into the app/site, review our volunteers and cdm their activites. 
 
 		user story
+As a user I need to be able to direct volunteers
 
 		use case
 
