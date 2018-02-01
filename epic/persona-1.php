@@ -43,10 +43,15 @@
 				He doesn't have much time to call and look for places, so he needs a quick resource that will show him open food banks that are
 				near him that take food donations. </p>
 			<p>Usage Preconditions: Andrew has a box of perishable items that he needs to donate, and access to the internet.</p>
-			<p>Usage Postconditions: After donating his box of perishable items to a donation center 3 streets away, he decides to make a Profile on our app to donate in the future.
+			<p>Usage Postconditions: Andre donates his box of perishable items to a donation center 3 streets away.
 			</p>
 		</section>
-
+		<section>
+			<h3>Interaction Flow</h3>
+			<ul>
+				<li></li>
+			</ul>
+		</section>
 
 	</body>
 </html>
