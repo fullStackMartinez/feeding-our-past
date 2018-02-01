@@ -22,17 +22,15 @@
 
 		<p><strong>Attitudes and Behavior</strong>: Elizabeth spends most of her days gardening, cleaning her house, and trying to keep busy spending as little money as possible. She is very prideful, and will not entertain the idea of an assisted living facility.  Her doctors have noticed a change in her health and are concerned mainly about her diet. She has been putting on a brave face, but six months ago her monthly income was not enough to cover her expenses and she cut the only thing she felt she could, which was food. Her neighbors take her to the store once a week or so, and as they noticed something was wrong they offered her help.  She declined the offer and became withdrawn, and now is only eating one small meal a day. She is concerned that the food pantry sites in Albuquerque are for homeless people only and would not help her, and she feels those sites are unsafe. Elizabeth is scared. She tried to search the internet for help with food, but found the websites presented were confusing and only exacerbated her feelings of shame and desperation.</p>
 
-			Needs and Goals:	Elizabeth knows she needs to do something, but with everything she is dealing with, she has found it hard to reach out.
-			Her needs are simply to find a way to not go hungry.  Her goal is to try and overcome her fear and find a way to recieve help.
-			She has no idea of who to contact, and won't admit to her neighbors she is in trouble, so the internet is really the only option for her.
-			She would like to take the first step to getting help by finding a church close to her that could help her.
+		<p><strong>Needs and Goals</strong>: Elizabeth knows she needs to do something, but with everything she is dealing with, she has found it hard to reach out. Her needs are simply to find a way to not go hungry. Her goal is to try and overcome her fear and find a way to receive help. She has no idea who to contact and won't admit to her neighbors she is in trouble, so the internet is really the only option for her. She would like to take the first step to getting help by finding a church or organization nearby that could help her. Elizabeth needs a simple, user-friendly interaction with the website to find the information she is looking for.</p>
 
-			User story:		As a user, I need to overcome both the negative feelings of adult hunger insecurity and the complications of bigger websites to
-			recieve the help I need.</p>
+<!--		<p><strong>User story</strong>: As a user, I need to overcome both the negative feelings of adult hunger insecurity and the complications of bigger websites to receive the help I need.</p> -->
+		<p><strong>User Story</strong>: As a user, I need to be able to easily find food assistance in my area and see results in a simple, easy to navigate manner.</p>
 
 		<h2>Use Case and Interaction Flow</h2>
-<!--	Example Structure/Info...need to edit:
-	<p>As a new Medium account member (@RebeccaBaker24), Rebecca wants to find and read stories about Entrepreneurship. She wants to be able to “clap for” and save stories she finds relevant and inspirational.</p>
+
+		<!-- Define this persona's use case and interaction flow -->
+		<p>As a user, Elizabeth wants to quickly and easily find information about organizations near her who assist with food insecurity.</p>
 
 		<p>Usage precondition: Rebecca verified her new Medium account</p>
 
@@ -51,7 +49,7 @@
 			<li>Rebecca clicks to save the article for reading offline later</li>
 			<li>The site exports the article</li>
 		</ol>
--->
+
 
 <!--		<p><strong>Name</strong>: Diane Smith<br>
 			<strong>Age</strong>: 40</p>
