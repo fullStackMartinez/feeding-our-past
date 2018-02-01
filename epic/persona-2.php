@@ -30,24 +30,20 @@
 		<h2>Use Case and Interaction Flow</h2>
 
 		<!-- Define this persona's use case and interaction flow -->
-		<p>As a user, Elizabeth wants to quickly and easily find information about organizations near her who assist with food insecurity.</p>
+		<p>As a user, Elizabeth wants to easily find information about organizations near her who assist with food insecurity. She wants to see results in a clear, easy to read format.</p>
 
-		<p>Usage precondition: Rebecca verified her new Medium account</p>
+		<p>Usage precondition: Elizabeth navigated to the website and knows her address.</p>
 
-		<p>Usage postcondition: Rebecca discovers stories about Entrepreneurship, claps for them, and saves them to her offline reading list</p>
+		<p>Usage postcondition: Elizabeth has a list of nearby organizations to help her, and she can easily see them on a map relative to her location.</p>
 
 		<p>Interaction flow:</p>
 		<ol>
-			<li>Rebecca logs in to her Medium account</li>
-			<li>The site opens at the homepage</li>
-			<li>Rebecca clicks on the Entrepreneurship category</li>
-			<li>The site shows her articles tagged for the Entrepreneurship category</li>
-			<li>Rebecca opens an article of interest</li>
-			<li>The site takes her to the article’s page</li>
-			<li>Rebecca enjoys the article and clicks on Clap</li>
-			<li>The site saves her Clap and increments a counter</li>
-			<li>Rebecca clicks to save the article for reading offline later</li>
-			<li>The site exports the article</li>
+			<li>Elizabeth types in the website's URL</li>
+			<li>The site opens at the simple, user-friendly homepage</li>
+			<li>Elizabeth clicks on the button titled "I Need Assistance"</li>
+			<li>The site takes her to a page where she is prompted to enter her address to find nearby organizations</li>
+			<li>Elizabeth enters her address</li>
+			<li>The site returns a list of organizations and displays their locations on a Google map</li>
 		</ol>
 
 
