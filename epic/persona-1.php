@@ -46,6 +46,7 @@
 			<p>Usage Postconditions: Andre donates his box of perishable items to a donation center 3 streets away.
 			</p>
 		</section>
+		<!--This section will describe the interaction flow between a Volunteer and the app/web site, and a Volunteers frequency of use-->
 		<section>
 			<h3>Interaction Flow</h3>
 			<ul>
@@ -59,7 +60,10 @@
 				<li>Site: displays contact information and location</li>
 				<li>Andrew: drives to donation center and drops off food</li>
 			</ul>
+			<h3>Frequency of Use</h3>
+			<p>Andrew is a one time volunteer, meaning he is using our web site/app in order to take care of a one time drop off of donated food. We plan on having two types of volunteers, those that are one time volunteers, and those that want to continue to help in the future, many times a year.</p>
 		</section>
+		<!--
 
 	</body>
 </html>
