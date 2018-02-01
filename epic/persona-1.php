@@ -7,7 +7,7 @@
 	<body>
 		<header>
 			<h2>The Volunteer</h2>
-			<!--Here we will define a the Volunteer user of our app/web page-->
+			<!--Here we will define the Volunteer user of our app/web page.-->
 		</header>
 		<section>
 			<h3>Andrew Candelaria</h3>
@@ -23,6 +23,30 @@
 			<p>Needs: Andrew has a lot of things to do on his plate, including cleaning out the rental property he and his friends are about to vacate. He needs to find a place close to him to donate all the extra perishables he doesn't intend on using, that accepts food donations and is open when he has free time.
 			</p>
 		</section>
+		<section>
+			<!--This section describes the User Story of the Volunteer-->
+			<h3>User Story</h3>
+			<p>User story a: "I need to find a place near me that is open and accepts food donations."</p>
+			<p>User story b: "I'd like to continue to donate food and time in Albuquerque in the future."</p>
+		</section>
+		<section>
+			<!--This section describes the User Case of the Volunteer-->
+			<h3>User Case</h3>
+			<h4>Lending a Helping Hand</h4>
+			<p>Actor: Andrew Candelaria</p>
+			<p>Role: Find a place that is close and open to food donations that has open business hours on the weekend.</p>
+			<p>Andrew and his roommates have decided to vacate the bachelor pad they have been living in for the past 2 years and
+				go their separate ways. Although Andrew is busy with his new job, he has found a nice apartment to live in. With the recent decision
+				to move out of the house, Andrew and his 2 friends are deep cleaning their rented in order to get their deposit back. They've realized
+				that after 2 years together, they have accumulated a lot of unused canned and non perishable goods. Andrew wants to box them up and donate them.
+				With his new job and big move, Andrew wants to go somewhere close, open during his free time, and only wants to make one easy trip.
+				He doesn't have much time to call and look for places, so he needs a quick resource that will show him open food banks that are
+				near him that take food donations. </p>
+			<p>Usage Preconditions: Andrew has a box of perishable items that he needs to donate, and access to the internet.</p>
+			<p>Usage Postconditions: After donating his box of perishable items to a donation center 3 streets away, he decides to make a Profile on our app to donate in the future.
+			</p>
+		</section>
+
 
 	</body>
 </html>
