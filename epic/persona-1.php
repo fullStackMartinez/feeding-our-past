@@ -78,20 +78,18 @@
 				<p>Needs: Andrew grew up in poverty, and now that he has a good job and security he wants to give back to the community. He would like to find an informational hub on volunteering to feed the elderly, and keep in contact with organizations that do this work in Albuquerque.</p>
 		</section>
 		<section>
+			<h3>User Story</h3>
+			<p>User story b: "I'd like to continue to donate food and time in Albuquerque in the future."</p>
+		</section>
+		<section>
 			<h3>User Case</h3>
 			<h4>Giving Back to Those Who Raised Him</h4>
 			<p>Actor: Andrew Candelaria</p>
 			<p>Role: Find local organizations that are in need of volunteers to help with senior hunger.</p>
-			<p>Andrew and his roommates have decided to vacate the bachelor pad they have been living in for the past 2 years and
-				go their separate ways. Although Andrew is busy with his new job, he has found a nice apartment to live in. With the recent decision
-				to move out of the house, Andrew and his 2 friends are deep cleaning their rented in order to get their deposit back. They've realized
-				that after 2 years together, they have accumulated a lot of unused canned and non perishable goods. Andrew wants to box them up and donate them.
-				With his new job and big move, Andrew wants to go somewhere close, open during his free time, and only wants to make one easy trip.
-				He doesn't have much time to call and look for places, so he needs a quick resource that will show him open food banks that are
-				near him that take food donations. </p>
-			<p>Usage Preconditions: Andrew has a box of perishable items that he needs to donate, and access to the internet.</p>
-			<p>Usage Postconditions: Andre donates his box of perishable items to a donation center 3 streets away.
-			</p>
+			<p>Andrew was born in Albuquerque, having lived here most of his life. He grew up in poverty, but through hard work and study he was able to get a quality education and a good job right out of college. After getting adjusted to his new job and busy life, he visits his grandmother who lives in Downtown Albuquerque. After a good visit, he starts to think about her life and how he always had what he needed in life because of the strong elders in his life.
+			Andrew decided to give back to his community by finding local organizations that need volunteers to help feed the elderly. He has free time on the weekends, and would like to spend a few hours of that free time to help with anything those organizations might need. He doesn't exactly know where to get started, but knows he wants to find a hub where he can be in constant contact with said organizations. </p>
+			<p>Usage Preconditions: Andrew has access to the internet and free time on the weekends</p>
+			<p>Usage Postconditions: Andrew connects with an Albuquerque food bank to become a part-time volunteer</p>
 		</section>
 
 	</body>
