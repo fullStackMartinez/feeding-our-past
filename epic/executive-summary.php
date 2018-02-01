@@ -7,6 +7,13 @@
 	<body>
 		<h1>Feeding Our Past: Executive Summary</h1>
 		<h2>Purpose</h2>
+		<p>This website serves two functions: first, it provides quick location information to elderly people looking for food aide, and volunteers searching for nearby food banks for donation drop off.
+			It also serves as a community outreach hub for committed volunteers and organizations that can connect in order to help hungry seniors in Albuquerque.</p>
+		<p>The purpose of our website is to provide an easy to use resource
+			that will link Albuquerque's food resources with motivated individuals who
+			want to help ensure that our seniors can recieve the resources they need.</p>
+		<p>This project will be a website which can be used by 3 types of users (help seekers, volunteers, organizations) to interact with ABQ City Data and the Stop Senior Hunger Initiative, built with full stack  development.</p>
+		<p>The purpose of our website is to function as a stand alone site to be used by potential angels to find food security services, volunteers to donate cash, food or time, and food bank executives to find and respond to request from angels and volunteers.</p>
 
 		<h2>Audience</h2>
 
