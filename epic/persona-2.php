@@ -32,7 +32,7 @@
 		<!-- Define this persona's use case and interaction flow -->
 		<p>As a user, Elizabeth wants to easily find information about organizations near her who assist with food insecurity. She wants to see results in a clear, easy to read format.</p>
 
-		<p><strong>Usage precondition</strong>: Elizabeth navigated to the website and knows her address.</p>
+		<p><strong>Usage precondition</strong>: Elizabeth connects to the internet and knows the website URL, along with her physical address.</p>
 
 		<p><strong>Usage postcondition</strong>: Elizabeth has a list of nearby organizations to help her, and she can easily see them on a map relative to her location.</p>
 
