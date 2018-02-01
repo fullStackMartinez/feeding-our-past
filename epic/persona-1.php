@@ -75,8 +75,23 @@
 				<p>Attitude and Behaviors: Andrew is a recent UNM graduate, having worked hard for 5 years studying full time, while working a part time job that took most of his weekends/free time. The past 2 years he has been living with 2 friends, both of which are similar in age and already in the work force.
 					Andrew's new life is busy, he is a hard worker, with a new job he is learning the ropes, taking any free time to study his employee handbook and also moving into a new apartment.
 				</p>
-				<p>Needs: Andrew grew up in poverty, and now that he has a good job and security he wants to give back to the community. He would like to find an informational hub on volunteering to feed the elderly
-				</p>
+				<p>Needs: Andrew grew up in poverty, and now that he has a good job and security he wants to give back to the community. He would like to find an informational hub on volunteering to feed the elderly, and keep in contact with organizations that do this work in Albuquerque.</p>
+		</section>
+		<section>
+			<h3>User Case</h3>
+			<h4>Giving Back to Those Who Raised Him</h4>
+			<p>Actor: Andrew Candelaria</p>
+			<p>Role: Find local organizations that are in need of volunteers to help with senior hunger.</p>
+			<p>Andrew and his roommates have decided to vacate the bachelor pad they have been living in for the past 2 years and
+				go their separate ways. Although Andrew is busy with his new job, he has found a nice apartment to live in. With the recent decision
+				to move out of the house, Andrew and his 2 friends are deep cleaning their rented in order to get their deposit back. They've realized
+				that after 2 years together, they have accumulated a lot of unused canned and non perishable goods. Andrew wants to box them up and donate them.
+				With his new job and big move, Andrew wants to go somewhere close, open during his free time, and only wants to make one easy trip.
+				He doesn't have much time to call and look for places, so he needs a quick resource that will show him open food banks that are
+				near him that take food donations. </p>
+			<p>Usage Preconditions: Andrew has a box of perishable items that he needs to donate, and access to the internet.</p>
+			<p>Usage Postconditions: Andre donates his box of perishable items to a donation center 3 streets away.
+			</p>
 		</section>
 
 	</body>
