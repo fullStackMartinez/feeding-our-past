@@ -51,7 +51,13 @@
 			<ul>
 				<li>Andrew: opens our website</li>
 				<li>Site: the landing page loads and shows an easy user interface</li>
-				<li>Andrew: clicks on the button labeled </li>
+				<li>Andrew: clicks on the button labeled Volunteer/Donate </li>
+				<li>Site: takes Andrew to the Volunteer prompt and asks his location</li>
+				<li>Andrew: puts his location into the site</li>
+				<li>Site: using Google maps, displays the nearest donation centers that accept food donations</li>
+				<li>Andrew: clicks on one nearest to him</li>
+				<li>Site: displays contact information and location</li>
+				<li>Andrew: drives to donation center and drops off food</li>
 			</ul>
 		</section>
 
