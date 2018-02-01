@@ -49,7 +49,9 @@
 		<section>
 			<h3>Interaction Flow</h3>
 			<ul>
-				<li></li>
+				<li>Andrew: opens our website</li>
+				<li>Site: the landing page loads and shows an easy user interface</li>
+				<li>Andrew: clicks on the button labeled </li>
 			</ul>
 		</section>
 
