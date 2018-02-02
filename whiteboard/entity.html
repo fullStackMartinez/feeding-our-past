@@ -5,43 +5,74 @@
 		<title>entity</title>
 	</head>
 	<body>
-		<h2>Initial Entity List</h2>
+		<h2>Entity List</h2>
 		<div>
-			<h3>Provider</h3>
+			<h3>organization ?{org}?</h3>
 			<ul>
-				<li>name</li>
-				<li>address</li>
-				<li>phone</li>
-				<li>url</li>
-				<li>hours</li>
+				<li>organizationId (UUID) [primary key]</li>
+				<li>organizationActivationToken (UUID)</li>
+				<li>organizationAddressCity (string)</li>
+				<li>organizationAddressState (string)</li>
+				<li>organizationAddressStreet</li>
+				<li>organizationAddressZip</li>
+				<li>organizationDaysOpen</li>
+				<li>organizationDonationCash (boolean)</li>
+				<li>organizationDonationNonPerishable</li>
+				<li>organizationDonationPerishable</li>
+				<li>orgnaizationDonationTime</li>
+				<li>organizationDonationTransport</li>
+				<li>organizationEmail</li>
+				<li>organizationFoodAccepted</li>
+				<li>organizationHash</li>
+				<li>organizationHoursOpen</li>
+				<li>organizationLocationUrl</li>
+				<li>organizationName</li>
+				<li>organizationPassword</li>
+				<li>organizationPhone</li>
+				<li>organizationSalt</li>
+				<li>organizationUrl</li>
 			</ul>
 		</div>
 		<div>
-			<h3>Volunteer</h3>
+			<h3>volunteer ?{vol}?</h3>
 			<ul>
-				<li>name</li>
-				<li>address</li>
-				<li>e-mail</li>
-				<li>phone</li>
-				<li>perishable food donation</li>
-				<li>non perishable food donation</li>
-				<li>cash donation</li>
-				<li>time donation</li>
-				<li>can you drive clients</li>
+				<li>volunteerId [primary key]</li>
+				<li>volunteerActivationToken</li>
+				<li>volunteerAddress</li>
+				<li>volunteerAvailability</li>
+				<li>volunteerDonationCash (boolean)</li>
+				<li>volunteerDonationNonPerishable</li>
+				<li>volunteerDonationPerishable</li>
+				<li>volunteerDonationTime</li>
+				<li>volunteerDonationTransport</li>
+				<li>volunteerEmail</li>
+				<li>volunteerHash</li>
+				<li>volunteerName</li>
+				<li>volunteerPassword</li>
+				<li>volunteerPhone</li>
+				<li>volunteerSalt</li>
+				<li>volunteerType</li>
+				<li>VolunteerUUID</ul>
 			</ul>
 		</div>
 		<div>
-			<h3>Post</h3>
+			<h3>post</h3>
 			<ul>
-				<li>name</li>
-				<li>address</li>
-				<li>e-mail</li>
-				<li>phone</li>
-				<li>perisable food donation</li>
-				<li>non perishable food donation</li>
-				<li>cash donation</li>
-				<li>time donation</li>
-				<li>can you drive clients</li>
+				<li>postEventId (UUID) [primary key]</li>
+				<li>postEventOrganizationId (UUID) [foreign key]</li>
+				<li>postContent</li>
+				<li>postEventDate</li>
+				<li>postEventDateDelete</li>
+				<li>postEventDescription</li>
+				<li>postEventImage</li>
+				<li>postEventName</li>
+				<li>postHash</li>
+				<li>postSalt</li>
+
+				* postContent
+				* postDateTime
+				* postType??
+
 			</ul>
 		</div>
 		<div>
@@ -58,46 +89,16 @@
 				<li>can you drive clients</li>
 			</ul>
 		</div>
-		Entity and Attributes
-		Angel
-		1.	Location
-		2.	If No location data then address
 
-		CEP
-		1.	Name
-		2.	Address
-		3.	Telephone
-		4.	e-mail
-		5.	Website
-		6.	Location URL
-		7.	Hours Open
-		8.	perisable food donation
-		9.	non perishable food donation
-		10.	cash donation
-		11.	time donation
-		12.	can you drive clients
-		13.	Days Open
-		14.	User Name
-		15.	Password
-		16.	CEP UUID
 
-		Volunteer
-		1.	Name
-		2.	Address
-		3.	Telephone
-		4.	e-mail
-		5.	User Name
-		6.	Password
-		7.	Volunteer UUID
+		like
+		* likeVolunteerId (foreign key)
+		* likePostId (foreign key)
+		* likeDateTime
 
-		Post (this may be too much)
-		1.	CEP UUID
-		2.	Event UUID
-		3.	Event Name
-		4.	Description
-		5.	Image
-		6.	Event Date
-		7.	Delete Date
+
+		Relations
+		* One organization can write many posts
 
 	</body>
 </html>
