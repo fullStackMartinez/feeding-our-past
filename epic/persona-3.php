@@ -29,7 +29,5 @@ As a user I need to be able to direct volunteers to the application/website to r
 		  Purpose
 		  The purpose of our website is to function as a stand alone site to be used by potential angels to find food security services, volunteers to donate cash, food or time, and food bank executives to find and respond to request from angels and volunteers.
 
-
-
 	</body>
 	</html>
