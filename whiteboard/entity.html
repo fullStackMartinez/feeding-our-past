@@ -11,48 +11,46 @@
 			<ul>
 				<li>organizationId (UUID) [primary key]</li>
 				<li>organizationActivationToken (UUID)</li>
-				<li>organizationAddressCity (string)</li>
-				<li>organizationAddressState (string)</li>
-				<li>organizationAddressStreet</li>
-				<li>organizationAddressZip</li>
-				<li>organizationDaysOpen</li>
+				<li>organizationAddressCity (varchar)</li>
+				<li>organizationAddressState (varchar)</li>
+				<li>organizationAddressStreet (varchar)</li>
+				<li>organizationAddressZip (int)</li>
+				<li>organizationDaysOpen (varchar)</li>
 				<li>organizationDonationCash (boolean)</li>
-				<li>organizationDonationNonPerishable</li>
-				<li>organizationDonationPerishable</li>
-				<li>orgnaizationDonationTime</li>
-				<li>organizationDonationTransport</li>
-				<li>organizationEmail</li>
-				<li>organizationFoodAccepted</li>
-				<li>organizationHash</li>
-				<li>organizationHoursOpen</li>
-				<li>organizationLocationUrl</li>
-				<li>organizationName</li>
-				<li>organizationPassword</li>
-				<li>organizationPhone</li>
-				<li>organizationSalt</li>
-				<li>organizationUrl</li>
+				<li>organizationDonationNonPerishable (boolean)</li>
+				<li>organizationDonationPerishable (boolean)</li>
+				<li>orgnaizationDonationTime (boolean)</li>
+				<li>organizationDonationTransport (boolean)</li>
+				<li>organizationEmail (varchar)</li>
+				<li>organizationHash (varchar)</li>
+				<li>organizationHoursOpen (varchar)</li>
+				<li>organizationLocationUrl (varchar)</li>
+				<li>organizationName (varchar)</li>
+				<li>organizationPassword (varchar)</li>
+				<li>organizationPhone (varchar)</li>
+				<li>organizationSalt (varchar)</li>
+				<li>organizationUrl (varchar)</li>
 			</ul>
 		</div>
 		<div>
 			<h3>volunteer ?{vol}?</h3>
 			<ul>
-				<li>volunteerId [primary key]</li>
-				<li>volunteerActivationToken</li>
-				<li>volunteerAddress</li>
-				<li>volunteerAvailability</li>
+				<li>volunteerId (UUID) [primary key]</li>
+				<li>volunteerActivationToken (UUID) [foreign key] </li>
+				<li>volunteerAddress (varchar)</li>
+				<li>volunteerAvailability (varchar)</li>
 				<li>volunteerDonationCash (boolean)</li>
-				<li>volunteerDonationNonPerishable</li>
-				<li>volunteerDonationPerishable</li>
-				<li>volunteerDonationTime</li>
-				<li>volunteerDonationTransport</li>
-				<li>volunteerEmail</li>
-				<li>volunteerHash</li>
-				<li>volunteerName</li>
-				<li>volunteerPassword</li>
-				<li>volunteerPhone</li>
-				<li>volunteerSalt</li>
-				<li>volunteerType</li>
-				<li>VolunteerUUID
+				<li>volunteerDonationNonPerishable (boolean)</li>
+				<li>volunteerDonationPerishable (boolean)</li>
+				<li>volunteerDonationTime (boolean)</li>
+				<li>volunteerDonationTransport (boolean)</li>
+				<li>volunteerEmail (varchar)</li>
+				<li>volunteerHash (varchar)</li>
+				<li>volunteerName (varchar)</li>
+				<li>volunteerPassword (varchar)</li>
+				<li>volunteerPhone (varchar)</li>
+				<li>volunteerSalt (varchar)</li>
+				<li>volunteerType (varchar)</li>
 			</ul>
 
 		</div>
@@ -61,14 +59,14 @@
 			<ul>
 				<li>postEventId (UUID) [primary key]</li>
 				<li>postEventOrganizationId (UUID) [foreign key]</li>
-				<li>postContent</li>
-				<li>postEventDate</li>
-				<li>postEventDateDelete</li>
-				<li>postEventDescription</li>
-				<li>postEventImage</li>
-				<li>postEventName</li>
-				<li>postHash</li>
-				<li>postSalt</li>
+				<li>postContent (UUID)</li>
+				<li>postEventDate (varchar)</li>
+				<li>postEventDateDelete (varchar)</li>
+				<li>postEventDescription (varchar)</li>
+				<li>postEventImage (??????)</li>
+				<li>postEventName (varchar)</li>
+				<li>postHash (varchar)</li>
+				<li>postSalt (varchar)</li>
 			</ul>
 		</div>
 		<div>
@@ -76,7 +74,7 @@
 			<ul>
 				<li>likeVolunteerID (UUID) [foreign key]</li>
 				<li>likePostEventId (UUID) [foreign key]</li>
-				<li>likePostEventName</li>
+				<li>likePostEventName (varchar)</li>
 			</ul>
 		</div>
 		<div>
