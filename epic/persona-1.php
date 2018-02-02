@@ -48,7 +48,7 @@
 		</section>
 		<!--This section will describe the interaction flow between a Volunteer and the app/web site, and a Volunteers frequency of use-->
 		<section>
-			<h3>Interaction Flow</h3>
+			<h3>Interaction Flow A: volunteer wants to donate one time</h3>
 			<ul>
 				<li>Andrew: opens our website</li>
 				<li>Site: the landing page loads and shows an easy user interface</li>
@@ -90,9 +90,9 @@
 			Andrew decided to give back to his community by finding local organizations that need volunteers to help feed the elderly. He has free time on the weekends, and would like to spend a few hours of that free time to help with anything those organizations might need. He doesn't exactly know where to get started, but knows he wants to find a hub where he can be in constant contact with said organizations. </p>
 			<p>Usage Preconditions: Andrew has access to the internet and free time on the weekends</p>
 			<p>Usage Postconditions: Andrew creates a profile as a part-time volunteer</p>
-		</section>
+		</section>-->
 		<section>
-			<h3>Interaction Flow</h3>
+			<h3>Interaction Flow B: Volunteer wants to sign up</h3>
 			<ul>
 				<li>Andrew: opens our website</li>
 				<li>Site: the landing page loads and shows an easy user interface</li>
@@ -105,6 +105,6 @@
 			</ul>
 			<h3>Frequency of Use</h3>
 			<p>Andrew is a return user of the website. He gets messaged from organizations that have tasks to do, or need help with a certain event or job. He also checks the site often to check for new organizations or events.</p>
-		</section> -->
+		</section>
 	</body>
 </html>
