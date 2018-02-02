@@ -10,7 +10,7 @@
 			<h3>organization</h3>
 			<ul>
 				<li>organizationId (UUID) [primary key]</li>
-				<li>organizationActivationToken (UUID)</li>
+				<li>organizationActivationToken (char)</li>
 				<li>organizationAddressCity (varchar)</li>
 				<li>organizationAddressState (varchar)</li>
 				<li>organizationAddressStreet (varchar)</li>
@@ -60,7 +60,18 @@
 		</div>
 		<div>
 			<h3>Relations</h3>
-			<li>One organization can write many posts</li>
+			<ul>
+				<li>One organization can have many volunteers</li>
+				<li>Many organizations can have many volunteers</li>
+				<li>One organization can write many posts</li>
+				<li>Many organizations can have many posts</li>
+				<li>One volunteer can work at many organizations</li>
+				<li>Many volunteers can work at many organizations</li>
+				<li>One volunteer can like many posts</li>
+				<li>Many volunteers can like may posts</li>
+				<li>One post can be liked by many volunteers</li>
+				<li>Many posts can be liked by many volunteers</li>
+			</ul>
 		</div>
 	</body>
 </html>
