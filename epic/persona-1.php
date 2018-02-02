@@ -89,7 +89,7 @@
 			<p>Andrew was born in Albuquerque, having lived here most of his life. He grew up in poverty, but through hard work and study he was able to get a quality education and a good job right out of college. After getting adjusted to his new job and busy life, he visits his grandmother who lives in Downtown Albuquerque. After a good visit, he starts to think about her life and how he always had what he needed in life because of the strong elders in his life.
 			Andrew decided to give back to his community by finding local organizations that need volunteers to help feed the elderly. He has free time on the weekends, and would like to spend a few hours of that free time to help with anything those organizations might need. He doesn't exactly know where to get started, but knows he wants to find a hub where he can be in constant contact with said organizations. </p>
 			<p>Usage Preconditions: Andrew has access to the internet and free time on the weekends</p>
-			<p>Usage Postconditions: Andrew creates a profile as a part-time volunteer</p>
+			<p>Usage Postconditions: Andrew creates a profile as a part-time volunteers</p>
 		</section>-->
 		<section>
 			<h3>Interaction Flow B: Volunteer wants to sign up</h3>
