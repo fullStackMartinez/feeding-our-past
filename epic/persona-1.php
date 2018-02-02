@@ -102,6 +102,8 @@
 				<li>Site: takes Andrew to the sign up form</li>
 				<li>Andrew: completes and submits information</li>
 				<li>Site: displays volunteer page</li>
+				<li>Andrew: views bulletin board on his homepage, and likes a post by organization advertising food drive</li>
+				<li>Site: records like, and informs the organization profile that their post has been liked</li>
 			</ul>
 			<h3>Frequency of Use</h3>
 			<p>Andrew is a return user of the website. He gets messaged from organizations that have tasks to do, or need help with a certain event or job. He also checks the site often to check for new organizations or events.</p>
