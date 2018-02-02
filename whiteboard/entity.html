@@ -52,7 +52,8 @@
 				<li>volunteerPhone</li>
 				<li>volunteerSalt</li>
 				<li>volunteerType</li>
-				<li>VolunteerUUID</ul>
+				<li>VolunteerUUID
+			</ul>
 			</ul>
 		</div>
 		<div>
@@ -68,37 +69,19 @@
 				<li>postEventName</li>
 				<li>postHash</li>
 				<li>postSalt</li>
-
-				* postContent
-				* postDateTime
-				* postType??
-
 			</ul>
 		</div>
 		<div>
-			<h3>Like</h3>
+			<h3>like</h3>
 			<ul>
-				<li>name</li>
-				<li>address</li>
-				<li>e-mail</li>
-				<li>phone</li>
-				<li>perisable food donation</li>
-				<li>non perishable food donation</li>
-				<li>cash donation</li>
-				<li>time donation</li>
-				<li>can you drive clients</li>
+				<li>likeVolunteerID (UUID) [foreign key]</li>
+				<li>likePostEventId (UUID) [foreign key]</li>
+				<li>likePostEventName</li>
 			</ul>
 		</div>
-
-
-		like
-		* likeVolunteerId (foreign key)
-		* likePostId (foreign key)
-		* likeDateTime
-
-
-		Relations
-		* One organization can write many posts
-
+		<div>
+			<h3>Relations</h3>
+			<li>One organization can write many posts</li>
+		</div>
 	</body>
 </html>
