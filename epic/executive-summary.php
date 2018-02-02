@@ -6,6 +6,13 @@
 	</head>
 	<body>
 		<h1>Feeding Our Past: Executive Summary</h1>
+		<p><strong>Our capstone website helps fight ABQ Senior hunger in two key ways:
+			<ul>
+				<li>The first is through a simple interface that takes a senior’s or volunteer’s location and shows them the nearest senior-serving community organization, via Google maps, where they can either receive food assistance or donate/volunteer.</li>
+				<li>The second feature will allow committed volunteers and senior-serving community organizations to have profiles and log in to facilitate contact with each other. The organizations will also be able to share bulletins/announcements, via a form, to the website.</li>
+			</ul></strong></p>
+		<hr>
+
 		<h2>Purpose</h2>
 		<p>The purpose of our website is to provide an easy to use resource to help stop ABQ senior hunger, and will be built with 3 types of users in mind: seniors with food insecurity, community volunteers, and committed organizations. The website will allow volunteers and organizations to connect and help seniors seeking food assistance.</p>
 
