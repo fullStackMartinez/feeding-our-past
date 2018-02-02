@@ -13,7 +13,6 @@
 				<li>The additional "like" feature will allow a volunteer to "like" posts (written by organizations) to indicate their interest in events/announcements.</li>
 			</ul>
 
-
 <!--		<h2>Purpose</h2>
 		<p>The purpose of our website is to provide an easy to use resource to help stop ABQ senior hunger, and will be built with 3 types of users in mind: seniors with food insecurity, community volunteers, and committed organizations. The website will allow volunteers and organizations to connect and help seniors seeking food assistance.</p>
 
