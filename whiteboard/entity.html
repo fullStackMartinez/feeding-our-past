@@ -7,7 +7,7 @@
 	<body>
 		<h2>Entity List</h2>
 		<div>
-			<h3>organization ?{org}?</h3>
+			<h3>organization</h3>
 			<ul>
 				<li>organizationId (UUID) [primary key]</li>
 				<li>organizationActivationToken (UUID)</li>
@@ -26,10 +26,10 @@
 			</ul>
 		</div>
 		<div>
-			<h3>volunteer ?{vol}?</h3>
+			<h3>volunteer</h3>
 			<ul>
 				<li>volunteerId (UUID) [primary key]</li>
-				<li>volunteerActivationToken (UUID) [foreign key] </li>
+				<li>volunteerActivationToken (char) [foreign key] </li>
 				<li>volunteerAvailability (varchar)</li>
 				<li>volunteerEmail (varchar)</li>
 				<li>volunteerHash (varchar)</li>
@@ -42,14 +42,14 @@
 		<div>
 			<h3>post</h3>
 			<ul>
-				<li>postEventId (UUID) [primary key]</li>
-				<li>postEventOrganizationId (UUID) [foreign key]</li>
-				<li>postContent (UUID)</li>
-				<li>postEventDate (varchar)</li>
-				<li>postEventDateDelete (varchar)</li>
-				<li>postEventDescription (varchar)</li>
-				<li>postEventImage (??????)</li>
-				<li>postEventName (varchar)</li>
+				<li>postId (UUID) [primary key]</li>
+				<li>postOrganizationId (UUID) [foreign key]</li>
+				<li>postContent ()</li>
+				<li>postStartDate (date)</li>
+				<li>postEndDate (date)</li>
+				<li>postDescription (varchar)</li>
+				<li>postImage (??????)</li>
+				<li>postName (varchar)</li>
 			</ul>
 		</div>
 		<div>
