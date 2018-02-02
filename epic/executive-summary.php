@@ -6,14 +6,14 @@
 	</head>
 	<body>
 		<h1>Feeding Our Past: Executive Summary</h1>
-		<p>Our capstone website helps fight ABQ Senior hunger in two key ways:
+		<p>The purpose of our capstone project is to help Stop ABQ Senior Hunger by providing an easy to use website, and will be built with 3 types of users in mind: seniors with food insecurity, community volunteers, and committed organizations. The website will have two key features.</p>
 			<ul>
-				<li>The first is through a simple interface that takes a senior’s or volunteer’s location and shows them the nearest senior-serving community organization, via Google maps, where they can either receive food assistance or donate/volunteer.<br><br></li>
+				<li>The first is a simple interface that takes a senior’s or volunteer’s location and shows them the nearest senior-serving community organization, via Google maps, where they can either receive food assistance or donate/volunteer.<br><br></li>
 				<li>The second feature will allow committed volunteers and senior-serving community organizations to have profiles and log in to facilitate contact with each other. The organizations will also be able to share bulletins/announcements, via a form, to the website.</li>
-			</ul></p>
-		<hr>
+			</ul>
 
-		<h2>Purpose</h2>
+
+<!--		<h2>Purpose</h2>
 		<p>The purpose of our website is to provide an easy to use resource to help stop ABQ senior hunger, and will be built with 3 types of users in mind: seniors with food insecurity, community volunteers, and committed organizations. The website will allow volunteers and organizations to connect and help seniors seeking food assistance.</p>
 
 		<h2>Audience</h2>
@@ -29,6 +29,6 @@
 			<li>https://www.thestorehouseabq.org/services/</li>
 			<li>Food Pantry</li>
 			<li>Assistance applying for BernCo trash and water bill relief program</li>
-		</ul>
+		</ul> -->
 	</body>
 </html>
