@@ -6,37 +6,33 @@
 	</head>
 	<body>
 		<h1>Feeding Our Past: Persona 3</h1>
+		<p>This persona will be an Community Engagement Partner (read organization) seeking donations and volunteers.</p>
+		<h3>Name: Tammy Tomlinson</h3>
+		<p>Age: 43</p>
+		<p>Lives and works in the Albuquerque area</p>
+		<p>Profession: Executive Director at a local food bank in Albuquerque NM</p>
+		<p>Technology: Tammy uses a desktop PC (Dell/Windows) at work, owns a Samsung Galaxy S7, access and knowledge of the internet and engages in social media to promote their organization. She uses Google frequently.</p>
+		<p>Attitude and Behaviors: Tammy loves her job. She gets to help people daily in the city that she has lived in for 13 years. Her focus is to get as many people the help they need, and secure resources from the community. He managerial skills give her the confidence to organize people and events easily.</p>
+		<p>Needs: Tammy needs a place to find more volunteers for the holiday season, when donations come pouring in and the need for food is greater.</p>
 
-		<p>Define a Persona representing the Community Engagement Partner for the capstone project:
-			This persona will be an Community Engagement Partner (read organization) seeking donations and volunteers.</p>
+		<p>Tammy Tomlinson is a executive director at a local food bank in Albuquerque NM. The food bank is an established and successful providing food boxes, available for pickup at the warehouse or delivery, to needy elderly people in the Albuquerque metro area.
+			The have a great team, which all know how to use their technology and social media platforms, and their operation model is very successful. With the holiday season soon approaching, they need additional volunteers to help process and distribute food boxes at the warehouse.
 
-		<p>I am Tammy Tomlinson. I am the executive director at a local food bank in Albuquerque NM. The food bank is an established and successful providing food boxes, available for pickup at our warehouse or delivery, to needy families in the Albuquerque metro area.</p>
+		<h3>User Story</h3>
+		<p>User Story: "We need to find more volunteers willing to help us during the busy holiday season."</p>
 
-		<p>Additionally, We offer needy families assistance with applying for city, state, and federally sponsored services. We accept both perishable and non-perishable food items. Additionally, cash and in-kind donations are accepted. We have great working relationships with our local coorporate parners who provide substantial food and cash donations. Since we are a not for profit organization we rely on volunteers to complete a majority of the work at our facility.
-		</p>
+		<h3>Use Case</h3>
+		<p>The holiday season is one of the most important times for food donation organizations. Tammy wants to make this a very special time for elderly people, as she knows that there are plenty of need of food resources. Needing donations and extra volunteers in order to organize said donations and make delivery boxes
+			, she decides to make a profile on a new site that connects organizations with volunteers committed to helping stomp out Senior Hunger. She will use her profile to make a post about an upcoming weekend event in order to market it to volunteers already ready and willing to help. </p>
 
-		<p>We have a great team, our technology needs are met, and our operation is very successful. Actually our success is a bit of a golden problem. We need additional volunteers to help process and distribute food boxes at the warehouse. Additionally, we could serve a larger portion of the needy in Albuquerque if we had a team of volunteer drivers to transport seniors to and from the warehouse as well as deliver food boxes to seniors (angels) home.
-		</p>
-
-		<p>We have devloped a comprehensive plan to recruit volunteers. Our greatest challenge is that we can not make changes to our web site. We need an app or additional website that we can use to coordinate, direct, and manage volunteer activities. Ideally, we would be able to log into the app/site, review our volunteers and cdm their activites.</p>
-
-		<h2>user story</h2>
-As a user I need to be able to direct volunteers to the application/website to register to volunteer at our orginazation which will be especially useful to include in our marketing materials. Additionally, I would like to get new volunteer's contact information from the application/website so I can contact and follow up with the new volunteers in a timly manner.
-
-		<h2>use case
-		</h2>
-
-		<h2>process flow</h2>
+		<h3>Interaction Flow</h3>
 		  <ul>
-			  <li>Tammy requests page
-		  	  <li>page returned to Tammy
-		     <li>Tammy logs in
-		     <li>Tammy is authenticated
-		     <li>Tammy is given a list of volunteers who want to work
-
-        </ul>
-		<h2>Purpose</h2>
-		<p>The purpose of our website is to function as a stand alone site to be used by potential angels to find food security services, volunteers to donate cash, food or time, and food bank executives to find and respond to request from angels and volunteers.</p>
-
+			  <li>Tammy: finds the website and clicks the Organization sign up command</li>
+			  <li>Site: accepts Tammy's organization profile</li>
+			  <li>Tammy: logs in to her profile</li>
+			  <li>Site: takes Tammy to her profile interface</li>
+			  <li>Tammy: Tammy writes a post and includes an image of her upcoming event</li>
+			  <li>Site: saves her post, and displays it on the site's bulletin board</li>
+		  </ul>
 	</body>
 	</html>
