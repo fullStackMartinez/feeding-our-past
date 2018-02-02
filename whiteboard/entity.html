@@ -44,11 +44,10 @@
 				<li>postId (UUID) [primary key]</li>
 				<li>postOrganizationId (UUID) [foreign key]</li>
 				<li>postContent (varchar)</li>
-				<li>postDescription (varchar)</li>
 				<li>postEndDate (date)</li>
-				<li>postStartDate (date)</li>
 				<li>postImageUrL (varchar)</li>
-				<li>postName (varchar)</li>
+				<li>postStartDate (date)</li>
+				<li>postTitle (varchar)</li>
 			</ul>
 		</div>
 		<div>
@@ -63,9 +62,9 @@
 			<ul>
 				<li>One organization can write many posts (1 to n)</li>
 				<li>One volunteer can like many posts (1 to n)</li>
-				<li>Many volunteers can like may posts</li>
-				<li>One post can be liked by many volunteers</li>
-				<li>Many posts can be liked by many volunteer</li>
+				<li>Many volunteers can like many posts (n to m)</li>
+				<li>One post can be liked by many volunteers (1 to n)</li>
+				<li>Many posts can be liked by many volunteer (n to m)</li>
 			</ul>
 		</div>
 	</body>
