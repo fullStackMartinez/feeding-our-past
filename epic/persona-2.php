@@ -16,7 +16,7 @@
 
 		<p><strong>Family</strong>: She is a Widow, no childen or extended family.</p>
 
-		<p><strong>Profession</strong>: Elizabeth was a housewife as her husband had a good job. She lives on a fixed income, receiving a pension from her husband's company plus her small SSI payment.</p>
+		<p><strong>Profession</strong>: Elizabeth was an housewife as her husband had a good job. She lives on a fixed income, receiving a pension from her husband's company plus her small SSI payment.</p>
 
 		<p><strong>Technology</strong>: Elizabeth has minimal computer skills and is intimidated by the internet.  She has a Windows 7 desktop computer that was given to her by her friend. She also has an LG smartphone that Verizon talked her into that she can't really afford. Her web browsing is mainly limited to finding coupons and passing time at gardening sites. Elizabeth relies on her friendly neighbors to help her when she has a tech issue.</p>
 
