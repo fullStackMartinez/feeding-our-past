@@ -1,8 +1,8 @@
 <?php
-namespace Edu\Cnm\DataDesign;
+namespace Edu\Cnm\FeedingOurPast;
 
 require_once("autoload.php");
-require_once(dirname(__DIR__,2) . "/vendo/autoload.php");
+require_once(dirname(__DIR__,2) . "/vendor/autoload.php");
 
 
 
@@ -27,5 +27,23 @@ class Organization implements \JsonSerializable {
 	private $organizationId;
 	/**
 	 *This is the activation token which allows organizations to complete their registration
-	 */
+	 * @var $organizationActivationToken
+	 **/
+	private $organizationActivationToken;
+	/**
+	 *organization city, here will be the city of the organization
+	 * @var string $organizationAddressCity
+	 **/
+	private $organizationAddressCity;
+	/**
+	 * organization state, the state that the city is a part of for the organization
+	 * @var string $organizationAddressState
+	 **/
+	private $organizationAddressState;
+	/**
+	 * organization street, the street address of the organization
+	 * @var string $organizationAddressStreet
+	 **/
+	private $organizationAddressStreet;
+
 }
