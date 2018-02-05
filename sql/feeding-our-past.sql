@@ -62,3 +62,17 @@ CREATE TABLE post (
 	-- create the primary key
 	PRIMARY KEY(postId)
 );
+
+CREATE TABLE favorite (
+	-- these are foreign keys
+	favoritePostId BINARY(16) NOT NULL,
+	favoriteVolunteerId BINARY(16) NOT NULL,
+	-- index the foreign keys
+	INDEX(favoritePostId),
+	INDEX(favoriteVolunteerId),
+	-- create the foreign key relations
+	FOREIGN KEY(favoritePostId) REFERENCES post(postId),
+	FOREIGN KEY(favoriteVolunteerId) REFERENCES  volunteer(volunteerId),
+	-- create a composite foreign key with the two foreign keys
+	PRIMARY KEY(favoritePostId, favoriteVolunteerId)
+);
