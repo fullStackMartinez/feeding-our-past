@@ -1,10 +1,13 @@
+-- The statement below sets the collation of the database to utf8
 ALTER DATABASE feeding_our_past CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `organization`;
-DROP TABLE IF EXISTS `volunteer`;
-DROP TABLE IF EXISTS `post`;
-DROP TABLE IF EXISTS `favorite`;
+-- these statements will drop the tables and re-add them
+DROP TABLE IF EXISTS organization;
+DROP TABLE IF EXISTS volunteer;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS favorite;
 
+-- create the organization entity
 CREATE TABLE organization (
 	-- this is the primary key
 	organizationId BINARY(16) NOT NULL,
@@ -28,6 +31,7 @@ CREATE TABLE organization (
 	PRIMARY KEY(organizationId)
 );
 
+-- create the volunteer entity
 CREATE TABLE volunteer (
 	-- this is the primary key
 	volunteerId BINARY(16) NOT NULL,
@@ -45,6 +49,7 @@ CREATE TABLE volunteer (
 	PRIMARY KEY(volunteerId)
 );
 
+-- create the post entity
 CREATE TABLE post (
 	-- this is the primary key
 	postId BINARY(16) NOT NULL,
@@ -63,6 +68,7 @@ CREATE TABLE post (
 	PRIMARY KEY(postId)
 );
 
+-- create the favorite entity
 CREATE TABLE favorite (
 	-- these are foreign keys
 	favoritePostId BINARY(16) NOT NULL,
@@ -76,3 +82,4 @@ CREATE TABLE favorite (
 	-- create a composite foreign key with the two foreign keys
 	PRIMARY KEY(favoritePostId, favoriteVolunteerId)
 );
+
