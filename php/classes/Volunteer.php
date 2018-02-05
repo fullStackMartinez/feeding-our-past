@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\__\FeedingOurPast;
+namespace Edu\Cnm\FeedingOurPast;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
@@ -75,7 +75,22 @@ class Volunteer implements \JsonSerializable {
 	 * @throws \TypeError if a data type violates a data hint
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-
+public function __construct($newVolunteerId, ?string $newVolunteerActivationToken, ?string $newVolunteerAvailability, string $newVolunteerEmail, string $newVolunteerHash, string $newVolunteerName, string $newVolunteerPhone, string $newVolunteerSalt) {
+	try {
+		$this->setVolunteerId($newVolunteerId);
+		$this->setVolunteerActivationToken($newVolunteerActivationToken);
+		$this->setVolunteerAvailability($newVolunteerAvailability);
+		$this->setVolunteerEmail($newVolunteerEmail);
+		$this->setVolunteerHash($newVolunteerHash);
+		$this->setVolunteerName($newVolunteerName);
+		$this->setVolunteerPhone($newVolunteerPhone);
+		$this->setVolunteerSalt($newVolunteerSalt);
+	} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+		//determine what exception type was thrown
+		$exceptionType = get_class($exception);
+		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	}
+}
 
 
 	/**
