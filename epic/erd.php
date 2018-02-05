@@ -6,6 +6,6 @@
 	</head>
 	<body>
 		<h2>ERD Model</h2>
-		<img src="../whiteboard/feed-our-past-erd.png" alt="Capstone ERD">
+		<img src="../whiteboard/erd-5.svg" alt="Capstone ERD">
 	</body>
 </html>
