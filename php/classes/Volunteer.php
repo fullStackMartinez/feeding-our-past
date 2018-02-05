@@ -12,6 +12,7 @@ use Ramsey\Uuid\Uuid;
  * This is a top level entity for Volunteer in the capstone project
  *
  * @author Jolynn Pruitt <jpruitt5@cnm.edu>
+ * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
 class Volunteer implements \JsonSerializable {
 	use ValidateUuid;
@@ -57,7 +58,23 @@ class Volunteer implements \JsonSerializable {
 	 **/
 	private $volunteerSalt;
 
-
+	/**
+	 * constructor for this Volunteer
+	 *
+	 * @param Uuid|string $newVolunteerId id of this Volunteer or null if a new Volunteer
+	 * @param string $newVolunteerActivationToken token to safe guard against malicious accounts
+	 * @param string $newVolunteerAvailability string containing availability of this Volunteer
+	 * @param string $newVolunteerEmail string containing email of this Volunteer
+	 * @param string $newVolunteerHash string containing password hash
+	 * @param string $newVolunteerName string containing name of this Volunteer
+	 * @param string $newVolunteerPhone string containing phone number of this Volunteer
+	 * @param string $newVolunteerSalt string containing password salt
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds
+	 * @throws \Exception if some other exception occurs
+	 * @throws \TypeError if a data type violates a data hint
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
+	 **/
 
 
 
