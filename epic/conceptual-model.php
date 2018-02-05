@@ -29,7 +29,7 @@
 			<h3>volunteer</h3>
 			<ul>
 				<li>volunteerId (UUID) [primary key]</li>
-				<li>volunteerActivationToken (char) [foreign key] </li>
+				<li>volunteerActivationToken (char) </li>
 				<li>volunteerAvailability (varchar)</li>
 				<li>volunteerEmail (varchar)</li>
 				<li>volunteerHash (varchar)</li>
