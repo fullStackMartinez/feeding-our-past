@@ -27,3 +27,20 @@ CREATE TABLE organization (
 	-- primary key is organizationId
 	PRIMARY KEY(organizationId)
 );
+
+CREATE TABLE volunteer (
+	-- this is the primary key
+	volunteerId BINARY(16) NOT NULL,
+	volunteerActivationToken CHAR(32),
+	volunteerAvailability VARCHAR(255),
+	volunteerEmail VARCHAR(128) NOT NULL,
+	volunteerHash CHAR (128) NOT NULL,
+	volunteerName VARCHAR(255) NOT NULL,
+	volunteerPhone VARCHAR(32) NOT NULL,
+	volunteerSalt CHAR(64) NOT NULL,
+	-- to make sure duplicate data cannot exist, create a unique index
+	UNIQUE(volunteerId),
+	UNIQUE(volunteerEmail),
+	-- primary key is volunteerId
+	PRIMARY KEY(volunteerId)
+);
