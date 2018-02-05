@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\FeedingOurPast;
+namespace Edu\Cnm\FeedPast;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
@@ -107,6 +107,16 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	 * @throws \RangeException if $newVolunteerId is not positive
 	 * @throws \TypeError if $newVolunteerId is not positive
 	 **/
+	public function setVolunteerId($newVolunteerId) : void {
+		try {
+			$uuid = self::validateUuid($newVolunteerId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		// convert and store the volunteer id
+		$this->volunteerId = $uuid;
+	}
 
 
 	/**
