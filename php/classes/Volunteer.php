@@ -21,6 +21,42 @@ class Volunteer implements \JsonSerializable {
 	 * @var Uuid $volunteerId
 	 **/
 	private $volunteerId;
+	/**
+	 * token handed out to verify that the Volunteer is valid and not malicious
+	 * @var $volunteerActivationToken
+	 **/
+	private $volunteerActivationToken;
+	/**
+	 * availability for this Volunteer
+	 * @var string $volunteerAvailability
+	 **/
+	private $volunteerAvailability;
+	/**
+	 * email for this Volunteer; this is a unique index
+	 * @var string $volunteerEmail
+	 **/
+	private $volunteerEmail;
+	/**
+	 * hash for Volunteer password
+	 * @var $volunteerHash
+	 **/
+	private $volunteerHash;
+	/**
+	 * name for this Volunteer
+	 * @var string $volunteerName
+	 **/
+	private $volunteerName;
+	/**
+	 * phone number for this Volunteer
+	 * @var string $volunteerPhone
+	 **/
+	private $volunteerPhone;
+	/**
+	 * salt for Volunteer password
+	 * @var $volunteerSalt
+	 **/
+	private $volunteerSalt;
+
 
 
 
