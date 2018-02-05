@@ -19,13 +19,12 @@ CREATE TABLE organization (
 	organizationDonationAccepted VARCHAR(32) NOT NULL,
 	organizationEmail VARCHAR(128) NOT NULL,
 	organizationHash CHAR (128) NOT NULL,
-	organizationHoursOpen VARCHAR(32) NOT NULL,
+	organizationHoursOpen VARCHAR(64) NOT NULL,
 	organizationName VARCHAR(255) NOT NULL,
 	organizationPhone VARCHAR(32) NOT NULL,
 	organizationSalt CHAR(64) NOT NULL,
 	organizationUrl VARCHAR(255),
 	-- to make sure duplicate data cannot exist, create a unique index
-	UNIQUE(organizationId),
 	UNIQUE(organizationEmail),
 	-- primary key is organizationId
 	PRIMARY KEY(organizationId)
@@ -43,7 +42,6 @@ CREATE TABLE volunteer (
 	volunteerPhone VARCHAR(32) NOT NULL,
 	volunteerSalt CHAR(64) NOT NULL,
 	-- to make sure duplicate data cannot exist, create a unique index
-	UNIQUE(volunteerId),
 	UNIQUE(volunteerEmail),
 	-- primary key is volunteerId
 	PRIMARY KEY(volunteerId)
@@ -55,7 +53,7 @@ CREATE TABLE post (
 	postId BINARY(16) NOT NULL,
 	-- this is the foreign key
 	postOrganizationId BINARY(16) NOT NULL,
-	postContent VARCHAR(12000) NOT NULL,
+	postContent VARCHAR(4096) NOT NULL,
 	postEndDateTime DATETIME(6) NOT NULL,
 	postImageUrl VARCHAR(255),
 	postStartDateTime DATETIME(6) NOT NULL,
