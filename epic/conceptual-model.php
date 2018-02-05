@@ -44,27 +44,27 @@
 				<li>postId (UUID) [primary key]</li>
 				<li>postOrganizationId (UUID) [foreign key]</li>
 				<li>postContent (varchar)</li>
-				<li>postEndDate (date)</li>
-				<li>postImageUrL (varchar)</li>
-				<li>postStartDate (date)</li>
+				<li>postEndDateTime (date)</li>
+				<li>postImageUrl (varchar)</li>
+				<li>postStartDateTime (date)</li>
 				<li>postTitle (varchar)</li>
 			</ul>
 		</div>
 		<div>
-			<h3>like</h3>
+			<h3>favorite</h3>
 			<ul>
-				<li>likeVolunteerID (UUID) [foreign key]</li>
-				<li>likePostId (UUID) [foreign key]</li>
+				<li>favoriteVolunteerID (UUID) [foreign key]</li>
+				<li>favoritePostId (UUID) [foreign key]</li>
 			</ul>
 		</div>
 		<div>
 			<h3>Relations</h3>
 			<ul>
 				<li>One organization can write many posts (1 to n)</li>
-				<li>One volunteer can like many posts (1 to n)</li>
-				<li>Many volunteers can like many posts (n to m)</li>
-				<li>One post can be liked by many volunteers (1 to n)</li>
-				<li>Many posts can be liked by many volunteer (n to m)</li>
+				<li>One volunteer can favorite many posts (1 to n)</li>
+				<li>Many volunteers can favorite many posts (n to m)</li>
+				<li>One post can be favorited by many volunteers (1 to n)</li>
+				<li>Many posts can be favorited by many volunteer (n to m)</li>
 			</ul>
 		</div>
 	</body>
