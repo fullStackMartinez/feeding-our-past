@@ -4,117 +4,126 @@
  * User: petersdata
  * Date: 2/5/18
  * Time: 2:39 PM
- */
-
-/*
- *
- *    Created by PhpStorm.
- *    User: petersdata
  *    @author Peter B Street <peterbstreet@gmail.com> - Code Revision
  *    @author Dylan McDonald <dmcdonald21@cnm.edu> - Core code outline and format
  *    @author php-fig  <http://www.php-fig.org/psr/> - PHP Standards Recommendation
  *    @author Ramsey - Uuid toolset
- *    Date: 2/05/18
- *    Time: 1300
-*/
+**/
 
-/*
+/**
  * Set the namespace for object FeedingOurPast
  *
  *    namespace must come before autoload
  *    namespaces and autoload names must match
  *    Class Name and Namespace are PSR4
-*/
+**/
 namespace FeedingOurPast;
 require_once("autoload.php");
 
-/*
+/**
  * Path to autoload.php
  *
  *    The __DIR__, 2 indicates that the autoload will go up 0, 1, 2 directory layers starting with the current directory layer to load autoload.
  *    Do we need to declare side effect?
-*/
+**/
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-/*
+/**
  * Here we load Ramsey's Uuid toolset
 */
 use Ramsey\Uuid\Uuid;
 
-/*
+/**
  * The class is definded and set to Post
  * This class uses Uuids
  *
  *    This object is based on the post table in feeding-our-past.sql
  *    Class Name and Namespace are PSR4
  *    "implements \JsonSerializable" removed until later
-*/
+**/
 class Post{
-	use ValidateUuid;
-	/*
-	 * Post uses postId as the primary key
-	 * postId is the primary key
-	 * postId is a Uuid
-	 * @var Uuid $articleId
-	 * articleId state set to private
-	*/
-	private $postId;
+use ValidateUuid;
 
-	/*
-	 * Post uses postOrganizationId as the foreign key
-	 * postOrganizationId is the foreign key
-	 * postOrganizationId is a Uuid
-	 * @var Uuid $userId
-	 * userId state set to private
-	*/
+/**
+ * Post uses postId as the primary key
+ * postId is the primary key
+ * postId is the post's unique id
+ * @var Uuid $postId
+ * articleId state set to private
+*/
+private $postId;
+
+/**
+ * Post uses postOrganizationId as the foreign key
+ * postOrganizationId is the foreign key
+ * postOrganizationId is the posting organizations unique id
+ * @var Uuid postOrganizationId
+ * postOrganizationId state set to private
+*/
 	private $postOrganizationId;
 
-	/* Post uses postContent as an element
-	 * This is the content of the post
-	 * @var varchar
-	 * approximateReadTime state set to private
-	 *
-	 *    How do I confirm this command was propperly issued?
-	*/
-	private $postContent;
+/**
+ * Post uses postContent as an element
+ * This is the content of the post
+ * @var varchar postContent
+ * postContent state set to private
+*/
+private $postContent;
 
-	/*
-	 * Article uses articleTitle as an element
-	 * This is the articl's title
-	 * @var string articleTitle
-	 * articleTitle state set to private
-	 *
-	 *    How do I confirm this command was propperly issued?
-	*/
+/**
+ * Post uses postEndDateTime as an element
+ * This is the date that the post is to be removed from service
+ * @var datetime postEndDateTime
+ * postEndDateTime state set to private
+*/
 	private $postEndDateTime;
 
-	private $ImageUrl;
+/**
+ * Post uses postImageUrl as an element
+ * This is the url of the image associated with the content
+ * @var varchar postImageUrl
+ * postImageUrl state set to private
+*/
+private $postImageUrl;
 
-	private $postStartDateTime;
+/**
+ * Post uses postStartDateTime as an element
+ * This is the start date and time of the post
+ * @var datetime postStartDateTime
+ * postStartDateTime state set to private
+ */
+private $postStartDateTime;
 
-	private $postTitle;
-	/*
-	 * constructor for Article
-	 *
-	 * Constructs the object article and associated object's states
-	 * @param Uuid $newarticleid is the unique articleid Uuid
-	 * @param Uuid $newuserId is the unique article userId Uuid
-	 * @param integer $newapproximateReadTime is the article read time in minutes
-	 * @param string $newarticleTitle is the article title
-	 * @throws \InvalidArgumentException if data types are not valid
-	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
-	 * @throws \TypeError if data types violate type hints
-	 * @throws \Exception if some other exception occurs
-	 * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
-	 * @throws and @Documentation notes are straight from Dylan McDonald's code template
-	 * Exceptions code is straight from Dylan McDonald's code
-	 *
-	 *    note how in class the names are camelCase and below they are UpperCamelCase(pascal) why?
-	 *    Why the __ in "public function__construct"
-	 *    if $new* is not null does that needed or is it implied
-	 *    Uuid's, ints, strings: what other types are there in PHP.
-	 *    where can I find info on public or function in the php documentation
-	*/
+/**
+ * Post uses postTitle as an element
+ * This is the title of the post
+ * @var varchar postTitle
+ * postTitle state set to private
+ */
+private $postTitle;
+
+/**
+ * constructor for Post
+ *
+ * Constructs the object post and associated object's states
+ * @param Uuid $newarticleid is the unique articleid Uuid
+ * @param Uuid $newuserId is the unique article userId Uuid
+ * @param integer $newapproximateReadTime is the article read time in minutes
+ * @param string $newarticleTitle is the article title
+ * @throws \InvalidArgumentException if data types are not valid
+ * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+ * @throws \TypeError if data types violate type hints
+ * @throws \Exception if some other exception occurs
+ * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
+ * @throws and @Documentation notes are straight from Dylan McDonald's code template
+ * Exceptions code is straight from Dylan McDonald's code
+ *
+ *    note how in class the names are camelCase and below they are UpperCamelCase(pascal) why?
+ *    Why the __ in "public function__construct"
+ *    if $new* is not null does that needed or is it implied
+ *    Uuid's, ints, strings: what other types are there in PHP.
+ *    where can I find info on public or function in the php documentation
+*/
 	public function __construct($newArticleId, $newUserId, int $newApproximateReadTime, string $newArticleTitle) {
 		try {
 			$this->setArticleId($newArticleId);
