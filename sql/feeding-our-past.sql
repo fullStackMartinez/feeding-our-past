@@ -1,5 +1,5 @@
 -- The statement below sets the collation of the database to utf8
-ALTER DATABASE feeding_our_past CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER DATABASE feedkitty CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 -- these statements will drop the tables and re-add them
 DROP TABLE IF EXISTS organization;

@@ -91,6 +91,22 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
 	}
 }
+	/**
+	 * accessor method for volunteer id
+	 *
+	 * @return Uuid value of volunteer if (or null if new Volunteer)
+	 **/
+	public function getVolunteerId() : Uuid {
+		return($this->volunteerId);
+	}
+
+	/**
+	 * mutator method for volunteer id
+	 *
+	 * @param Uuid|string $newVolunteerId value of new volunteer id
+	 * @throws \RangeException if $newVolunteerId is not positive
+	 * @throws \TypeError if $newVolunteerId is not positive
+	 **/
 
 
 	/**
