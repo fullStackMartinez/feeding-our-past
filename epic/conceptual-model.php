@@ -63,7 +63,7 @@
 				<li>One organization can write many posts (1 to n)</li>
 				<li>One volunteer can favorite many posts (1 to n)</li>
 				<li>Many volunteers can favorite many posts (n to m)</li>
-				<li>One post can be favorited by many volunteers (1 to n)</li>
+				<li>One post can be favorite by many volunteers (1 to n)</li>
 				<li>Many posts can be favorited by many volunteer (n to m)</li>
 			</ul>
 		</div>
