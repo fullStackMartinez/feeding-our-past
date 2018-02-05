@@ -26,6 +26,6 @@ class Organization implements \JsonSerializable {
 	 **/
 	private $organizationId;
 	/**
-	 *This is the activation token which allows organizations to complete registration
+	 *This is the activation token which allows organizations to complete their registration
 	 */
 }
