@@ -165,4 +165,41 @@ class Organization implements \JsonSerializable {
 		$this->organizationId = $uuid;
 	}
 
+	/**accessor method for organization activation token
+	 *
+	 * @return string value of the activation token
+	 **/
+	public function getOrganizationActivationToken() : ?string {
+		return ($this->organizationActivationToken);
+	}
+
+	/**
+	 * mutator method for organization account activation token
+	 *
+	 * @param string $newOrganizationActivationToken
+	 * @throws \InvalidArgumentException will be thrown if the activation token is not safe or not a string
+	 * @throws \RangeException will be thrown if activation token is not exactly 32 characters in length
+	 * @throws \TypeError if the token is not a string
+	 **/
+	public function setOrganizationActivationToken(?string $newOrganizationActivationToken): void {
+		if($newOrganizationActivationToken === null) {
+			$this->organizationActivationToken = null;
+			return;
+		}
+		$newOrganizationActivationToken = strtolower(trim($newOrganizationActivationToken));
+		if(ctype_xdigit($newOrganizationActivationToken) === false) {
+			throw(new\RangeException("sorry, but the user activation token you have used is invalid"));
+		}
+
+		//this validates the activation token to be only 32 characters
+		if(strlen($newOrganizationActivationToken) !== 32) {
+			throw(new\RangeException("sorry, but the user activation token must be exactly 32 characters long"));
+		}//stores the activation token for organization profile
+		$this->organizationActivationToken = $$newOrganizationActivationToken;
+	}
+
+	/**
+	 * accessor method
+	 */
+
 }
