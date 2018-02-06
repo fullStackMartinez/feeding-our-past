@@ -146,9 +146,9 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		if(ctype_xdigit($newVolunteerActivationToken) === false) {
 			throw(new \InvalidArgumentException("volunteer activation token does not contain all hexadecimal digits"));
 		}
-		// make sure volunteer activation token has length 32
+		// make sure volunteer activation token is exactly 32 characters
 		if(strlen($newVolunteerActivationToken) !== 32) {
-			throw(new \RangeException("volunteer activation token must be length 32"));
+			throw(new \RangeException("volunteer activation token must be 32 characters"));
 		}
 		$this->volunteerActivationToken = $newVolunteerActivationToken;
 	}
@@ -217,6 +217,43 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		// store the volunteer email
 		$this->volunteerEmail = $newVolunteerEmail;
 	}
+
+	/**
+	 * accessor method for volunteer hash password
+	 *
+	 * @return string value of hash
+	 **/
+	public function getVolunteerHash() : string {
+		return $this->volunteerHash;
+	}
+
+	/**
+	 * mutator method for volunteer hash password
+	 *
+	 * @param string $newVolunteerHash new value of volunteer hash
+	 * @throws \InvalidArgumentException if $newVolunteerHash is empty or insecure
+	 * @throws \RangeException if $newVolunteerHash is not 128 characters
+	 * @throws \TypeError if $newVolunteerHash is not a string
+	 **/
+	public function setVolunteerHash(string $newVolunteerHash) : void {
+		// enforce the has is properly formatted
+		$newVolunteerHash = trim($newVolunteerHash);
+		$newVolunteerHash = strtolower($newVolunteerHash);
+		if(empty($newVolunteerHash) === true) {
+			throw(new \InvalidArgumentException("volunteer password hash is empty or insecure"));
+		}
+		// enforce that the hash is a string representation of a hexadecimal
+		if(!ctype_xdigit($newVolunteerHash)) {
+			throw(new \InvalidArgumentException("volunteer password hash does not contain all hexadecimal digits"));
+		}
+		// enforce that the hash is exactly 128 characters
+		if(strlen($newVolunteerHash) !== 128) {
+			throw(new \RangeException("volunteer password hash must be 128 characters"));
+		}
+		// store the volunteer hash
+		$this->volunteerHash = $newVolunteerHash;
+	}
+
 
 	/**
 	 * formats the state variables for JSON serialization
