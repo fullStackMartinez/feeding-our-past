@@ -286,6 +286,38 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	}
 
 	/**
+	 * accessor method for volunteer phone number
+	 *
+	 * @return string value of volunteer phone
+	 **/
+	public function getVolunteerPhone() : string {
+		return($this->volunteerPhone);
+	}
+
+	/**
+	 * mutator method for volunteer phone number
+	 *
+	 * @param string $newVolunteerPhone new value of volunteer phone
+	 * @throws \InvalidArgumentException if $newVolunteerPhone is not a string or insecure
+	 * @throws \RangeException if $newVolunteerPhone is > 32 characters
+	 * @throws \TypeError if $newVolunteerPhone is not a string
+	 **/
+	public function setVolunteerPhone(string $newVolunteerPhone) : void {
+		// verify the volunteer phone number is secure
+		$newVolunteerPhone = trim($newVolunteerPhone);
+		$newVolunteerPhone = filter_var($newVolunteerPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newVolunteerPhone) === true) {
+			throw(new \InvalidArgumentException("volunteer phone is empty or insecure"));
+		}
+		// verify the volunteer phone number will fit in the database
+		if(strlen($newVolunteerPhone) > 32) {
+			throw(new \RangeException("volunteer phone is greater than 32 characters"));
+		}
+		// store the volunteer phone number
+		$this->volunteerPhone = $newVolunteerPhone;
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
