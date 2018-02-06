@@ -146,7 +146,7 @@ private $postTitle;
 	}
 
 /**
-* Mutator method for postId
+* mutator method for postId
 * @param Uuid/string $newPostId new value for postId
 * @throws \RangeException if $newPostId is not positive
 * @throws \TypeError if $newPostId is not a uuid or string
@@ -165,6 +165,7 @@ $this->postId = $uuid;
 	}
 
 	/**
+	 * START HERE
 	 * accessor method for userid
 	 * @return Uuid value of userid
 	 **/
