@@ -138,4 +138,31 @@ class Organization implements \JsonSerializable {
 		}
 	}
 
+	/**
+	 * accessor method for organization id, primary key
+	 *
+	 * @return Uuid value of the organization profile id, or null if brand new organization profile
+	 **/
+	public function getOrganizationId(): Uuid {
+		return ($this->organizationId);
+	}
+
+	/**
+	 * mutator method for primary key organization id
+	 *
+	 * @param Uuid| string $newOrganizationId the value of the primary key
+	 * @throws |\RangeException if $newOrganizationId is not positive
+	 * @throws |\TypeError if there is a type error in the organization id
+	 **/
+	public function setOrganizationId($newOrganizationId): void {
+		try {
+			$uuid = self::validateUuid($newOrganizationId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		//convert and store the organization id
+		$this->organizationId = $uuid;
+	}
+
 }
