@@ -253,6 +253,37 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		// store the volunteer hash
 		$this->volunteerHash = $newVolunteerHash;
 	}
+	/**
+	 * accessor method for volunteer name
+	 *
+	 * @return string value of volunteer name
+	 **/
+	public function getVolunteerName() : string {
+		return($this->volunteerName);
+	}
+
+	/**
+	 * mutator method for volunteer name
+	 *
+	 * @param string $newVolunteerName new value of volunteer name
+	 * @throws \InvalidArgumentException if $newVolunteerName is not a string or insecure
+	 * @throws \RangeException if $newVolunteerName is > 255 characters
+	 * @throws \TypeError if $newVolunteerName is not a string
+	 **/
+	public function setVolunteerName(string $newVolunteerName) : void {
+		// verify the volunteer name is secure
+		$newVolunteerName = trim($newVolunteerName);
+		$newVolunteerName = filter_var($newVolunteerName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newVolunteerName) === true) {
+			throw(new \InvalidArgumentException("volunteer name is empty or insecure"));
+		}
+		// verify the volunteer name will fit in the database
+		if(strlen($newVolunteerName) > 255) {
+			throw(new \RangeException("volunteer name is greater than 255 characters"));
+		}
+		// store the volunteer name
+		$this->volunteerName = $newVolunteerName;
+	}
 
 
 	/**
