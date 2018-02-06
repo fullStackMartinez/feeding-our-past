@@ -51,11 +51,11 @@ class Favorite {
 	 * $newFavoritePostId is not an integer
 	 **/
 
-	public function setFavoriteVolunteerId
-	($newFavoriteVolunteerId): void {
+	public function setFavoritePostId
+	($newFavoritePostId): void {
 		try {
 			$uuid = self::validateUuid
-			($newFavoritevolunteerId);
+			($newFavoritePostId);
 		} catch
 		(\InvalidArgumentException |
 		\RangeException | \Exception |
@@ -69,5 +69,42 @@ class Favorite {
 		// convert and store the post id
 
 		$this->favoritePostId = $Uuid;
+	}
+	/**
+	 * accessor method for favorite volunteer id
+	 *
+	 * @return Uuid value of favoriteVolunteerId
+	 **/
+
+	public function getFavoriteVolunteerId()
+		:Uuid{
+		return($this->favoriteVolunteerId);
+	}
+	/**
+	 * mutator method for favorite volunteer id
+	 *
+	 * @param string | Uuid
+	 * $newFavoriteVolunteerId new value of favorite volunteer id
+	 * @throws \RangeException if $newfavoriteVolunteer is not positive
+	 * @throws \TypeError if $newFavoriteVolunteerID is not an integer
+	 **/
+
+	public function setFavoriteVolunteerId
+	($newFavoriteVolunteerId) : void {
+		try {
+			$Uuid = self::validateUuid
+			($newFavoriteVolunteerId);
+		} catch
+		(\InvalidArgumentException |
+	\RangeException | \Exception |
+	\TypeError $exception) {
+			$exceptionType = get_class
+			($exception);
+			throw(new $exceptionType)
+			($exception->getMessage(), 0,
+				$exception);
+		}
+		// convert and store the volunteer id
+		$this->favoriteVolunteerId = $Uuid;
 	}
 }
