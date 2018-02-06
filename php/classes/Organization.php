@@ -230,4 +230,35 @@ class Organization implements \JsonSerializable {
 		$this->organizationAddressCity = $newOrganizationAddressCity;
 	}
 
+	/**
+	 * accessor method for organization address state
+	 *
+	 * @return string for the state address
+	 **/
+	public function getOrganizationAddressState(): string {
+		return ($this->organizationAddressState);
+	}
+
+	/**
+	 * mutator method for address state
+	 *
+	 * @param string $newOrganizationAddressState gives the value for the address state
+	 * @throws \InvalidArgumentException if $newOrganizationAddressState is not safe or not a string
+	 * @throws \RangeException if address state is longer than 32 characters
+	 * @throws \TypeError if there is an error with the string
+	 **/
+	public function setOrganizationAddressState(string $newOrganizationAddressState) : void {
+		//validate safety of address
+		$newOrganizationAddressState = trim($newOrganizationAddressState);
+		$newOrganizationAddressState = filter_var($newOrganizationAddressState, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationAddressState) === true) {
+			throw(new \InvalidArgumentException("sorry, but this address is unsafe or empty"));
+		}
+		//validate that address state is less than or equal to 32 characters
+		if(strlen($newOrganizationAddressState) > 32) {
+			throw(new \RangeException("sorry, but this address must not exceed 32 characters"));
+		}
+		//save the state of the organizations address
+		$this->organizationAddressState = $newOrganizationAddressState;
+	}
 }
