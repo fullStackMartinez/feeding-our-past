@@ -106,10 +106,13 @@ private $postTitle;
  * constructor for Post
  *
  * Constructs the object post and associated object's states
- * @param Uuid $newarticleid is the unique articleid Uuid
- * @param Uuid $newuserId is the unique article userId Uuid
- * @param integer $newapproximateReadTime is the article read time in minutes
- * @param string $newarticleTitle is the article title
+ * @param Uuid $newPostId is the poster's unique and required id
+ * @param Uuid $newPostOrganizationId is the posting organization's unique and required id
+ * @param varchar $newPostContent is the content of the post
+ * @param datetime $newPostEndDateTime is the required date and time the post may be removed
+ * @param varchar $newPostImageUrl is the location of the image that may accompany the post
+ * @param datetime $newPostStartDateTime is the required date and time the post may be added
+ * @param varchar $newPostTitle is the title of the post
  * @throws \InvalidArgumentException if data types are not valid
  * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
  * @throws \TypeError if data types violate type hints
@@ -117,19 +120,16 @@ private $postTitle;
  * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
  * @throws and @Documentation notes are straight from Dylan McDonald's code template
  * Exceptions code is straight from Dylan McDonald's code
- *
- *    note how in class the names are camelCase and below they are UpperCamelCase(pascal) why?
- *    Why the __ in "public function__construct"
- *    if $new* is not null does that needed or is it implied
- *    Uuid's, ints, strings: what other types are there in PHP.
- *    where can I find info on public or function in the php documentation
 */
-	public function __construct($newArticleId, $newUserId, int $newApproximateReadTime, string $newArticleTitle) {
+	public function __construct($newPostId, $newPostOrganizationId, $newPostContent, $newPostEndDateTime, $newPostImageUrl, $newPostStartDateTime, $newPostTitle) {
 		try {
-			$this->setArticleId($newArticleId);
-			$this->setUserId($newUserId);
-			$this->setApproximateReadTime($newApproximateReadTime);
-			$this->setArticleTitle($newArticleTitle);
+			$this->setPostId($newPostId);
+			$this->setPostOrganizationId($newPostOrganizationId);
+			$this->setPostContent($newPostContent);
+			$this->setPostEndDateTime($newPostEndDateTime);
+			$this->setPostImageUrl($newPostImageUrl);
+			$this->setPostStartDateTime($newPostStartDateTime);
+			$this->setPostTitle($newPostTitle);
 		}
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
