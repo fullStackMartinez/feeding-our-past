@@ -318,6 +318,41 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	}
 
 	/**
+	 * accessor method for volunteer salt
+	 *
+	 * @return string representation of the salt hexadecimal
+	 **/
+	public function getVolunteerSalt() : string {
+		return $this->volunteerSalt;
+	}
+
+	/**
+	 * mutator method for volunteer salt
+	 *
+	 * @param string $newVolunteerSalt
+	 * @throws \InvalidArgumentException if the salt is not secure
+	 * @throws \RangeException if the salt is not 64 characters
+	 * @throws \TypeError if the volunteer salt is not a string
+	 **/
+	public function setVolunteerSalt(string $newVolunteerSalt) : void {
+		// enforce that the salt is properly formatted
+		$newVolunteerSalt = trim($newVolunteerSalt);
+		$newVolunteerSalt = strtolower($newVolunteerSalt);
+
+		// enforce that the salt is a string representation of a hexadecimal
+		if(!ctype_xdigit($newVolunteerSalt)) {
+			throw(new \InvalidArgumentException("volunteer salt does not contain all hexadecimal digits"));
+		}
+		// enforce that the salt is exactly 64 characters
+		if(strlen($newVolunteereSalt) !== 64) {
+			throw(new \RangeException("volunteer salt must be 64 characters"));
+		}
+		// store the salt
+		$this->volunteerSalt = $newVolunteerSalt;
+	}
+
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
