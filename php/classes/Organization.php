@@ -118,7 +118,7 @@ class Organization implements \JsonSerializable {
 	function __construct($newOrganizationId, ?string $newOrganizationActivationToken, string $newOrganizationAddressCity, string $newOrganizationAddressState, string $newOrganizationAddressStreet, string $newOrganizationAddressZip, string $newOrganizationDonationAccepted, string $newOrganizationEmail, string $newOrganizationHash, string $newOrganizationHoursOpen, string $newOrganizationName, string $newOrganizationPhone, string $newOrganizationSalt, ?string $newOrganizationUrl) {
 		try {
 			$this->setOrganizationId($newOrganizationId);
-			$this->setOrganizationActivationToker($newOrganizationActivationToken);
+			$this->setOrganizationActivationToken($newOrganizationActivationToken);
 			$this->setOrganizationAddressCity($newOrganizationAddressCity);
 			$this->setOrganizationAddressState($newOrganizationAddressState);
 			$this->setOrganizationAddressStreet($newOrganizationAddressStreet);
@@ -199,7 +199,35 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method
-	 */
+	 * accessor method for organization city address
+	 *
+	 * @return string organization city address
+	 **/
+	public function getOrganizationAddressCity(): string {
+		return ($this->organizationAddressCity);
+	}
+
+	/**
+	 * mutator method for organization city address
+	 *
+	 * @param string $newOrganizationAddressCity new value of city address
+	 * @throws \InvalidArgumentException if $newOrganizationAddressCity is not secure or not a string
+	 * @throws \RangeException if $newOrganizationAddressCity is larger than 32 characters long
+	 * @throws \TypeError if there is a type error or @newOrganizationAddressCity is not a string
+	 **/
+	public function setOrganizationAddressCity(string $newOrganizationAddressCity) : void {
+		//validate address is safe
+		$newOrganizationAddressCity = trim($newOrganizationAddressCity);
+		$newOrganizationAddressCity = filter_var($newOrganizationAddressCity, FILTER_SANITZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationAddressCity) ===true) {
+			throw(new \InvalidArgumentException("sorry, but city address is unsafe or empty"));
+		}
+		//validate address is less or equal to 32 characters
+		if(strlen($newOrganizationAddressCity) > 32) {
+			throw(new \RangeException("sorry, but address must not exceed 32 characters"));
+		}
+		//save the city of organization address
+		$this->organizationAddressCity = $newOrganizationAddressCity;
+	}
 
 }
