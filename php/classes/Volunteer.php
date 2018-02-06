@@ -285,7 +285,6 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		$this->volunteerName = $newVolunteerName;
 	}
 
-
 	/**
 	 * formats the state variables for JSON serialization
 	 *
