@@ -137,36 +137,31 @@ private $postTitle;
 		}
 	}
 
-	/*
-	 * accessor method for articleId
-	 * @return Uuid value of articleId
-	 *
-	 *    Is accessor/get the php equivilant of sql's select?
-	 *    How do I confirm this command was propperly issued?
-	*/
-	public function getArticleId() : Uuid {
-		return($this->articleId);
+/**
+ * accessor method for postId
+ * @return Uuid value of postId
+*/
+	public function getpostId() : Uuid {
+		return($this->postId);
 	}
 
-	/*
-	 * Mutator method for article id
-	 * @param Uuid/string $newArticleId new value of articleId
-	 * @throws \RangeException if $newArticleId is not positive
-	 * @throws \TypeError if $newArticleId is not a uuid or string
-	 *    @param, @throws, and exceptions are straight from Dylan McDonald's code
-	*/
-	public function setArticleId( $newArticleId) : void {
+/**
+* Mutator method for postId
+* @param Uuid/string $newPostId new value for postId
+* @throws \RangeException if $newPostId is not positive
+* @throws \TypeError if $newPostId is not a uuid or string
+*/
+	public function setPostId( $newPostId) : void {
 		try {
-			$uuid = self::validateUuid($newArticleId);
+			$uuid = self::validateUuid($newPostId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		/*
-		* Convert and store the articleId
-		 *    Is convert for uuid's only?
-		*/
-		$this->articleId = $uuid;
+/**
+* Convert and store the postId
+*/
+$this->postId = $uuid;
 	}
 
 	/**
