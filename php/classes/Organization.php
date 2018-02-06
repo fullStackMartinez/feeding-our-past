@@ -98,6 +98,7 @@ class Organization implements \JsonSerializable {
 	 * @param string $newOrganizationActivationToken string that gives security to the profile
 	 * @param string $newOrganizationAddressCity string of the organization profile city
 	 * @param string $newOrganizationAddressState string of the organization profile state
+	 * @param string $newOrganizationAddressStreet string of the organization profile street
 	 * @param string $newOrganizationAddressZip string of the organization profile Zip code
 	 * @param string $newOrganizationDonationAccepted string that tells whether the organization accepts food donations
 	 * @param string $newOrganizationEmail string that contains organization email
@@ -113,6 +114,28 @@ class Organization implements \JsonSerializable {
 	 * @throws \Exception if there are other exceptions that occur
 	 * @Documentation http://php.net/manual/en/language.exceptions.php
 	 * @Documentation https://secure.php.net/manual/en/language.oop5.decon.php
-	 */
+	 **/
+	function __construct($newOrganizationId, ?string $newOrganizationActivationToken, string $newOrganizationAddressCity, string $newOrganizationAddressState, string $newOrganizationAddressStreet, string $newOrganizationAddressZip, string $newOrganizationDonationAccepted, string $newOrganizationEmail, string $newOrganizationHash, string $newOrganizationHoursOpen, string $newOrganizationName, string $newOrganizationPhone, string $newOrganizationSalt, ?string $newOrganizationUrl) {
+		try {
+			$this->setOrganizationId($newOrganizationId);
+			$this->setOrganizationActivationToker($newOrganizationActivationToken);
+			$this->setOrganizationAddressCity($newOrganizationAddressCity);
+			$this->setOrganizationAddressState($newOrganizationAddressState);
+			$this->setOrganizationAddressStreet($newOrganizationAddressStreet);
+			$this->setOrganizationAddressZip($newOrganizationAddressZip);
+			$this->setOrganizationDonationAccepted($newOrganizationDonationAccepted);
+			$this->setOrganizationEmail($newOrganizationEmail);
+			$this->setOrganizationHash($newOrganizationHash);
+			$this->setOrganizationHoursOpen($newOrganizationHoursOpen);
+			$this->setOrganizationName($newOrganizationName);
+			$this->setOrganizationPhone($newOrganizationPhone);
+			$this->setOrganizationSalt($newOrganizationSalt);
+			$this->setOrganizationUrl($newOrganizationUrl);
+		} catch(|\InvalidArgumentException | \RangeException | |\TypeError | |\Exception $exception) {
+			//determine which of the exceptions will be thrown
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
 
 }
