@@ -187,6 +187,38 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	}
 
 	/**
+	 * accessor method for volunteer email
+	 *
+	 * @return string value of volunteer email
+	 **/
+	public function getVolunteerEmail() : string {
+		return $this->volunteerEmail;
+	}
+
+	/**
+	 * mutator method for volunteer email
+	 *
+	 * @param string $newVolunteerEmail new value of volunteer email
+	 * @throws \InvalidArgumentException if $newVolunteerEmail is not a valid email or insecure
+	 * @throws \RangeException if $newVolunteerEmail is > 128 characters
+	 * @throws \TypeError if $newVolunteerEmail is not a string
+	 **/
+	public function setVolunteerEmail(string $newVolunteerEmail) : void {
+		// verify the volunteer email is secure
+		$newVolunteerEmail = trim($newVolunteerEmail);
+		$newVolunteerEmail = filter_var($newVolunteerEmail, FILTER_SANITIZE_EMAIL);
+		if(empty($newVolunteerEmail) === true) {
+			throw(new \InvalidArgumentException("volunteer email is empty or insecure"));
+		}
+		// verify the volunteer email will fit in the database
+		if(strlen($newVolunteerEmail) > 128) {
+			throw(new \RangeException("volunteer email is greater than 128 characters"));
+		}
+		// store the volunteer email
+		$this->volunteerEmail = $newVolunteerEmail;
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
