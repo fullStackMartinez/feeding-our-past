@@ -118,6 +118,40 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		$this->volunteerId = $uuid;
 	}
 
+	/**
+	 * accessor method for account activation token
+	 *
+	 * @return string value of the activation token
+	 **/
+	public function getVolunteerActivationToken() : ?string {
+		return($this->volunteerActivationToken);
+	}
+
+	/**
+	 * mutator method for account activation token
+	 *
+	 * @param string $newVolunteerActivationToken
+	 * @throws \InvalidArgumentException if the token does not contain only hexadecimal digits
+	 * @throws \RangeException if the token is not exactly 32 characters
+	 * @throws \TypeError if the activation token is not a string
+	 **/
+	public function setVolunteerActivationToken(?string $newVolunteerActivationToken) : void {
+		if($newVolunteerActivationToken === null) {
+			$this->volunteerActivationToken = null;
+			return;
+		}
+		$newVolunteerActivationToken = strtolower(trim($newVolunteerActivationToken));
+
+		// make sure volunteer activation token contains only hexadecimal digits
+		if(ctype_xdigit($newVolunteerActivationToken) === false) {
+			throw(new \InvalidArgumentException("volunteer activation token does not contain all hexadecimal digits"));
+		}
+		// make sure volunteer activation token has length 32
+		if(strlen($newVolunteerActivationToken) !== 32) {
+			throw(new \RangeException("volunteer activation token must be length 32"));
+		}
+		$this->volunteerActivationToken = $newVolunteerActivationToken;
+	}
 
 	/**
 	 * formats the state variables for JSON serialization
