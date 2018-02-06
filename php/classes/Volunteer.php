@@ -154,6 +154,39 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	}
 
 	/**
+	 * accessor method for volunteer availability
+	 *
+	 * @return string value of volunteer availability
+	 **/
+	public function getVolunteerAvailability() : ?string {
+		return($this->volunteerAvailability);
+	}
+
+	/**
+	 * mutator method for volunteer availability
+	 *
+	 * @param string $newVolunteerAvailability new value of volunteer availability
+	 * @throws \InvalidArgumentException if $newVolunteerAvailability is not a string or insecure
+	 * @throws \RangeException if $newVolunteerAvailability is > 255 characters
+	 * @throws \TypeError if $newVolunteerAvailability is not a string
+	 **/
+	public function setVolunteerAvailability(?string $newVolunteerAvailability) : void {
+		// verify the volunteer availability is secure
+		$newVolunteerAvailability = trim($newVolunteerAvailability);
+		$newVolunteerAvailability = filter_var($newVolunteerAvailability, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if($newVolunteerAvailability == null) {
+			$this->volunteerAvailability = null;
+			return;
+		}
+		// verify the volunteer availability will fit in the database
+		if(strlen($newVolunteerAvailability) > 255) {
+			throw(new \RangeException("volunteer availability is greater than 255 characters"));
+		}
+		// store the volunteer availability
+		$this->volunteerAvailability = $newVolunteerAvailability;
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
