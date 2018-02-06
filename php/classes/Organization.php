@@ -88,14 +88,31 @@ class Organization implements \JsonSerializable {
 	/**
 	 * this is the URL of the organization, this is unique
 	 * @var string $organizationUrl
-	 */
+	 **/
 	private $organizationUrl;
 
 	/**
 	 * constructor for this Organization
 	 *
 	 * @param string|Uuid $newOrganizationId will give id of the organizations profile, or null if a brand new profile
-	 * @param string
+	 * @param string $newOrganizationActivationToken string that gives security to the profile
+	 * @param string $newOrganizationAddressCity string of the organization profile city
+	 * @param string $newOrganizationAddressState string of the organization profile state
+	 * @param string $newOrganizationAddressZip string of the organization profile Zip code
+	 * @param string $newOrganizationDonationAccepted string that tells whether the organization accepts food donations
+	 * @param string $newOrganizationEmail string that contains organization email
+	 * @param string $newOrganizationHash string that contains the profile hash
+	 * @param string $newOrganizationHoursOpen string that indicates the hours of operation
+	 * @param string $newOrganizationName string of the name of organization
+	 * @param string $newOrganizationPhone string that contains phone contact information of organization
+	 * @param string $newOrganizationSalt string containing salt for profile password
+	 * @param string $newOrganizationUrl string containing organization url
+	 * @throws \InvalidArgumentException if any data types are invalid
+	 * @throws \RangeException if the data values, for example string lengths exceed limit, are not valid
+	 * @throws \TypeError will be thrown if data types have errors
+	 * @throws \Exception if there are other exceptions that occur
+	 * @Documentation http://php.net/manual/en/language.exceptions.php
+	 * @Documentation https://secure.php.net/manual/en/language.oop5.decon.php
 	 */
 
 }
