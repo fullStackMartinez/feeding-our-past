@@ -117,6 +117,23 @@ class Favorite implements \JsonSerializable {
 	}
 
 	/**
+	 * inserts this favorite into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo): void {
+
+		// create query template
+		$query = "INSERT INTO 'favorite'(favoriteProfileId, favoritePostId) Values (:favoritePostI, favoriteVolunteerId)";
+		$statement = $pdo->prepare($query);
+	}
+
+	// bind the member variables to the place holders in the template
+	$parameters = ["favoriteProfileId" => $this->favoriteProfileId->getBytes(), "favoriteVolunteerId" =>$this->favoriteVolunteerId->getBytes()]
+	$statement->execute($parameters);
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
@@ -126,7 +143,6 @@ class Favorite implements \JsonSerializable {
 		$fields = get_object_vars($this);
 
 
-		//formate the date so that the front end can consume it
 		$fields["favoritePostId"] = $this->favoritePostId;
 		$fields["favoriteVolunteerId"] = $this->favoriteVolunteerId;
 
