@@ -5,10 +5,9 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 /**
- * Cross Section of a Twitter Like
  *
- * This is a cross section of what probably occurs when a user likes a Tweet. It is an intersection table (weak
- * entity) from an m-to-n relationship between Profile and Tweet.
+ * This is a cross section of what probably occurs when a user Favorites a Post. It is an intersection table (weak
+ * entity) from an m-to-n relationship between Post and Volunteer.
  *
  * @author Jeffrey Brink <jeffreybrink@gmx.com>
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
@@ -121,18 +120,153 @@ class Favorite implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO $pdo): void {
-
+	public function insert(\PDO $pdo) : void {
 		// create query template
-		$query = "INSERT INTO 'favorite'(favoriteProfileId, favoritePostId) Values (:favoritePostI, favoriteVolunteerId)";
+		$query = "INSERT INTO `favorite`(favoritePostId, favoriteVolunteerId) VALUES(:favoritePostId, :favoriteVolunteerId)";
 		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holders in the template
+		$parameters = ["favoritePostId" => $this->favoritePostId->getBytes(), "favoriteVolunteerId" => $this->favoriteVolunteerId->getBytes()];
+		$statement->execute($parameters);
 	}
 
-	// bind the member variables to the place holders in the template
-	$parameters = ["favoriteProfileId" => $this->favoriteProfileId->getBytes(), "favoriteVolunteerId" =>$this->favoriteVolunteerId->getBytes()]
-	$statement->execute($parameters);
+	/**
+	 * deletes this Favorite from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 **/
+	public function delete(\PDO $pdo) : void {
+		// create query template
+		$query = "DELETE FROM `favorite` WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId:favoriteVolunteerId";
+		$statement = $pdo->prepare($query);
+		//bind the member variables to the placeholders in the template
+		$parameters = ["favoritePostId" => $this->favoritePostId->getBytes(), "favoriteVolunteerId" => 	$this->favoriteVolunteerId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * gets the favorite by post id and volunteer id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $favoritePostId post id to search for
+	 * @param string $favoriteVolunteerId volunteer id to search for
+	 * @return favorite |null Like found or null if not found
+	 **/
+
+	public static function getFavoriteByFavoritePostIdAndFavoriteVolunteerId(\PDO $pdo, string $favoritePostId, string $likeTweetId) : ?favorite{
+		//
+		try {
+			$favoritePostId = self::validateUuid($favoritePostId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		try {
+			$favoriteVolunteerId = self::validateUuid($favoriteVolunteerId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId = :favoriteVolunteerId";
+		$statement = $pdo->prepare($query);
+		// bind the volunteer id and post id to the place holder in the template
+		$parameters = ["favoritePostId" => $favoritePostId->getBytes(), "favoriteVolunteerId" => $favoriteVolunteerId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the favorite from mySQL
+		try {
+			$favorite = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$favorite = new favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($favorite);
+	}
+
+	/**
+	 * gets the Like by post id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $favoritePostId post id to search for
+	 * @return \SplFixedArray SplFixedArray of Likes found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 **/
+	public static function getFavoriteByFavoritePostId(\PDO $pdo, string $favoritePostId) : \SPLFixedArray {
+		try {
+			$favoritePostId = self::validateUuid($favoritePostId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT favoritePostId, favoritePVolunteerId FROM `favorite` WHERE favoritePostId = :favoriteVolunteerId";
+		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holders in the template
+		$parameters = ["favoritePostId" => $favoritePostId->getBytes()];
+		$statement->execute($parameters);
+
+		// build an array of favorites
+		$favorites = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$favorite = new Favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
+				$favorites[$favorites->key()] = $favorite;
+				$favorites->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($favorites);
+	}
+
+	/**
+	 * gets the favorite by volunteer id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $favoriteVolunteerId volunteer id to search for
+	 * @return \SplFixedArray array of favorites found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 **/
+	public static function getFavoriteByFavoriteVolunteerId(\PDO $pdo, string $favoriteVolunteerId) : \SplFixedArray {
+		try {
+			$favoriteVolunteerId = self::validateUuid($favoriteVolunteerId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoriteVolunteerId = :favoriteVolunteerId";
+		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holders in the template
+		$parameters = ["favoriteVolunteerId" => $favoriteVolunteerId->getBytes()];
+		$statement->execute($parameters);
+
+		// build the array of favorites
+		$favorites = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$favorite = new favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
+				$favorites[$favorites->key()] = $favorites;
+				$favorites->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($favorites);
+	}
+
+
+		/**
 	/**
 	 * formats the state variables for JSON serialization
 	 *
@@ -147,6 +281,5 @@ class Favorite implements \JsonSerializable {
 		$fields["favoriteVolunteerId"] = $this->favoriteVolunteerId;
 
 		return ($fields);
-
-
-}}
+		}
+	}
