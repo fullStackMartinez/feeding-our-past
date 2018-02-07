@@ -24,3 +24,55 @@ require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
  * @author Jolynn Pruitt <jpruitt5@cnm.edu>
  * @author Dylan McDonald <dmcdonald21@cnm.edu>
  **/
+abstract class FeedPastTest extends TestCase {
+	use TestCaseTrait;
+
+	/**
+	 * PHPUnit database connection interface
+	 * @var Connection $connection
+	 **/
+	protected $conection = null;
+
+	/**
+	 * assembles the table from the schema and provides it to PHPUnit
+	 *
+	 * @return QueryDataSet assembled schema for PHPUnit
+	 **/
+	public final function getDataSet(): QueryDataSet {
+		$dataset = new QueryDataSet($this->getConnection());
+
+		// add all the tables for the project here -- in order they were created
+		$dataset->addTable("organization");
+		$dataset->addTable("volunteer");
+		$dataset->addTable("post");
+		$dataset->addTable("favorite");
+		return ($dataset);
+	}
+
+	/**
+	 * templates the setUp method that runs before each test; this method expunges the database before each run
+	 *
+	 * @see https://phpunit.de/manual/current/en/fixtures.html#fixtures.more-setup-than-teardown PHPUnit Fixtures: setUp and tearDown
+	 * @see https://github.com/sebastianbergmann/dbunit/issues/37 TRUNCATE fails on tables which have foreign key constraints
+	 * @return Composite array containing delete and insert commands
+	 **/
+	public final function getSetUpOperation(): Composite {
+		return new Composite([
+			Factory::DELETE_ALL(),
+			Factory::INSERT()
+		]);
+	}
+
+	/**
+	 * templates the tearDown method that runs after each test; this method expunges the database after each run
+	 *
+	 * @return Operation delete command for the database
+	 **/
+	public final function getTearDownOperation(): Operation {
+		return (Factory::DELETE_ALL());
+	}
+
+
+
+
+}
