@@ -284,7 +284,7 @@ class Organization implements \JsonSerializable {
 		$newOrganizationAddressStreet = trim($newOrganizationAddressStreet);
 		$newOrganizationAddressStreet = filter_var($newOrganizationAddressStreet, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newOrganizationAddressStreet) === true) {
-			throw(new \InvalidArgumentException("sorry, but the street address is not safe or emtpty"));
+			throw(new \InvalidArgumentException("sorry, but the street address is not safe or empty"));
 		}
 		//verify the street address is within 32 characters
 		if(strlen($newOrganizationAddressStreet) > 32) {
@@ -316,7 +316,7 @@ class Organization implements \JsonSerializable {
 		$newOrganizationAddressZip = trim($newOrganizationAddressZip);
 		$newOrganizationAddressZip = filter_var($newOrganizationAddressZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newOrganizationAddressZip) === true) {
-			throw(new \InvalidArgumentException("sorry, but the zip code is not safe or emtpty"));
+			throw(new \InvalidArgumentException("sorry, but the zip code is not safe or empty"));
 		}
 		//verify the zip code is within 32 characters
 		if(strlen($newOrganizationAddressZip) > 32) {
@@ -327,34 +327,98 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for the zip code of organization
+	 * accessor method for donations accepted option
 	 *
-	 * @return string for the zip code of organization
+	 * @return string donations accepted by organization
 	 **/
-	public function getOrganizationAddressZip(): string {
-		return ($this->organizationAddressZip);
+	public function getOrganizationDonationAccepted(): string {
+		return ($this->organizationDonationAccepted);
 	}
 
 	/**
-	 * mutator method for zip code
+	 * mutator method for donation accepted string
 	 *
-	 * @param string $newOrganizationAddressZip
-	 * @throws \InvalidArgumentException if $newOrganizationAddressZip is not safe or not a string
-	 * @throws \RangeException if zip code is not less than or equal to 32 characters
-	 * @throws \TypeError if zip has a typo or not a string
+	 * @param string $newOrganizationDonationAccepted
+	 * @throws \InvalidArgumentException if $newOrganizationDonationAccepted is not safe or not a string
+	 * @throws \RangeException if donation accepted response string is not less than or equal to 32 characters
+	 * @throws \TypeError if there is a typo or response is not a string
 	 **/
-	public function setOrganizationAddressZip(string $newOrganizationAddressZip): void {
-		//validate street address security
-		$newOrganizationAddressZip = trim($newOrganizationAddressZip);
-		$newOrganizationAddressZip = filter_var($newOrganizationAddressZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newOrganizationAddressZip) === true) {
-			throw(new \InvalidArgumentException("sorry, but the zip code is not safe or emtpty"));
+	public function setOrganizationDonationAccepted(string $newOrganizationDonationAccepted): void {
+		//validate donation accepted string security
+		$newOrganizationDonationAccepted = trim($newOrganizationDonationAccepted);
+		$newOrganizationDonationAccepted = filter_var($newOrganizationDonationAccepted, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationDonationAccepted) === true) {
+			throw(new \InvalidArgumentException("sorry, but the response you gave is not safe or empty"));
 		}
-		//verify the zip code is within 32 characters
-		if(strlen($newOrganizationAddressZip) > 32) {
-			throw(new \RangeException("sorry, but zip code must not be greater that 32 characters"));
+		//verify the string is within 32 characters
+		if(strlen($newOrganizationDonationAccepted) > 32) {
+			throw(new \RangeException("sorry, but the response must not be greater that 32 characters"));
 		}
-		//save the zip code
-		$this->organizationAddressZip = $newOrganizationAddressZip;
+		//save the string
+		$this->organizationDonationAccepted = $newOrganizationDonationAccepted;
+	}
+
+	/**
+	 * accessor method for the email address of organization profile
+	 *
+	 * @return string for the organization email address
+	 **/
+	public function getOrganizationEmail(): string {
+		return ($this->organizationEmail);
+	}
+
+	/**
+	 * mutator method for email
+	 *
+	 * @param string $newOrganizationEmail
+	 * @throws \InvalidArgumentException if $newOrganizationEmail is not safe or not a string
+	 * @throws \RangeException if email is not less than or equal to 32 characters
+	 * @throws \TypeError if email has a typo or not a string
+	 **/
+	public function setOrganizationEmail(string $newOrganizationEmail): void {
+		//validate email security
+		$newOrganizationEmail = trim($newOrganizationEmail);
+		$newOrganizationEmail = filter_var($newOrganizationEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($newOrganizationEmail) === true) {
+			throw(new \InvalidArgumentException("sorry, but the email address you have provided is not safe or empty"));
+		}
+		//verify the email is within 128 characters
+		if(strlen($newOrganizationEmail) > 128) {
+			throw(new \RangeException("sorry, but email must not be greater that 128 characters"));
+		}
+		//save the email
+		$this->organizationEmail = $newOrganizationEmail;
+	}
+
+	/**
+	 * accessor method for the email address of organization profile
+	 *
+	 * @return string for the organization email address
+	 **/
+	public function getOrganizationEmail(): string {
+		return ($this->organizationEmail);
+	}
+
+	/**
+	 * mutator method for email
+	 *
+	 * @param string $newOrganizationEmail
+	 * @throws \InvalidArgumentException if $newOrganizationEmail is not safe or not a string
+	 * @throws \RangeException if email is not less than or equal to 32 characters
+	 * @throws \TypeError if email has a typo or not a string
+	 **/
+	public function setOrganizationEmail(string $newOrganizationEmail): void {
+		//validate email security
+		$newOrganizationEmail = trim($newOrganizationEmail);
+		$newOrganizationEmail = filter_var($newOrganizationEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($newOrganizationEmail) === true) {
+			throw(new \InvalidArgumentException("sorry, but the email address you have provided is not safe or empty"));
+		}
+		//verify the email is within 128 characters
+		if(strlen($newOrganizationEmail) > 128) {
+			throw(new \RangeException("sorry, but email must not be greater that 128 characters"));
+		}
+		//save the email
+		$this->organizationEmail = $newOrganizationEmail;
 	}
 }
