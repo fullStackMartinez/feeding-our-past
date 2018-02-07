@@ -652,6 +652,18 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**
+	 * get the organization profile by the organization id (primary key)
 	 *
-	 */
+	 * @param \PDO @pdo PDO connection object
+	 * @param string $organizationId the organization id to search for
+	 * @return Organization|null organization profile or null if the profile is not found
+	 * @throws \PDOException when a MySQL error happens
+	 * @throws \TypeError when the state variable is the incorrect data type
+	 **/
+	public static function getOrganizationByOrganizationId(\PDO $pdo, string $organizationId);?Organization {
+		//sanitize the organization id before the search
+	try{
+		$organizationId = self::validateUuid($organizationId);
+	} catch(\InvalidArgumentException | \RangeException | \Exception)
+}
 }
