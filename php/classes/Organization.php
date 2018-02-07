@@ -391,34 +391,38 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for the email address of organization profile
+	 * accessor method for the password hash of the organization profile
 	 *
-	 * @return string for the organization email address
+	 * @return string for password hash
 	 **/
-	public function getOrganizationEmail(): string {
-		return ($this->organizationEmail);
+	public function getOrganizationHash(): string {
+		return ($this->organizationHash);
 	}
 
 	/**
-	 * mutator method for email
+	 * mutator method for password hash
 	 *
-	 * @param string $newOrganizationEmail
-	 * @throws \InvalidArgumentException if $newOrganizationEmail is not safe or not a string
-	 * @throws \RangeException if email is not less than or equal to 32 characters
-	 * @throws \TypeError if email has a typo or not a string
+	 * @param string $newOrganizationHash
+	 * @throws \InvalidArgumentException if $newOrganizationHash is not safe or not a string
+	 * @throws \RangeException if password hash is not less than or equal to 128 characters
+	 * @throws \TypeError if password hash has a typo or not a string
 	 **/
-	public function setOrganizationEmail(string $newOrganizationEmail): void {
-		//validate email security
-		$newOrganizationEmail = trim($newOrganizationEmail);
-		$newOrganizationEmail = filter_var($newOrganizationEmail, FILTER_VALIDATE_EMAIL);
-		if(empty($newOrganizationEmail) === true) {
-			throw(new \InvalidArgumentException("sorry, but the email address you have provided is not safe or empty"));
+	public function setOrganizationHash(string $newOrganizationHash): void {
+		//validate hash format
+		$newOrganizationHash = trim($newOrganizationHash);
+		$newOrganizationHash = strtolower($newOrganizationHash);
+		if(empty($newOrganizationHash) === true) {
+			throw(new \InvalidArgumentException("sorry, but the profile password hash you have provided is not safe or empty"));
 		}
-		//verify the email is within 128 characters
-		if(strlen($newOrganizationEmail) > 128) {
-			throw(new \RangeException("sorry, but email must not be greater that 128 characters"));
+		//validate that password hash is a string representation of a hexadecimal
+		if(!ctype_xdigit($newOrganizationHash)) {
+			throw(new \InvalidArgumentException("sorry, but the profile password hash you have provided is not safe or empty"));
 		}
-		//save the email
-		$this->organizationEmail = $newOrganizationEmail;
+		//validate the password hash is within 128 characters
+		if(strlen($newOrganizationHash) !== 128) {
+			throw(new \RangeException("sorry, but password hash must be 128 characters"));
+		}
+		//save the password hash
+		$this->organizationHash = $newOrganizationHash;
 	}
 }
