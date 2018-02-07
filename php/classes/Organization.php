@@ -261,4 +261,68 @@ class Organization implements \JsonSerializable {
 		//save the state of the organizations address
 		$this->organizationAddressState = $newOrganizationAddressState;
 	}
+
+	/**
+	 * accessor method for the street address of organization
+	 *
+	 * @return string for the street address
+	 **/
+	public function getOrganizationAddressStreet(): string {
+		return ($this->organizationAddressStreet);
+	}
+
+	/**
+	 * mutator method for street address
+	 *
+	 * @param string $newOrganizationAddressStreet
+	 * @throws \InvalidArgumentException if $newOrganizationAddressStreet is not safe or not a string
+	 * @throws \RangeException if street address is not less than or equal to 32 characters
+	 * @throws \TypeError if street address has a typo or not a string
+	 **/
+	public function setOrganizationAddressStreet(string $newOrganizationAddressStreet): void {
+		//validate street address security
+		$newOrganizationAddressStreet = trim($newOrganizationAddressStreet);
+		$newOrganizationAddressStreet = filter_var($newOrganizationAddressStreet, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationAddressStreet) === true) {
+			throw(new \InvalidArgumentException("sorry, but the stree address is not safe or emtpty"));
+		}
+		//verify the street address is within 32 characters
+		if(strlen($newOrganizationAddressStreet) > 32) {
+			throw(new \RangeException("sorry, but street address must not be greater that 32 characters"));
+		}
+		//save the street address
+		$this->organizationAddressStreet = $newOrganizationAddressStreet;
+	}
+
+	/**
+	 * accessor method for the street address of organization
+	 *
+	 * @return string for the street address
+	 **/
+	public function getOrganizationAddressStreet(): string {
+		return ($this->organizationAddressStreet);
+	}
+
+	/**
+	 * mutator method for street address
+	 *
+	 * @param string $newOrganizationAddressStreet
+	 * @throws \InvalidArgumentException if $newOrganizationAddressStreet is not safe or not a string
+	 * @throws \RangeException if street address is not less than or equal to 32 characters
+	 * @throws \TypeError if street address has a typo or not a string
+	 **/
+	public function setOrganizationAddressStreet(string $newOrganizationAddressStreet): void {
+		//validate street address security
+		$newOrganizationAddressStreet = trim($newOrganizationAddressStreet);
+		$newOrganizationAddressStreet = filter_var($newOrganizationAddressStreet, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationAddressStreet) === true) {
+			throw(new \InvalidArgumentException("sorry, but the stree address is not safe or emtpty"));
+		}
+		//verify the street address is within 32 characters
+		if(strlen($newOrganizationAddressStreet) > 32) {
+			throw(new \RangeException("sorry, but street address must not be greater that 32 characters"));
+		}
+		//save the street address
+		$this->organizationAddressStreet = $newOrganizationAddressStreet;
+	}
 }
