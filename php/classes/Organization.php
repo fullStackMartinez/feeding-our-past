@@ -593,6 +593,16 @@ class Organization implements \JsonSerializable {
 	 **/
 	public function insert(\PDO $pdo): void {
 		//this will create a query template
-		$query = "INSERT INTO organization(organizationId, organizationActivationToken)"
+		$query = "INSERT INTO organization(organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl) VALUES (:organizationId, :organizationActivationToken, :organizationAddressCity, :organizationAddressState, :organizationAddressStreet, :organizationAddressZip, :organizationDonationAccepted, :organizationEmail, :organizationHash, :organizationHoursOpen, :organizationLatX, :organizationLongY, :organizationName, :organizationPhone, :organizationSalt, :organizationUrl)";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["organizationId" => $this->organizationId->getBytes(), "organizationActivationToken" =>$this->organizationActivationToken, "organizationAddressCity" =>$this->organizationAddressCity, "organizationAddressState" =>$this->organizationAddressState, "organizationAddressStreet" =>$this->organizationAddressStreet, "organizationAddressZip" =>$this->organizationAddressZip, "organizationDonationAccepted" =>$this->organizationDonationAccepted, "organizationEmail" =>$this->organizationEmail, "organizationHash" =>$this->organizationHash, "organizationHoursOpen" =>$this->organizationHoursOpen, "organizationLatX" =>$this->organizationLatX, "organizationLongY" =>$this->organizationLongY, "organizationName" =>$this->organizationName, "organizationPhone" =>$this->organizationPhone, "organizationSalt" =>$this->organizationSalt, "organizationUrl" =>$this->organizationUrl];
+		$statement->execute($parameters);
 	}
+
+	/**
+	 * this will delete the organization profile form the MySQL database
+	 *
+	 * @param
+	 */
 }
