@@ -443,6 +443,45 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	}
 
 	/**
+	 * gets the Volunteer by volunteer activation token
+	 *
+	 * @param string $volunteerActivationToken
+	 * @param \PDO object $pdo
+	 * @return Volunteer|null Volunteer or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getVolunteerByVolunteerActivationToken(\PDO $pdo, string $volunteerActivationToken) : ?Volunteer {
+		// make sure the activation token is in the right format and a string representation of a hexadecimal
+		$volunteerActivationToken = trim($volunteerActivationToken);
+		if(ctype_xdigit($volunteerActivationToken) === false) {
+			throw(new \InvalidArgumentException("volunteer activation token is empty or in the wrong format"));
+		}
+
+		// create the query template
+		$query = "SELECT volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerActivationToken = :volunteerActivationToken";
+		$statement = $pdo->prepare($query);
+
+		// bind the volunteer activation token to the place holder in the template
+		$parameters = ["volunteerActivationToken" => $volunteerActivationToken];
+		$statement->execute($parameters);
+
+		// grab the Volunteer from mySQL
+		try {
+			$volunteer = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$volunteer = new Volunteer($row["volunteerId"], $row["volunteerActivationToken"], $row["volunteerAvailability"], $row["volunteerEmail"], $row["volunteerHash"], $row["volunteerName"], $row["volunteerPhone"], $row["volunteerSalt"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($profile);
+	}
+
+	/**
 	 * gets this Volunteer by email
 	 *
 	 * @param \PDO $pdo PDO connection object
