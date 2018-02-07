@@ -385,6 +385,23 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * updates this Volunteer in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) : void {
+		// create query template
+		$query = "UPDATE volunteer SET volunteerActivationToken = :volunteerActivationToken, volunteerAvailability = :volunteerAvailability, volunteerEmail = :volunteerEmail, volunteerHash = :volunteerHash, volunteerName = :volunteerName, volunteerPhone = :volunteerPhone, volunteerSalt = :volunteerSalt WHERE volunteerId = :volunteerId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["volunteerId" => $this->volunteerId->getBytes(), "volunteerActivationToken" => $this->volunteerActivationToken, "volunteerAvailability" => $this->volunteerAvailability, "volunteerEmail" => $this->volunteerEmail, "volunteerHash" => $this->volunteerHash, "volunteerName" => $this->volunteerName, "volunteerPhone" => $this->volunteerPhone, "volunteerSalt" => $this->volunteerSalt];
+		$statement->execute($parameters);
+	}
+
 
 	/**
 	 * formats the state variables for JSON serialization
