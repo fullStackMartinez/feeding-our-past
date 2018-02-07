@@ -164,80 +164,159 @@ private $postTitle;
 $this->postId = $uuid;
 	}
 
-	/**
-	 * START HERE
-	 * accessor method for userid
-	 * @return Uuid value of userid
-	 **/
-	public function getUserId() : Uuid{
-		return($this->userId);
+/**
+ * accessor method for postOrganizationId
+ * @return Uuid value of postOrganizationId
+ **/
+	public function getpostOrganizationId() : Uuid {
+		return($this->postOrganizationId);
 	}
 
-	/**
-	 * mutator method for userid
-	 *
-	 * @param Uuid/string $newArticleId new value of userId
-	 * @throws \RangeException if $newUserId is not positive
-	 * @throws \TypeError if $newUserId is not a string or uuid
-	 **/
-	public function setUserId( $newUserId) : void {
+/**
+ * mutator method for postOrganizationId
+ * @param Uuid/string $newPostOrganizationId
+ * @throws \RangeException if $newUserId is not positive
+ * @throws \TypeError if $newUserId is not a string or uuid
+**/
+	public function setpostOrganizationId( $newPostOrganizationId) : void {
 		try {
-			$uuid = self::validateUuid($newUserId);
+			$uuid = self::validateUuid($newPostOrganizationId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		/*
-		 * Convert and store the userid
-		*/
-		$this->userId = $uuid;
-	}
-
-	/*
-	 * accessor method for approximateReadTime
-	 * @return int value of approximateReadTime
-	 *    Note how this is :int is this correct? Where :int set?
-	*/
-	public function getApproximateReadTime() : int{
-		return($this->approximateReadTime);
-	}
-
-	/*
-	 * mutator method for approximateReadTime
-	 * @param int $newApproximateReadTime new value of approximateReadTime
-	 * @throws \InvalidArgumentException if $newApproximate is not an int or insecure
-	 * @throws \RangeException if $newApproximateReadTime is > 1000
-	 * @throws \TypeError if $newApproximateReadTime is not an int
-	*/
-	public function setApproximateReadTime($newApproximateReadTime) {
-		$newApproximateReadTime = filter_var($newApproximateReadTime, FILTER_VALIDATE_INT);
-		if($newApproximateReadTime === false) (
-			throw(new UnexpectedValueException("Approximate Read Time is not a valid integer"));
-		)
-		/*
- * convert and store the approximate read time
+/*
+ * Convert and store the postOrganizationId
 */
-		$this->approximateReadTime = intval($newApproximateReadTime);
+		$this->postOrganizationId = $uuid;
 	}
 
-	/*
-	 * accessor method for articleTitle
-	 * @return string value of articleTitle
+/**
+ * accessor method for postContent
+ * @return string value of postContent
+*/
+	public function getpostContent() : string {
+		return($this->postContent);
+	}
+
+/**
+ * mutator method for postContent
+ * @param string $newPostContent is the new post content
+ * @throws \InvalidArgumentException if $newPostContent is not a string or insecure
+ * @throws \RangeException if $newPostContent is > 4096 characters
+ * @throws \TypeError if $newPostContent is not a string
+*/
+	public function setpostContent(string $newPostContent) : void {
+		$newPostContent = trim($newPostContent);
+		$newPostContent = filter_var($newPostContent, FILTER_SANITIZE_STING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newPostContent) === true) {
+		throw(new \InvalidArgumentException("Post Content is empty"));
+		}
+if(strlen($newPostContent) > 4096) {
+		throw(new \RangeException("Post Content too Large"));
+		}
+/**
+ * store the post content
+*/
+		$this->postContent = $newPostContent;
+	}
+
+
+	/**
+	 * accessor method for postEndDateTime
+	 * @return datetime string value of postEndDateTime
 	 */
-	public function getarticleTitle() : string {
-		return($this->articleTitle);
-	}
-
-	/*
-	 * mutator method for articleTitle
-	 * @throws \InvalidArgumentException if $newArticleTitle is not a valid string
-		 **/
-	public function setArticleTitle($newArticleTitle) {
-		return($this->articleTitle);
-		$this->articleTitle = $newArticleTitle;
+	public function getpostEndDateTime() : \DateTime {
+		return($this->postEndDateTime);
 	}
 
 	/**
+	 * mutator method for postEndDateTime
+	 * @param \DateTime|string $newPostEndDateTime is the time that the post may be removed
+	 * @param \DateTime|string $newPostEndDateTime date to validate
+	 * @throws \InvalidArgumentException if $newPostEndDateTime is a date that does not exist
+	 * @throws \InvalidArgumentException if the date is in an invalid format
+	 * @throws \RangeException if the date is a date that does not exist
+	 **/
+	public function setpostEndDateTime($newPostEndDateTime) : void {
+		try {
+			$newPostEndDateTime = self::validateDateTime($newPostEndDateTime);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		return($this->postEndDateTime);
+	}
+$this->postEndDateTime = $newpostEndDateTimeArticleTitle;
+}
+
+
+/**
+ * accessor method for postImageUrl
+ * @return string value of postImageUrl
+ */
+public function getpostImageUrl() : void {
+	return ($this->postImageUrl);
+}
+/**
+ * mutator method for postImageUrl
+ * @param string $newPostImageUrl is the url of the image added to a post
+ **/
+public function setpostImageUrl($newPostImageUrl) : void {
+
+	return($this->postImageUrl);
+
+$this->postImageUrl = $newpostImageUrl;
+}
+
+/**
+ * accessor method for postStartDateTime
+ * @return datetime string value of postStartDateTime
+ */
+public function getpostStartDateTime() : \DateTime {
+	return($this->postStartDateTime);
+}
+
+/**
+ * mutator method for postStartDateTime
+ * @param \DateTime|string $newPostStartDateTime is the time that the post may be removed
+ * @param \DateTime|string $newPostStartDateTime date to validate
+ * @throws \InvalidArgumentException if $newPostStartDateTime is a date that does not exist
+ * @throws \InvalidArgumentException if the date is in an invalid format
+ * @throws \RangeException if the date is a date that does not exist
+ **/
+public function setpostStartDateTime($newPostStartDateTime) : void {
+	try {
+		$newPostStartDateTime = self::validateDateTime($newPostStartDateTime);
+	} catch(\InvalidArgumentException | \RangeException $exception) {
+		$exceptionType = get_class($exception);
+		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	}
+	return($this->postStartDateTime);
+}
+
+$this->postStartDateTime = $newpostStartDateTime;
+}
+
+/**
+ * accessor method for postTitle
+ * @return string value of postTitle
+ */
+public function getpostTitle() : void {
+	return ($this->postTitle);
+}
+/**
+ * mutator method for postTitle
+ * @param string $newPostTitle is the title of the post
+ **/
+public function setpostTitle($newPostTitle) : void {
+
+	return($this->postTitle);
+
+	$this->postTitle = $newpostTitle;
+}
+
+/**
 	 * inserts this Article into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
