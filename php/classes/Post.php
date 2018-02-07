@@ -345,11 +345,11 @@ public function setpostTitle($newPostTitle) : void {
 	public function delete(\PDO $pdo) : void {
 
 		// create query template
-		$query = "DELETE FROM article WHERE articleId = :articleId";
+		$query = "DELETE FROM post WHERE postId = :postId";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holder in the template
-		$parameters = ["articleId" => $this->articleId->getBytes()];
+		$parameters = ["postId" => $this->postId->getBytes()];
 		$statement->execute($parameters);
 	}
 
@@ -363,8 +363,7 @@ public function setpostTitle($newPostTitle) : void {
 	public function update(\PDO $pdo) : void {
 
 		// create query template
-		$query = "UPDATE article SET userId = :userId, approximateReadTime = :approximateReadTime, articleTitle = :articleTitle WHERE articleId = :articleId";
-		$statement = $pdo->prepare($query);
+	$query = "UPDATE post SET postId = :postId, postOrgnaizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle";
 
 		$parameters = ["articleId" => $this->articleId->getBytes(),"userId" => $this->userId->getBytes(), "approximateReadTime" => $this->approximateReadTime, "articleTitle" => $this->articleTitle];
 		$statement->execute($parameters);
