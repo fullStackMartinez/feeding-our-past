@@ -246,7 +246,7 @@ if(strlen($newPostContent) > 4096) {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		return($this->postEndDateTime);
-	}
+
 $this->postEndDateTime = $newpostEndDateTimeArticleTitle;
 }
 
@@ -293,7 +293,7 @@ public function setpostStartDateTime($newPostStartDateTime) : void {
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
 	}
 	return($this->postStartDateTime);
-}
+
 
 $this->postStartDateTime = $newpostStartDateTime;
 }
@@ -326,11 +326,13 @@ public function setpostTitle($newPostTitle) : void {
 	public function insert(\PDO $pdo) : void {
 
 		// create query template
-		$query = "INSERT INTO post(postId, postOrgnaizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle) VALUES(:postId, :postOrganizationId, :postContent, :postEndDateTime, :postImageUrl, :postStartDateTime, :postTitle,)";
+		$query = "INSERT INTO post(postId, postOrgnaizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle) VALUES(:postId, :postOrganizationId, :postContent, :postEndDateTime, :postImageUrl, :postStartDateTime, :postTitle)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent->getBytes(), "postEndDateTime" => $this->postEndDateTime->getBytes(), "postImageUrl" => $this->postImageUrl->getBytes(), "postStartDateTime" => $this->postStartDateTime->getBytes(), "postTitle" => $this->postTitle->getBytes()];
+		$formattedDate = $this->postEndDateTime->format("Y-m-d H:i:s.u");
+		$formattedDate = $this->postStartDateTime->format("Y-m-d H:i:s.u");
+		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent, "postEndDateTime" => $formattedDate, "postImageUrl" => $this->postImageUrl, "postStartDateTime" => $formattedDate, "postTitle" => $this->postTitle];
 		$statement->execute($parameters);
 	}
 
@@ -363,9 +365,9 @@ public function setpostTitle($newPostTitle) : void {
 	public function update(\PDO $pdo) : void {
 
 		// create query template
-	$query = "UPDATE post SET postId = :postId, postOrgnaizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle";
+	$query = "UPDATE post SET postId = :postId, postOrganizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle";
 
-		$parameters = ["articleId" => $this->articleId->getBytes(),"userId" => $this->userId->getBytes(), "approximateReadTime" => $this->approximateReadTime, "articleTitle" => $this->articleTitle];
+		$parameters = ["postId" => $this->articleId->getBytes(),"userId" => $this->userId->getBytes(), "approximateReadTime" => $this->approximateReadTime, "articleTitle" => $this->articleTitle];
 		$statement->execute($parameters);
 	}
 
