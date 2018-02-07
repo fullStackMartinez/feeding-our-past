@@ -482,6 +482,47 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		return($volunteer);
 	}
 
+	/**
+	 * gets the Volunteer by name
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $volunteerName name to search for
+	 * @return \SPLFixedArray of all volunteers found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getVolunteerByVolunteerName(\PDO $pdo, string $volunteerName) : \SPLFixedArray {
+		// sanitize the name before searching
+		$volunteerName = trim($volunteerName);
+		$volunteerName = filter_var($volunteerName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($volunteerName) === true) {
+			throw(new \PDOException("not a valid volunteer name"));
+		}
+
+		// create the query template
+		$query = "SELECT volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerName = :volunteerName";
+		$statement = $pdo->prepare($query);
+
+		// bind the volunteer name to the place holder in the template
+		$parameters = ["volunteerName" => $volunteerName];
+		$statement->execute($parameters);
+
+		// grab the volunteer from mySQL
+		$volunteers = new \SPLFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while (($row = $statement->fetch()) !== false) {
+			try {
+				$volunteer = new Volunteer($row["volunteerId"], $row["volunteerActivationToken"], $row["volunteerAvailability"], $row["volunteerEmail"], $row["volunteerHash"], $row["volunteerName"], $row["volunteerPhone"], $row["volunteerSalt"]);
+				$volunteers[$volunteers->key()] = $volunteer;
+				$volunteers->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($volunteers);
+	}
+
 
 	/**
 	 * formats the state variables for JSON serialization
