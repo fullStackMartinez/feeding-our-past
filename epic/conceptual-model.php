@@ -19,6 +19,8 @@
 				<li>organizationEmail (varchar)</li>
 				<li>organizationHash (varchar)</li>
 				<li>organizationHoursOpen (varchar)</li>
+				<li>organizationLatX</li>
+				<li>organizationLongY</li>
 				<li>organizationName (varchar)</li>
 				<li>organizationPhone (varchar)</li>
 				<li>organizationSalt (varchar)</li>

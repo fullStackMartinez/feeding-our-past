@@ -521,4 +521,38 @@ class Organization implements \JsonSerializable {
 		//save the string
 		$this->organizationPhone = $newOrganizationPhone;
 	}
+
+	/**
+	 * accessor method for password salt
+	 *
+	 * @return string representation of the salt hexadecimal
+	 **/
+	public function getOrganizationSalt(): string {
+		return $this->organizationSalt;
+	}
+
+	/**
+	 * mutator method for organization password salt
+	 *
+	 * @param string $newOrganizationSalt
+	 * @throws \InvalidArgumentException if $newOrganizationSalt is not safe or not a string
+	 * @throws \RangeException if password salt is not exactly 64 characters
+	 * @throws \Exception if there is another exception, or if salt is not returned as a string
+	 **/
+	public function setOrganizationSalt(string $newOrganizationSalt): void {
+		//validate that salt is correctly formatted
+		$newOrganizationSalt = trim($newOrganizationSalt);
+		$newOrganizationSalt = strtolower($newOrganizationSalt);
+		//validate salt as a string representation of a hexadecimal
+		if(!ctype_xdigit($newOrganizationSalt)) {
+			throw(new \InvalidArgumentException("sorry, but password salt is not secure or it is empty"));
+		}
+		//validate salt is exactly 64 characters
+		if(strlen($newOrganizationSalt) !== 64) {
+			throw (new \RangeException("sorry, but password salt has to be 64 characters"));
+		}
+		//save the password salt
+		$this->organizationSalt = $newOrganizationSalt;
+	}
+
 }

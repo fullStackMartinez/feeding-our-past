@@ -20,6 +20,8 @@ CREATE TABLE organization (
 	organizationEmail VARCHAR(128) NOT NULL,
 	organizationHash CHAR (128) NOT NULL,
 	organizationHoursOpen VARCHAR(64) NOT NULL,
+	organizationLatX FLOAT(4) NOT NULL,
+	organizationLongY FLOAT(4) NOT NULL,
 	organizationName VARCHAR(255) NOT NULL,
 	organizationPhone VARCHAR(32) NOT NULL,
 	organizationSalt CHAR(64) NOT NULL,
