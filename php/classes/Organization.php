@@ -131,7 +131,7 @@ class Organization implements \JsonSerializable {
 			$this->setOrganizationPhone($newOrganizationPhone);
 			$this->setOrganizationSalt($newOrganizationSalt);
 			$this->setOrganizationUrl($newOrganizationUrl);
-		} catch(|\InvalidArgumentException | \RangeException | |\TypeError | |\Exception $exception) {
+		} catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception) {
 			//determine which of the exceptions will be thrown
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -424,5 +424,69 @@ class Organization implements \JsonSerializable {
 		}
 		//save the password hash
 		$this->organizationHash = $newOrganizationHash;
+	}
+
+	/**
+	 * accessor method for hours of operation of organization
+	 *
+	 * @return string hours organization is open
+	 **/
+	public function getOrganizationHoursOpen(): string {
+		return ($this->organizationHoursOpen);
+	}
+
+	/**
+	 * mutator method for hours of operation string
+	 *
+	 * @param string $newOrganizationHoursOpen hours the organization is open
+	 * @throws \InvalidArgumentException if $newOrganizationHoursOpen is not safe or not a string
+	 * @throws \RangeException if hours open string is not less than or equal to 64 characters
+	 * @throws \TypeError if there is a typo or response is not a string
+	 **/
+	public function setOrganizationHoursOpen(string $newOrganizationHoursOpen): void {
+		//validate hours of operation string security
+		$newOrganizationHoursOpen = trim($newOrganizationHoursOpen);
+		$newOrganizationHoursOpen = filter_var($newOrganizationHoursOpen, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationHoursOpen) === true) {
+			throw(new \InvalidArgumentException("sorry, but the hours of operation you gave is not safe or empty"));
+		}
+		//verify the string is within 64 characters
+		if(strlen($newOrganizationHoursOpen) > 64) {
+			throw(new \RangeException("sorry, but the hours of operation must not be greater that 64 characters"));
+		}
+		//save the string
+		$this->organizationHoursOpen = $newOrganizationHoursOpen;
+	}
+
+	/**
+	 * accessor method for hours of operation of organization
+	 *
+	 * @return string hours organization is open
+	 **/
+	public function getOrganizationHoursOpen(): string {
+		return ($this->organizationHoursOpen);
+	}
+
+	/**
+	 * mutator method for hours of operation string
+	 *
+	 * @param string $newOrganizationHoursOpen hours the organization is open
+	 * @throws \InvalidArgumentException if $newOrganizationHoursOpen is not safe or not a string
+	 * @throws \RangeException if hours open string is not less than or equal to 64 characters
+	 * @throws \TypeError if there is a typo or response is not a string
+	 **/
+	public function setOrganizationHoursOpen(string $newOrganizationHoursOpen): void {
+		//validate hours of operation string security
+		$newOrganizationHoursOpen = trim($newOrganizationHoursOpen);
+		$newOrganizationHoursOpen = filter_var($newOrganizationHoursOpen, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationHoursOpen) === true) {
+			throw(new \InvalidArgumentException("sorry, but the hours of operation you gave is not safe or empty"));
+		}
+		//verify the string is within 64 characters
+		if(strlen($newOrganizationHoursOpen) > 64) {
+			throw(new \RangeException("sorry, but the hours of operation must not be greater that 64 characters"));
+		}
+		//save the string
+		$this->organizationHoursOpen = $newOrganizationHoursOpen;
 	}
 }
