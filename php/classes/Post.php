@@ -326,11 +326,11 @@ public function setpostTitle($newPostTitle) : void {
 	public function insert(\PDO $pdo) : void {
 
 		// create query template
-		$query = "INSERT INTO article(articleId, userId, articleTitle, articleTitle) VALUES(:articleId, :userId, :approximateReadTime, :articleTitle)";
+		$query = "INSERT INTO post(postId, postOrgnaizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle) VALUES(:postId, :postOrganizationId, :postContent, :postEndDateTime, :postImageUrl, :postStartDateTime, :postTitle,)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = ["articleId" => $this->articleId->getBytes(), "userId" => $this->userId->getBytes(), "approximateReadTime" => $this->approximateReadTime, "articleTitle" => $this->articleTitle];
+		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent->getBytes(), "postEndDateTime" => $this->postEndDateTime->getBytes(), "postImageUrl" => $this->postImageUrl->getBytes(), "postStartDateTime" => $this->postStartDateTime->getBytes(), "postTitle" => $this->postTitle->getBytes()];
 		$statement->execute($parameters);
 	}
 
