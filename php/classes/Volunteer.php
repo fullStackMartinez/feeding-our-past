@@ -344,11 +344,28 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 			throw(new \InvalidArgumentException("volunteer salt does not contain all hexadecimal digits"));
 		}
 		// enforce that the salt is exactly 64 characters
-		if(strlen($newVolunteereSalt) !== 64) {
+		if(strlen($newVolunteerSalt) !== 64) {
 			throw(new \RangeException("volunteer salt must be 64 characters"));
 		}
 		// store the salt
 		$this->volunteerSalt = $newVolunteerSalt;
+	}
+
+	/**
+	 * inserts this Volunteer into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) : void {
+		// create query template
+		$query = "INSERT INTO volunteer(volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt) VALUES (:volunteerID, :volunteerActivationToken, :volunteerAvailability, :volunteerEmail, :volunteerHash, :volunteerName, :volunteerPhone, :volunteerSalt)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to te place holders in the template
+		$parameters = ["volunteerId" => $this->volunteerId->getBytes(), "volunteerActivationToken" => $this->volunteerActivationToken, "volunteerAvailability" => $this->volunteerAvailability, "volunteerEmail" => $this->volunteerEmail, "volunteerHash" => $this->volunteerHash, "volunteerName" => $this->volunteerName, "volunteerPhone" => $this->volunteerPhone, "volunteerSalt" => $this->volunteerSalt];
+		$statement->execute($parameters);
 	}
 
 
