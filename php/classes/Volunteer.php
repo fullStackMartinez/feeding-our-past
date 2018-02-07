@@ -368,6 +368,23 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * deletes this Volunteer from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) : void {
+		// create query template
+		$query = "DELETE FROM volunteer WHERE volunteerId = :volunteerId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["volunteerId" => $this->volunteerId->getBytes()];
+		$statement->execute($parameters);
+	}
+
 
 	/**
 	 * formats the state variables for JSON serialization
