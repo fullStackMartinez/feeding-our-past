@@ -593,6 +593,6 @@ class Organization implements \JsonSerializable {
 	 **/
 	public function insert(\PDO $pdo): void {
 		//this will create a query template
-		$query = "INSERT INTO organization(organizationId, organization )"
+		$query = "INSERT INTO organization(organizationId, organizationActivationToken)"
 	}
 }
