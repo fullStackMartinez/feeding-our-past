@@ -459,34 +459,34 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for hours of operation of organization
+	 * accessor method for organization name
 	 *
-	 * @return string hours organization is open
+	 * @return string organization name
 	 **/
-	public function getOrganizationHoursOpen(): string {
-		return ($this->organizationHoursOpen);
+	public function getOrganizationName(): string {
+		return ($this->organizationName);
 	}
 
 	/**
-	 * mutator method for hours of operation string
+	 * mutator method for organization name
 	 *
-	 * @param string $newOrganizationHoursOpen hours the organization is open
-	 * @throws \InvalidArgumentException if $newOrganizationHoursOpen is not safe or not a string
-	 * @throws \RangeException if hours open string is not less than or equal to 64 characters
+	 * @param string $newOrganizationName name of the organization
+	 * @throws \InvalidArgumentException if $newOrganizationName is not safe or not a string
+	 * @throws \RangeException if name string is not less than or equal to 255 characters
 	 * @throws \TypeError if there is a typo or response is not a string
 	 **/
-	public function setOrganizationHoursOpen(string $newOrganizationHoursOpen): void {
-		//validate hours of operation string security
-		$newOrganizationHoursOpen = trim($newOrganizationHoursOpen);
-		$newOrganizationHoursOpen = filter_var($newOrganizationHoursOpen, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newOrganizationHoursOpen) === true) {
-			throw(new \InvalidArgumentException("sorry, but the hours of operation you gave is not safe or empty"));
+	public function setOrganizationName(string $newOrganizationName): void {
+		//validate name security
+		$newOrganizationName = trim($newOrganizationName);
+		$newOrganizationName = filter_var($newOrganizationName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationName) === true) {
+			throw(new \InvalidArgumentException("sorry, but the organization name you gave is not safe or empty"));
 		}
-		//verify the string is within 64 characters
-		if(strlen($newOrganizationHoursOpen) > 64) {
-			throw(new \RangeException("sorry, but the hours of operation must not be greater that 64 characters"));
+		//verify the string is within 255 characters
+		if(strlen($newOrganizationName) > 255) {
+			throw(new \RangeException("sorry, but the name of the organization must not be greater that 255 characters"));
 		}
 		//save the string
-		$this->organizationHoursOpen = $newOrganizationHoursOpen;
+		$this->organizationName = $newOrganizationName;
 	}
 }
