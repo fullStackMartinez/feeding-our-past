@@ -489,4 +489,36 @@ class Organization implements \JsonSerializable {
 		//save the string
 		$this->organizationName = $newOrganizationName;
 	}
+
+	/**
+	 * accessor method for organization phone number
+	 *
+	 * @return string organization phone number
+	 **/
+	public function getOrganizationPhone(): string {
+		return ($this->organizationPhone);
+	}
+
+	/**
+	 * mutator method for organization phone number
+	 *
+	 * @param string $newOrganizationPhone phone number of the organization
+	 * @throws \InvalidArgumentException if $newOrganizationPhone is not safe or not a string
+	 * @throws \RangeException if phone string is not less than or equal to 32 characters
+	 * @throws \TypeError if there is a typo or response is not a string
+	 **/
+	public function setOrganizationPhone(string $newOrganizationPhone): void {
+		//validate phone security
+		$newOrganizationPhone = trim($newOrganizationPhone);
+		$newOrganizationPhone = filter_var($newOrganizationPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newOrganizationPhone) === true) {
+			throw(new \InvalidArgumentException("sorry, but the organization phone number you gave is not safe or empty"));
+		}
+		//verify the string is within 32 characters
+		if(strlen($newOrganizationPhone) > 32) {
+			throw(new \RangeException("sorry, but the phone number must not be greater that 32 characters"));
+		}
+		//save the string
+		$this->organizationPhone = $newOrganizationPhone;
+	}
 }
