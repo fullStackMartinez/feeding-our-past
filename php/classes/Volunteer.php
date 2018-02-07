@@ -24,7 +24,7 @@ class Volunteer implements \JsonSerializable {
 	private $volunteerId;
 	/**
 	 * token handed out to verify that the Volunteer is valid and not malicious
-	 * @var $volunteerActivationToken
+	 * @var string $volunteerActivationToken
 	 **/
 	private $volunteerActivationToken;
 	/**
@@ -39,7 +39,7 @@ class Volunteer implements \JsonSerializable {
 	private $volunteerEmail;
 	/**
 	 * hash for Volunteer password
-	 * @var $volunteerHash
+	 * @var string $volunteerHash
 	 **/
 	private $volunteerHash;
 	/**
@@ -54,7 +54,7 @@ class Volunteer implements \JsonSerializable {
 	private $volunteerPhone;
 	/**
 	 * salt for Volunteer password
-	 * @var $volunteerSalt
+	 * @var string $volunteerSalt
 	 **/
 	private $volunteerSalt;
 
@@ -522,7 +522,6 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		}
 		return ($volunteers);
 	}
-
 
 	/**
 	 * formats the state variables for JSON serialization
