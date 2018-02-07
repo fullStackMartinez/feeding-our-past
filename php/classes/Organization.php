@@ -218,7 +218,7 @@ class Organization implements \JsonSerializable {
 	public function setOrganizationAddressCity(string $newOrganizationAddressCity) : void {
 		//validate address is safe
 		$newOrganizationAddressCity = trim($newOrganizationAddressCity);
-		$newOrganizationAddressCity = filter_var($newOrganizationAddressCity, FILTER_SANITZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newOrganizationAddressCity = filter_var($newOrganizationAddressCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newOrganizationAddressCity) ===true) {
 			throw(new \InvalidArgumentException("sorry, but city address is unsafe or empty"));
 		}
@@ -555,4 +555,44 @@ class Organization implements \JsonSerializable {
 		$this->organizationSalt = $newOrganizationSalt;
 	}
 
+	/**
+	 *accessor method for organization Url
+	 *
+	 *@return string of organization Url
+	 **/
+	public function getOrganizationUrl(): string {
+		return ($this->organizationUrl);
+	}
+
+	/**
+	 * mutator method for organization Url
+	 *
+	 * @param string $newOrganizationUrl returned value of organizations Url
+	 * @throws \InvalidArgumentException if $newOrganizationUrl is not safe or not a string
+	 * @throws \RangeException if Url is not equal to or less than 255 characters
+	 * @throws \Exception if there is another exception, or if Url is not returned as a string
+	 */
+	public function setOrganizationUrl(string $newOrganizationUrl): void {
+		//validate Url is safe
+		$newOrganizationUrl = trim($newOrganizationUrl);
+		$newOrganizationUrl = filter_var($newOrganizationUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		//validate that url is less than or equal to 255 characters
+		if(strlen($newOrganizationUrl) > 255) {
+			throw(new \RangeException("sorry, but the url you have given must be less than 255 characters"));
+		}
+		//save organization url
+		$this->organizationUrl = $newOrganizationUrl;
+	}
+
+	/**
+	 * inserts the organization profile into the MySQL database
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when any MySQL related error occurs
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo): void {
+		//this will create a query template
+		$query = "INSERT INTO organization(organizationId, organization )"
+	}
 }
