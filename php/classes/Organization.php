@@ -216,6 +216,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if there is a type error or @newOrganizationAddressCity is not a string
 	 **/
 	public function setOrganizationAddressCity(string $newOrganizationAddressCity) : void {
+
 		//validate address is safe
 		$newOrganizationAddressCity = trim($newOrganizationAddressCity);
 		$newOrganizationAddressCity = filter_var($newOrganizationAddressCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -248,6 +249,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if there is an error with the string
 	 **/
 	public function setOrganizationAddressState(string $newOrganizationAddressState) : void {
+
 		//validate safety of address
 		$newOrganizationAddressState = trim($newOrganizationAddressState);
 		$newOrganizationAddressState = filter_var($newOrganizationAddressState, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -280,6 +282,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if street address has a typo or not a string
 	 **/
 	public function setOrganizationAddressStreet(string $newOrganizationAddressStreet): void {
+
 		//validate street address security
 		$newOrganizationAddressStreet = trim($newOrganizationAddressStreet);
 		$newOrganizationAddressStreet = filter_var($newOrganizationAddressStreet, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -312,6 +315,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if zip has a typo or not a string
 	 **/
 	public function setOrganizationAddressZip(string $newOrganizationAddressZip): void {
+
 		//validate street address security
 		$newOrganizationAddressZip = trim($newOrganizationAddressZip);
 		$newOrganizationAddressZip = filter_var($newOrganizationAddressZip, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -344,6 +348,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if there is a typo or response is not a string
 	 **/
 	public function setOrganizationDonationAccepted(string $newOrganizationDonationAccepted): void {
+
 		//validate donation accepted string security
 		$newOrganizationDonationAccepted = trim($newOrganizationDonationAccepted);
 		$newOrganizationDonationAccepted = filter_var($newOrganizationDonationAccepted, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -376,6 +381,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if email has a typo or not a string
 	 **/
 	public function setOrganizationEmail(string $newOrganizationEmail): void {
+
 		//validate email security
 		$newOrganizationEmail = trim($newOrganizationEmail);
 		$newOrganizationEmail = filter_var($newOrganizationEmail, FILTER_VALIDATE_EMAIL);
@@ -408,6 +414,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if password hash has a typo or not a string
 	 **/
 	public function setOrganizationHash(string $newOrganizationHash): void {
+
 		//validate hash format
 		$newOrganizationHash = trim($newOrganizationHash);
 		$newOrganizationHash = strtolower($newOrganizationHash);
@@ -444,6 +451,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if there is a typo or response is not a string
 	 **/
 	public function setOrganizationHoursOpen(string $newOrganizationHoursOpen): void {
+
 		//validate hours of operation string security
 		$newOrganizationHoursOpen = trim($newOrganizationHoursOpen);
 		$newOrganizationHoursOpen = filter_var($newOrganizationHoursOpen, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -476,6 +484,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if there is a typo or response is not a string
 	 **/
 	public function setOrganizationName(string $newOrganizationName): void {
+
 		//validate name security
 		$newOrganizationName = trim($newOrganizationName);
 		$newOrganizationName = filter_var($newOrganizationName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -508,6 +517,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if there is a typo or response is not a string
 	 **/
 	public function setOrganizationPhone(string $newOrganizationPhone): void {
+
 		//validate phone security
 		$newOrganizationPhone = trim($newOrganizationPhone);
 		$newOrganizationPhone = filter_var($newOrganizationPhone, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -543,10 +553,12 @@ class Organization implements \JsonSerializable {
 		//validate that salt is correctly formatted
 		$newOrganizationSalt = trim($newOrganizationSalt);
 		$newOrganizationSalt = strtolower($newOrganizationSalt);
+
 		//validate salt as a string representation of a hexadecimal
 		if(!ctype_xdigit($newOrganizationSalt)) {
 			throw(new \InvalidArgumentException("sorry, but password salt is not secure or it is empty"));
 		}
+
 		//validate salt is exactly 64 characters
 		if(strlen($newOrganizationSalt) !== 64) {
 			throw (new \RangeException("sorry, but password salt has to be 64 characters"));
@@ -573,9 +585,11 @@ class Organization implements \JsonSerializable {
 	 * @throws \Exception if there is another exception, or if Url is not returned as a string
 	 */
 	public function setOrganizationUrl(string $newOrganizationUrl): void {
+
 		//validate Url is safe
 		$newOrganizationUrl = trim($newOrganizationUrl);
 		$newOrganizationUrl = filter_var($newOrganizationUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
 		//validate that url is less than or equal to 255 characters
 		if(strlen($newOrganizationUrl) > 255) {
 			throw(new \RangeException("sorry, but the url you have given must be less than 255 characters"));
@@ -592,10 +606,12 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo): void {
+
 		//this will create a query template
 		$query = "INSERT INTO organization(organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl) VALUES (:organizationId, :organizationActivationToken, :organizationAddressCity, :organizationAddressState, :organizationAddressStreet, :organizationAddressZip, :organizationDonationAccepted, :organizationEmail, :organizationHash, :organizationHoursOpen, :organizationLatX, :organizationLongY, :organizationName, :organizationPhone, :organizationSalt, :organizationUrl)";
 		$statement = $pdo->prepare($query);
 
+		//combines the member variables of the class to the query template placeholders
 		$parameters = ["organizationId" => $this->organizationId->getBytes(), "organizationActivationToken" =>$this->organizationActivationToken, "organizationAddressCity" =>$this->organizationAddressCity, "organizationAddressState" =>$this->organizationAddressState, "organizationAddressStreet" =>$this->organizationAddressStreet, "organizationAddressZip" =>$this->organizationAddressZip, "organizationDonationAccepted" =>$this->organizationDonationAccepted, "organizationEmail" =>$this->organizationEmail, "organizationHash" =>$this->organizationHash, "organizationHoursOpen" =>$this->organizationHoursOpen, "organizationLatX" =>$this->organizationLatX, "organizationLongY" =>$this->organizationLongY, "organizationName" =>$this->organizationName, "organizationPhone" =>$this->organizationPhone, "organizationSalt" =>$this->organizationSalt, "organizationUrl" =>$this->organizationUrl];
 		$statement->execute($parameters);
 	}
@@ -603,6 +619,39 @@ class Organization implements \JsonSerializable {
 	/**
 	 * this will delete the organization profile form the MySQL database
 	 *
-	 * @param
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException if and when MySQL errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo): void {
+
+		//this will create the query template to delete a profile
+		$query = "DELETE FROM organization WHERE organizationId = :organizationId";
+		$statement = $pdo->prepare($query);
+
+		//combine the member variables of this class to the template placeholders
+		$parameters = ["organizationId" =>$this->organizationId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * this will update the organization profile from MySQL database
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException if and when a MySQL database error occus
+	 **/
+	public function update(\PDO $pdo): void {
+
+		//this will create a query template to update the organization profile in MySQL
+		$query = "UPDATE organization SET organizationActivationToken = :organizationActivationToken, organizationAddressCity = :organizationAddressCity, organizationAddressState = :organizationAddressState, organizationAddressStreet = :organizationAddressStreet, organizationAddressZip = :organizationAddressZip, organizationDonationAccepted = :organizationDonationAccepted, organizationEmail = :organizationEmail, organizationHash = :organizationHash, organizationHoursOpen = :organizationHoursOpen, organizationLatX = :organizationLatX, organizationLongY = :organizationLongY, organizationName = :organizationName, organizationPhone = :organizationPhone, organizationSalt = :organizationSalt, organizationUrl = :organizationUrl WHERE organizationId = :organizationId";
+		$statement = $pdo->prepare($query);
+
+		//combine the member variables of this class tot he template placeholders
+		$parameters = ["organizationId" => $this->organizationId->getBytes(), "organizationActivationToken" =>$this->organizationActivationToken, "organizationAddressCity" =>$this->organizationAddressCity, "organizationAddressState" =>$this->organizationAddressState, "organizationAddressStreet" =>$this->organizationAddressStreet, "organizationAddressZip" =>$this->organizationAddressZip, "organizationDonationAccepted" =>$this->organizationDonationAccepted, "organizationEmail" =>$this->organizationEmail, "organizationHash" =>$this->organizationHash, "organizationHoursOpen" =>$this->organizationHoursOpen, "organizationLatX" =>$this->organizationLatX, "organizationLongY" =>$this->organizationLongY, "organizationName" =>$this->organizationName, "organizationPhone" =>$this->organizationPhone, "organizationSalt" =>$this->organizationSalt, "organizationUrl" =>$this->organizationUrl];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 *
 	 */
 }
