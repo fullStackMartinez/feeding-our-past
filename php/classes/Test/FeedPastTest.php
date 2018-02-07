@@ -72,7 +72,30 @@ abstract class FeedPastTest extends TestCase {
 		return (Factory::DELETE_ALL());
 	}
 
+	/**
+	 * sets up the database connection and provides it to PHPUnit
+	 *
+	 * @see <https://phpunit.de/manual/current/en/database.html#database.configuration-of-a-phpunit-database-testcase>
+	 * @return Connection PHPUnit database connection interface
+	 **/
+	public final function getConnection(): Connection {
+		// if the connection hasn't been established, create it
+		if($this->connection === null) {
+			// connect to mySQL and provide the interface to PHPUnit
+			$config = readConfig("/etc/apache2/capstone-mysql/feedkitty.ini");
+			$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/feedkitty.ini");
+			$this->connection = $this->createDefaultDBConnection($pdo, $config["database"]);
 
+		}
+		return ($this->connection);
+	}
 
-
+	/**
+	 * returns the actual PDO object; this is a convenience method
+	 *
+	 * @return \PDO active PDO object
+	 **/
+	public final function getPDO() {
+		return ($this->getConnection()->getConnection());
+	}
 }
