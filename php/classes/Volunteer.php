@@ -411,7 +411,7 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getVolunteerByVolunteerId(\PDO $pdo, $volunteerId) : ?Profile {
+	public static function getVolunteerByVolunteerId(\PDO $pdo, $volunteerId) : ?Volunteer {
 		// sanitize the VolunteerId before searching
 		try {
 			$volunteerId = self::validateUuid($volunteerId);
@@ -425,6 +425,46 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 
 		// bind the volunteer id to the place holder in the template
 		$parameters = ["volunteerId" => $volunteerId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the volunteer from mySQL
+		try {
+			$volunteer = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$volunteer = new Volunteer($row["volunteerId"], $row["volunteerActivationToken"], $row["volunteerAvailability"], $row["volunteerEmail"], $row["volunteerHash"], $row["volunteerName"], $row["volunteerPhone"], $row["volunteerSalt"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($volunteer);
+	}
+
+	/**
+	 * gets this Volunteer by email
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $volunteerEmail email to search for
+	 * @return Volunteer|null Volunteer found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getVolunteerByVolunteerEmail(\PDO $pdo, $volunteerEmail) : ?Volunteer {
+		// sanitize the email before searching
+		$volunteerEmail = trim($volunteerEmail);
+		$volunteerEmail = filter_var($volunteerEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($volunteerEmail) === true) {
+			throw(new \PDOException("volunteer email is invalid"));
+		}
+
+		// create query template
+		$query = "SELECT volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerEmail = :volunteerEmail";
+		$statement = $pdo->prepare($query);
+
+		// bind the volunteer email to the place holder in the template
+		$parameters = ["volunteerEmail" => $volunteerEmail];
 		$statement->execute($parameters);
 
 		// grab the volunteer from mySQL
