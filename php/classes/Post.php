@@ -366,6 +366,7 @@ public function setpostTitle($newPostTitle) : void {
 
 		// create query template
 		$query = "UPDATE post SET postId = :postId, postOrganizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle";
+		$statement = $pdo->prepare($query);
 
 		$formattedDate = $this->postEndDateTime->format("Y-m-d H:i:s.u");
 		$formattedDate = $this->postStartDateTime->format("Y-m-d H:i:s.u");
@@ -388,9 +389,8 @@ public function setpostTitle($newPostTitle) : void {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-mmmmmmmmmm
 		// create query template
-		$query = "SELECT postId, userId, approximateReadTime, postTitle FROM post WHERE postId = :postId";
+		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postId = :postId";
 		$statement = $pdo->prepare($query);
 		// bind the post id to the place holder in the template
 		$parameters = ["postId" => $postId->getBytes()];
@@ -402,7 +402,7 @@ mmmmmmmmmm
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$post = new post($row["postId"], $row["userId"], $row["approximateReadTime"], $row["postTitle"]);
+				$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"] $row["postTitle"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
