@@ -229,7 +229,7 @@ class VolunteerTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidVolunteerByName() : void {
 		// grab a name that does not exist
-		$volunteer = Volunteer::getVolunteerByVolunteerName($this->getPDO(), "flash");
+		$volunteer = Volunteer::getVolunteerByVolunteerName($this->getPDO(), "Fake Name");
 		var_dump($volunteer);
 		$this->assertCount(0, $volunteer);
 	}
@@ -257,6 +257,15 @@ class VolunteerTest extends FeedPastTest {
 		$this->assertEquals($pdoVolunteer->getVolunteerName(), $this->VALID_NAME);
 		$this->assertEquals($pdoVolunteer->getVolunteerPhone(), $this->VALID_PHONE);
 		$this->assertEquals($pdoVolunteer->getVolunteerSalt(), $this->VALID_SALT);
+	}
+
+	/**
+	 * test grabbing a Volunteer by an email that does not exist
+	 **/
+	public function testGetInvalidVolunteerByEmail() : void {
+		// grab an email that does not exist
+		$volunteer = Volunteer::getVolunteerByVolunteerEmail($this->getPDO(), "does@not.exist");
+		$this->assertNull($volunteer);
 	}
 
 }
