@@ -135,6 +135,28 @@ class VolunteerTest extends FeedPastTest {
 		$this->assertEquals($pdoVolunteer->getVolunteerSalt(), $this->VALID_SALT);
 	}
 
+	/**
+	 * test creating a Volunteer and then deleting it
+	 **/
+	public function testDeleteValidVolunteer() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
+
+		// create a new Volunteer and insert into mySQL
+		$volunteerId = generateUuidV4();
+		$volunteer = new Volunteer($volunteerId, $this->VALID_ACTIVATION, $this->VALID_AVAILABILITY, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT);
+		$volunteer->insert($this->getPDO());
+
+		// delete the Volunteer from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$volunteer->delete($this->getPDO());
+
+		// grab the data from mySQL and enforce the Volunteer does not exist
+		$pdoVolunteer = Volunteer::getVolunteerByVolunteerId($this->getPDO(), $volunteer->getVolunteerId());
+		$this->assertNull($pdoVolunteer);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("volunteer"));
+	}
+
 
 
 
