@@ -670,7 +670,7 @@ class Organization implements \JsonSerializable {
 		// create query template for grabbing organization info through organization id
 		$query = "SELECT organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl FROM organization WHERE organizationId = :organizationId";
 		$statement = $pdo->prepare($query);
-		//combine the member variables of this class tot he template placeholders
+		//combine the member variables of this class to the template placeholders
 		$parameters = ["organizationId" => $organizationId->getBytes()];
 		$statement->execute($parameters);
 		// grab the organization profile from mySQL
@@ -688,5 +688,41 @@ class Organization implements \JsonSerializable {
 		return ($organization);
 	}
 
+	/**
+	 * get the organization profile by organization activation token
+	 *
+	 * @param string $organizationActivationToken
+	 * @param \PDO object $pdo
+	 * @return Organization|null will show organization id or null if not found/doesn't exist
+	 * @throws \PDOException when mySQL errors occur
+	 * @throws \TypeError when data type are incorrect
+	 **/
+	public
+	static function getOrganizationByOrganizationActivationToken(\PDO $pdo, string $organizationActivationToken) : ?Organization {
+		//make sure activation token is in the right format and that it is a string representation of a hexadecimal
+		$organizationActivationToken = trim($organizationActivationToken);
+		if(ctype_xdigit($organizationActivationToken) === false) {
+			throw(new \InvalidArgumentException("sorry, but the provided profile activation token is empty or is in the wrong format"));
+		}
+		// create query template for grabbing organization info through organization activation token
+		$query = "SELECT  organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl FROM organization WHERE organizationActivationToken = :organizationActivationToken";
+		$statement = $pdo->prepare($query);
+		//combine the member variables of this class to the template placeholders
+		$parameters = ["organizationActivationToken" => $organizationActivationToken];
+		$statement->execute($parameters);
+		// grab the organization profile from mySQL
+		try {
+			$organization = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"], $row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, try again
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($organization);
+	}
 
 }
