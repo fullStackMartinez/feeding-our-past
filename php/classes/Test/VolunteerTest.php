@@ -229,7 +229,7 @@ class VolunteerTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidVolunteerByName() : void {
 		// grab a name that does not exist
-		$volunteer = Volunteer::getVolunteerByVolunteerName($this->getPDO(), "Fake Name");
+		$volunteer = Volunteer::getVolunteerByVolunteerName($this->getPDO(), "flash");
 		var_dump($volunteer);
 		$this->assertCount(0, $volunteer);
 	}
