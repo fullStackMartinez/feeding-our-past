@@ -114,6 +114,8 @@ class Organization implements \JsonSerializable {
 	 * @param string $newOrganizationEmail string that contains organization email
 	 * @param string $newOrganizationHash string that contains the profile hash
 	 * @param string $newOrganizationHoursOpen string that indicates the hours of operation
+	 * @param float $newOrganizationLatX float that gives location latitude
+	 * @param float $newOrganizationLongY float that gives location longitude
 	 * @param string $newOrganizationName string of the name of organization
 	 * @param string $newOrganizationPhone string that contains phone contact information of organization
 	 * @param string $newOrganizationSalt string containing salt for profile password
@@ -125,7 +127,7 @@ class Organization implements \JsonSerializable {
 	 * @Documentation http://php.net/manual/en/language.exceptions.php
 	 * @Documentation https://secure.php.net/manual/en/language.oop5.decon.php
 	 **/
-	function __construct($newOrganizationId, ?string $newOrganizationActivationToken, string $newOrganizationAddressCity, string $newOrganizationAddressState, string $newOrganizationAddressStreet, string $newOrganizationAddressZip, string $newOrganizationDonationAccepted, string $newOrganizationEmail, string $newOrganizationHash, string $newOrganizationHoursOpen, string $newOrganizationName, string $newOrganizationPhone, string $newOrganizationSalt, ?string $newOrganizationUrl) {
+	function __construct($newOrganizationId, ?string $newOrganizationActivationToken, string $newOrganizationAddressCity, string $newOrganizationAddressState, string $newOrganizationAddressStreet, string $newOrganizationAddressZip, string $newOrganizationDonationAccepted, string $newOrganizationEmail, string $newOrganizationHash, string $newOrganizationHoursOpen, float $newOrganizationLatX, float $newOrganizationLongY, string $newOrganizationName, string $newOrganizationPhone, string $newOrganizationSalt, ?string $newOrganizationUrl) {
 		try {
 			$this->setOrganizationId($newOrganizationId);
 			$this->setOrganizationActivationToken($newOrganizationActivationToken);
@@ -137,6 +139,8 @@ class Organization implements \JsonSerializable {
 			$this->setOrganizationEmail($newOrganizationEmail);
 			$this->setOrganizationHash($newOrganizationHash);
 			$this->setOrganizationHoursOpen($newOrganizationHoursOpen);
+			$this->setOrganizationLatX($newOrganizationLatX);
+			$this->setOrganizationLongY($newOrganizationLongY);
 			$this->setOrganizationName($newOrganizationName);
 			$this->setOrganizationPhone($newOrganizationPhone);
 			$this->setOrganizationSalt($newOrganizationSalt);
