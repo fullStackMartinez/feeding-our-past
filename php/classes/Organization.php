@@ -71,6 +71,16 @@ class Organization implements \JsonSerializable {
 	 **/
 	private $organizationHoursOpen;
 	/**
+	 * this will give the latitude of the organizations location
+	 * @var float $organizationLatX
+	 **/
+	private $organizationLatX;
+	/**
+	 * this will give the longitude of the organizations location
+	 * @var float $organizationLongY
+	 **/
+	private $organizationLongY;
+	/**
 	 * this is the official display name of the organization
 	 * @var string $organizationName
 	 **/
@@ -460,10 +470,34 @@ class Organization implements \JsonSerializable {
 		}
 		//verify the string is within 64 characters
 		if(strlen($newOrganizationHoursOpen) > 64) {
-			throw(new \RangeException("sorry, but the hours of operation must not be greater that 64 characters"));
+			throw(new \RangeException("sorry, but the hours of operation must not be greater than 64 characters"));
 		}
 		//save the string
 		$this->organizationHoursOpen = $newOrganizationHoursOpen;
+	}
+
+	/**accessor method for organization location latitude
+	 *
+	 * @return float value of the organizations latitude
+	 **/
+	public function getOrganizationLatX() : ?float {
+		return ($this->organizationLatX);
+	}
+
+	/**
+	 * mutator method for organizations latitude
+	 *
+	 * @param float $newOrganizationLatX latitude of organization
+	 * @throws \RangeException if latitude is not less than or equal to 90 digits
+	 **/
+	public function setOrganizationLatX(float $newOrganizationLatX): void {
+
+		//verify the float is less than or equal to 90 digits
+		if($newOrganizationLatX > 90) {
+			throw(new \RangeException("sorry, but the latitude must not be greater than 90 digits"));
+		}
+		//save the float
+		$this->organizationLatX = $newOrganizationLatX;
 	}
 
 	/**
