@@ -725,4 +725,43 @@ class Organization implements \JsonSerializable {
 		return ($organization);
 	}
 
+	/**
+	 * get organization by organization email
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $organizationEmail email to search for
+	 * @return Organization|null will get organization or null if not found/doesn't exist
+	 * @throws \PDOException when mySQL errors occur
+	 * @throws \TypeError when data types are not incorrect
+	 **/
+	public static function getOrganizationByOrganizationEmail(\PDO $pdo, string $organizationEmail): ?Organization {
+		// sanitize the email before searching
+		$organizationEmail = trim($organizationEmail);
+		$organizationEmail = filter_var($organizationEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($organizationEmail) === true) {
+			throw(new \PDOException("sorry, but the email provided is not a valid email"));
+		}
+		// create query template
+		$query = "SELECT organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl FROM organization WHERE organizationEmail = :organizationEmail";
+		$statement = $pdo->prepare($query);
+		//combine the member variables of this class to the template placeholders
+		$parameters = ["organizationEmail" => $organizationEmail];
+		$statement->execute($parameters);
+		// grab the organization from mySQL database
+		try {
+			$organization = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"], $row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($organization);
+	}
+
+
+
 }
