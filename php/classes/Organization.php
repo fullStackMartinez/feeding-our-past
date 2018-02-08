@@ -2,7 +2,7 @@
 namespace Edu\Cnm\FeedPast;
 
 require_once("autoload.php");
-require_once(dirname(__DIR__,2) . "/vendor/autoload.php");
+require_once(dirname(__DIR__,2) . "/classes/autoload.php");
 
 
 
@@ -859,6 +859,20 @@ class Organization implements \JsonSerializable {
 			}
 		}
 		return ($organizations);
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() : array {
+		$fields = get_object_vars($this);
+
+		$fields["organizationId"] = $this->organizationId->toString();
+
+		//format the date so that the front end can consume it
+		return($fields);
 	}
 
 }
