@@ -134,6 +134,6 @@ class OrganizationTest extends FeedPastTest {
 		$numRows = $this->getConnection()->getRowCount("organization");
 		$organizationId = generateUuidV4();
 
-		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
 	}
 }
