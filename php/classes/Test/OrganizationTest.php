@@ -141,5 +141,9 @@ class OrganizationTest extends FeedPastTest {
 		$pdoOrganization = Organization::getOrganizationByOrganizationId($this->getPDO(), $organization->getOrganizationId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRownCount("organization"));
 		$this->assertEquals($pdoOrganization->getOrganizationId(), $organizationId);
+		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressState(), $this->VALID_ADDRESS_STATE);
+
 	}
 }
