@@ -156,6 +156,5 @@ class OrganizationTest extends FeedPastTest {
 		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
 		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
 		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
-
 	}
 }
