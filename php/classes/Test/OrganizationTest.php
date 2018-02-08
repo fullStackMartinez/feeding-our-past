@@ -67,22 +67,33 @@ class OrganizationTest extends FeedPastTest {
 	protected $VALID_HASH;
 
 	/**
-	 *
-	 */
+	 * valid operating hours to use
+	 * @var $VALID_HOURS_OPEN
+	 **/
+	protected $VALID_HOURS_OPEN = "8 to 5";
+
+	/**
+	 * valid latitude to use
+	 * @var
+	 **/
+
+	/**
+	 * valid longitude to use
+	 **/
 
 	/**
 	 * valid organization name to use
 	 * @var string $VALID_NAME
 	 **/
-	protected $VALID_NAME = "@phporganization";
+	protected $VALID_NAME = "phporganization";
 
 	/**
 	 * second valid organization name to use
 	 * @var string $VALID_NAME2
 	 **/
-	protected $VALID_NAME2 = "@passedtest";
+	protected $VALID_NAME2 = "phporganization2";
 
 	/**
-	 * valid
+	 * valid phone
 	 */
 }
