@@ -31,6 +31,8 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 /**
  * Here we load Ramsey's Uuid toolset
 */
+
+use Edu\Cnm\FeedPast\ValidateDate;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -77,6 +79,7 @@ private $postContent;
  * postEndDateTime state set to private
 */
 	private $postEndDateTime;
+	use ValidateDate
 
 /**
  * Post uses postImageUrl as an element
@@ -93,6 +96,7 @@ private $postImageUrl;
  * postStartDateTime state set to private
  */
 private $postStartDateTime;
+	use ValidateDate
 
 /**
  * Post uses postTitle as an element
@@ -106,19 +110,19 @@ private $postTitle;
  * constructor for Post
  *
  * Constructs the object post and associated object's states
- * @param Uuid $newPostId is the poster's unique and required id
- * @param Uuid $newPostOrganizationId is the posting organization's unique and required id
- * @param varchar $newPostContent is the content of the post
- * @param datetime $newPostEndDateTime is the required date and time the post may be removed
- * @param varchar $newPostImageUrl is the location of the image that may accompany the post
- * @param datetime $newPostStartDateTime is the required date and time the post may be added
- * @param varchar $newPostTitle is the title of the post
+ * @param string $newPostId is the poster's unique and required id
+ * @param string $newPostOrganizationId is the posting organization's unique and required id
+ * @param string $newPostContent is the content of the post
+ * @param string $newPostEndDateTime is the required date and time the post may be removed
+ * @param string $newPostImageUrl is the location of the image that may accompany the post
+ * @param string $newPostStartDateTime is the required date and time the post may be added
+ * @param string $newPostTitle is the title of the post
  * @throws \InvalidArgumentException if data types are not valid
  * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
  * @throws \TypeError if data types violate type hints
  * @throws \Exception if some other exception occurs
  * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
- * @throws and @Documentation notes are straight from Dylan McDonald's code template
+ * @throws & @Documentation notes are straight from Dylan McDonald's code template
  * Exceptions code is straight from Dylan McDonald's code
 */
 	public function __construct($newPostId, $newPostOrganizationId, $newPostContent, $newPostEndDateTime, $newPostImageUrl, $newPostStartDateTime, $newPostTitle) {
@@ -141,7 +145,7 @@ private $postTitle;
  * accessor method for postId
  * @return Uuid value of postId
 */
-	public function getpostId() : Uuid {
+	public function getPostId() : Uuid {
 		return($this->postId);
 	}
 
@@ -168,14 +172,14 @@ $this->postId = $uuid;
  * accessor method for postOrganizationId
  * @return Uuid value of postOrganizationId
  **/
-	public function getpostOrganizationId() : Uuid {
+	public function getPostOrganizationId() : Uuid {
 		return($this->postOrganizationId);
 	}
 
 /**
  * mutator method for postOrganizationId
- * @param Uuid/string $newPostOrganizationId
- * @throws \RangeException if $newUserId is not positive
+ * @param string $newPostOrganizationId
+ * @throws \RangeException if $newPostOrganizationId is not positive
  * @throws \TypeError if $newUserId is not a string or uuid
 **/
 	public function setpostOrganizationId( $newPostOrganizationId) : void {
@@ -195,7 +199,7 @@ $this->postId = $uuid;
  * accessor method for postContent
  * @return string value of postContent
 */
-	public function getpostContent() : string {
+	public function getPostContent() : string {
 		return($this->postContent);
 	}
 
@@ -208,7 +212,7 @@ $this->postId = $uuid;
 */
 	public function setpostContent(string $newPostContent) : void {
 		$newPostContent = trim($newPostContent);
-		$newPostContent = filter_var($newPostContent, FILTER_SANITIZE_STING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newPostContent = filter_var($newPostContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostContent) === true) {
 		throw(new \InvalidArgumentException("Post Content is empty"));
 		}
@@ -224,10 +228,10 @@ if(strlen($newPostContent) > 4096) {
 
 	/**
 	 * accessor method for postEndDateTime
-	 * @return datetime string value of postEndDateTime
+	 * @return \DateTime value of postEndDateTime
 	 */
-	public function getpostEndDateTime() : \DateTime {
-		return($this->postEndDateTime);
+	public function getPostEndDateTime() : \DateTime {
+		return($this->postEndDateTime) = $DateTime;
 	}
 
 	/**
@@ -245,7 +249,7 @@ if(strlen($newPostContent) > 4096) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		return($this->postEndDateTime);
+		return($this->postEndDateTime) = $DateTime;
 
 $this->postEndDateTime = $newpostEndDateTime;
 }
@@ -255,7 +259,7 @@ $this->postEndDateTime = $newpostEndDateTime;
  * accessor method for postImageUrl
  * @return string value of postImageUrl
  */
-public function getpostImageUrl() : void {
+public function getPostImageUrl() : void {
 	return ($this->postImageUrl);
 }
 /**
@@ -269,11 +273,12 @@ public function setpostImageUrl($newPostImageUrl) : void {
 $this->postImageUrl = $newpostImageUrl;
 }
 
+
 /**
  * accessor method for postStartDateTime
- * @return datetime string value of postStartDateTime
+ * @return \DateTime string value of postStartDateTime
  */
-public function getpostStartDateTime() : \DateTime {
+public function getPostStartDateTime() : \DateTime {
 	return($this->postStartDateTime);
 }
 
@@ -302,7 +307,7 @@ $this->postStartDateTime = $newpostStartDateTime;
  * accessor method for postTitle
  * @return string value of postTitle
  */
-public function getpostTitle() : void {
+public function getPostTitle() : void {
 	return ($this->postTitle);
 }
 /**
@@ -415,7 +420,7 @@ public function setpostTitle($newPostTitle) : void {
 	 * gets the post by postOrganizationId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $postOrganizationId to search by
+	 * @param  string $postOrganizationId to search by
 	 * @return \SplFixedArray SplFixedArray of posts found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
@@ -474,7 +479,7 @@ public function setpostTitle($newPostTitle) : void {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
 				try {
-					$posts = new posts($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
+					$posts = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
 					$posts[$posts->key()] = $posts;
 					$posts->next();
 				} catch(\Exception $exception) {
@@ -509,7 +514,7 @@ public function setpostTitle($newPostTitle) : void {
 				$statement->setFetchMode(\PDO::FETCH_ASSOC);
 				while(($row = $statement->fetch()) !== false) {
 					try {
-						$posts = new posts($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
+						$posts = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
 						$posts[$posts->key()] = $posts;
 						$posts->next();
 					} catch(\Exception $exception) {
@@ -550,7 +555,7 @@ catch
 	throw(new \PDOException($exception->getMessage(), 0, $exception));
 }
 			}
-			return ($posts);
+			return ($Post);
 			}
 
 			/**
