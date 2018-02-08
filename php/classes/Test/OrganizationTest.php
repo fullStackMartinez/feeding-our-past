@@ -58,7 +58,7 @@ class OrganizationTest extends FeedPastTest {
 	 * valid email to use
 	 * @var $VALID_EMAIL
 	 **/
-	protected $VALID_EMAIL = "php@phpunit.com";
+	protected $VALID_EMAIL = "php@organization.com";
 
 	/**
 	 * valid hash to use
@@ -94,6 +94,36 @@ class OrganizationTest extends FeedPastTest {
 	protected $VALID_NAME2 = "phporganization2";
 
 	/**
-	 * valid phone
+	 * valid phone to use
+	 * @var string $VALID_PHONE
+	 **/
+	protected $VALID_PHONE = "+5055555555";
+
+	/**
+	 * valid salt to use
+	 * $var $VALID_SALT
+	 **/
+	protected $VALID_SALT;
+
+	/**
+	 * valid organization url
+	 * @var $VALID_URL
+	 **/
+	protected $VALID_URL = "www.organization.com/homepage";
+
+	/**
+	 * this will create salt and hash
+	 **/
+	public final function setUp() : void {
+		parent::setUp();
+
+		$password = "efg456";
+		$this->VALID_SALT = bin2hex(random_bytes(32));
+		$this->VALID_HASH = hash_pbkdf2("ego123", $password, $this->VALID_SALT, 373255);
+		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
+	}
+
+	/**
+	 *
 	 */
 }
