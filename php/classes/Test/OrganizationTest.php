@@ -74,12 +74,15 @@ class OrganizationTest extends FeedPastTest {
 
 	/**
 	 * valid latitude to use
-	 * @var
+	 * @var $VALID_LAT
 	 **/
+	protected $VALID_LAT = "45";
 
 	/**
 	 * valid longitude to use
+	 * @var $VALID_LONG
 	 **/
+	protected $VALID_LONG = "110";
 
 	/**
 	 * valid organization name to use
@@ -131,6 +134,6 @@ class OrganizationTest extends FeedPastTest {
 		$numRows = $this->getConnection()->getRowCount("organization");
 		$organizationId = generateUuidV4();
 
-		$organization = new Organization()
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
 	}
 }
