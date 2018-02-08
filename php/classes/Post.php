@@ -49,7 +49,7 @@ use ValidateUuid;
  * postId is the primary key
  * postId is the post's unique id
  * @var Uuid $postId
- * articleId state set to private
+ * postId state set to private
 */
 private $postId;
 
@@ -247,7 +247,7 @@ if(strlen($newPostContent) > 4096) {
 		}
 		return($this->postEndDateTime);
 
-$this->postEndDateTime = $newpostEndDateTimeArticleTitle;
+$this->postEndDateTime = $newpostEndDateTime;
 }
 
 
@@ -317,7 +317,7 @@ public function setpostTitle($newPostTitle) : void {
 }
 
 /**
-	 * inserts this Article into mySQL
+	 * inserts this post into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
@@ -338,7 +338,7 @@ public function setpostTitle($newPostTitle) : void {
 
 
 	/**
-	 * deletes this article from mySQL
+	 * deletes this post from mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
@@ -356,7 +356,7 @@ public function setpostTitle($newPostTitle) : void {
 	}
 
 	/**
-	 * updates this Article in mySQL
+	 * updates this post in mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
@@ -372,52 +372,51 @@ public function setpostTitle($newPostTitle) : void {
 		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent, "postEndDateTime" => $formattedDate, "postImageUrl" => $this->postImageUrl, "postStartDateTime" => $formattedDate, "postTitle" => $this->postTitle];
 		$statement->execute($parameters);
 	}
-
 	/**
-	 * gets the Article by articeId
+	 * gets the post by postId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $articleId article id to search for
-	 * @return Article|null Article found or null if not found
+	 * @param Uuid|string $postId post id to search for
+	 * @return post|null post found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getArticleByArticleId(\PDO $pdo, $articleId) : ?Article {
-		// sanitize the articleId before searching
+	public static function getPostByPostId(\PDO $pdo, $postId) : ?post {
+		// sanitize the postId before searching
 		try {
-			$articleId = self::validateUuid($articleId);
+			$postId = self::validateUuid($postId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-
+mmmmmmmmmm
 		// create query template
-		$query = "SELECT articleId, userId, approximateReadTime, articleTitle FROM article WHERE articleId = :articleId";
+		$query = "SELECT postId, userId, approximateReadTime, postTitle FROM post WHERE postId = :postId";
 		$statement = $pdo->prepare($query);
-		// bind the article id to the place holder in the template
-		$parameters = ["articleId" => $articleId->getBytes()];
+		// bind the post id to the place holder in the template
+		$parameters = ["postId" => $postId->getBytes()];
 		$statement->execute($parameters);
 
-		// grab the article from mySQL
+		// grab the post from mySQL
 		try {
-			$article = null;
+			$post = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$article = new Article($row["articleId"], $row["userId"], $row["approximateReadTime"], $row["articleTitle"]);
+				$post = new post($row["postId"], $row["userId"], $row["approximateReadTime"], $row["postTitle"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($article);
+		return($post);
 	}
 
 	/**
-	 * gets the Article by userId
+	 * gets the post by userId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid|string $userId to search by
-	 * @return \SplFixedArray SplFixedArray of Articles found
+	 * @return \SplFixedArray SplFixedArray of posts found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
@@ -430,90 +429,90 @@ public function setpostTitle($newPostTitle) : void {
 		}
 
 		// create query template
-		$query = "SELECT articleId, userId, approximateReadTime, articleTitle FROM article WHERE userId = :userId";
+		$query = "SELECT postId, userId, approximateReadTime, postTitle FROM post WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 		// bind the user id to the place holder in the template
 		$parameters = ["userId" => $userId->getBytes()];
 		$statement->execute($parameters);
-		// build an array of articles
-		$articles = new \SplFixedArray($statement->rowCount());
+		// build an array of posts
+		$posts = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$article = new Article($row["articleId"], $row["userId"], $row["approximateReadTime"], $row["articleTitle"]);
-				[$article->key()] = $article;
-				$articles->next();
+				$post = new post($row["postId"], $row["userId"], $row["approximateReadTime"], $row["postTitle"]);
+				[$post->key()] = $post;
+				$posts->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($articles);
+		return($posts);
 	}
 
 	/**
-	 * gets the Articles by approximateReadTime
+	 * gets the posts by approximateReadTime
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param int $approximateReadTime article content to search for
-	 * @return \SplFixedArray SplFixedArray of Articles found
+	 * @param int $approximateReadTime post content to search for
+	 * @return \SplFixedArray SplFixedArray of posts found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getArticleByApproximateReadTime(\PDO $pdo, $approximateReadTime) : \SplFixedArray {
+	public static function getpostByApproximateReadTime(\PDO $pdo, $approximateReadTime) : \SplFixedArray {
 		{
 			// create query template
-			$query = "SELECT articleId, userId, approximateReadTime, articleTitle FROM article WHERE approximateReadTime = :approximateReadTime";
+			$query = "SELECT postId, userId, approximateReadTime, postTitle FROM post WHERE approximateReadTime = :approximateReadTime";
 			$statement = $pdo->prepare($query);
 			// bind the content to the place holder in the template
 			$approximateReadTime = "%$approximateReadTime%";
 			$parameters = ["approximateReadTime" => $approximateReadTime];
 			$statement->execute($parameters);
 
-			// build an array of articles
-			$articles = new \SplFixedArray($statement->rowCount());
+			// build an array of posts
+			$posts = new \SplFixedArray($statement->rowCount());
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
 				try {
-					$articles = new Articles($row["articleId"], $row["userId"], $row["approximateReadTime"], $row["articleTitle"]);
-					$articles[$articles->key()] = $articles;
-					$articles->next();
+					$posts = new posts($row["postId"], $row["userId"], $row["approximateReadTime"], $row["postTitle"]);
+					$posts[$posts->key()] = $posts;
+					$posts->next();
 				} catch(\Exception $exception) {
 					// if the row couldn't be converted, rethrow it
 					throw(new \PDOException($exception->getMessage(), 0, $exception));
 				}
 			}
 		}
-		return($articles);
+		return($posts);
 
 		/**
-		 * gets all Articles
+		 * gets all posts
 		 *
 		 * @param \PDO $pdo PDO connection object
-		 * @return \SplFixedArray SplFixedArray of Articles found or null if not found
+		 * @return \SplFixedArray SplFixedArray of posts found or null if not found
 		 * @throws \PDOException when mySQL related errors occur
 		 * @throws \TypeError when variables are not the correct data type
 		 **/
-		public static__function getAllArticles(\PDO $pdo) : \SPLFixedArray {
+		public static__function getAllposts(\PDO $pdo) : \SPLFixedArray {
 			// create query template
-			$query = "SELECT articleID, userId, approximateReadTime, articleTitle FROM article";
+			$query = "SELECT postID, userId, approximateReadTime, postTitle FROM post";
 			$statement = $pdo->prepare($query);
 			$statement->execute();
 
-			// build an array of articles
-			$articles = new \SplFixedArray($statement->rowCount());
+			// build an array of posts
+			$posts = new \SplFixedArray($statement->rowCount());
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
 				try {
-					$article = new Article($row["articleId"], $row["userId"], $row["approximateReadTime"], $row["articleTitle"]);
-					$articles[$articles->key()] = $article;
-					$articles->next();
+					$post = new post($row["postId"], $row["userId"], $row["approximateReadTime"], $row["postTitle"]);
+					$posts[$posts->key()] = $post;
+					$posts->next();
 				} catch(\Exception $exception) {
 					// if the row couldn't be converted, rethrow it
 					throw(new \PDOException($exception->getMessage(), 0, $exception));
 				}
 			}
-			return ($articles);
+			return ($posts);
 
 			/**
 			 * formats the state variables for JSON serialization
@@ -523,7 +522,7 @@ public function setpostTitle($newPostTitle) : void {
 
 			public function jsonSerialize() : array {
 				$fields = get_object_vars($this);
-				$fields["articleId"] = $this->articleId->toString();
+				$fields["postId"] = $this->postId->toString();
 				$fields["userId"] = $this->userId->toString();
 			}
 
