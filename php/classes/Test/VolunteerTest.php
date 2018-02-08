@@ -269,7 +269,7 @@ class VolunteerTest extends FeedPastTest {
 	}
 
 	/**
-	 * test grabbing a volunteer by its activation token
+	 * test grabbing a Volunteer by its activation token
 	 **/
 	public function testGetValidVolunteerByActivationToken() : void {
 		// count the number of rows and save it for later
@@ -291,6 +291,15 @@ class VolunteerTest extends FeedPastTest {
 		$this->assertEquals($pdoVolunteer->getVolunteerName(), $this->VALID_NAME);
 		$this->assertEquals($pdoVolunteer->getVolunteerPhone(), $this->VALID_PHONE);
 		$this->assertEquals($pdoVolunteer->getVolunteerSalt(), $this->VALID_SALT);
+	}
+
+	/**
+	 * test grabbing a Volunteer by an activation token that does not exist
+	 **/
+	public function testGetInvalidVolunteerByActivationToken() : void {
+		// grab an email that does not exist
+		$volunteer = Volunteer::getVolunteerByVolunteerActivationToken($this->getPDO(), "5ebc7867885cb8dd25af05b991dd5609");
+		$this->assertNull($volunteer);
 	}
 
 }
