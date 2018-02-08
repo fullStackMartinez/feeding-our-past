@@ -3,9 +3,9 @@
  * Created by PhpStorm.
  * User: petersdata
  * Date: 2/8/18
- * Time: 11:18 AM
+ * Time: 11:32 AM
  */
-namespace Edu\Cnm\FeedPast;
+namespace Edu\Cnm\DataDesign\Test;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
@@ -55,10 +55,10 @@ abstract class DataDesignTest extends TestCase {
 
 		// add all the tables for the project here
 		// THESE TABLES *MUST* BE LISTED IN THE SAME ORDER THEY WERE CREATED!!!!
-		$dataset->addTable("favorite");
 		$dataset->addTable("organization");
+		$dataset->addTable("volunteer");
 		$dataset->addTable("post");
-		$dataset->addtable("volunteer");
+		$dataset->addTable("favorite");
 		return($dataset);
 	}
 
