@@ -477,9 +477,9 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**accessor method for organization location latitude
-	 *
-	 * @return float value of the organizations latitude
-	 **/
+ *
+ * @return float value of the organizations latitude
+ **/
 	public function getOrganizationLatX() : ?float {
 		return ($this->organizationLatX);
 	}
@@ -488,16 +488,40 @@ class Organization implements \JsonSerializable {
 	 * mutator method for organizations latitude
 	 *
 	 * @param float $newOrganizationLatX latitude of organization
-	 * @throws \RangeException if latitude is not less than or equal to 90 digits
+	 * @throws \RangeException if latitude is not between 90 and -90
 	 **/
 	public function setOrganizationLatX(float $newOrganizationLatX): void {
 
-		//verify the float is less than or equal to 90 digits
-		if($newOrganizationLatX > 90) {
-			throw(new \RangeException("sorry, but the latitude must not be greater than 90 digits"));
+		//verify the float is less than or equal to 90 digits OR not less than -90
+		if($newOrganizationLatX > 90 || $newOrganizationLatX < -90) {
+			throw(new \RangeException("sorry, but the latitude must be between 90 and -90"));
 		}
 		//save the float
 		$this->organizationLatX = $newOrganizationLatX;
+	}
+
+	/**accessor method for organization location longitude
+	 *
+	 * @return float value of the organizations longitude
+	 **/
+	public function getOrganizationLongY() : ?float {
+		return ($this->organizationLongY);
+	}
+
+	/**
+	 * mutator method for organizations longitude
+	 *
+	 * @param float $newOrganizationLongY longitude of organization
+	 * @throws \RangeException if longitude is not between 180 and -180
+	 **/
+	public function setOrganizationLongY(float $newOrganizationLongY): void {
+
+		//verify the float is less than or equal to 180 digits
+		if($newOrganizationLongY > 180 || $newOrganizationLongY <-180) {
+			throw(new \RangeException("sorry, but the longitude must be between 180 and -180 digits"));
+		}
+		//save the float
+		$this->organizationLongY = $newOrganizationLongY;
 	}
 
 	/**
