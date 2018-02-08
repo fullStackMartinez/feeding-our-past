@@ -652,18 +652,41 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**
-	 * get the organization profile by the organization id (primary key)
+	 * gets the organization profile by organization id
 	 *
-	 * @param \PDO @pdo PDO connection object
-	 * @param string $organizationId the organization id to search for
-	 * @return Organization|null organization profile or null if the profile is not found
-	 * @throws \PDOException when a MySQL error happens
-	 * @throws \TypeError when the state variable is the incorrect data type
+	 * @param \PDO $pdo $pdo PDO connection object
+	 * @param string $organizationId profile id we will use to search for organization
+	 * @return Organization|null will get organization profile, or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a incorrect variable data type
 	 **/
-	public static function getOrganizationByOrganizationId(\PDO $pdo, string $organizationId);?Organization {
-		//sanitize the organization id before the search
-	try{
-		$organizationId = self::validateUuid($organizationId);
-	} catch(\InvalidArgumentException | \RangeException | \Exception)
-}
+	public static function getOrganizationByOrganizationId(\PDO $pdo, string $organizationId):?Organization {
+		// sanitize the organization id before conducting search
+		try {
+			$organizationId = self::validateUuid($organizationId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		// create query template for grabbing organization info through organization id
+		$query = "SELECT organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl FROM organization WHERE organizationId = :organizationId";
+		$statement = $pdo->prepare($query);
+		//combine the member variables of this class tot he template placeholders
+		$parameters = ["organizationId" => $organizationId->getBytes()];
+		$statement->execute($parameters);
+		// grab the organization profile from mySQL
+		try {
+			$organization = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"],$row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row could not be converted, initiate exception throw again
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($organization);
+	}
+
+
 }
