@@ -82,7 +82,7 @@ class Favorite implements \JsonSerializable {
 
 		// convert and store the post id
 
-		$this->favoritePostId = $Uuid;
+		$this->favoritePostId = $uuid;
 	}
 
 	/**
@@ -138,7 +138,7 @@ class Favorite implements \JsonSerializable {
 	 **/
 	public function delete(\PDO $pdo) : void {
 		// create query template
-		$query = "DELETE FROM `favorite` WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId:favoriteVolunteerId";
+		$query = "DELETE FROM favorite WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId = :favoriteVolunteerId";
 		$statement = $pdo->prepare($query);
 		//bind the member variables to the placeholders in the template
 		$parameters = ["favoritePostId" => $this->favoritePostId->getBytes(), "favoriteVolunteerId" => 	$this->favoriteVolunteerId->getBytes()];
@@ -151,10 +151,10 @@ class Favorite implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $favoritePostId post id to search for
 	 * @param string $favoriteVolunteerId volunteer id to search for
-	 * @return favorite |null Like found or null if not found
+	 * @return favorite |null favorite found or null if not found
 	 **/
 
-	public static function getFavoriteByFavoritePostIdAndFavoriteVolunteerId(\PDO $pdo, string $favoritePostId, string $likeTweetId) : ?favorite{
+	public static function getFavoriteByFavoritePostIdAndFavoriteVolunteerId(\PDO $pdo, string $favoritePostId, string $favoriteVolunteerId) : ?favorite{
 		//
 		try {
 			$favoritePostId = self::validateUuid($favoritePostId);
@@ -190,11 +190,11 @@ class Favorite implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Like by post id
+	 * gets the favorite by post id
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $favoritePostId post id to search for
-	 * @return \SplFixedArray SplFixedArray of Likes found or null if not found
+	 * @return \SplFixedArray SplFixedArray of favorites found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 **/
 	public static function getFavoriteByFavoritePostId(\PDO $pdo, string $favoritePostId) : \SPLFixedArray {
@@ -254,8 +254,8 @@ class Favorite implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$favorite = new favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
-				$favorites[$favorites->key()] = $favorites;
+				$favorite = new Favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
+				$favorites[$favorites->key()] = $favorite;
 				$favorites->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -263,7 +263,7 @@ class Favorite implements \JsonSerializable {
 			}
 		}
 		return ($favorites);
-	}
+	 }
 
 
 		/**
@@ -273,7 +273,7 @@ class Favorite implements \JsonSerializable {
 	 * @return array resulting state variables to serialize
 	 **/
 
-	pulic function jsonserialize() {
+	public function jsonserialize() {
 		$fields = get_object_vars($this);
 
 

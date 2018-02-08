@@ -1,0 +1,13 @@
+{
+  "require": {
+    "phpunit/dbunit": "@stable",
+    "phpunit/phpunit": "@stable",
+    "swiftmailer/swiftmailer": "@stable",
+    "lcobucci/jwt": "3.2",
+    "ramsey/uuid": "@stable"
+  },
+
+  "scripts":{
+    "phpunit" : "./vendor/bin/phpunit -c ./php/classes/Test --coverage-html coverage"
+  }
+}
