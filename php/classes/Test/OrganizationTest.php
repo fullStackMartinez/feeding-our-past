@@ -124,6 +124,13 @@ class OrganizationTest extends FeedPastTest {
 	}
 
 	/**
-	 *
-	 */
+	 *this test will test inserting a valid organization profile and validate MySQL match
+	 **/
+	public function testInsertValidOrganization() : void {
+		//get a row count, save for later use
+		$numRows = $this->getConnection()->getRowCount("organization");
+		$organizationId = generateUuidV4();
+
+		$organization = new Organization()
+	}
 }
