@@ -157,7 +157,82 @@ class VolunteerTest extends FeedPastTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("volunteer"));
 	}
 
+	/**
+	 * test inserting a Volunteer and regrabbing it from mySQL
+	 **/
+	public function testGetValidVolunteerByVolunteerId() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
 
+		// create a new Volunteer and insert into mySQL
+		$volunteerId = generateUuidV4();
+		$volunteer = new Volunteer($volunteerId, $this->VALID_ACTIVATION, $this->VALID_AVAILABILITY, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT);
+		$volunteer->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoVolunteer = Volunteer::getVolunteerByVolunteerId($this->getPDO(), $volunteer->getVolunteerId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$this->assertEquals($pdoVolunteer->getVolunteerId(), $volunteerId);
+		$this->assertEquals($pdoVolunteer->getVolunteerActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoVolunteer->getVolunteerAvailability(), $this->VALID_AVAILABILITY);
+		$this->assertEquals($pdoVolunteer->getVolunteerEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoVolunteer->getVolunteerHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoVolunteer->getVolunteerName(), $this->VALID_NAME);
+		$this->assertEquals($pdoVolunteer->getVolunteerPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoVolunteer->getVolunteerSalt(), $this->VALID_SALT);
+	}
+
+	/**
+	 * test grabbing a Volunteer that does not exist
+	 **/
+	public function testGetInvalidVolunteerByVolunteerId() : void {
+		// grab a volunteer id that exceeds the maximum allowable volunteer id
+		$fakeVolunteerId = generateUuidV4();
+		$volunteer = Volunteer::getVolunteerByVolunteerId($this->getPDO(), $fakeVolunteerId);
+		$this->assertNull($volunteer);
+	}
+
+	/**
+	 * test grabbing a Volunteer by name
+	 **/
+	public function testGetValidVolunteerByName() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("volunteer");
+
+		// create a new Volunteer and insert into mySQL
+		$volunteerId = generateUuidV4();
+		$volunteer = new Volunteer($volunteerId, $this->VALID_ACTIVATION, $this->VALID_AVAILABILITY, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT);
+		$volunteer->insert($this->getPDO());
+
+		// grab the data from mySQL
+		$results = Volunteer::getVolunteerByVolunteerName($this->getPDO(), $this->VALID_NAME);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+
+		// enforce no other objects are bleeding into volunteer
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Volunteer");
+
+		// enforce the results meet expectations
+		$pdoVolunteer = $results[0];
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
+		$this->assertEquals($pdoVolunteer->getVolunteerId(), $volunteerId);
+		$this->assertEquals($pdoVolunteer->getVolunteerActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoVolunteer->getVolunteerAvailability(), $this->VALID_AVAILABILITY);
+		$this->assertEquals($pdoVolunteer->getVolunteerEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoVolunteer->getVolunteerHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoVolunteer->getVolunteerName(), $this->VALID_NAME);
+		$this->assertEquals($pdoVolunteer->getVolunteerPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoVolunteer->getVolunteerSalt(), $this->VALID_SALT);
+	}
+
+	/**
+	 * test grabbing a Volunteer by a name that does not exist
+	 **/
+	public function testGetInvalidVolunteerByName() : void {
+		// grab a name that does not exist
+		$volunteer = Volunteer::getVolunteerByVolunteerName($this->getPDO(), "Fake Name");
+		var_dump($volunteer);
+		$this->assertCount(0, $volunteer);
+	}
 
 
 
