@@ -144,6 +144,18 @@ class OrganizationTest extends FeedPastTest {
 		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
 		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
 		$this->assertEquals($pdoOrganization->getOrganizationAddressState(), $this->VALID_ADDRESS_STATE);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressStreet(), $this->VALID_ADDRESS_STREET);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressZip(), $this->VALID_ADDRESS_ZIP);
+		$this->assertEquals($pdoOrganization->getOrganizationDonationAccepted(), $this->VALID_DONATION_ACCEPTED);
+		$this->assertEquals($pdoOrganization->getOrganizationEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoOrganization->getOrganizationHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoOrganization->getOrganizationHoursOpen(), $this->VALID_HOURS_OPEN);
+		$this->assertEquals($pdoOrganization->getOrganizationLatX(), $this->VALID_LAT);
+		$this->assertEquals($pdoOrganization->getOrganizationLongY(), $this->VALID_LONG);
+		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME);
+		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
 
 	}
 }
