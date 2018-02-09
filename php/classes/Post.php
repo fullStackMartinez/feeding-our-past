@@ -305,7 +305,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postTitle
 	 * @return string value of postTitle
 	 */
-	public function getPostTitle() : void {
+	public function getPostTitle() : string {
 		return ($this->postTitle);
 	}
 
