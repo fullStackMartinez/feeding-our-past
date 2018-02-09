@@ -42,14 +42,14 @@ class FavoriteTest extends FeedPastTest {
 	protected $Valid_Hash;
 
 	/**
-	 * timestamp of the Like; this starts as null and is assigned later
+	 * timestamp of the Favorite; this starts as null and is assigned later
 	 * @var \DateTime $VALID_FAVORITEDATE
 	 **/
 	protected $VALID_FAVORITEDATE;
 
 
 	/**
-	 * valid salt to use to create the profile object to own the text
+	 * valid salt to use to create the post object to own the text
 	 * @var string $VALID_SALT
 	 */
 	protected $VALID_SALT;
@@ -121,8 +121,8 @@ class FavoriteTest extends FeedPastTest {
 			$favorite->delete($this->getPDO());
 
 			// grab the data from mySQL and enforce the Volunteer does not exist
-			$pdoLike = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), 			$this->post->getPostId(),;
-			$this->volunteer->getVolunteerId());
+			$pdofavorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), 			$this->post->getPostId(),;
+			$this->volunteer->getVolunteerId();
 			$this->assertNull($pdoFavorite);
 			$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 			}
