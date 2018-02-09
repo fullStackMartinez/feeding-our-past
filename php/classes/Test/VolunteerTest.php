@@ -48,7 +48,7 @@ class VolunteerTest extends FeedPastTest {
 	 * valid name to use
 	 * @var string $VALID_NAME
 	 **/
-	protected $VALID_NAME = "Captain Arlo";
+	protected $VALID_NAME = "Senator Arlo";
 
 	/**
 	 * second valid name to use
