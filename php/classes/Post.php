@@ -70,8 +70,8 @@ class Post implements \JsonSerializable {
  * @var DateTime $postEndDateTime
  * postEndDateTime state set to private
 **/
-
 	private $postEndDateTime;
+
 /**
  * Post uses postImageUrl as an element
  * This is the url of the image associated with the content
@@ -80,41 +80,41 @@ class Post implements \JsonSerializable {
 **/
 	private $postImageUrl;
 
-	/**
-	 * Post uses postStartDateTime as an element
-	 * This is the start date and time of the post
-	 * @var $\DateTime postStartDateTime
-	 * postStartDateTime state set to private
-	 */
+/**
+ * Post uses postStartDateTime as an element
+ * This is the start date and time of the post
+ * @var DateTime $postStartDateTime
+ * postStartDateTime state set to private
+**/
 	private $postStartDateTime;
 
-	/**
-	 * Post uses postTitle as an element
-	 * This is the title of the post
-	 * @var $\string postTitle
-	 * postTitle state set to private
-	 */
+/**
+* Post uses postTitle as an element
+* This is the title of the post
+* @var string $postTitle
+* postTitle state set to private
+**/
 	private $postTitle;
 
-	/**
-	 * constructor for Post
-	 *
-	 * Constructs the object post and associated object's states
-	 * @param string $newPostId is the poster's unique and required id
-	 * @param string $newPostOrganizationId is the posting organization's unique and required id
-	 * @param string $newPostContent is the content of the post
-	 * @param string $newPostEndDateTime is the required date and time the post may be removed
-	 * @param string $newPostImageUrl is the location of the image that may accompany the post
-	 * @param string $newPostStartDateTime is the required date and time the post may be added
-	 * @param string $newPostTitle is the title of the post
-	 * @throws \InvalidArgumentException if data types are not valid
-	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
-	 * @throws \TypeError if data types violate type hints
-	 * @throws \Exception if some other exception occurs
-	 * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
-	 * Exceptions code is straight from Dylan McDonald's code
-	 */
-	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, string $newPostEndDateTime, string $newPostImageUrl, string $newPostStartDateTime, string $newPostTitle) {
+/**
+ * constructor for Post
+ *
+ * Constructs the object post and associated object's states
+ * @param string $newPostId is the poster's unique and required id
+ * @param string $newPostOrganizationId is the posting organization's unique and required id
+ * @param string $newPostContent is the content of the post
+ * @param string $newPostEndDateTime is the required date and time the post may be removed
+ * @param string $newPostImageUrl is the location of the image that may accompany the post
+ * @param string $newPostStartDateTime is the required date and time the post may be added
+ * @param string $newPostTitle is the title of the post
+ * @throws \InvalidArgumentException if data types are not valid
+ * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+ * @throws \TypeError if data types violate type hints
+ * @throws \Exception if some other exception occurs
+ * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
+ * Exceptions code is straight from Dylan McDonald's code
+ */
+	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, \DateTime $newPostEndDateTime, string $newPostImageUrl, \DateTime $newPostStartDateTime, string $newPostTitle) {
 		try {
 			$this->setPostId($newPostId);
 			$this->setPostOrganizationId($newPostOrganizationId);
@@ -258,7 +258,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postImageUrl
 	 * @param string $newPostImageUrl is the url of the image added to a post
 	 **/
-	public function setPostImageUrl($newPostImageUrl) : ?string {
+	public function setPostImageUrl($newPostImageUrl) : void {
 		$newPostImageUrl = trim($newPostImageUrl);
 		$newPostImageUrl = filter_var($newPostImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostImageUrl) === true) {
