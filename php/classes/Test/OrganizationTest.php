@@ -289,7 +289,92 @@ class OrganizationTest extends FeedPastTest {
 	}
 
 	/**
-	 * this is a test to attempt to find an organization profile that doesn't exist
+	 * this is a test to attempt to find an organization by its Name, that doesn't exist
 	 **/
+	public function testGetInvalidOrganizationByOrganizationName() : void {
+		//grab organization by Name that doesn't exist in database
+		$organization = Organization::getOrganizationByOrganizationName($this->getPDO(), "Organization Imposter");
+		var_dump($organization);
+		$this->assertCount(0, $organization);
+	}
+
+	/**
+	 * this is a test to find an organization in our database by their email
+	 **/
+	public function testGetValidOrganizationByEmail() : void {
+		//get a row count, save it
+		$numRows = $this->getConnection()->getRowCount("organization");
+		$organizationId = generateUuidV4();
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+		$organization->insert($this->getPDO());
+
+		//get data from database and make sure the data matches what we want
+		$pdoOrganization = Organization::getOrganizationByOrganizationEmail($this->getPDO(), $organization->getOrganizationEmail());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertEquals($pdoOrganization->getOrganizationId(), $organizationId);
+		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressState(), $this->VALID_ADDRESS_STATE);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressStreet(), $this->VALID_ADDRESS_STREET);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressZip(), $this->VALID_ADDRESS_ZIP);
+		$this->assertEquals($pdoOrganization->getOrganizationDonationAccepted(), $this->VALID_DONATION_ACCEPTED);
+		$this->assertEquals($pdoOrganization->getOrganizationEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoOrganization->getOrganizationHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoOrganization->getOrganizationHoursOpen(), $this->VALID_HOURS_OPEN);
+		$this->assertEquals($pdoOrganization->getOrganizationLatX(), $this->VALID_LAT);
+		$this->assertEquals($pdoOrganization->getOrganizationLongY(), $this->VALID_LONG);
+		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME);
+		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
+	}
+	/**
+	 * this test will attempt to find an organization by an email that is invalid or does not exist
+	 **/
+	public function testGetInvalidOrganizationByEmail() : void {
+		//get an email that is invalid or doesn't exist
+		$organization = Organization::getOrganizationByOrganizationEmail($this->getPDO(), "badkitty@arlo.invalid");
+		$this->assertNull($organization);
+	}
+
+	/**
+	 * this is a test that will get an organization profile by activation token
+	 **/
+	public function testGetValidOrganizationByOrganizationActivationToken() : void {
+		//get row count, save it
+		$numRows = $this->getConnection()->getRowCount("organization");
+		$organizationId = generateUuidV4();
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+		$organization->insert($this->getPDO());
+
+		//get the data from database and make sure it matches our expectations
+		$pdoOrganization = Organization::getOrganizationByOrganizationActivationToken($this->getPDO(), $organization->getOrganizationActivationToken());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertEquals($pdoOrganization->getOrganizationId(), $organizationId);
+		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressState(), $this->VALID_ADDRESS_STATE);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressStreet(), $this->VALID_ADDRESS_STREET);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressZip(), $this->VALID_ADDRESS_ZIP);
+		$this->assertEquals($pdoOrganization->getOrganizationDonationAccepted(), $this->VALID_DONATION_ACCEPTED);
+		$this->assertEquals($pdoOrganization->getOrganizationEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoOrganization->getOrganizationHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoOrganization->getOrganizationHoursOpen(), $this->VALID_HOURS_OPEN);
+		$this->assertEquals($pdoOrganization->getOrganizationLatX(), $this->VALID_LAT);
+		$this->assertEquals($pdoOrganization->getOrganizationLongY(), $this->VALID_LONG);
+		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME);
+		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
+	}
+
+	/**
+	 * this is a test that attempts to get an organization profile by an invalid activation token
+	 **/
+	public function testGetInvalidOrganizationActivationToken() : void {
+		//get an activation token that is invalid or doesn't exist
+		$organization = Organization::getOrganizationByOrganizationActivationToken($this->getPDO(), "6fcd8978996dc9ee36bf16c002ee6710");
+		$this->assertNull($organization);
+	}
 
 }
