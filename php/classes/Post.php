@@ -230,7 +230,7 @@ private $postTitle;
 	 * accessor method for postEndDateTime
 	 * @return \DateTime value of postEndDateTime
 	 */
-	public function getPostEndDateTime(): \DateTime {
+	public function getPostEndDateTime() : \DateTime {
 		return($this->postEndDateTime);
 	}
 
@@ -244,7 +244,7 @@ private $postTitle;
 	 **/
 	public function setPostEndDateTime($newPostEndDateTime = null): void {
 		if($newPostEndDateTime === null) {
-		$this->PostEndDateTime - new \DateTime();
+		$this->postEndDateTime = new \DateTime();
 		return;
 		}
 
@@ -271,9 +271,8 @@ public function getPostImageUrl() : void {
  **/
 public function setPostImageUrl($newPostImageUrl) : void {
 
-	return($this->postImageUrl);
 
-$this->postImageUrl = $newpostImageUrl;
+$this->postImageUrl = $newPostImageUrl;
 }
 
 
@@ -294,7 +293,6 @@ public function getPostStartDateTime() : \DateTime {
  * @throws \RangeException if the date is a date that does not exist
  **/
 public function setPostStartDateTime($newPostStartDateTime = null) : void {
-	try {
 	if($newPostStartDateTime === null) {
 	$this->postStartDateTime = new \DateTime();
 	return;
@@ -306,7 +304,7 @@ public function setPostStartDateTime($newPostStartDateTime = null) : void {
 		$exceptionType = get_class($exception);
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
 	}
-		$this->postStartDateTime = $newPostStartDateTime);
+		$this->postStartDateTime = $newPostStartDateTime;
 }
 
 /**
@@ -314,17 +312,16 @@ public function setPostStartDateTime($newPostStartDateTime = null) : void {
  * @return string value of postTitle
  */
 public function getPostTitle() : void {
-	return ($this->postTitle);
+	return($this->postTitle);
 }
 /**
  * mutator method for postTitle
  * @param string $newPostTitle is the title of the post
  **/
-public function setpostTitle($newPostTitle) : void {
+public function setPostTitle($newPostTitle) : void {
 
-	return($this->postTitle);
 
-	$this->postTitle = $newpostTitle;
+	$this->postTitle = $newPostTitle;
 }
 
 /**
@@ -376,7 +373,7 @@ public function setpostTitle($newPostTitle) : void {
 	public function update(\PDO $pdo) : void {
 
 		// create query template
-		$query = "UPDATE post SET postId = :postId, postOrganizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle";
+		$query = "UPDATE post SET postOrganizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle WHERE postId = :postId";
 		$statement = $pdo->prepare($query);
 
 		$formattedDate = $this->postEndDateTime->format("Y-m-d H:i:s.u");
@@ -388,7 +385,7 @@ public function setpostTitle($newPostTitle) : void {
 	 * gets the post by postId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $postId post id to search for
+	 * @param string $postId post id to search for
 	 * @return post|null post found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
