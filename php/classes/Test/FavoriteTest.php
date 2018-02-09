@@ -70,14 +70,14 @@ class FavoriteTest extends FeedPastTest {
 		$this->VALIDATE_ACTIVATION = bin2hex(random_bytes(16));
 
 
-		//create and insert the mocked post
-		$this->post = new Post(generateUuidV4(), null,"phpunit", "test@phpunti.de,$this->VALID_HASH,
-		 	\"+12125551212\", $this->VALID_SALT");
-		$this->post->insert($this->getPDO());
-
+		// create and insert the mocked post
+		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), null, "some-post-content", ??postEndDate??, "some-random-image-url", ??postStartDate??, "some-post-title");
 
 		//create and insert the mocked volunteer
-		$this->volunteer = new Volunteer(generateUuidV4(), $this->post->getPostId(), "PHPUnit like test passing");
+		$this->volunteer = new Volunteer(generateUuidV4(), null, null, "phillyonfire@burn.com",
+			$this->VALID_HASH, "Ted Random", "719-367-9856", $this->VALID_SALT);
+			
+			$this->post->getPostId(), "PHPUnit like test passing");
 		$this->volunteer->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup
@@ -85,7 +85,7 @@ class FavoriteTest extends FeedPastTest {
 		}
 
 		/**
-		 * test inserting a valid favoriteand verifying that the actual mySQL data matches
+		 * test inserting a valid favorite and verifying that the actual mySQL data matches
 		 **/
 
 		public function testInsertValidFavorite() : void {
@@ -93,8 +93,8 @@ class FavoriteTest extends FeedPastTest {
 			$numRows = $this->getConnection()->getRowCount("favorite");
 
 			// create a new Like and insert to into mySQL
-			$favorite = new favorite($this->favorite->getPostId(), $this->volunteer->getVolunteerId(), $this->VALID_LIKEDATE);
-			$like->insert($this->getPDO());
+			$favorite = new favorite($this->favorite->getPostId(), $this->volunteer->getVolunteerId(), $this->VALID_FAVORITEDATE);
+			$favorite->insert($this->getPDO());
 
 
 			// grab the data from mySQL and enforce the fields match our expectations
@@ -114,7 +114,7 @@ class FavoriteTest extends FeedPastTest {
 			$numRows = $this->getConnection()->getRowContent("favorite");
 
 			// create a new Favorite and insert to into mySQL
-			$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId(), $this->VALID_FavoriteDATE);
+			$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId(), $this->VALID_FAVORITEDATE);
 			$favorite->insert($this->getPDO());
 
 			// delete the Favoritefrom mySQL
