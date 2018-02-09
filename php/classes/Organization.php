@@ -2,7 +2,7 @@
 namespace Edu\Cnm\FeedPast;
 
 require_once("autoload.php");
-require_once(dirname(__DIR__,2) . "/classes/autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 
 
@@ -57,12 +57,12 @@ class Organization implements \JsonSerializable {
 	private $organizationDonationAccepted;
 	/**
 	 * this is the organizations email address used for communication, this is unique
-	 * @var string @organizationEmail
+	 * @var string $organizationEmail
 	 **/
 	private $organizationEmail;
 	/**
 	 * this is the hash for the organization profile password
-	 * @var $organizationHash
+	 * @var string  $organizationHash
 	 **/
 	private $organizationHash;
 	/**
@@ -92,7 +92,7 @@ class Organization implements \JsonSerializable {
 	private $organizationPhone;
 	/**
 	 * this is the salt for password
-	 * @var $organizationSalt;
+	 * @var string $organizationSalt;
 	 **/
 	private $organizationSalt;
 	/**
@@ -127,7 +127,7 @@ class Organization implements \JsonSerializable {
 	 * @Documentation http://php.net/manual/en/language.exceptions.php
 	 * @Documentation https://secure.php.net/manual/en/language.oop5.decon.php
 	 **/
-	function __construct($newOrganizationId, ?string $newOrganizationActivationToken, string $newOrganizationAddressCity, string $newOrganizationAddressState, string $newOrganizationAddressStreet, string $newOrganizationAddressZip, string $newOrganizationDonationAccepted, string $newOrganizationEmail, string $newOrganizationHash, string $newOrganizationHoursOpen, float $newOrganizationLatX, float $newOrganizationLongY, string $newOrganizationName, string $newOrganizationPhone, string $newOrganizationSalt, ?string $newOrganizationUrl) {
+	public function __construct($newOrganizationId, ?string $newOrganizationActivationToken, string $newOrganizationAddressCity, string $newOrganizationAddressState, string $newOrganizationAddressStreet, string $newOrganizationAddressZip, string $newOrganizationDonationAccepted, string $newOrganizationEmail, string $newOrganizationHash, string $newOrganizationHoursOpen, float $newOrganizationLatX, float $newOrganizationLongY, string $newOrganizationName, string $newOrganizationPhone, string $newOrganizationSalt, ?string $newOrganizationUrl) {
 		try {
 			$this->setOrganizationId($newOrganizationId);
 			$this->setOrganizationActivationToken($newOrganizationActivationToken);
@@ -484,7 +484,7 @@ class Organization implements \JsonSerializable {
  *
  * @return float value of the organizations latitude
  **/
-	public function getOrganizationLatX() : ?float {
+	public function getOrganizationLatX() : float {
 		return ($this->organizationLatX);
 	}
 
@@ -508,7 +508,7 @@ class Organization implements \JsonSerializable {
 	 *
 	 * @return float value of the organizations longitude
 	 **/
-	public function getOrganizationLongY() : ?float {
+	public function getOrganizationLongY() : float {
 		return ($this->organizationLongY);
 	}
 
@@ -634,7 +634,7 @@ class Organization implements \JsonSerializable {
 	 *
 	 *@return string of organization Url
 	 **/
-	public function getOrganizationUrl(): string {
+	public function getOrganizationUrl(): ?string {
 		return ($this->organizationUrl);
 	}
 
@@ -646,7 +646,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \RangeException if Url is not equal to or less than 255 characters
 	 * @throws \Exception if there is another exception, or if Url is not returned as a string
 	 */
-	public function setOrganizationUrl(string $newOrganizationUrl): void {
+	public function setOrganizationUrl(?string $newOrganizationUrl): void {
 
 		//validate Url is safe
 		$newOrganizationUrl = trim($newOrganizationUrl);
@@ -670,7 +670,8 @@ class Organization implements \JsonSerializable {
 	public function insert(\PDO $pdo): void {
 
 		//this will create a query template
-		$query = "INSERT INTO organization(organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl) VALUES (:organizationId, :organizationActivationToken, :organizationAddressCity, :organizationAddressState, :organizationAddressStreet, :organizationAddressZip, :organizationDonationAccepted, :organizationEmail, :organizationHash, :organizationHoursOpen, :organizationLatX, :organizationLongY, :organizationName, :organizationPhone, :organizationSalt, :organizationUrl)";
+		$query = "INSERT INTO organization(organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl) 
+											VALUES (:organizationId, :organizationActivationToken, :organizationAddressCity, :organizationAddressState, :organizationAddressStreet, :organizationAddressZip, :organizationDonationAccepted, :organizationEmail, :organizationHash, :organizationHoursOpen, :organizationLatX, :organizationLongY, :organizationName, :organizationPhone, :organizationSalt, :organizationUrl)";
 		$statement = $pdo->prepare($query);
 
 		//combines the member variables of the class to the query template placeholders
@@ -722,7 +723,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a incorrect variable data type
 	 **/
-	public static function getOrganizationByOrganizationId(\PDO $pdo, string $organizationId):?Organization {
+	public static function getOrganizationByOrganizationId(\PDO $pdo, string $organizationId) : ?Organization {
 		// sanitize the organization id before conducting search
 		try {
 			$organizationId = self::validateUuid($organizationId);
