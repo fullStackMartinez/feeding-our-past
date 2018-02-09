@@ -87,7 +87,7 @@ class PostTest extends FeedPastTest {
 			// count the number of rows and save it for later
 			$numRows = $this->getConnection()->getRowCount("Post");
 
-			// create a new Tweet and insert to into mySQL
+			// create a new Post and insert to into mySQL
 			$post = generateUuidV4();
 			$post = new Post($postId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
 			$post->insert($this->getPDO());
@@ -147,11 +147,11 @@ class PostTest extends FeedPastTest {
 			$post = new Post($postId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
 			$post->insert($this->getPDO());
 
-			// delete the Tweet from mySQL
+			// delete the Post from mySQL
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 			$post->delete($this->getPDO());
 
-			// grab the data from mySQL and enforce the Tweet does not exist
+			// grab the data from mySQL and enforce the Post does not exist
 			$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
 			$this->assertNull($pdoPost);
 			$this->assertEquals($numRows, $this->getConnection()->getRowCount("post"));
@@ -169,7 +169,7 @@ class PostTest extends FeedPastTest {
 		}
 
 		/**
-		 * test inserting a Tweet and regrabbing it from mySQL
+		 * test inserting a Post and regrabbing it from mySQL
 		 **/
 		public
 		function testGetValidPostByPostOrganizationId() {
@@ -185,7 +185,7 @@ class PostTest extends FeedPastTest {
 			$results = Post::getPostByPostOrganizationId($this->getPDO(), $post->getPostOrganizationId());
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 			$this->assertCount(1, $results);
-			$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
+			$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\~Test\\PostTest", $results);
 
 			// grab the result from the array and validate it
 			$pdoPost = $results[0];
@@ -216,7 +216,7 @@ class PostTest extends FeedPastTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("post");
 
-		// create a new Tweet and insert to into mySQL
+		// create a new Post and insert to into mySQL
 		$postId = generateUuidV4();
 		$post = new Post($postId, $this->profile->getPostOrganizationId(), $this->VALID_CONTENT, $this->VALID_TITLE);
 		$post->insert($this->getPDO());
@@ -230,7 +230,7 @@ class PostTest extends FeedPastTest {
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\~Test\\FeedPastTest", $results);
 
 		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
+		$pdoPost = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 		$this->assertEquals($pdoPost->getPostId(), $postId);
 		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION;
@@ -246,7 +246,7 @@ class PostTest extends FeedPastTest {
 	 * test grabbing Post by content that does not exist
 	 **/
 	public function testGetInvalidPostByPostContent(): void {
-		// grab a tweet by content that does not exist
+		// grab a post by content that does not exist
 		$post = Post::getPostByPostContent($this->getPDO(), "Rhinos make great pets!");
 		$this->assertCount(0, $post);
 	}
@@ -271,7 +271,7 @@ class PostTest extends FeedPastTest {
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\~Test\\PostTest", $results);
 
 		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
+		$pdoPost = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 		$this->assertEquals($pdoPost->getPostId(), $postId);
 		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION;
