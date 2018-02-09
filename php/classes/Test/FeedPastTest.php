@@ -32,7 +32,7 @@ abstract class FeedPastTest extends TestCase {
 	 * PHPUnit database connection interface
 	 * @var Connection $connection
 	 **/
-	protected $conection = null;
+	protected $connection = null;
 
 	/**
 	 * assembles the table from the schema and provides it to PHPUnit
