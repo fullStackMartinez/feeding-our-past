@@ -1,5 +1,5 @@
 <?php
-use Edu\Cnm\FeedPast\Test;
+namespace Edu\Cnm\FeedPast\Test;
 
 use Edu\Cnm\FeedPast\Volunteer;
 
@@ -7,8 +7,7 @@ use Edu\Cnm\FeedPast\Volunteer;
 require_once(dirname(__DIR__) . "/autoload.php");
 
 // grab the uuid generator
-//require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
-require_once("../../lib/uuid.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
  * Full PHPUnit test for the Volunteer class

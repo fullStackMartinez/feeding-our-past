@@ -2,10 +2,10 @@
 	<testsuites>
 		<testsuite name="Feed Kitty Project">
 			<file>HaversineTest.php</file>
-			<file>OrganizationTest.php</file>
-			<!-- <file>VolunteerTest.php</file> -->
-			<!-- <file>PostTest.php</file> -->
-			<!-- <file>FavoriteTest.php</file> -->
+				<file>OrganizationTest.php</file>
+				<!-- <file>VolunteerTest.php</file> -->
+				<!-- <file>PostTest.php</file> -->
+				<!-- <file>FavoriteTest.php</file> -->
 		</testsuite>
 	</testsuites>
 	<filter>
