@@ -80,7 +80,7 @@ class Post implements \JsonSerializable {
 	 * postEndDateTime state set to private
 	 */
 	private $postEndDateTime;
-	use ValidateDate
+	use ValidateDate;
 
 /**
  * Post uses postImageUrl as an element
@@ -97,7 +97,7 @@ private $postImageUrl;
  * postStartDateTime state set to private
  */
 private $postStartDateTime;
-	use ValidateDate
+	use ValidateDate;
 
 /**
  * Post uses postTitle as an element
@@ -390,7 +390,7 @@ public function setPostTitle($newPostTitle) : void {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getPostByPostId(\PDO $pdo, $postId) : ?post {
+	public static function getPostByPostId(\PDO $pdo, $postId) : ?Post {
 		// sanitize the postId before searching
 		try {
 			$postId = self::validateUuid($postId);
@@ -448,7 +448,7 @@ public function setPostTitle($newPostTitle) : void {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
-				[$post->key()] = $post;
+				$posts[$posts->key()] = $post;
 				$posts->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
@@ -467,31 +467,28 @@ public function setPostTitle($newPostTitle) : void {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getpostByEndDateTime(\PDO $pdo, $postEndDateTime) : \SplFixedArray {
-		{
-			// create query template
+	public static function getPostByPostEndDateTime(\PDO $pdo, $postEndDateTime) : ?Post {
+
 			$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime = :postEndDateTime";
 			$statement = $pdo->prepare($query);
 			// bind the content to the place holder in the template
-			$postEndDateTime = "%$postEndDateTime%";
-			$parameters = ["postEndDateTime" => $postEndDateTime];
+			$parameters = ["postEndDateTime" => $postEndDateTime->getBytes()];
 			$statement->execute($parameters);
-
 			// build an array of posts
 			$posts = new \SplFixedArray($statement->rowCount());
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			while(($row = $statement->fetch()) !== false) {
 				try {
-					$posts = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
-					$posts[$posts->key()] = $posts;
+					$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
+					$posts[$posts->key()] = $post;
 					$posts->next();
 				} catch(\Exception $exception) {
 					// if the row couldn't be converted, rethrow it
 					throw(new \PDOException($exception->getMessage(), 0, $exception));
 				}
 			}
-		}
-		return($posts);}
+		return($posts);
+	}
 
 		/**
 		 * gets the posts by postStartDateTime
