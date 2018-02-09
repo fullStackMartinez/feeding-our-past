@@ -1,46 +1,34 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: petersdata
- * Date: 2/5/18
- * Time: 2:39 PM
- *  *    @author Ramsey - Uuid toolset
-**/
 
 /**
  * Set the namespace for object FeedingOurPast
- *
  *    namespace must come before autoload
  *    namespaces and autoload names must match
  *    Class Name and Namespace are PSR4
 **/
 namespace Edu\Cnm\FeedPast;
 
-
 /**
  * Path to autoload.php
- */
+ **/
 require_once("autoload.php");
+
 /**
  *    The __DIR__, 2 indicates that the autoload will go up 0, 1, 2 directory layers starting with the current directory layer to load autoload.
- *
- *    Do we need to declare side effect?
 **/
-
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 /**
  * Here we load Ramsey's Uuid toolset
-*/
+**/
 use Ramsey\Uuid\Uuid;
 
 /**
  * The class is definded and set to Post
  * This class uses Uuids
- *       @author Peter B Street <peterbstreet@gmail.com> - Code Revision
+ *    @author Peter B Street <peterbstreet@gmail.com> - Code Revision
  *    @author Dylan McDonald <dmcdonald21@cnm.edu> - Core code outline and format
  *    @author php-fig  <http://www.php-fig.org/psr/> - PHP Standards Recommendation
-
  *    This object is based on the post table in feeding-our-past.sql
  *    Class Name and Namespace are PSR4
  *    "implements \JsonSerializable" removed until later
@@ -49,45 +37,47 @@ class Post implements \JsonSerializable {
 	use ValidateUuid;
 	use ValidateDate;
 
-	/**
-	 * Post uses postId as the primary key
-	 * postId is the primary key
-	 * postId is the post's unique id
-	 * @var $Uuid $postId
-	 * postId state set to private
-	 */
+/**
+ * Post uses postId as the primary key
+ * postId is the primary key
+ * postId is the post's unique id
+ * (?var is the declaration of a variable, UUID VarDataType, VarName
+ * @var Uuid $postId
+ * postId state set to private
+**/
 	private $postId;
 
 	/**
-	 * Post uses postOrganizationId as the foreign key
-	 * postOrganizationId is the foreign key
-	 * postOrganizationId is the posting organizations unique id
-	 * @var $Uuid postOrganizationId
-	 * postOrganizationId state set to private
-	 */
+ * Post uses postOrganizationId as the foreign key
+ * postOrganizationId is the foreign key
+ * postOrganizationId is the posting organizations unique id
+ * @var Uuid $postOrganizationId
+ * postOrganizationId state set to private
+**/
 	private $postOrganizationId;
-	/**
-	 * Post uses postContent as an element
-	 * This is the content of the post
-	 * @var $string postContent
-	 * postContent state set to private
-	 */
+
+/**
+ * Post uses postContent as an element
+ * This is the content of the post
+ * @var string $postContent
+ * postContent state set to private
+**/
 	private $postContent;
 
-	/**\
-	 * Post uses postEndDateTime as an element
-	 * This is the date that the post is to be removed from service
-	 * @var $\DateTime postEndDateTime
-	 * postEndDateTime state set to private
-	 */
-	private $postEndDateTime;
+/**
+ * Post uses postEndDateTime as an element
+ * This is the date that the post is to be removed from service
+ * @var DateTime $postEndDateTime
+ * postEndDateTime state set to private
+**/
 
-	/**
-	 * Post uses postImageUrl as an element
-	 * This is the url of the image associated with the content
-	 * @var $string postImageUrl
-	 * postImageUrl state set to private
-	 */
+	private $postEndDateTime;
+/**
+ * Post uses postImageUrl as an element
+ * This is the url of the image associated with the content
+ * @var string $postImageUrl
+ * postImageUrl state set to private
+**/
 	private $postImageUrl;
 
 	/**
@@ -101,7 +91,7 @@ class Post implements \JsonSerializable {
 	/**
 	 * Post uses postTitle as an element
 	 * This is the title of the post
-	 * @var $string postTitle
+	 * @var $\string postTitle
 	 * postTitle state set to private
 	 */
 	private $postTitle;
@@ -323,7 +313,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postTitle
 	 * @param string $newPostTitle is the title of the post
 	 **/
-	public function setPostTitle($newPostTitle) : void {
+	public function setPostTitle($newPostTitle) : string {
 			$newPostTitle = trim($newPostTitle);
 			$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($newPostTitle) === true) {
