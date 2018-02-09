@@ -89,27 +89,26 @@ class PostTest extends FeedPastTest {
 		/**
 		 * test inserting a valid Post and verify that the actual mySQL data matches
 		 **/
-		public
-		function testInsertValidPost(): void {
+		public function testInsertValidPost(): void {
 			// count the number of rows and save it for later
 			$numRows = $this->getConnection()->getRowCount("Post");
 
 			// create a new Post and insert to into mySQL
-			$post = generateUuidV4();
-			$post = new Post($postId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+			$postId = generateUuidV4();
+
+			$post = new Post($postId, $this->VALID_ORGANIZATION, $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
 			$post->insert($this->getPDO());
 
 			// grab the data from mySQL and enforce the fields match our expectations
 			$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 			$this->assertEquals($pdoPost->getPostId(), $postId);
-			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION;
+			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
 			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT);
 			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
 			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
 			$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
-			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
-		}
+			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);}
 
 		/**
 		 * test inserting a Post, editing it, and then updating it
@@ -121,7 +120,7 @@ class PostTest extends FeedPastTest {
 
 			// create a new Post and insert to into mySQL
 			$PostId = generateUuidV4();
-			$post = new Post($postId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+			$post = new Post($PostId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
 			$post->insert($this->getPDO());
 
 			// edit the Post and update it in mySQL
@@ -131,8 +130,8 @@ class PostTest extends FeedPastTest {
 			// grab the data from mySQL and enforce the fields match our expectations
 			$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-			$this->assertEquals($pdoPost->getPostId(), $postId);
-			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION;
+			$this->assertEquals($pdoPost->getPostId(), $PostId);
+			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
 			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
 			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
 			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
@@ -151,7 +150,7 @@ class PostTest extends FeedPastTest {
 
 			// create a new Post and insert to into mySQL
 			$PostId = generateUuidV4();
-			$post = new Post($postId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+			$post = new Post($PostId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
 			$post->insert($this->getPDO());
 
 			// delete the Post from mySQL
@@ -198,21 +197,21 @@ class PostTest extends FeedPastTest {
 			$pdoPost = $results[0];
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 			$this->assertEquals($pdoPost->getPostId(), $postId);
-			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION;
+			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
 			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
 			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
 			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
 			$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
 			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
 		}
-	}
+
 
 	/**
 	 * test grabbing a Post that does not exist
 	 **/
 	public function testGetInvalidPostByPostOrganizationId(): void {
 		// grab a profile id that exceeds the maximum allowable profile id
-		$post = Post::getPostByPostOrganizationId()postId($this->getPDO(), generateUuidV4());
+		$post = Post::getPostByPostOrganizationId()($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $post);
 	}
 
@@ -240,7 +239,7 @@ class PostTest extends FeedPastTest {
 		$pdoPost = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 		$this->assertEquals($pdoPost->getPostId(), $postId);
-		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION;
+		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
 		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT1);
 		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
 		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
@@ -267,9 +266,9 @@ class PostTest extends FeedPastTest {
 		$numRows = $this->getConnection()->getRowCount("post");
 
 		// create a new Post and insert to into mySQL
-		$postId = generateUuidV4();
-		$post = new Post($postId, $this->organization->getPostOrganizationId(), $this->VALID_CONTENT, $this->VALID_TITLE);
-		$post->insert($this->getPDO());
+		$PostId = generateUuidV4();
+		$Post = new Post($PostId, $this->organization->getPostOrganizationId(), $this->VALID_CONTENT, $this->VALID_TITLE);
+		$Post->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Post::getAllPosts($this->getPDO());
@@ -280,8 +279,8 @@ class PostTest extends FeedPastTest {
 		// grab the result from the array and validate it
 		$pdoPost = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-		$this->assertEquals($pdoPost->getPostId(), $postId);
-		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION;
+		$this->assertEquals($pdoPost->getPostId(), $PostId);
+		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
 		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
 		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
 		$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
