@@ -120,7 +120,7 @@ class Organization implements \JsonSerializable {
 	 * @param string $newOrganizationPhone string that contains phone contact information of organization
 	 * @param string $newOrganizationSalt string containing salt for profile password
 	 * @param string $newOrganizationUrl string containing organization url
-	 * @throws \InvalidArgumentException if any data types are invalid
+	 * @throws \InvalidArgumentException if any data type are invalid
 	 * @throws \RangeException if the data values, for example string lengths exceed limit, are not valid
 	 * @throws \TypeError will be thrown if data types have errors
 	 * @throws \Exception if there are other exceptions that occur
