@@ -139,7 +139,7 @@ class OrganizationTest extends FeedPastTest {
 
 		//grab the data from MySQL and enforce the fields match our expectations
 		$pdoOrganization = Organization::getOrganizationByOrganizationId($this->getPDO(), $organization->getOrganizationId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRownCount("organization"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
 		$this->assertEquals($pdoOrganization->getOrganizationId(), $organizationId);
 		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
 		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
@@ -156,5 +156,98 @@ class OrganizationTest extends FeedPastTest {
 		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
 		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
 		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
+	}
+
+	/**
+	 * this will test creating an organizaiton profile, editing it, and then updating that organization profile
+	 **/
+	public function testUpdateValidOrganization() {
+		//get a row count, save it for later
+		$numRows = $this->getConnection()->getRowCount("organization");
+
+		//create the new organization profile, insert into database
+		$organizationId = generateUuidV4();
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+
+		//edit the organization profile and update it in the database
+		$organization->setOrganizationName($this->VALID_NAME2);
+		$organization->update($this->getPDO());
+
+		//grab data from database and make fields match what we are expecting
+		$pdoOrganization = Organization::getOrganizationByOrganizationId($this->getPDO(), $organization->getOrganizationId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertEquals($pdoOrganization->getOrganizationId(), $organizationId);
+		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressState(), $this->VALID_ADDRESS_STATE);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressStreet(), $this->VALID_ADDRESS_STREET);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressZip(), $this->VALID_ADDRESS_ZIP);
+		$this->assertEquals($pdoOrganization->getOrganizationDonationAccepted(), $this->VALID_DONATION_ACCEPTED);
+		$this->assertEquals($pdoOrganization->getOrganizationEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoOrganization->getOrganizationHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoOrganization->getOrganizationHoursOpen(), $this->VALID_HOURS_OPEN);
+		$this->assertEquals($pdoOrganization->getOrganizationLatX(), $this->VALID_LAT);
+		$this->assertEquals($pdoOrganization->getOrganizationLongY(), $this->VALID_LONG);
+		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME);
+		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
+	}
+
+	/**
+	 * this will make a test which creates an organization profile, then deletes it
+	 **/
+	public function testDeleteValidOrganization() : void {
+		//get row count, then save it for later
+		$numRows = $this->getConnection()->getRowCount("organization");
+		$organizationId = generateUuidV4();
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+		$organization->insert($this->getPDO());
+
+		//delete the organization from the database
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$organization->delete($this->getPDO());
+
+		//get the data from database and make organization has been deleted
+		$pdoOrganization = Organization::getOrganizationByOrganizationId($this->getPDO(), $organization->getOrganizationId());
+		$this->assertNull($pdoOrganization);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("organization"));
+	}
+
+	/**
+	 * this is a test that inserts an organization into the database, and re-grab it from that database
+	 **/
+	public function testGetValidOrganizationByOrganizationId() : void{
+		//get row count, save it for later
+		$numRows = $this->getConnection()->getRowCount("organization");
+		$organizationId = generateUuidV4();
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+		$organization->insert($this->getPDO());
+		//get the data from database and check that it does what we want it to do
+		$pdoOrganization = Organization::getOrganizationByOrganizationId($this->getPDO(), $organization->getOrganizationId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertEquals($pdoOrganization->getOrganizationId(), $organizationId);
+		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressState(), $this->VALID_ADDRESS_STATE);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressStreet(), $this->VALID_ADDRESS_STREET);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressZip(), $this->VALID_ADDRESS_ZIP);
+		$this->assertEquals($pdoOrganization->getOrganizationDonationAccepted(), $this->VALID_DONATION_ACCEPTED);
+		$this->assertEquals($pdoOrganization->getOrganizationEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoOrganization->getOrganizationHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoOrganization->getOrganizationHoursOpen(), $this->VALID_HOURS_OPEN);
+		$this->assertEquals($pdoOrganization->getOrganizationLatX(), $this->VALID_LAT);
+		$this->assertEquals($pdoOrganization->getOrganizationLongY(), $this->VALID_LONG);
+		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME);
+		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
+	}
+	/**
+	 * this is a test that will try to grap an organization that does not exist in our database
+	 **/
+	public function testGetInvalidOrganizationByOrganizationId() : void {
+		//grab organization id that is not valid
+		$
 	}
 }
