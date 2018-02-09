@@ -1,7 +1,7 @@
 <?php
 namespace Edu\Cnm\FeedPast\Test;
 
-use Edu\Cnm\feedpast\{Favorite, Organization, Volunteer};
+use Edu\Cnm\feedpast\{Favorite, Post, Volunteer};
 
 // grab the class under scrunity
 require_once(dirname(__DIR__,1) . "/autoload.php");
@@ -39,13 +39,7 @@ class FavoriteTest extends FeedPastTest {
 	 * valid hash to use
 	 * @var $valid_Hash
 	 **/
-	protected $Valid_Hash;
-
-	/**
-	 * timestamp of the Favorite; this starts as null and is assigned later
-	 * @var \DateTime $VALID_FAVORITEDATE
-	 **/
-	protected $VALID_FAVORITEDATE;
+	protected $VALID_HASH;
 
 
 	/**
@@ -71,9 +65,9 @@ class FavoriteTest extends FeedPastTest {
 
 		// create a salt and hash for the mocked post
 		$password = "abc123";
-		$this->VALIDATE_SALT = bin2hex(random_bytes(32));
-		$this->VALIDATE_HASH = hash_pbkdf2("sha512", $password, 		$this->VALIDATE_SALT, 262144);
-		$this->VALIDATE_ACTIVATION = bin2hex(random_bytes(16));
+		$this->VALID_SALT = bin2hex(random_bytes(32));
+		$this->VALID_HASH = hash_pbkdf2("sha512", $password, 		$this->VALID_SALT, 262144);
+		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 
 		// create and insert the mocked post
@@ -87,7 +81,7 @@ class FavoriteTest extends FeedPastTest {
 			$this->post->getPostId() "PHPUnit favorite test passing");
 		$this->volunteer->insert($this->getPDO());
 
-		// calculate the date (just use the time the unit test was setup
+		// calculate the date (just use the time the unit test was setup)
 		$this->VALID_FAVORITEDATE = new \DateTime();
 		}
 
@@ -102,8 +96,7 @@ class FavoriteTest extends FeedPastTest {
 			// create a new Favorite and insert to into mySQL
 			$favorite = new Favorite($this->favorite->getPostId(), $this->volunteer->getVolunteerId());
 			$favorite->insert($this->getPDO());
-			$favorite = new Favorite($this->favorite->getPostId(), $this->volunteer->getVolunteerId());
-
+		}
 
 		/**
 		 * test creating a favorite and the deleting it
@@ -121,8 +114,8 @@ class FavoriteTest extends FeedPastTest {
 			$favorite->delete($this->getPDO());
 
 			// grab the data from mySQL and enforce the Volunteer does not exist
-			$pdofavorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), 			$this->post->getPostId(),;
-			$this->volunteer->getVolunteerId();
+			$pdofavorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), $this->post->getPostId(),
+			$this->volunteer->getVolunteerId());
 			$this->assertNull($pdoFavorite);
 			$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
 			}
@@ -160,7 +153,7 @@ class FavoriteTest extends FeedPastTest {
 		 * test grabbing a Favorite by volunteerid
 		 **/
 		public
-		function testGetValidFavoritebyvolunteerId(): void {
+		function testGetValidFavoriteByVolunteerId(): void {
 			// count the number of rows and save it for later
 			$numRows = $this->getConnection()->getRowCount("favorite");
 			// create a new Favorite and insert to into mySQL

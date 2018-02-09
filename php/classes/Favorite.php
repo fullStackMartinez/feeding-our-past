@@ -98,7 +98,7 @@ class Favorite implements \JsonSerializable {
 	/**
 	 * mutator method for favorite volunteer id
 	 *
-	 * @param string | Uuid $newFavoriteVolunteerId new value of favorite volunteer id
+	 * @param | Uuid $newFavoriteVolunteerId new value of favorite volunteer id
 	 * @throws \RangeException if $newfavoriteVolunteer is not positive
 	 * @throws \TypeError if $newFavoriteVolunteerID is not an integer
 	 **/
@@ -149,7 +149,7 @@ class Favorite implements \JsonSerializable {
 	 * gets the favorite by post id and volunteer id
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $favoritePostId post id to search for
+	 * @param Uuid $favoritePostId post id to search for
 	 * @param string $favoriteVolunteerId volunteer id to search for
 	 * @return favorite |null favorite found or null if not found
 	 **/
@@ -205,7 +205,7 @@ class Favorite implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT favoritePostId, favoritePVolunteerId FROM `favorite` WHERE favoritePostId = :favoriteVolunteerId";
+		$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoritePostId = :favoriteVolunteerId";
 		$statement = $pdo->prepare($query);
 		// bind the member variables to the place holders in the template
 		$parameters = ["favoritePostId" => $favoritePostId->getBytes()];
