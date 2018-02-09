@@ -271,10 +271,16 @@ class Post implements \JsonSerializable {
 	 * @param string $newPostImageUrl is the url of the image added to a post
 	 **/
 	public function setPostImageUrl($newPostImageUrl): void {
+		$newPostImageUrl = trim($newPostImageUrl);
+		$newPostImageUrl = filter_var($newImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newPostImageUrl) === true) {
+			throw(new \InvalidArgumentException("Post Image URL is empty"));
+		}
+		if(strlen($newPostContent) > 255) {
+			throw(new \RangeException("Post Image URL is too Long"));
 
-
-		$this->postImageUrl = $newPostImageUrl;
-	}
+			$this->postImageUrl = $newPostImageUrl;
+		}
 
 
 	/**
@@ -321,7 +327,16 @@ class Post implements \JsonSerializable {
 	 * @param string $newPostTitle is the title of the post
 	 **/
 	public function setPostTitle($newPostTitle): void {
+			$newPostImageUrl = trim($newPostImageUrl);
+			$newPostImageUrl = filter_var($newImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			if(empty($newPostImageUrl) === true) {
+				throw(new \InvalidArgumentException("Post Image URL is empty"));
+			}
+			if(strlen($newPostContent) > 255) {
+				throw(new \RangeException("Post Image URL is too Long"));
 
+				$this->postImageUrl = $newPostImageUrl;
+			}
 
 		$this->postTitle = $newPostTitle;
 	}
@@ -378,9 +393,9 @@ class Post implements \JsonSerializable {
 		$query = "UPDATE post SET postOrganizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle WHERE postId = :postId";
 		$statement = $pdo->prepare($query);
 
-		$formattedDate = $this->postEndDateTime->format("Y-m-d H:i:s.u");
-		$formattedDate = $this->postStartDateTime->format("Y-m-d H:i:s.u");
-		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent, "postEndDateTime" => $formattedDate, "postImageUrl" => $this->postImageUrl, "postStartDateTime" => $formattedDate, "postTitle" => $this->postTitle];
+		$formattedEndDate = $this->postEndDateTime->format("Y-m-d H:i:s.u");
+		$formattedStartDate = $this->postStartDateTime->format("Y-m-d H:i:s.u");
+		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent, "postEndDateTime" => $formattedEndDate, "postImageUrl" => $this->postImageUrl, "postStartDateTime" => $formattedStartDate, "postTitle" => $this->postTitle];
 		$statement->execute($parameters);
 	}
 

@@ -24,6 +24,12 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  **/
 class PostTest extends FeedPastTest {
 	/**
+	 * placeholder  until account activation is created
+	 * @var string $VALID_ACTIVATION
+	 **/
+	protected $VALID_ACTIVATION;
+
+	/**
 	 * postOrganizationId that created the post; this is for foreign key relations
 	 * @var \Uuid postOrganizationId profile
 	 **/
@@ -76,7 +82,7 @@ class PostTest extends FeedPastTest {
 		// run the default setUp() method first
 		parent::setUp();
 		$password = "abc123";
-		$this->VALID_ORGANIZATIONID = bin2hex(random_bytes(16));
+		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 
 		/**
