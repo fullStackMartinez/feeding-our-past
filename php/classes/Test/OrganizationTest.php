@@ -338,7 +338,7 @@ class OrganizationTest extends FeedPastTest {
 	}
 
 	/**
-	 * this is a test that will get an organization profile by activation token
+	 * this is a test that gets an organization profile by activation token
 	 **/
 	public function testGetValidOrganizationByOrganizationActivationToken() : void {
 		//get row count, save it
