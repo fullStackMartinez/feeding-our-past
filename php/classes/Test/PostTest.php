@@ -23,50 +23,54 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 class PostTest extends FeedPastTest {
 	/**
 	 * postOrganizationId that created the post; this is for foreign key relations
-	 * @var postOrganizationId profile
+	 * @var \Uuid postOrganizationId profile
 	 **/
-	protected $postOrganizationId = 1234234534564567;
+	protected $postOrganizationId = "1234234534564567";
 
 
 	/**
-	 * Valid post content
-	 * @var $VALID_CONTENT
+	 * Valid post Content
+	 * @var string $VALID_CONTENT
 	 */
-	protected $VALID_POST_CONTENT;
+	protected $VALID_CONTENT = "Valid Content" ;
 
 	/**
 	 * Valid post EndDateTime
-	 * @var string $VALID_EndDateTime
+	 * This starts as null and is assigned later
+	 * @var \DateTime $VALID_EndDateTime
 	 */
-	protected $VALID_POST_ENDDATETIME;
+	protected $VALID_ENDDATETIME = null;
 
 	/**
-	 * Valid image url
+	 * valid hash to use
+	 * @var $VALID_HASH
+	 **/
+	protected $VALID_HASH = null;
+
+	/**
+	 * Valid post image url
 	 * @var string $VALID_IMAGEURL
 	 **/
-	protected $VALID_POST_IMAGEURL;
+	protected $VALID_IMAGEURL = "www.ValidImage.moc";
 
 	/**
-	 * Valid
-	 * @var string $VALID_TWEETCONTENT2
+	 * valid salt to use to create the volunteer object to own the test
+	 * @var string $VALID_SALT
 	 **/
-	protected $VALID_TWEETCONTENT2 = "PHPUnit test still passing";
+	protected $VALID_SALT = null;
 
 	/**
-	 * timestamp of the Tweet; this starts as null and is assigned later
-	 * @var \DateTime $VALID_TWEETDATE
+	 * Valid post StartDateTime
+	 * This starts as null and is assigned later
+	 * @var \DateTime $VALID_STARTDATETIME
 	 **/
-	protected $VALID_TWEETDATE = null;
+	protected $VALID_STARTDATETIME = null;
 
 	/**
-	 * Valid timestamp to use as sunriseTweetDate
-	 */
-	protected $VALID_SUNRISEDATE = null;
-
-	/**
-	 * Valid timestamp to use as sunsetTweetDate
-	 */
-	protected $VALID_SUNSETDATE = null;
+	 * Valid post Title
+	 * @var string $VALID_TITLE
+	 **/
+	protected $VALID_TITLE = "Valid Title";
 
 	/**
 	 * create dependent objects before running each test
