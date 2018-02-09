@@ -248,6 +248,48 @@ class OrganizationTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidOrganizationByOrganizationId() : void {
 		//grab organization id that is not valid
-		$
+		$invalidOrganizationId = generateUuidV4();
+		$organization = Organization::getOrganizationByOrganizationId($this->getPDO(), $invalidOrganizationId);
+		$this->assertNull($organization);
 	}
+
+	public function testGetValidOrganizationByOrganizationName() {
+		//get row count, save for later
+		$numRows = $this->getConnection()->getRowCount("organization");
+		$organizationId = generateUuidV4();
+		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+		$organization->insert($this->getPDO());
+
+		//grab the data from our database
+		$results = Organization::getOrganizationByOrganizationName($this->getPDO(), $this->VALID_NAME);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
+
+		//make sure there is no overlapping of objects in organization
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Organization", $results);
+
+		//check that our results do what we expect them to
+		$pdoOrganization = $results[0];
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
+		$this->assertEquals($pdoOrganization->getOrganizationId(), $organizationId);
+		$this->assertEquals($pdoOrganization->getOrganizationActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressCity(), $this->VALID_ADDRESS_CITY);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressState(), $this->VALID_ADDRESS_STATE);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressStreet(), $this->VALID_ADDRESS_STREET);
+		$this->assertEquals($pdoOrganization->getOrganizationAddressZip(), $this->VALID_ADDRESS_ZIP);
+		$this->assertEquals($pdoOrganization->getOrganizationDonationAccepted(), $this->VALID_DONATION_ACCEPTED);
+		$this->assertEquals($pdoOrganization->getOrganizationEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoOrganization->getOrganizationHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoOrganization->getOrganizationHoursOpen(), $this->VALID_HOURS_OPEN);
+		$this->assertEquals($pdoOrganization->getOrganizationLatX(), $this->VALID_LAT);
+		$this->assertEquals($pdoOrganization->getOrganizationLongY(), $this->VALID_LONG);
+		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME);
+		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
+		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
+	}
+
+	/**
+	 * this is a test to attempt to find an organization profile that doesn't exist
+	 **/
+
 }
