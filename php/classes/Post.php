@@ -526,48 +526,49 @@ class Post implements \JsonSerializable {
 		}
 		return ($posts);
 	}
-			/**
-		 * gets all posts
-		 *
-		 * @param \PDO $pdo PDO connection object
-		 * @return \SplFixedArray SplFixedArray of posts found or null if not found
-		 * @throws \PDOException when mySQL related errors occur
-		 * @throws \TypeError when variables are not the correct data type
-		 **/
-		public static__function getAllposts(\PDO $pdo) : \SPLFixedArray {
-	// create query template
-$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post";
-$statement = $pdo->prepare($query);
-$statement->execute();
 
-	// build an array of posts
-$posts = new \SplFixedArray($statement->rowCount());
-$statement->setFetchMode(\PDO::FETCH_ASSOC);
-while(($row = $statement->fetch()) !== false) {
-try {
-$post = new post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
-$posts[$posts->key()] = $post;
-$posts->next();
+	/**
+	 * gets all Posts
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of posts found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getAllPosts(\PDO $pdo): \SPLFixedArray {
+		// create query template
+		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		// build an array of posts
+		$posts = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
+				$posts[$posts->key()] = $post;
+				$posts->next();
+			} catch (\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($posts);
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+
+	public function jsonSerialize(): array {
+		$fields = get_object_vars($this);
+		$fields["postId"] = $this->postId->toString();
+		$fields["postOrganizationId"] = $this->postOrganizationId->toString();
+		$fields["postEndDateTime"] = round(floatval($this->postEndDateTime->format("U.u")) * 1000);
+		return ($fields);
+	}
 }
-
-catch
-(\Exception $exception) {
-	// if the row couldn't be converted, rethrow it
-	throw(new \PDOException($exception->getMessage(), 0, $exception));
-}
-			}
-			return ($Post);
-			}
-
-			/**
-			 * formats the state variables for JSON serialization
-			 *
-			 * @return array resulting state variables to serialize
-			 **/
-
-			public function jsonSerialize() : array {
-				$fields = get_object_vars($this);
-				$fields["postId"] = $this->postId->toString();
-				$fields["postOrganizationId"] = $this->postOrganizationId->toString();
-			}
 
