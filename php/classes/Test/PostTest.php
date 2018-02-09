@@ -83,6 +83,7 @@ class PostTest extends FeedPastTest {
 		parent::setUp();
 		$password = "abc123";
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
+	}
 
 
 		/**
@@ -211,7 +212,7 @@ class PostTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidPostByPostOrganizationId(): void {
 		// grab a profile id that exceeds the maximum allowable profile id
-		$post = Post::getPostByPostOrganizationId()Id($this->getPDO(), generateUuidV4());
+		$post = Post::getPostByPostOrganizationId()postId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $post);
 	}
 

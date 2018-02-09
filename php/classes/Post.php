@@ -218,7 +218,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postEndDateTime
 	 * @return \DateTime value of postEndDateTime
 	 **/
-	public function getPostEndDateTime() : \DateTime {
+	public function getPostEndDateTime() : datetime {
 		return ($this->postEndDateTime);
 	}
 
@@ -230,7 +230,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is a date that does not exist
 	 **/
-	public function setPostEndDateTime($newPostEndDateTime = null): void {
+	public function setPostEndDateTime($newPostEndDateTime = null) : void {
 		if($newPostEndDateTime === null) {
 			$this->postEndDateTime = new \DateTime();
 			return;
@@ -274,7 +274,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postStartDateTime
 	 * @return \DateTime string value of postStartDateTime
 	 */
-	public function getPostStartDateTime() : \DateTime {
+	public function getPostStartDateTime() : datetime {
 		return ($this->postStartDateTime);
 	}
 
@@ -313,7 +313,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postTitle
 	 * @param string $newPostTitle is the title of the post
 	 **/
-	public function setPostTitle($newPostTitle) : string {
+	public function setPostTitle(string $newPostTitle) : string {
 			$newPostTitle = trim($newPostTitle);
 			$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($newPostTitle) === true) {
@@ -324,7 +324,6 @@ class Post implements \JsonSerializable {
 
 				$this->postTitle = $newPostTitle;
 			}
-
 	}
 
 	/**
@@ -341,9 +340,9 @@ class Post implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$formattedDate = $this->postEndDateTime->format("Y-m-d H:i:s.u");
-		$formattedDate = $this->postStartDateTime->format("Y-m-d H:i:s.u");
-		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent, "postEndDateTime" => $formattedDate, "postImageUrl" => $this->postImageUrl, "postStartDateTime" => $formattedDate, "postTitle" => $this->postTitle];
+		$formattedEndDate = $this->postEndDateTime->format("Y-m-d H:i:s.u");
+		$formattedStartDate = $this->postStartDateTime->format("Y-m-d H:i:s.u");
+		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent, "postEndDateTime" => $formattedEndDate, "postImageUrl" => $this->postImageUrl, "postStartDateTime" => $formattedStartDate, "postTitle" => $this->postTitle];
 		$statement->execute($parameters);
 	}
 
@@ -471,7 +470,7 @@ class Post implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getPostByPostEndDateTime(\PDO $pdo): ?Post {
+	public static function getPostByPostEndDateTime(\PDO $pdo): ?\DateTime {
 
 		$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime > now()";
 		$statement = $pdo->prepare($query);
