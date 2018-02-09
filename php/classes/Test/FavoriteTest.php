@@ -38,7 +38,7 @@ class FavoriteTest extends FeedPastTest {
 	/**
 	 * valid hash to use
 	 * @var $valid_Hash
-	 */
+	 **/
 	protected $Valid_Hash;
 
 	/**
@@ -51,14 +51,14 @@ class FavoriteTest extends FeedPastTest {
 	/**
 	 * valid salt to use to create the post object to own the text
 	 * @var string $VALID_SALT
-	 */
+	 **/
 	protected $VALID_SALT;
 
 
 	/**
 	 * valid activationToken to create the post object to own the test
 	 * @var string $VALID_ACTIVATION
-	 */
+	 **/
 	protected $VALID_ACTIVATION;
 
 
@@ -107,7 +107,7 @@ class FavoriteTest extends FeedPastTest {
 
 		/**
 		 * test creating a favorite and the deleting it
-		 */
+		 **/
 		public function testDeleteValidFavorite() : void {
 			// count the rows and save for later
 			$numRows = $this->getConnection()->getRowContent("favorite");
