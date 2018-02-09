@@ -18,21 +18,22 @@
  *    Class Name and Namespace are PSR4
 **/
 namespace Edu\Cnm\FeedPast;
-require_once("autoload.php");
+
 
 /**
  * Path to autoload.php
- *
+ */
+require_once("autoload.php");
+/**
  *    The __DIR__, 2 indicates that the autoload will go up 0, 1, 2 directory layers starting with the current directory layer to load autoload.
  *    Do we need to declare side effect?
 **/
+
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 /**
  * Here we load Ramsey's Uuid toolset
 */
-
-use Edu\Cnm\FeedinPast\ValidateUuid;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -259,7 +260,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postImageUrl
 	 * @return string value of postImageUrl
 	 */
-	public function getPostImageUrl(): void {
+	public function getPostImageUrl(): ?string {
 		return ($this->postImageUrl);
 	}
 
@@ -267,7 +268,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postImageUrl
 	 * @param string $newPostImageUrl is the url of the image added to a post
 	 **/
-	public function setPostImageUrl($newPostImageUrl): void {
+	public function setPostImageUrl($newPostImageUrl): ?string {
 		$newPostImageUrl = trim($newPostImageUrl);
 		$newPostImageUrl = filter_var($newPostImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostImageUrl) === true) {
@@ -326,10 +327,10 @@ class Post implements \JsonSerializable {
 			$newPostTitle = trim($newPostTitle);
 			$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($newPostTitle) === true) {
-				throw(new \InvalidArgumentException("Post Image URL is empty"));
+				throw(new \InvalidArgumentException("Post Title is empty"));
 			}
 			if(strlen($newPostTitle) > 255) {
-				throw(new \RangeException("Post Image URL is too Long"));
+				throw(new \RangeException("Post Title is too Long"));
 
 				$this->postTitle = $newPostTitle;
 			}
