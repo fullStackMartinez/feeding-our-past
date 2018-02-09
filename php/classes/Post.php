@@ -481,12 +481,11 @@ class Post implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getPostByPostEndDateTime(\PDO $pdo, $postEndDateTime): ?Post {
+	public static function getPostByPostEndDateTime(\PDO $pdo): ?Post {
 
 		$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime > now()";
 		$statement = $pdo->prepare($query);
 		// bind the content to the place holder in the template
-		$parameters = ["postEndDateTime" => $postEndDateTime->getBytes()];
 		$statement->execute($parameters);
 		// build an array of posts
 		$posts = new \SplFixedArray($statement->rowCount());
