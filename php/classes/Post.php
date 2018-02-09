@@ -55,7 +55,7 @@ class Post implements \JsonSerializable {
 	 * postId state set to private
 	 */
 	private $postId;
-	use ValidateUuid;
+
 	/**
 	 * Post uses postOrganizationId as the foreign key
 	 * postOrganizationId is the foreign key
@@ -64,7 +64,6 @@ class Post implements \JsonSerializable {
 	 * postOrganizationId state set to private
 	 */
 	private $postOrganizationId;
-	use ValidateUuid;
 	/**
 	 * Post uses postContent as an element
 	 * This is the content of the post
@@ -80,7 +79,6 @@ class Post implements \JsonSerializable {
 	 * postEndDateTime state set to private
 	 */
 	private $postEndDateTime;
-	use ValidateDate;
 
 	/**
 	 * Post uses postImageUrl as an element
@@ -97,7 +95,6 @@ class Post implements \JsonSerializable {
 	 * postStartDateTime state set to private
 	 */
 	private $postStartDateTime;
-	use ValidateDate;
 
 	/**
 	 * Post uses postTitle as an element
@@ -126,7 +123,7 @@ class Post implements \JsonSerializable {
 	 * @throws & @Documentation notes are straight from Dylan McDonald's code template
 	 * Exceptions code is straight from Dylan McDonald's code
 	 */
-	public function __construct($newPostId, $newPostOrganizationId, $newPostContent, $newPostEndDateTime, $newPostImageUrl, $newPostStartDateTime, $newPostTitle) {
+	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, string $newPostEndDateTime, string $newPostImageUrl, string $newPostStartDateTime, string $newPostTitle) {
 		try {
 			$this->setPostId($newPostId);
 			$this->setPostOrganizationId($newPostOrganizationId);
