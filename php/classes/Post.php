@@ -272,16 +272,15 @@ class Post implements \JsonSerializable {
 	 **/
 	public function setPostImageUrl($newPostImageUrl): void {
 		$newPostImageUrl = trim($newPostImageUrl);
-		$newPostImageUrl = filter_var($newImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newPostImageUrl = filter_var($newPostImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostImageUrl) === true) {
 			throw(new \InvalidArgumentException("Post Image URL is empty"));
 		}
-		if(strlen($newPostContent) > 255) {
+		if(strlen($newPostImageUrl) > 255) {
 			throw(new \RangeException("Post Image URL is too Long"));
-
-			$this->postImageUrl = $newPostImageUrl;
 		}
-
+		$this->postImageUrl = $newPostImageUrl;
+	}
 
 	/**
 	 * accessor method for postStartDateTime
@@ -327,18 +326,17 @@ class Post implements \JsonSerializable {
 	 * @param string $newPostTitle is the title of the post
 	 **/
 	public function setPostTitle($newPostTitle): void {
-			$newPostImageUrl = trim($newPostImageUrl);
-			$newPostImageUrl = filter_var($newImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-			if(empty($newPostImageUrl) === true) {
+			$newPostTitle = trim($newPostTitle);
+			$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+			if(empty($newPostTitle) === true) {
 				throw(new \InvalidArgumentException("Post Image URL is empty"));
 			}
-			if(strlen($newPostContent) > 255) {
+			if(strlen($newPostTitle) > 255) {
 				throw(new \RangeException("Post Image URL is too Long"));
 
-				$this->postImageUrl = $newPostImageUrl;
+				$this->postTitle = $newPostTitle;
 			}
 
-		$this->postTitle = $newPostTitle;
 	}
 
 	/**
