@@ -231,7 +231,7 @@ private $postTitle;
 	 * @return \DateTime value of postEndDateTime
 	 */
 	public function getPostEndDateTime(): \DateTime {
-		return ($this->postEndDateTime);
+		return($this->postEndDateTime);
 	}
 
 	/**
@@ -269,7 +269,7 @@ public function getPostImageUrl() : void {
  * mutator method for postImageUrl
  * @param string $newPostImageUrl is the url of the image added to a post
  **/
-public function setpostImageUrl($newPostImageUrl) : void {
+public function setPostImageUrl($newPostImageUrl) : void {
 
 	return($this->postImageUrl);
 
@@ -293,17 +293,20 @@ public function getPostStartDateTime() : \DateTime {
  * @throws \InvalidArgumentException if the date is in an invalid format
  * @throws \RangeException if the date is a date that does not exist
  **/
-public function setpostStartDateTime($newPostStartDateTime) : void {
+public function setPostStartDateTime($newPostStartDateTime = null) : void {
 	try {
-		$newPostStartDateTime = self::validateDateTime($newPostStartDateTime);
-	} catch(\InvalidArgumentException | \RangeException $exception) {
+	if($newPostStartDateTime === null) {
+	$this->postStartDateTime = new \DateTime();
+	return;
+	}
+
+			try {
+				$newPostStartDateTime = self::validateDateTime($newPostStartDateTime);
+			} catch(\InvalidArgumentException | \RangeException $exception) {
 		$exceptionType = get_class($exception);
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
 	}
-	return($this->postStartDateTime);
-
-
-$this->postStartDateTime = $newpostStartDateTime;
+		$this->postStartDateTime = $newPostStartDateTime);
 }
 
 /**
