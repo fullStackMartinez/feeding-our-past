@@ -4,10 +4,7 @@
  * User: petersdata
  * Date: 2/5/18
  * Time: 2:39 PM
- *    @author Peter B Street <peterbstreet@gmail.com> - Code Revision
- *    @author Dylan McDonald <dmcdonald21@cnm.edu> - Core code outline and format
- *    @author php-fig  <http://www.php-fig.org/psr/> - PHP Standards Recommendation
- *    @author Ramsey - Uuid toolset
+ *  *    @author Ramsey - Uuid toolset
 **/
 
 /**
@@ -26,6 +23,7 @@ namespace Edu\Cnm\FeedPast;
 require_once("autoload.php");
 /**
  *    The __DIR__, 2 indicates that the autoload will go up 0, 1, 2 directory layers starting with the current directory layer to load autoload.
+ *
  *    Do we need to declare side effect?
 **/
 
@@ -39,7 +37,10 @@ use Ramsey\Uuid\Uuid;
 /**
  * The class is definded and set to Post
  * This class uses Uuids
- *
+ *       @author Peter B Street <peterbstreet@gmail.com> - Code Revision
+ *    @author Dylan McDonald <dmcdonald21@cnm.edu> - Core code outline and format
+ *    @author php-fig  <http://www.php-fig.org/psr/> - PHP Standards Recommendation
+
  *    This object is based on the post table in feeding-our-past.sql
  *    Class Name and Namespace are PSR4
  *    "implements \JsonSerializable" removed until later
@@ -52,7 +53,7 @@ class Post implements \JsonSerializable {
 	 * Post uses postId as the primary key
 	 * postId is the primary key
 	 * postId is the post's unique id
-	 * @var string $postId
+	 * @var $Uuid $postId
 	 * postId state set to private
 	 */
 	private $postId;
@@ -61,22 +62,22 @@ class Post implements \JsonSerializable {
 	 * Post uses postOrganizationId as the foreign key
 	 * postOrganizationId is the foreign key
 	 * postOrganizationId is the posting organizations unique id
-	 * @var string postOrganizationId
+	 * @var $Uuid postOrganizationId
 	 * postOrganizationId state set to private
 	 */
 	private $postOrganizationId;
 	/**
 	 * Post uses postContent as an element
 	 * This is the content of the post
-	 * @var string postContent
+	 * @var $string postContent
 	 * postContent state set to private
 	 */
 	private $postContent;
 
-	/**
+	/**\
 	 * Post uses postEndDateTime as an element
 	 * This is the date that the post is to be removed from service
-	 * @var string postEndDateTime
+	 * @var $\DateTime postEndDateTime
 	 * postEndDateTime state set to private
 	 */
 	private $postEndDateTime;
@@ -84,7 +85,7 @@ class Post implements \JsonSerializable {
 	/**
 	 * Post uses postImageUrl as an element
 	 * This is the url of the image associated with the content
-	 * @var string postImageUrl
+	 * @var $string postImageUrl
 	 * postImageUrl state set to private
 	 */
 	private $postImageUrl;
@@ -92,7 +93,7 @@ class Post implements \JsonSerializable {
 	/**
 	 * Post uses postStartDateTime as an element
 	 * This is the start date and time of the post
-	 * @var string postStartDateTime
+	 * @var $\DateTime postStartDateTime
 	 * postStartDateTime state set to private
 	 */
 	private $postStartDateTime;
@@ -100,7 +101,7 @@ class Post implements \JsonSerializable {
 	/**
 	 * Post uses postTitle as an element
 	 * This is the title of the post
-	 * @var string postTitle
+	 * @var $string postTitle
 	 * postTitle state set to private
 	 */
 	private $postTitle;
@@ -121,7 +122,6 @@ class Post implements \JsonSerializable {
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
-	 * @throws & @Documentation notes are straight from Dylan McDonald's code template
 	 * Exceptions code is straight from Dylan McDonald's code
 	 */
 	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, string $newPostEndDateTime, string $newPostImageUrl, string $newPostStartDateTime, string $newPostTitle) {
@@ -141,9 +141,9 @@ class Post implements \JsonSerializable {
 
 	/**
 	 * accessor method for postId
-	 * @return string value of postId
+	 * @return Uuid value of postId
 	 */
-	public function getPostId(): Uuid {
+	public function getPostId() : Uuid {
 		return ($this->postId);
 	}
 
@@ -153,7 +153,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostId is not positive
 	 * @throws \TypeError if $newPostId is not a uuid or string
 	 */
-	public function setPostId($newPostId): void {
+	public function setPostId($newPostId) : void {
 		try {
 			$uuid = self::validateUuid($newPostId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -170,7 +170,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postOrganizationId
 	 * @return string value of postOrganizationId
 	 **/
-	public function getPostOrganizationId(): Uuid {
+	public function getPostOrganizationId() : Uuid {
 		return ($this->postOrganizationId);
 	}
 
@@ -180,24 +180,24 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostOrganizationId is not positive
 	 * @throws \TypeError if $newUserId is not a string or uuid
 	 **/
-	public function setpostOrganizationId($newPostOrganizationId): void {
+	public function setpostOrganizationId($newPostOrganizationId) : void {
 		try {
 			$uuid = self::validateUuid($newPostOrganizationId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		/*
+		/**
 		 * Convert and store the postOrganizationId
-		*/
+		**/
 		$this->postOrganizationId = $uuid;
 	}
 
 	/**
 	 * accessor method for postContent
 	 * @return string value of postContent
-	 */
-	public function getPostContent(): string {
+	 **/
+	public function getPostContent() : string {
 		return ($this->postContent);
 	}
 
@@ -207,8 +207,8 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if $newPostContent is not a string or insecure
 	 * @throws \RangeException if $newPostContent is > 4096 characters
 	 * @throws \TypeError if $newPostContent is not a string
-	 */
-	public function setPostContent(string $newPostContent): void {
+	 **/
+	public function setPostContent(string $newPostContent) : void {
 		$newPostContent = trim($newPostContent);
 		$newPostContent = filter_var($newPostContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostContent) === true) {
@@ -219,7 +219,7 @@ class Post implements \JsonSerializable {
 		}
 		/**
 		 * store the post content
-		 */
+		 **/
 		$this->postContent = $newPostContent;
 	}
 
@@ -227,8 +227,8 @@ class Post implements \JsonSerializable {
 	/**
 	 * accessor method for postEndDateTime
 	 * @return \DateTime value of postEndDateTime
-	 */
-	public function getPostEndDateTime(): \DateTime {
+	 **/
+	public function getPostEndDateTime() : \DateTime {
 		return ($this->postEndDateTime);
 	}
 
@@ -260,7 +260,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postImageUrl
 	 * @return string value of postImageUrl
 	 */
-	public function getPostImageUrl(): ?string {
+	public function getPostImageUrl() : ?string {
 		return ($this->postImageUrl);
 	}
 
@@ -268,7 +268,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postImageUrl
 	 * @param string $newPostImageUrl is the url of the image added to a post
 	 **/
-	public function setPostImageUrl($newPostImageUrl): ?string {
+	public function setPostImageUrl($newPostImageUrl) : ?string {
 		$newPostImageUrl = trim($newPostImageUrl);
 		$newPostImageUrl = filter_var($newPostImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostImageUrl) === true) {
@@ -284,7 +284,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postStartDateTime
 	 * @return \DateTime string value of postStartDateTime
 	 */
-	public function getPostStartDateTime(): \DateTime {
+	public function getPostStartDateTime() : \DateTime {
 		return ($this->postStartDateTime);
 	}
 
@@ -296,7 +296,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is a date that does not exist
 	 **/
-	public function setPostStartDateTime($newPostStartDateTime = null): void {
+	public function setPostStartDateTime($newPostStartDateTime = null) : void {
 		if($newPostStartDateTime === null) {
 			$this->postStartDateTime = new \DateTime();
 			return;
@@ -315,7 +315,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postTitle
 	 * @return string value of postTitle
 	 */
-	public function getPostTitle(): void {
+	public function getPostTitle() : void {
 		return ($this->postTitle);
 	}
 
@@ -323,7 +323,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postTitle
 	 * @param string $newPostTitle is the title of the post
 	 **/
-	public function setPostTitle($newPostTitle): void {
+	public function setPostTitle($newPostTitle) : void {
 			$newPostTitle = trim($newPostTitle);
 			$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($newPostTitle) === true) {
@@ -483,7 +483,7 @@ class Post implements \JsonSerializable {
 	 **/
 	public static function getPostByPostEndDateTime(\PDO $pdo, $postEndDateTime): ?Post {
 
-		$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime = :postEndDateTime";
+		$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime > now()";
 		$statement = $pdo->prepare($query);
 		// bind the content to the place holder in the template
 		$parameters = ["postEndDateTime" => $postEndDateTime->getBytes()];
@@ -497,70 +497,6 @@ class Post implements \JsonSerializable {
 				$posts[$posts->key()] = $post;
 				$posts->next();
 			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return ($posts);
-	}
-
-	/**
-	 * gets the posts by postStartDateTime
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param string $postStartDateTime post content to search for
-	 * @return \SplFixedArray SplFixedArray of posts found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
-	public static function getPostByPostStartDateTime(\PDO $pdo, $postStartDateTime): \SplFixedArray {
-		// create query template
-		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime = :postEndDateTime";
-		$statement = $pdo->prepare($query);
-		// bind the content to the place holder in the template
-		$postStartDateTime = "%$postStartDateTime%";
-		$parameters = ["postStartDateTime" => $postStartDateTime];
-		$statement->execute($parameters);
-
-		// build an array of posts
-		$posts = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
-				$posts[$posts->key()] = $post;
-				$posts->next();
-			} catch(\Exception $exception) {
-				// if the row couldn't be converted, rethrow it
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return ($posts);
-	}
-
-	/**
-	 * gets all Posts
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of posts found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
-	public static function getAllPosts(\PDO $pdo): \SPLFixedArray {
-		// create query template
-		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-
-		// build an array of posts
-		$posts = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
-				$posts[$posts->key()] = $post;
-				$posts->next();
-			} catch (\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
