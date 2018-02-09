@@ -82,50 +82,50 @@ class Post implements \JsonSerializable {
 	private $postEndDateTime;
 	use ValidateDate;
 
-/**
- * Post uses postImageUrl as an element
- * This is the url of the image associated with the content
- * @var string postImageUrl
- * postImageUrl state set to private
- */
-private $postImageUrl;
+	/**
+	 * Post uses postImageUrl as an element
+	 * This is the url of the image associated with the content
+	 * @var string postImageUrl
+	 * postImageUrl state set to private
+	 */
+	private $postImageUrl;
 
-/**
- * Post uses postStartDateTime as an element
- * This is the start date and time of the post
- * @var string postStartDateTime
- * postStartDateTime state set to private
- */
-private $postStartDateTime;
+	/**
+	 * Post uses postStartDateTime as an element
+	 * This is the start date and time of the post
+	 * @var string postStartDateTime
+	 * postStartDateTime state set to private
+	 */
+	private $postStartDateTime;
 	use ValidateDate;
 
-/**
- * Post uses postTitle as an element
- * This is the title of the post
- * @var string postTitle
- * postTitle state set to private
- */
-private $postTitle;
+	/**
+	 * Post uses postTitle as an element
+	 * This is the title of the post
+	 * @var string postTitle
+	 * postTitle state set to private
+	 */
+	private $postTitle;
 
-/**
- * constructor for Post
- *
- * Constructs the object post and associated object's states
- * @param string $newPostId is the poster's unique and required id
- * @param string $newPostOrganizationId is the posting organization's unique and required id
- * @param string $newPostContent is the content of the post
- * @param string $newPostEndDateTime is the required date and time the post may be removed
- * @param string $newPostImageUrl is the location of the image that may accompany the post
- * @param string $newPostStartDateTime is the required date and time the post may be added
- * @param string $newPostTitle is the title of the post
- * @throws \InvalidArgumentException if data types are not valid
- * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
- * @throws \TypeError if data types violate type hints
- * @throws \Exception if some other exception occurs
- * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
- * @throws & @Documentation notes are straight from Dylan McDonald's code template
- * Exceptions code is straight from Dylan McDonald's code
- */
+	/**
+	 * constructor for Post
+	 *
+	 * Constructs the object post and associated object's states
+	 * @param string $newPostId is the poster's unique and required id
+	 * @param string $newPostOrganizationId is the posting organization's unique and required id
+	 * @param string $newPostContent is the content of the post
+	 * @param string $newPostEndDateTime is the required date and time the post may be removed
+	 * @param string $newPostImageUrl is the location of the image that may accompany the post
+	 * @param string $newPostStartDateTime is the required date and time the post may be added
+	 * @param string $newPostTitle is the title of the post
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
+	 * @throws & @Documentation notes are straight from Dylan McDonald's code template
+	 * Exceptions code is straight from Dylan McDonald's code
+	 */
 	public function __construct($newPostId, $newPostOrganizationId, $newPostContent, $newPostEndDateTime, $newPostImageUrl, $newPostStartDateTime, $newPostTitle) {
 		try {
 			$this->setPostId($newPostId);
@@ -141,20 +141,20 @@ private $postTitle;
 		}
 	}
 
-/**
- * accessor method for postId
- * @return string value of postId
- */
+	/**
+	 * accessor method for postId
+	 * @return string value of postId
+	 */
 	public function getPostId(): Uuid {
 		return ($this->postId);
 	}
 
-/**
- * mutator method for postId
- * @param string $newPostId new value for postId
- * @throws \RangeException if $newPostId is not positive
- * @throws \TypeError if $newPostId is not a uuid or string
- */
+	/**
+	 * mutator method for postId
+	 * @param string $newPostId new value for postId
+	 * @throws \RangeException if $newPostId is not positive
+	 * @throws \TypeError if $newPostId is not a uuid or string
+	 */
 	public function setPostId($newPostId): void {
 		try {
 			$uuid = self::validateUuid($newPostId);
@@ -168,20 +168,20 @@ private $postTitle;
 		$this->postId = $uuid;
 	}
 
-/**
- * accessor method for postOrganizationId
- * @return string value of postOrganizationId
- **/
+	/**
+	 * accessor method for postOrganizationId
+	 * @return string value of postOrganizationId
+	 **/
 	public function getPostOrganizationId(): Uuid {
 		return ($this->postOrganizationId);
 	}
 
-/**
- * mutator method for postOrganizationId
- * @param string $newPostOrganizationId
- * @throws \RangeException if $newPostOrganizationId is not positive
- * @throws \TypeError if $newUserId is not a string or uuid
- **/
+	/**
+	 * mutator method for postOrganizationId
+	 * @param string $newPostOrganizationId
+	 * @throws \RangeException if $newPostOrganizationId is not positive
+	 * @throws \TypeError if $newUserId is not a string or uuid
+	 **/
 	public function setpostOrganizationId($newPostOrganizationId): void {
 		try {
 			$uuid = self::validateUuid($newPostOrganizationId);
@@ -195,21 +195,21 @@ private $postTitle;
 		$this->postOrganizationId = $uuid;
 	}
 
-/**
- * accessor method for postContent
- * @return string value of postContent
- */
+	/**
+	 * accessor method for postContent
+	 * @return string value of postContent
+	 */
 	public function getPostContent(): string {
 		return ($this->postContent);
 	}
 
-/**
- * mutator method for postContent
- * @param string $newPostContent is the new post content
- * @throws \InvalidArgumentException if $newPostContent is not a string or insecure
- * @throws \RangeException if $newPostContent is > 4096 characters
- * @throws \TypeError if $newPostContent is not a string
- */
+	/**
+	 * mutator method for postContent
+	 * @param string $newPostContent is the new post content
+	 * @throws \InvalidArgumentException if $newPostContent is not a string or insecure
+	 * @throws \RangeException if $newPostContent is > 4096 characters
+	 * @throws \TypeError if $newPostContent is not a string
+	 */
 	public function setPostContent(string $newPostContent): void {
 		$newPostContent = trim($newPostContent);
 		$newPostContent = filter_var($newPostContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -230,8 +230,8 @@ private $postTitle;
 	 * accessor method for postEndDateTime
 	 * @return \DateTime value of postEndDateTime
 	 */
-	public function getPostEndDateTime() : \DateTime {
-		return($this->postEndDateTime);
+	public function getPostEndDateTime(): \DateTime {
+		return ($this->postEndDateTime);
 	}
 
 	/**
@@ -244,8 +244,8 @@ private $postTitle;
 	 **/
 	public function setPostEndDateTime($newPostEndDateTime = null): void {
 		if($newPostEndDateTime === null) {
-		$this->postEndDateTime = new \DateTime();
-		return;
+			$this->postEndDateTime = new \DateTime();
+			return;
 		}
 
 		try {
@@ -258,80 +258,82 @@ private $postTitle;
 	}
 
 
-/**
- * accessor method for postImageUrl
- * @return string value of postImageUrl
- */
-public function getPostImageUrl() : void {
-	return ($this->postImageUrl);
-}
-/**
- * mutator method for postImageUrl
- * @param string $newPostImageUrl is the url of the image added to a post
- **/
-public function setPostImageUrl($newPostImageUrl) : void {
-
-
-$this->postImageUrl = $newPostImageUrl;
-}
-
-
-/**
- * accessor method for postStartDateTime
- * @return \DateTime string value of postStartDateTime
- */
-public function getPostStartDateTime() : \DateTime {
-	return($this->postStartDateTime);
-}
-
-/**
- * mutator method for postStartDateTime
- * @param \DateTime|string $newPostStartDateTime is the time that the post may be removed
- * @param \DateTime|string $newPostStartDateTime date to validate
- * @throws \InvalidArgumentException if $newPostStartDateTime is a date that does not exist
- * @throws \InvalidArgumentException if the date is in an invalid format
- * @throws \RangeException if the date is a date that does not exist
- **/
-public function setPostStartDateTime($newPostStartDateTime = null) : void {
-	if($newPostStartDateTime === null) {
-	$this->postStartDateTime = new \DateTime();
-	return;
+	/**
+	 * accessor method for postImageUrl
+	 * @return string value of postImageUrl
+	 */
+	public function getPostImageUrl(): void {
+		return ($this->postImageUrl);
 	}
 
-			try {
-				$newPostStartDateTime = self::validateDateTime($newPostStartDateTime);
-			} catch(\InvalidArgumentException | \RangeException $exception) {
-		$exceptionType = get_class($exception);
-		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	/**
+	 * mutator method for postImageUrl
+	 * @param string $newPostImageUrl is the url of the image added to a post
+	 **/
+	public function setPostImageUrl($newPostImageUrl): void {
+
+
+		$this->postImageUrl = $newPostImageUrl;
 	}
+
+
+	/**
+	 * accessor method for postStartDateTime
+	 * @return \DateTime string value of postStartDateTime
+	 */
+	public function getPostStartDateTime(): \DateTime {
+		return ($this->postStartDateTime);
+	}
+
+	/**
+	 * mutator method for postStartDateTime
+	 * @param \DateTime|string $newPostStartDateTime is the time that the post may be removed
+	 * @param \DateTime|string $newPostStartDateTime date to validate
+	 * @throws \InvalidArgumentException if $newPostStartDateTime is a date that does not exist
+	 * @throws \InvalidArgumentException if the date is in an invalid format
+	 * @throws \RangeException if the date is a date that does not exist
+	 **/
+	public function setPostStartDateTime($newPostStartDateTime = null): void {
+		if($newPostStartDateTime === null) {
+			$this->postStartDateTime = new \DateTime();
+			return;
+		}
+
+		try {
+			$newPostStartDateTime = self::validateDateTime($newPostStartDateTime);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
 		$this->postStartDateTime = $newPostStartDateTime;
-}
+	}
 
-/**
- * accessor method for postTitle
- * @return string value of postTitle
- */
-public function getPostTitle() : void {
-	return($this->postTitle);
-}
-/**
- * mutator method for postTitle
- * @param string $newPostTitle is the title of the post
- **/
-public function setPostTitle($newPostTitle) : void {
+	/**
+	 * accessor method for postTitle
+	 * @return string value of postTitle
+	 */
+	public function getPostTitle(): void {
+		return ($this->postTitle);
+	}
+
+	/**
+	 * mutator method for postTitle
+	 * @param string $newPostTitle is the title of the post
+	 **/
+	public function setPostTitle($newPostTitle): void {
 
 
-	$this->postTitle = $newPostTitle;
-}
+		$this->postTitle = $newPostTitle;
+	}
 
-/**
+	/**
 	 * inserts this post into mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function insert(\PDO $pdo) : void {
+	public function insert(\PDO $pdo): void {
 
 		// create query template
 		$query = "INSERT INTO post(postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle) VALUES(:postId, :postOrganizationId, :postContent, :postEndDateTime, :postImageUrl, :postStartDateTime, :postTitle)";
@@ -352,7 +354,7 @@ public function setPostTitle($newPostTitle) : void {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function delete(\PDO $pdo) : void {
+	public function delete(\PDO $pdo): void {
 
 		// create query template
 		$query = "DELETE FROM post WHERE postId = :postId";
@@ -370,7 +372,7 @@ public function setPostTitle($newPostTitle) : void {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
-	public function update(\PDO $pdo) : void {
+	public function update(\PDO $pdo): void {
 
 		// create query template
 		$query = "UPDATE post SET postOrganizationId = :postOrganizationId, postContent = :postContent, postEndDateTime = :postEndDateTime, postImageUrl = :postImageUrl, postStartDateTime = :postStartDateTime, postTitle = :postTitle WHERE postId = :postId";
@@ -381,6 +383,7 @@ public function setPostTitle($newPostTitle) : void {
 		$parameters = ["postId" => $this->postId->getBytes(), "postOrganizationId" => $this->postOrganizationId->getBytes(), "postContent" => $this->postContent, "postEndDateTime" => $formattedDate, "postImageUrl" => $this->postImageUrl, "postStartDateTime" => $formattedDate, "postTitle" => $this->postTitle];
 		$statement->execute($parameters);
 	}
+
 	/**
 	 * gets the post by postId
 	 *
@@ -390,7 +393,7 @@ public function setPostTitle($newPostTitle) : void {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getPostByPostId(\PDO $pdo, $postId) : ?Post {
+	public static function getPostByPostId(\PDO $pdo, $postId): ?Post {
 		// sanitize the postId before searching
 		try {
 			$postId = self::validateUuid($postId);
@@ -416,7 +419,7 @@ public function setPostTitle($newPostTitle) : void {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($post);
+		return ($post);
 	}
 
 	/**
@@ -428,7 +431,7 @@ public function setPostTitle($newPostTitle) : void {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getPostByPostOrganizationId(\PDO $pdo, $postOrganizationId) : \SplFixedArray {
+	public static function getPostByPostOrganizationId(\PDO $pdo, $postOrganizationId): \SplFixedArray {
 
 		try {
 			$postOrganizationId = self::validateUuid($postOrganizationId);
@@ -455,7 +458,7 @@ public function setPostTitle($newPostTitle) : void {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($posts);
+		return ($posts);
 	}
 
 	/**
@@ -467,64 +470,62 @@ public function setPostTitle($newPostTitle) : void {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getPostByPostEndDateTime(\PDO $pdo, $postEndDateTime) : ?Post {
+	public static function getPostByPostEndDateTime(\PDO $pdo, $postEndDateTime): ?Post {
 
-			$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime = :postEndDateTime";
-			$statement = $pdo->prepare($query);
-			// bind the content to the place holder in the template
-			$parameters = ["postEndDateTime" => $postEndDateTime->getBytes()];
-			$statement->execute($parameters);
-			// build an array of posts
-			$posts = new \SplFixedArray($statement->rowCount());
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			while(($row = $statement->fetch()) !== false) {
-				try {
-					$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
-					$posts[$posts->key()] = $post;
-					$posts->next();
-				} catch(\Exception $exception) {
-					// if the row couldn't be converted, rethrow it
-					throw(new \PDOException($exception->getMessage(), 0, $exception));
-				}
+		$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime = :postEndDateTime";
+		$statement = $pdo->prepare($query);
+		// bind the content to the place holder in the template
+		$parameters = ["postEndDateTime" => $postEndDateTime->getBytes()];
+		$statement->execute($parameters);
+		// build an array of posts
+		$posts = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
+				$posts[$posts->key()] = $post;
+				$posts->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		return($posts);
+		}
+		return ($posts);
 	}
 
-		/**
-		 * gets the posts by postStartDateTime
-		 *
-		 * @param \PDO $pdo PDO connection object
-		 * @param string $postStartDateTime post content to search for
-		 * @return \SplFixedArray SplFixedArray of posts found
-		 * @throws \PDOException when mySQL related errors occur
-		 * @throws \TypeError when variables are not the correct data type
-		 **/
-		public static function getpostByStartDateTime(\PDO $pdo, $postStartDateTime) : \SplFixedArray {
-			{
-				// create query template
-				$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime = :postEndDateTime";
-				$statement = $pdo->prepare($query);
-				// bind the content to the place holder in the template
-				$postStartDateTime = "%$postStartDateTime%";
-				$parameters = ["postStartDateTime" => $postStartDateTime];
-				$statement->execute($parameters);
+	/**
+	 * gets the posts by postStartDateTime
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $postStartDateTime post content to search for
+	 * @return \SplFixedArray SplFixedArray of posts found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getPostByPostStartDateTime(\PDO $pdo, $postStartDateTime): \SplFixedArray {
+		// create query template
+		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime = :postEndDateTime";
+		$statement = $pdo->prepare($query);
+		// bind the content to the place holder in the template
+		$postStartDateTime = "%$postStartDateTime%";
+		$parameters = ["postStartDateTime" => $postStartDateTime];
+		$statement->execute($parameters);
 
-				// build an array of posts
-				$posts = new \SplFixedArray($statement->rowCount());
-				$statement->setFetchMode(\PDO::FETCH_ASSOC);
-				while(($row = $statement->fetch()) !== false) {
-					try {
-						$posts = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
-						$posts[$posts->key()] = $posts;
-						$posts->next();
-					} catch(\Exception $exception) {
-						// if the row couldn't be converted, rethrow it
-						throw(new \PDOException($exception->getMessage(), 0, $exception));
-					}
-				}
+		// build an array of posts
+		$posts = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$post = new Post($row["postId"], $row["postOrganizationId"], $row["postContent"], $row["postEndDateTime"], $row["postImageUrl"], $row["postStartDateTime"], $row["postTitle"]);
+				$posts[$posts->key()] = $post;
+				$posts->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-			return($posts);}
-
+		}
+		return ($posts);
+	}
 			/**
 		 * gets all posts
 		 *
