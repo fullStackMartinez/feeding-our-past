@@ -57,6 +57,14 @@ class FavoriteTest extends FeedPastTest {
 	 **/
 	protected $VALID_ACTIVATION;
 
+	/**
+	 * Valid timestamp to use as sunriseTweetDate
+	 */
+	protected $VALID_SUNRISEDATE = null;
+	/**
+	 * Valid timestamp to use as sunsetFavoriteDate
+	 */
+	protected $VALID_SUNSETDATE = null;
 
 	/**
 	 * create dependant objects before running each test
