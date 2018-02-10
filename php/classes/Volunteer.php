@@ -360,7 +360,7 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 	 **/
 	public function insert(\PDO $pdo) : void {
 		// create query template
-		$query = "INSERT INTO volunteer(volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt) VALUES (:volunteerID, :volunteerActivationToken, :volunteerAvailability, :volunteerEmail, :volunteerHash, :volunteerName, :volunteerPhone, :volunteerSalt)";
+		$query = "INSERT INTO volunteer(volunteerId, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt) VALUES (:volunteerId, :volunteerActivationToken, :volunteerAvailability, :volunteerEmail, :volunteerHash, :volunteerName, :volunteerPhone, :volunteerSalt)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to te place holders in the template
