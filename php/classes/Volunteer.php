@@ -420,7 +420,7 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		}
 
 		// create query template
-		$query = "SELECT volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerId = :volunteerId";
+		$query = "SELECT volunteerId, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerId = :volunteerId";
 		$statement = $pdo->prepare($query);
 
 		// bind the volunteer id to the place holder in the template
@@ -459,7 +459,7 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		}
 
 		// create the query template
-		$query = "SELECT volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerActivationToken = :volunteerActivationToken";
+		$query = "SELECT volunteerId, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerActivationToken = :volunteerActivationToken";
 		$statement = $pdo->prepare($query);
 
 		// bind the volunteer activation token to the place holder in the template
@@ -499,7 +499,7 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		}
 
 		// create query template
-		$query = "SELECT volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerEmail = :volunteerEmail";
+		$query = "SELECT volunteerId, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerEmail = :volunteerEmail";
 		$statement = $pdo->prepare($query);
 
 		// bind the volunteer email to the place holder in the template
@@ -539,7 +539,7 @@ public function __construct($newVolunteerId, ?string $newVolunteerActivationToke
 		}
 
 		// create the query template
-		$query = "SELECT volunteerID, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerName = :volunteerName";
+		$query = "SELECT volunteerId, volunteerActivationToken, volunteerAvailability, volunteerEmail, volunteerHash, volunteerName, volunteerPhone, volunteerSalt FROM volunteer WHERE volunteerName = :volunteerName";
 		$statement = $pdo->prepare($query);
 
 		// bind the volunteer name to the place holder in the template
