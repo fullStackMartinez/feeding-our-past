@@ -209,7 +209,7 @@ class VolunteerTest extends FeedPastTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("volunteer"));
 
 		// enforce no other objects are bleeding into volunteer
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Volunteer");
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Volunteer", $results);
 
 		// enforce the results meet expectations
 		$pdoVolunteer = $results[0];
