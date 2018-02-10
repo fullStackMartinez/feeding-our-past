@@ -73,7 +73,7 @@ class FavoriteTest extends FeedPastTest {
 		// run the default setup() method first
 		parent::setUp();
 
-		// create a salt and hash for the mocked post
+		// create a salt and hash for the mocked posts
 		$password = "abc123";
 		$this->VALID_SALT = bin2hex(random_bytes(32));
 		$this->VALID_HASH = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
