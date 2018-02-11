@@ -1,9 +1,9 @@
 <?php
+
 namespace Edu\Cnm\FeedPast;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
-
 
 
 use Ramsey\Uuid\Uuid;
@@ -47,7 +47,7 @@ class Organization implements \JsonSerializable {
 	private $organizationAddressStreet;
 	/**
 	 * this is the organization zip code, the official mailing zip code of the registered organization profile
-	 * @var string $organizationAddressZip;
+	 * @var string $organizationAddressZip ;
 	 **/
 	private $organizationAddressZip;
 	/**
@@ -62,7 +62,7 @@ class Organization implements \JsonSerializable {
 	private $organizationEmail;
 	/**
 	 * this is the hash for the organization profile password
-	 * @var string  $organizationHash
+	 * @var string $organizationHash
 	 **/
 	private $organizationHash;
 	/**
@@ -87,12 +87,12 @@ class Organization implements \JsonSerializable {
 	private $organizationName;
 	/**
 	 * this is the contact phone number of the organization
-	 * @var string $organizationPhone;
+	 * @var string $organizationPhone ;
 	 **/
 	private $organizationPhone;
 	/**
 	 * this is the salt for password
-	 * @var string $organizationSalt;
+	 * @var string $organizationSalt ;
 	 **/
 	private $organizationSalt;
 	/**
@@ -145,7 +145,7 @@ class Organization implements \JsonSerializable {
 			$this->setOrganizationPhone($newOrganizationPhone);
 			$this->setOrganizationSalt($newOrganizationSalt);
 			$this->setOrganizationUrl($newOrganizationUrl);
-		} catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception) {
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			//determine which of the exceptions will be thrown
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -183,7 +183,7 @@ class Organization implements \JsonSerializable {
 	 *
 	 * @return string value of the activation token
 	 **/
-	public function getOrganizationActivationToken() : ?string {
+	public function getOrganizationActivationToken(): ?string {
 		return ($this->organizationActivationToken);
 	}
 
@@ -229,12 +229,12 @@ class Organization implements \JsonSerializable {
 	 * @throws \RangeException if $newOrganizationAddressCity is larger than 32 characters long
 	 * @throws \TypeError if there is a type error or @newOrganizationAddressCity is not a string
 	 **/
-	public function setOrganizationAddressCity(string $newOrganizationAddressCity) : void {
+	public function setOrganizationAddressCity(string $newOrganizationAddressCity): void {
 
 		//validate address is safe
 		$newOrganizationAddressCity = trim($newOrganizationAddressCity);
 		$newOrganizationAddressCity = filter_var($newOrganizationAddressCity, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newOrganizationAddressCity) ===true) {
+		if(empty($newOrganizationAddressCity) === true) {
 			throw(new \InvalidArgumentException("sorry, but city address is unsafe or empty"));
 		}
 		//validate address is less or equal to 32 characters
@@ -262,7 +262,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \RangeException if address state is longer than 32 characters
 	 * @throws \TypeError if there is an error with the string
 	 **/
-	public function setOrganizationAddressState(string $newOrganizationAddressState) : void {
+	public function setOrganizationAddressState(string $newOrganizationAddressState): void {
 
 		//validate safety of address
 		$newOrganizationAddressState = trim($newOrganizationAddressState);
@@ -481,10 +481,10 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**accessor method for organization location latitude
- *
- * @return float value of the organizations latitude
- **/
-	public function getOrganizationLatX() : float {
+	 *
+	 * @return float value of the organizations latitude
+	 **/
+	public function getOrganizationLatX(): float {
 		return ($this->organizationLatX);
 	}
 
@@ -508,7 +508,7 @@ class Organization implements \JsonSerializable {
 	 *
 	 * @return float value of the organizations longitude
 	 **/
-	public function getOrganizationLongY() : float {
+	public function getOrganizationLongY(): float {
 		return ($this->organizationLongY);
 	}
 
@@ -521,7 +521,7 @@ class Organization implements \JsonSerializable {
 	public function setOrganizationLongY(float $newOrganizationLongY): void {
 
 		//verify the float is less than or equal to 180 digits
-		if($newOrganizationLongY > 180 || $newOrganizationLongY <-180) {
+		if($newOrganizationLongY > 180 || $newOrganizationLongY < -180) {
 			throw(new \RangeException("sorry, but the longitude must be between 180 and -180 digits"));
 		}
 		//save the float
@@ -632,7 +632,7 @@ class Organization implements \JsonSerializable {
 	/**
 	 *accessor method for organization Url
 	 *
-	 *@return string of organization Url
+	 * @return string of organization Url
 	 **/
 	public function getOrganizationUrl(): ?string {
 		return ($this->organizationUrl);
@@ -675,7 +675,7 @@ class Organization implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//combines the member variables of the class to the query template placeholders
-		$parameters = ["organizationId" => $this->organizationId->getBytes(), "organizationActivationToken" =>$this->organizationActivationToken, "organizationAddressCity" =>$this->organizationAddressCity, "organizationAddressState" =>$this->organizationAddressState, "organizationAddressStreet" =>$this->organizationAddressStreet, "organizationAddressZip" =>$this->organizationAddressZip, "organizationDonationAccepted" =>$this->organizationDonationAccepted, "organizationEmail" =>$this->organizationEmail, "organizationHash" =>$this->organizationHash, "organizationHoursOpen" =>$this->organizationHoursOpen, "organizationLatX" =>$this->organizationLatX, "organizationLongY" =>$this->organizationLongY, "organizationName" =>$this->organizationName, "organizationPhone" =>$this->organizationPhone, "organizationSalt" =>$this->organizationSalt, "organizationUrl" =>$this->organizationUrl];
+		$parameters = ["organizationId" => $this->organizationId->getBytes(), "organizationActivationToken" => $this->organizationActivationToken, "organizationAddressCity" => $this->organizationAddressCity, "organizationAddressState" => $this->organizationAddressState, "organizationAddressStreet" => $this->organizationAddressStreet, "organizationAddressZip" => $this->organizationAddressZip, "organizationDonationAccepted" => $this->organizationDonationAccepted, "organizationEmail" => $this->organizationEmail, "organizationHash" => $this->organizationHash, "organizationHoursOpen" => $this->organizationHoursOpen, "organizationLatX" => $this->organizationLatX, "organizationLongY" => $this->organizationLongY, "organizationName" => $this->organizationName, "organizationPhone" => $this->organizationPhone, "organizationSalt" => $this->organizationSalt, "organizationUrl" => $this->organizationUrl];
 		$statement->execute($parameters);
 	}
 
@@ -693,7 +693,7 @@ class Organization implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//combine the member variables of this class to the template placeholders
-		$parameters = ["organizationId" =>$this->organizationId->getBytes()];
+		$parameters = ["organizationId" => $this->organizationId->getBytes()];
 		$statement->execute($parameters);
 	}
 
@@ -710,7 +710,7 @@ class Organization implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//combine the member variables of this class tot he template placeholders
-		$parameters = ["organizationId" => $this->organizationId->getBytes(), "organizationActivationToken" =>$this->organizationActivationToken, "organizationAddressCity" =>$this->organizationAddressCity, "organizationAddressState" =>$this->organizationAddressState, "organizationAddressStreet" =>$this->organizationAddressStreet, "organizationAddressZip" =>$this->organizationAddressZip, "organizationDonationAccepted" =>$this->organizationDonationAccepted, "organizationEmail" =>$this->organizationEmail, "organizationHash" =>$this->organizationHash, "organizationHoursOpen" =>$this->organizationHoursOpen, "organizationLatX" =>$this->organizationLatX, "organizationLongY" =>$this->organizationLongY, "organizationName" =>$this->organizationName, "organizationPhone" =>$this->organizationPhone, "organizationSalt" =>$this->organizationSalt, "organizationUrl" =>$this->organizationUrl];
+		$parameters = ["organizationId" => $this->organizationId->getBytes(), "organizationActivationToken" => $this->organizationActivationToken, "organizationAddressCity" => $this->organizationAddressCity, "organizationAddressState" => $this->organizationAddressState, "organizationAddressStreet" => $this->organizationAddressStreet, "organizationAddressZip" => $this->organizationAddressZip, "organizationDonationAccepted" => $this->organizationDonationAccepted, "organizationEmail" => $this->organizationEmail, "organizationHash" => $this->organizationHash, "organizationHoursOpen" => $this->organizationHoursOpen, "organizationLatX" => $this->organizationLatX, "organizationLongY" => $this->organizationLongY, "organizationName" => $this->organizationName, "organizationPhone" => $this->organizationPhone, "organizationSalt" => $this->organizationSalt, "organizationUrl" => $this->organizationUrl];
 		$statement->execute($parameters);
 	}
 
@@ -723,7 +723,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a incorrect variable data type
 	 **/
-	public static function getOrganizationByOrganizationId(\PDO $pdo, string $organizationId) : ?Organization {
+	public static function getOrganizationByOrganizationId(\PDO $pdo, string $organizationId): ?Organization {
 		// sanitize the organization id before conducting search
 		try {
 			$organizationId = self::validateUuid($organizationId);
@@ -742,7 +742,7 @@ class Organization implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"],$row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
+				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"], $row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
 			}
 		} catch(\Exception $exception) {
 			// if the row could not be converted, initiate exception throw again
@@ -761,7 +761,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \TypeError when data type are incorrect
 	 **/
 	public
-	static function getOrganizationByOrganizationActivationToken(\PDO $pdo, string $organizationActivationToken) : ?Organization {
+	static function getOrganizationByOrganizationActivationToken(\PDO $pdo, string $organizationActivationToken): ?Organization {
 		//make sure activation token is in the right format and that it is a string representation of a hexadecimal
 		$organizationActivationToken = trim($organizationActivationToken);
 		if(ctype_xdigit($organizationActivationToken) === false) {
@@ -799,12 +799,12 @@ class Organization implements \JsonSerializable {
 	 * @throws \PDOException when database errors occur
 	 * @throws \TypeError when data types are incorrect
 	 **/
-	public static function getOrganizationByDistance(\PDO $pdo, float $userLongY, float $userLatX, float $distance) : \SplFixedArray {
+	public static function getOrganizationByDistance(\PDO $pdo, float $userLongY, float $userLatX, float $distance): \SplFixedArray {
 		//this creates the query template
 		$query = "SELECT  organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl FROM organization WHERE haversine(:userLongY, :userLatX, organizationLongY, organizationLatX) < :distance";
 		$statement = $pdo->prepare($query);
 
-	//combine organization distance with the template place holders
+		//combine organization distance with the template place holders
 		$parameters = ["distance" => $distance];
 		$statement->execute($parameters);
 
@@ -821,7 +821,7 @@ class Organization implements \JsonSerializable {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($organizations);
+		return ($organizations);
 	}
 
 	/**
@@ -870,7 +870,7 @@ class Organization implements \JsonSerializable {
 	 * @throws \PDOException when mySQL errors occur
 	 * @throws \TypeError when data types are incorrect
 	 **/
-	public static function getOrganizationByOrganizationName(\PDO $pdo, string $organizationName) : \SPLFixedArray {
+	public static function getOrganizationByOrganizationName(\PDO $pdo, string $organizationName): \SPLFixedArray {
 		// sanitize the organization name before searching
 		$organizationName = trim($organizationName);
 		$organizationName = filter_var($organizationName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -885,7 +885,7 @@ class Organization implements \JsonSerializable {
 		$statement->execute($parameters);
 		$organizations = new \SPLFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while (($row = $statement->fetch()) !== false) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"], $row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
 				$organizations[$organizations->key()] = $organization;
@@ -903,13 +903,13 @@ class Organization implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerialize() : array {
+	public function jsonSerialize(): array {
 		$fields = get_object_vars($this);
 
 		$fields["organizationId"] = $this->organizationId->toString();
 
 		//format the date so that the front end can consume it
-		return($fields);
+		return ($fields);
 	}
 
 }
