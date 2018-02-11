@@ -310,7 +310,7 @@ class OrganizationTest extends FeedPastTest {
 		//grab data from database
 		$results = Organization::getOrganizationByDistance($this->getPDO(), $organization->getDistance());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
-
+		$this->assertCount(1, $results);
 		//make sure there is no overlapping of objects in organization
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Organization", $results);
 
@@ -340,7 +340,8 @@ class OrganizationTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidOrganizationByDistance() : void {
 		// grab an organization by an invalid distance
-		$organization = Organization::getOrganizationByDistance($this->getPDO(), 194, 94 , .00002);
+		$organization = Organization::getOrganizationByDistance($this->getPDO(), 187.4, 97.5, "distance");
+		var_dump($organization);
 		$this->assertCount(0, $organization);
 	}
 
