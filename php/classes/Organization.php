@@ -148,7 +148,6 @@ class Organization implements \JsonSerializable {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			//determine which of the exceptions will be thrown
 			$exceptionType = get_class($exception);
-			var_dump($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
@@ -210,7 +209,7 @@ class Organization implements \JsonSerializable {
 		if(strlen($newOrganizationActivationToken) !== 32) {
 			throw(new\RangeException("sorry, but the user activation token must be exactly 32 characters long"));
 		}//stores the activation token for organization profile
-		$this->organizationActivationToken = $$newOrganizationActivationToken;
+		$this->organizationActivationToken = $newOrganizationActivationToken;
 	}
 
 	/**
