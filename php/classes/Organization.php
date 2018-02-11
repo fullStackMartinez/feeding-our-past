@@ -148,6 +148,7 @@ class Organization implements \JsonSerializable {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			//determine which of the exceptions will be thrown
 			$exceptionType = get_class($exception);
+			var_dump($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
