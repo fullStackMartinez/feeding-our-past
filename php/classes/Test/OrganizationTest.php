@@ -340,7 +340,7 @@ class OrganizationTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidOrganizationByDistance() : void {
 		// grab an organization by an invalid distance
-		$organization = Organization::getOrganizationByDistance($this->getPDO(), 187.4, 97.5, "distance");
+		$organization = Organization::getOrganizationByDistance($this->getPDO(), 187.4, 97.5, .0002);
 		var_dump($organization);
 		$this->assertCount(0, $organization);
 	}
