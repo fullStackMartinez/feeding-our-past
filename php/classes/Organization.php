@@ -789,6 +789,42 @@ class Organization implements \JsonSerializable {
 	}
 
 	/**
+	 * this will get an organization by their distance to user
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param float $userLatX latitude coordinate of app user/volunteer
+	 * @param float $userLongY longitude coordinate of app user/volunteer
+	 * @param float $distance this is the distance in miles that limits the user search
+	 * @return \SplFixedArray SplFixedArray of organizations found
+	 * @throws \PDOException when database errors occur
+	 * @throws \TypeError when data types are incorrect
+	 **/
+	public static function getOrganizationByDistance(\PDO $pdo, float $userLongY, float $userLatX, float $distance) : \SplFixedArray {
+		//this creates the query template
+		$query = "SELECT  organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl FROM organization WHERE haversine(:userLongY, :userLatX, organizationLongY, organizationLatX) < :distance";
+		$statement = $pdo->prepare($query);
+
+	//combine organization distance with the template place holders
+		$parameters = ["distance" => $distance];
+		$statement->execute($parameters);
+
+		//build an array of organizations
+		$organizations = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"], $row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
+				$organizations[$organizations->key()] = $organization;
+				$organizations->next();
+			} catch(\Exception $exception) {
+				//if row can't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($organizations);
+	}
+
+	/**
 	 * get organization by organization email
 	 *
 	 * @param \PDO $pdo PDO connection object
