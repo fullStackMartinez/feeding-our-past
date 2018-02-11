@@ -308,9 +308,9 @@ class OrganizationTest extends FeedPastTest {
 		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
 		$organization->insert($this->getPDO());
 		//grab data from database
-		$results = Organization::getOrganizationByDistance($this->getPDO(), $organization->getDistance());
+		$results = Organization::getOrganizationByDistance($this->getPDO(), 111, 46, 10);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
-		$this->assertCount(1, $results);
+
 		//make sure there is no overlapping of objects in organization
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Organization", $results);
 
