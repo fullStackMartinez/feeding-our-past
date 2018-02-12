@@ -100,7 +100,7 @@ class Post implements \JsonSerializable {
  * constructor for Post
  *
  * Constructs the object post and associated object's states
- * @param string $newPostId is the poster's unique and required id
+ * @param Uuid $newPostId is the poster's unique and required id
  * @param string $newPostOrganizationId is the posting organization's unique and required id
  * @param string $newPostContent is the content of the post
  * @param string $newPostEndDateTime is the required date and time the post may be removed
@@ -218,7 +218,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postEndDateTime
 	 * @return \DateTime value of postEndDateTime
 	 **/
-	public function getPostEndDateTime() : datetime {
+	public function getPostEndDateTime() : \DateTime {
 		return ($this->postEndDateTime);
 	}
 
@@ -274,7 +274,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postStartDateTime
 	 * @return \DateTime string value of postStartDateTime
 	 */
-	public function getPostStartDateTime() : datetime {
+	public function getPostStartDateTime() : \DateTime {
 		return ($this->postStartDateTime);
 	}
 
@@ -313,7 +313,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postTitle
 	 * @param string $newPostTitle is the title of the post
 	 **/
-	public function setPostTitle(string $newPostTitle) : string {
+	public function setPostTitle(string $newPostTitle) : void {
 			$newPostTitle = trim($newPostTitle);
 			$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 			if(empty($newPostTitle) === true) {

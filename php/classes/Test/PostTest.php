@@ -4,7 +4,7 @@ namespace Edu\Cnm\FeedPast\Test;
 
 use Edu\Cnm\FeedPast\Test;
 
-use Edu\Cnm\FeedPast\Post;
+use Edu\Cnm\FeedPast\{Post, Organization};
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -24,17 +24,23 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  **/
 class PostTest extends FeedPastTest {
 	/**
+	 * Organization the created the post
+	 * This is the variable that sets the parent child
+	 * @var Organization organization
+	 **/
+	protected $organization = null;
+
+	/**
 	 * placeholder  until account activation is created
 	 * @var string $VALID_ACTIVATION
 	 **/
 	protected $VALID_ACTIVATION;
 
-	/**
+/**
 	 * postOrganizationId that created the post; this is for foreign key relations
 	 * @var \Uuid postOrganizationId profile
-	 **/
-	protected $VALID_ORGANIZATION = null;
-
+//	protected $VALID_ORGANIZATION = "Donation Center";
+**/
 
 	/**
 	 * Valid post Content
@@ -82,7 +88,16 @@ class PostTest extends FeedPastTest {
 		// run the default setUp() method first
 		parent::setUp();
 		$password = "abc123";
+		$this->VALID_SALT = bin2hex(random_bytes(32));
+		$this->VALID_HASH = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
+
+		// create and insert the mocked profile
+		$this->organization = new Organization(generateUuidV4(), $this->VALID_ACTIVATION,"albuquerque", "NM","555 San Mateo NE", "87110", "yes", "php@organization.com", $this->VALID_HASH, "8 to 5", "45", "110", "phporganization", "+5055555555", $this->VALID_SALT, null);
+		$this->organization->insert($this->getPDO());
+		// calculate the date (just use the time the unit test was setup...)
+		$this->VALID_STARTDATETIME = new \DateTime();
+		$this->VALID_ENDDATETIME = new \DateTime();
 	}
 
 
@@ -91,24 +106,25 @@ class PostTest extends FeedPastTest {
 		 **/
 		public function testInsertValidPost() : void {
 			// count the number of rows and save it for later
-			$numRows = $this->getConnection()->getRowCount("Post");
+			$numRows = $this->getConnection()->getRowCount("post");
 
 			// create a new Post and insert to into mySQL
 			$postId = generateUuidV4();
 
-			$post = new Post($postId, $this->VALID_ORGANIZATION, $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+			$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
 			$post->insert($this->getPDO());
 
 			// grab the data from mySQL and enforce the fields match our expectations
 			$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 			$this->assertEquals($pdoPost->getPostId(), $postId);
-			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
+			$this->assertEquals($pdoPost->getPostOrganizationId(),$this->organization->getOrganizationId());
 			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT);
 			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
 			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
 			$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
-			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);}
+			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
+		}
 
 		/**
 		 * test inserting a Post, editing it, and then updating it
