@@ -1,13 +1,16 @@
 <?php
+
 namespace Edu\Cnm\FeedPast\Test;
 
-use Edu\Cnm\feedpast\{Favorite, Post, Volunteer};
+use Edu\Cnm\feedpast\{
+	Favorite, Post, Volunteer
+};
 
 // grab the class under scrunity
-require_once(dirname(__DIR__,1) . "/autoload.php");
+require_once(dirname(__DIR__, 1) . "/autoload.php");
 
 // grab the uuid generator
-require_once(dirname(__DIR__,2) . "/lib/uuid.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
  * Full PhpUnit test for the favorite class.
@@ -19,7 +22,6 @@ require_once(dirname(__DIR__,2) . "/lib/uuid.php");
  * @author Jeffrey Brink <jeffreybrink@gmx.com
  * @author Dylan McDonald <dmcdonald@cnm.edu>
  **/
-
 class FavoriteTest extends FeedPastTest {
 
 	/**
@@ -55,75 +57,77 @@ class FavoriteTest extends FeedPastTest {
 	 **/
 	protected $VALID_ACTIVATION;
 
+	/**
+	 * Valid timestamp to use as sunriseTweetDate
+	 */
+	protected $VALID_SUNRISEDATE = null;
+	/**
+	 * Valid timestamp to use as sunsetFavoriteDate
+	 */
+	protected $VALID_SUNSETDATE = null;
 
 	/**
 	 * create dependant objects before running each test
 	 **/
-	public final function setup() : void {
+	public final function setup(): void {
 		// run the default setup() method first
 		parent::setUp();
 
-		// create a salt and hash for the mocked posts
+		// create a salt and hash for the mocked post
 		$password = "abc123";
 		$this->VALID_SALT = bin2hex(random_bytes(32));
-		$this->VALID_HASH = hash_pbkdf2("sha512", $password, 		$this->VALID_SALT, 262144);
+		$this->VALID_HASH = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 
 		// create and insert the mocked post
-		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), null, "some-post-content", postEndDate,
-			"https://www.w3schools.com", 			postStartDate, "Food drive coming up");
+		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), "some-post-content", "2018-02-02 2000:00.0.0", null,
+			"2018-02-01 2000:00.0.0", "Food drive coming up");
+		$this->post->insert($this->getPDO());
 
 		//create and insert the mocked volunteer
-		$this->volunteer = new Volunteer(generateUuidV4(), null, null, "phillyonfire@burn.com",
-			$this->VALID_HASH, "Ted Random", "719-367-9856", $this->VALID_SALT);
-			
-			$this->post->getPostId() "PHPUnit favorite test passing");
+		$this->volunteer = new Volunteer(generateUuidV4(), null, "Fridays at 5pm", "phillyonfire@burn.com", $this->VALID_HASH, "Ted Random", "719-367-9856", $this->VALID_SALT);
 		$this->volunteer->insert($this->getPDO());
+	}
 
-		// calculate the date (just use the time the unit test was setup)
-		$this->VALID_FAVORITEDATE = new \DateTime();
-		}
+	/**
+	 * test inserting a valid favorite and verifying that the actual mySQL data matches
+	 **/
 
-		/**
-		 * test inserting a valid favorite and verifying that the actual mySQL data matches
-		 **/
+	public function testInsertValidFavorite(): void {
+		// count the numbers of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("favorite");
 
-		public function testInsertValidFavorite() : void {
-			// count the numbers of rows and save it for later
-			$numRows = $this->getConnection()->getRowCount("favorite");
+		// create a new Favorite and insert to into mySQL
+		$favorite = new Favorite($this->favorite->getPostId(), $this->volunteer->getVolunteerId());
+		$favorite->insert($this->getPDO());
+	}
 
-			// create a new Favorite and insert to into mySQL
-			$favorite = new Favorite($this->favorite->getPostId(), $this->volunteer->getVolunteerId());
-			$favorite->insert($this->getPDO());
-		}
+	/**
+	 * test creating a favorite and the deleting it
+	 **/
+	public function testDeleteValidFavorite(): void {
+		// count the rows and save for later
+		$numRows = $this->getConnection()->getRowContent("favorite");
 
-		/**
-		 * test creating a favorite and the deleting it
-		 **/
-		public function testDeleteValidFavorite() : void {
-			// count the rows and save for later
-			$numRows = $this->getConnection()->getRowContent("favorite");
+		// create a new Favorite and insert to into mySQL
+		$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId());
+		$favorite->insert($this->getPDO());
 
-			// create a new Favorite and insert to into mySQL
-			$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId());
-			$favorite->insert($this->getPDO());
+		// delete the Favorite from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
+		$favorite->delete($this->getPDO());
 
-			// delete the Favorite from mySQL
-			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
-			$favorite->delete($this->getPDO());
-
-			// grab the data from mySQL and enforce the Volunteer does not exist
-			$pdofavorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), $this->post->getPostId(),
-			$this->volunteer->getVolunteerId());
-			$this->assertNull($pdoFavorite);
-			$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
-			}
+		// grab the data from mySQL and enforce the Volunteer does not exist
+		$pdoFavorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), $this->post->getPostId(), $this->volunteer->getVolunteerId());
+		$this->assertNull($pdoFavorite);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("favorite"));
+	}
 
 	/**
 	 * test inserting a Favorite and regrabbing it from mySQL
 	 **/
-	public function testGetValidFavoriteByPostIDAndVolunteerId() : void {
+	public function testGetValidFavoriteByPostIDAndVolunteerId(): void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
 
@@ -137,94 +141,89 @@ class FavoriteTest extends FeedPastTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 		$this->assertEquals($pdoFavorite->getFavoritePostId(), $this->post->getPostId());
 		$this->assertEquals($pdoFavorite->getFavoriteVolunteerId(), $this->volunteer->getVolunteerId());
+	}
 
 
-		/**
-		 * test grabbing a Favorite that does not exist
-		 **/
-		public
-		function testGetInvalidFavoriteByPostIdAndVolunteerId() {
-			// grab a volunteerId and postId that exceeds the maximum allowable volunteerId and postId
-			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), generateUuidV4(), generateUuidV4());
-			$this->assertNull($favorite);
-		}
+	/**
+	 * test grabbing a Favorite that does not exist
+	 **/
+	public function testGetInvalidFavoriteByPostIdAndVolunteerId() {
+		// grab a volunteerId and postId that exceeds the maximum allowable volunteerId and postId
+		$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), generateUuidV4(), generateUuidV4());
+		$this->assertNull($favorite);
+	}
 
-		/**
-		 * test grabbing a Favorite by volunteerid
-		 **/
-		public
-		function testGetValidFavoriteByVolunteerId(): void {
-			// count the number of rows and save it for later
-			$numRows = $this->getConnection()->getRowCount("favorite");
-			// create a new Favorite and insert to into mySQL
-			$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId());
-			$favorite->insert($this->getPDO());
+	/**
+	 * test grabbing a Favorite by volunteerid
+	 **/
+	public function testGetValidFavoriteByVolunteerId(): void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("favorite");
+		// create a new Favorite and insert to into mySQL
+		$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId());
+		$favorite->insert($this->getPDO());
 
-			// grab the data from mySQL and enforce the fields match our expectations
-			$results = Favorite::getFavoriteByFavoriteVolunteerId($this->getPDO(), $this->volunteer->getVolunteerId());
-			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
-			$this->assertCount(1, $results);
-			$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Favorite", $results);
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Favorite::getFavoriteByFavoriteVolunteerId($this->getPDO(), $this->volunteer->getVolunteerId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Favorite", $results);
 
 
-			// grab the result from the array and validate it
-			$pdoFavorite = $results[0];
-			$this->assertEquals($pdoFavorite->getFavoritePostId(), $this->post->getPostId());
-			$this->assertEquals($pdoFavorite->getFavoriteVolunteerId(), $this->volunteer->getVolunteerId());
+		// grab the result from the array and validate it
+		$pdoFavorite = $results[0];
+		$this->assertEquals($pdoFavorite->getFavoritePostId(), $this->post->getPostId());
+		$this->assertEquals($pdoFavorite->getFavoriteVolunteerId(), $this->volunteer->getVolunteerId());
+	}
 
 
-
-			/**
-			 * test grabbing a Favorite by a volunteerId that does not exist
-			 **/
-			public
-			function testGetInvalidFavoriteByVolunteerId(): void {
-				// grab a Volunteer id that exceeds the maximum allowable volunteer id
-				$Favorite = Favorite::getFavoriteByFavoriteVolunteerId($this->getPDO(), generateUuidV4());
-				$this->assertCount(0, $Favorite);
-			}
+	/**
+	 * test grabbing a Favorite by a volunteerId that does not exist
+	 **/
+	public function testGetInvalidFavoriteByVolunteerId(): void {
+		// grab a Volunteer id that exceeds the maximum allowable volunteer id
+		$Favorite = Favorite::getFavoriteByFavoriteVolunteerId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $Favorite);
+	}
 
 
-			/**
-			 * test grabbing a Favorite by post id
-			 **/
+	/**
+	 * test grabbing a Favorite by post id
+	 **/
 
-			public
-			function testGetValidFavoriteByPostId(): void {
-				// count the number of rows and save it for later
-				$numRows = $this->getConnection()->getRowCount("favorite");
-				// create a new Favorite and insert to into mySQL
-				$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId());
-				$favorite->insert($this->getPDO());
-
-
-				// grab the data from mySQL and enforce the fields match our expectations
-				$results = Favorite::getFavoriteByFavoritePostId($this->getPDO(), $this->post->getPostId());
-				$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
-				$this->assertCount(1, $results);
-				// enforce no other objects are bleeding into the test
-				$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Favorite", $results);
+	public function testGetValidFavoriteByPostId(): void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("favorite");
+		// create a new Favorite and insert to into mySQL
+		$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId());
+		$favorite->insert($this->getPDO());
 
 
-				// grab the result from the array and validate it
-				$pdoFavorite = $results[0];
-				$this->assertEquals($pdoFavorite->getFavoritePostId(), $this->post->getPostId());
-				$this->assertEquals($pdoFavorite->getFavoriteVolunteerId(), $this->volunteer->getVolunteerId());
-			}
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Favorite::getFavoriteByFavoritePostId($this->getPDO(), $this->post->getPostId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
+		$this->assertCount(1, $results);
+		// enforce no other objects are bleeding into the test
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Favorite", $results);
 
 
+		// grab the result from the array and validate it
+		$pdoFavorite = $results[0];
+		$this->assertEquals($pdoFavorite->getFavoritePostId(), $this->post->getPostId());
+		$this->assertEquals($pdoFavorite->getFavoriteVolunteerId(), $this->volunteer->getVolunteerId());
+	}
 
-				/**
-				 *  * test grabbing a Favorite by a Post id that does not exist
-				 **/
 
-				public function testGetInvalidFavoriteByPostId(): void {
-				// grab a volunteer id that exceeds the maximum allowable post id
-				$favorite = Favorite::getFavoriteByFavoritePostId($this->getPDO(), generateUuidV4());
-				$this->assertCount(0, $favorite);
-			}
-		}
+	/**
+	 *  * test grabbing a Favorite by a Post id that does not exist
+	 **/
+
+	public function testGetInvalidFavoriteByPostId(): void {
+		// grab a volunteer id that exceeds the maximum allowable post id
+		$favorite = Favorite::getFavoriteByFavoritePostId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $favorite);
 	}
 }
+
 
 
