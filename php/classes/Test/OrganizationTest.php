@@ -159,7 +159,7 @@ class OrganizationTest extends FeedPastTest {
 	}
 
 	/**
-	 * this will test creating an organizaiton profile, editing it, and then updating that organization profile
+	 * this will test creating an organization profile, editing it, and then updating that organization profile
 	 **/
 	public function testUpdateValidOrganization() {
 		//get a row count, save it for later
@@ -168,6 +168,7 @@ class OrganizationTest extends FeedPastTest {
 		//create the new organization profile, insert into database
 		$organizationId = generateUuidV4();
 		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
+		$organization->insert($this->getPDO());
 
 		//edit the organization profile and update it in the database
 		$organization->setOrganizationName($this->VALID_NAME2);
@@ -188,7 +189,7 @@ class OrganizationTest extends FeedPastTest {
 		$this->assertEquals($pdoOrganization->getOrganizationHoursOpen(), $this->VALID_HOURS_OPEN);
 		$this->assertEquals($pdoOrganization->getOrganizationLatX(), $this->VALID_LAT);
 		$this->assertEquals($pdoOrganization->getOrganizationLongY(), $this->VALID_LONG);
-		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME);
+		$this->assertEquals($pdoOrganization->getOrganizationName(), $this->VALID_NAME2);
 		$this->assertEquals($pdoOrganization->getOrganizationPhone(), $this->VALID_PHONE);
 		$this->assertEquals($pdoOrganization->getOrganizationSalt(), $this->VALID_SALT);
 		$this->assertEquals($pdoOrganization->getOrganizationUrl(), $this->VALID_URL);
@@ -308,7 +309,7 @@ class OrganizationTest extends FeedPastTest {
 		$organization = new Organization($organizationId, $this->VALID_ACTIVATION, $this->VALID_ADDRESS_CITY, $this->VALID_ADDRESS_STATE, $this->VALID_ADDRESS_STREET, $this->VALID_ADDRESS_ZIP, $this->VALID_DONATION_ACCEPTED, $this->VALID_EMAIL, $this->VALID_HASH, $this->VALID_HOURS_OPEN, $this->VALID_LAT, $this->VALID_LONG, $this->VALID_NAME, $this->VALID_PHONE, $this->VALID_SALT, $this->VALID_URL);
 		$organization->insert($this->getPDO());
 		//grab data from database
-		$results = Organization::getOrganizationByDistance($this->getPDO(), 111, 46, 10);
+		$results = Organization::getOrganizationByDistance($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("organization"));
 
 		//make sure there is no overlapping of objects in organization
@@ -340,7 +341,7 @@ class OrganizationTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidOrganizationByDistance() : void {
 		// grab an organization by an invalid distance
-		$organization = Organization::getOrganizationByDistance($this->getPDO(), 187.4, 97.5, .0002);
+		$organization = Organization::getOrganizationByDistance($this->getPDO(), 187.4, 97.5, 10);
 		var_dump($organization);
 		$this->assertCount(0, $organization);
 	}

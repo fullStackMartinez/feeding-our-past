@@ -805,8 +805,8 @@ class Organization implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		//combine organization distance with the template place holders
-		$parameters = ["distance" => $distance];
-		$statement->execute($parameters);
+		//$parameters = ["distance" => $distance];
+		//$statement->execute($parameters);
 
 		//build an array of organizations
 		$organizations = new \SplFixedArray($statement->rowCount());
