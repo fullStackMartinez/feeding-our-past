@@ -799,20 +799,21 @@ class Organization implements \JsonSerializable {
 	 * @throws \PDOException when database errors occur
 	 * @throws \TypeError when data types are incorrect
 	 **/
-	public static function getOrganizationByDistance(\PDO $pdo, float $userLongY, float $userLatX, float $distance): \SplFixedArray {
+	public static function getOrganizationByDistance(\PDO $pdo, float $distance,float $userLatX, float $userLongY): \SplFixedArray {
 		//this creates the query template
 		$query = "SELECT  organizationId, organizationActivationToken, organizationAddressCity, organizationAddressState, organizationAddressStreet, organizationAddressZip, organizationDonationAccepted, organizationEmail, organizationHash, organizationHoursOpen, organizationLatX, organizationLongY, organizationName, organizationPhone, organizationSalt, organizationUrl FROM organization WHERE haversine(:userLongY, :userLatX, organizationLongY, organizationLatX) < :distance";
 		$statement = $pdo->prepare($query);
 
 		//combine organization distance with the template place holders
-		//$parameters = ["distance" => $distance];
-		//$statement->execute($parameters);
+		$parameters = ["distance" => $distance, "userLatX" => $userLatX, "userLongY"=> $userLongY];
+		$statement->execute($parameters);
 
 		//build an array of organizations
 		$organizations = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
+				var_dump($row);
 				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"], $row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
 				$organizations[$organizations->key()] = $organization;
 				$organizations->next();

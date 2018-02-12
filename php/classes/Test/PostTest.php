@@ -89,7 +89,7 @@ class PostTest extends FeedPastTest {
 		/**
 		 * test inserting a valid Post and verify that the actual mySQL data matches
 		 **/
-		public function testInsertValidPost(): void {
+		public function testInsertValidPost() : void {
 			// count the number of rows and save it for later
 			$numRows = $this->getConnection()->getRowCount("Post");
 
