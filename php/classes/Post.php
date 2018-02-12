@@ -5,7 +5,8 @@
  *    namespace must come before autoload
  *    namespaces and autoload names must match
  *    Class Name and Namespace are PSR4
-**/
+ **/
+
 namespace Edu\Cnm\FeedPast;
 
 /**
@@ -15,106 +16,107 @@ require_once("autoload.php");
 
 /**
  *    The __DIR__, 2 indicates that the autoload will go up 0, 1, 2 directory layers starting with the current directory layer to load autoload.
-**/
+ **/
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 /**
  * Here we load Ramsey's Uuid toolset
-**/
+ **/
+
 use Ramsey\Uuid\Uuid;
 
 /**
  * The class is definded and set to Post
  * This class uses Uuids
- *    @author Peter B Street <peterbstreet@gmail.com> - Code Revision
- *    @author Dylan McDonald <dmcdonald21@cnm.edu> - Core code outline and format
- *    @author php-fig  <http://www.php-fig.org/psr/> - PHP Standards Recommendation
+ * @author Peter B Street <peterbstreet@gmail.com> - Code Revision
+ * @author Dylan McDonald <dmcdonald21@cnm.edu> - Core code outline and format
+ * @author php-fig  <http://www.php-fig.org/psr/> - PHP Standards Recommendation
  *    This object is based on the post table in feeding-our-past.sql
  *    Class Name and Namespace are PSR4
  *    "implements \JsonSerializable" removed until later
-**/
+ **/
 class Post implements \JsonSerializable {
 	use ValidateUuid;
 	use ValidateDate;
 
-/**
- * Post uses postId as the primary key
- * postId is the primary key
- * postId is the post's unique id
- * (?var is the declaration of a variable, UUID VarDataType, VarName
- * @var Uuid $postId
- * postId state set to private
-**/
+	/**
+	 * Post uses postId as the primary key
+	 * postId is the primary key
+	 * postId is the post's unique id
+	 * (?var is the declaration of a variable, UUID VarDataType, VarName
+	 * @var Uuid $postId
+	 * postId state set to private
+	 **/
 	private $postId;
 
 	/**
- * Post uses postOrganizationId as the foreign key
- * postOrganizationId is the foreign key
- * postOrganizationId is the posting organizations unique id
- * @var Uuid $postOrganizationId
- * postOrganizationId state set to private
-**/
+	 * Post uses postOrganizationId as the foreign key
+	 * postOrganizationId is the foreign key
+	 * postOrganizationId is the posting organizations unique id
+	 * @var Uuid $postOrganizationId
+	 * postOrganizationId state set to private
+	 **/
 	private $postOrganizationId;
 
-/**
- * Post uses postContent as an element
- * This is the content of the post
- * @var string $postContent
- * postContent state set to private
-**/
+	/**
+	 * Post uses postContent as an element
+	 * This is the content of the post
+	 * @var string $postContent
+	 * postContent state set to private
+	 **/
 	private $postContent;
 
-/**
- * Post uses postEndDateTime as an element
- * This is the date that the post is to be removed from service
- * @var DateTime $postEndDateTime
- * postEndDateTime state set to private
-**/
+	/**
+	 * Post uses postEndDateTime as an element
+	 * This is the date that the post is to be removed from service
+	 * @var \DateTime $postEndDateTime
+	 * postEndDateTime state set to private
+	 **/
 	private $postEndDateTime;
 
-/**
- * Post uses postImageUrl as an element
- * This is the url of the image associated with the content
- * @var string $postImageUrl
- * postImageUrl state set to private
-**/
+	/**
+	 * Post uses postImageUrl as an element
+	 * This is the url of the image associated with the content
+	 * @var string $postImageUrl
+	 * postImageUrl state set to private
+	 **/
 	private $postImageUrl;
 
-/**
- * Post uses postStartDateTime as an element
- * This is the start date and time of the post
- * @var DateTime $postStartDateTime
- * postStartDateTime state set to private
-**/
+	/**
+	 * Post uses postStartDateTime as an element
+	 * This is the start date and time of the post
+	 * @var \DateTime $postStartDateTime
+	 * postStartDateTime state set to private
+	 **/
 	private $postStartDateTime;
 
-/**
-* Post uses postTitle as an element
-* This is the title of the post
-* @var string $postTitle
-* postTitle state set to private
-**/
+	/**
+	 * Post uses postTitle as an element
+	 * This is the title of the post
+	 * @var string $postTitle
+	 * postTitle state set to private
+	 **/
 	private $postTitle;
 
-/**
- * constructor for Post
- *
- * Constructs the object post and associated object's states
- * @param Uuid $newPostId is the poster's unique and required id
- * @param string $newPostOrganizationId is the posting organization's unique and required id
- * @param string $newPostContent is the content of the post
- * @param string $newPostEndDateTime is the required date and time the post may be removed
- * @param string $newPostImageUrl is the location of the image that may accompany the post
- * @param string $newPostStartDateTime is the required date and time the post may be added
- * @param string $newPostTitle is the title of the post
- * @throws \InvalidArgumentException if data types are not valid
- * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
- * @throws \TypeError if data types violate type hints
- * @throws \Exception if some other exception occurs
- * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
- * Exceptions code is straight from Dylan McDonald's code
- */
-	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, \DateTime $newPostEndDateTime, string $newPostImageUrl, \DateTime $newPostStartDateTime, string $newPostTitle) {
+	/**
+	 * constructor for Post
+	 *
+	 * Constructs the object post and associated object's states
+	 * @param Uuid $newPostId is the poster's unique and required id
+	 * @param string $newPostOrganizationId is the posting organization's unique and required id
+	 * @param string $newPostContent is the content of the post
+	 * @param \DateTime $newPostEndDateTime is the required date and time the post may be removed
+	 * @param string $newPostImageUrl is the location of the image that may accompany the post
+	 * @param |DateTime $newPostStartDateTime is the required date and time the post may be added
+	 * @param string $newPostTitle is the title of the post
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
+	 * Exceptions code is straight from Dylan McDonald's code
+	 */
+	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, $newPostEndDateTime, string $newPostImageUrl, $newPostStartDateTime, string $newPostTitle) {
 		try {
 			$this->setPostId($newPostId);
 			$this->setPostOrganizationId($newPostOrganizationId);
@@ -125,6 +127,7 @@ class Post implements \JsonSerializable {
 			$this->setPostTitle($newPostTitle);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
+
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
@@ -133,7 +136,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postId
 	 * @return Uuid value of postId
 	 */
-	public function getPostId() : Uuid {
+	public function getPostId(): Uuid {
 		return ($this->postId);
 	}
 
@@ -143,7 +146,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostId is not positive
 	 * @throws \TypeError if $newPostId is not a uuid or string
 	 */
-	public function setPostId($newPostId) : void {
+	public function setPostId($newPostId): void {
 		try {
 			$uuid = self::validateUuid($newPostId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -160,7 +163,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postOrganizationId
 	 * @return string value of postOrganizationId
 	 **/
-	public function getPostOrganizationId() : Uuid {
+	public function getPostOrganizationId(): Uuid {
 		return ($this->postOrganizationId);
 	}
 
@@ -170,7 +173,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostOrganizationId is not positive
 	 * @throws \TypeError if $newUserId is not a string or uuid
 	 **/
-	public function setpostOrganizationId($newPostOrganizationId) : void {
+	public function setpostOrganizationId($newPostOrganizationId): void {
 		try {
 			$uuid = self::validateUuid($newPostOrganizationId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -179,7 +182,7 @@ class Post implements \JsonSerializable {
 		}
 		/**
 		 * Convert and store the postOrganizationId
-		**/
+		 **/
 		$this->postOrganizationId = $uuid;
 	}
 
@@ -198,7 +201,7 @@ class Post implements \JsonSerializable {
 	 * @throws \RangeException if $newPostContent is > 4096 characters
 	 * @throws \TypeError if $newPostContent is not a string
 	 **/
-	public function setPostContent(string $newPostContent) : void {
+	public function setPostContent(string $newPostContent): void {
 		$newPostContent = trim($newPostContent);
 		$newPostContent = filter_var($newPostContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostContent) === true) {
@@ -218,7 +221,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postEndDateTime
 	 * @return \DateTime value of postEndDateTime
 	 **/
-	public function getPostEndDateTime() : \DateTime {
+	public function getPostEndDateTime(): \DateTime {
 		return ($this->postEndDateTime);
 	}
 
@@ -230,7 +233,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is a date that does not exist
 	 **/
-	public function setPostEndDateTime($newPostEndDateTime = null) : void {
+	public function setPostEndDateTime($newPostEndDateTime = null): void {
 		if($newPostEndDateTime === null) {
 			$this->postEndDateTime = new \DateTime();
 			return;
@@ -250,7 +253,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postImageUrl
 	 * @return string value of postImageUrl
 	 */
-	public function getPostImageUrl() : ?string {
+	public function getPostImageUrl(): ?string {
 		return ($this->postImageUrl);
 	}
 
@@ -258,7 +261,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postImageUrl
 	 * @param string $newPostImageUrl is the url of the image added to a post
 	 **/
-	public function setPostImageUrl($newPostImageUrl) : void {
+	public function setPostImageUrl($newPostImageUrl): void {
 		$newPostImageUrl = trim($newPostImageUrl);
 		$newPostImageUrl = filter_var($newPostImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newPostImageUrl) === true) {
@@ -274,7 +277,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postStartDateTime
 	 * @return \DateTime string value of postStartDateTime
 	 */
-	public function getPostStartDateTime() : \DateTime {
+	public function getPostStartDateTime(): \DateTime {
 		return ($this->postStartDateTime);
 	}
 
@@ -286,7 +289,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is a date that does not exist
 	 **/
-	public function setPostStartDateTime($newPostStartDateTime = null) : void {
+	public function setPostStartDateTime($newPostStartDateTime = null): void {
 		if($newPostStartDateTime === null) {
 			$this->postStartDateTime = new \DateTime();
 			return;
@@ -305,7 +308,7 @@ class Post implements \JsonSerializable {
 	 * accessor method for postTitle
 	 * @return string value of postTitle
 	 */
-	public function getPostTitle() : string {
+	public function getPostTitle(): string {
 		return ($this->postTitle);
 	}
 
@@ -313,17 +316,16 @@ class Post implements \JsonSerializable {
 	 * mutator method for postTitle
 	 * @param string $newPostTitle is the title of the post
 	 **/
-	public function setPostTitle(string $newPostTitle) : void {
-			$newPostTitle = trim($newPostTitle);
-			$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-			if(empty($newPostTitle) === true) {
-				throw(new \InvalidArgumentException("Post Title is empty"));
-			}
-			if(strlen($newPostTitle) > 255) {
-				throw(new \RangeException("Post Title is too Long"));
-
-				$this->postTitle = $newPostTitle;
-			}
+	public function setPostTitle(string $newPostTitle): void {
+		$newPostTitle = trim($newPostTitle);
+		$newPostTitle = filter_var($newPostTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newPostTitle) === true) {
+			throw(new \InvalidArgumentException("Post Title is empty"));
+		}
+		if(strlen($newPostTitle) > 255) {
+			throw(new \RangeException("Post Title is too Long"));
+		}
+		$this->postTitle = $newPostTitle;
 	}
 
 	/**
@@ -440,7 +442,7 @@ class Post implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postOrganizationId = :postOrganiationId";
+		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postOrganizationId = :postOrganizationId";
 		$statement = $pdo->prepare($query);
 		// bind the user id to the place holder in the template
 		$parameters = ["postOrganizationId" => $postOrganizationId->getBytes()];
@@ -465,7 +467,7 @@ class Post implements \JsonSerializable {
 	 * gets the posts by postEndDateTime
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $postEndDateTime post content to search for
+	 * @param \DateTime $postEndDateTime post content to search for
 	 * @return \SplFixedArray SplFixedArray of posts found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type

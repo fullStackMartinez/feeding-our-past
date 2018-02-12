@@ -36,11 +36,11 @@ class PostTest extends FeedPastTest {
 	 **/
 	protected $VALID_ACTIVATION;
 
-/**
+	/**
 	 * postOrganizationId that created the post; this is for foreign key relations
 	 * @var \Uuid postOrganizationId profile
-//	protected $VALID_ORGANIZATION = "Donation Center";
-**/
+	 * //   protected $VALID_ORGANIZATION = "Donation Center";
+	 **/
 
 	/**
 	 * Valid post Content
@@ -93,7 +93,7 @@ class PostTest extends FeedPastTest {
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 		// create and insert the mocked profile
-		$this->organization = new Organization(generateUuidV4(), $this->VALID_ACTIVATION,"albuquerque", "NM","555 San Mateo NE", "87110", "yes", "php@organization.com", $this->VALID_HASH, "8 to 5", "45", "110", "phporganization", "+5055555555", $this->VALID_SALT, null);
+		$this->organization = new Organization(generateUuidV4(), $this->VALID_ACTIVATION, "albuquerque", "NM", "555 San Mateo NE", "87110", "yes", "php@organization.com", $this->VALID_HASH, "8 to 5", "45", "110", "phporganization", "+5055555555", $this->VALID_SALT, null);
 		$this->organization->insert($this->getPDO());
 		// calculate the date (just use the time the unit test was setup...)
 		$this->VALID_STARTDATETIME = new \DateTime();
@@ -101,125 +101,126 @@ class PostTest extends FeedPastTest {
 	}
 
 
-		/**
-		 * test inserting a valid Post and verify that the actual mySQL data matches
-		 **/
-		public function testInsertValidPost() : void {
-			// count the number of rows and save it for later
-			$numRows = $this->getConnection()->getRowCount("post");
+	/**
+	 * test inserting a valid Post and verify that the actual mySQL data matches
+	 **/
+	public function testInsertValidPost(): void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("post");
 
-			// create a new Post and insert to into mySQL
-			$postId = generateUuidV4();
+		// create a new Post and insert to into mySQL
+		$postId = generateUuidV4();
 
-			$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
-			$post->insert($this->getPDO());
+		$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+		$post->insert($this->getPDO());
 
-			// grab the data from mySQL and enforce the fields match our expectations
-			$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
-			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-			$this->assertEquals($pdoPost->getPostId(), $postId);
-			$this->assertEquals($pdoPost->getPostOrganizationId(),$this->organization->getOrganizationId());
-			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT);
-			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
-			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
-			$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
-			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
-		}
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+		$this->assertEquals($pdoPost->getPostId(), $postId);
+		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->organization->getOrganizationId());
+		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT);
+		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
+		$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
+		$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
+		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
+	}
 
-		/**
-		 * test inserting a Post, editing it, and then updating it
-		 **/
-		public
-		function testUpdateValidPost(): void {
-			// count the number of rows and save it for later
-			$numRows = $this->getConnection()->getRowCount("post");
+	/**
+	 * test inserting a Post, editing it, and then updating it
+	 **/
+	public
+	function testUpdateValidPost(): void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("post");
 
-			// create a new Post and insert to into mySQL
-			$PostId = generateUuidV4();
-			$post = new Post($PostId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
-			$post->insert($this->getPDO());
+		// create a new Post and insert to into mySQL
+		$postId = generateUuidV4();
+		$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+		$post->insert($this->getPDO());
 
-			// edit the Post and update it in mySQL
-			$post->setPostContent($this->VALID_CONTENT2);
-			$post->insert($this->getPDO());
+		// edit the Post and update it in mySQL
+		$post->setPostContent($this->VALID_CONTENT2);
+		$post->update($this->getPDO());
 
-			// grab the data from mySQL and enforce the fields match our expectations
-			$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
-			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-			$this->assertEquals($pdoPost->getPostId(), $PostId);
-			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
-			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
-			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
-			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
-			$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
-			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
-		}
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
+		$this->assertEquals($pdoPost->getPostId(), $postId);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 
-
-		/**
-		 * test creating a Post and then deleting it
-		 **/
-		public
-		function testDeleteValidPost(): void {
-			// count the number of rows and save it for later
-			$numRows = $this->getConnection()->getRowCount("Post");
-
-			// create a new Post and insert to into mySQL
-			$PostId = generateUuidV4();
-			$post = new Post($PostId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
-			$post->insert($this->getPDO());
-
-			// delete the Post from mySQL
-			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-			$post->delete($this->getPDO());
-
-			// grab the data from mySQL and enforce the Post does not exist
-			$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
-			$this->assertNull($pdoPost);
-			$this->assertEquals($numRows, $this->getConnection()->getRowCount("post"));
-		}
+		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->organization->getOrganizationId());
+		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
+		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
+		$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
+		$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
+		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
+	}
 
 
-		/**
-		 * test grabbing a Post that does not exist
-		 **/
-		public
-		function testGetInvalidPostByPostId(): void {
-			// grab a profile id that exceeds the maximum allowable profile id
-			$post = Post::getPostByPostId($this->getPDO(), generateUuidV4());
-			$this->assertNull($post);
-		}
+	/**
+	 * test creating a Post and then deleting it
+	 **/
+	public
+	function testDeleteValidPost(): void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("post");
 
-		/**
-		 * test inserting a Post and regrabbing it from mySQL
-		 **/
-		public
-		function testGetValidPostByPostOrganizationId() {
-			// count the number of rows and save it for later
-			$numRows = $this->getConnection()->getRowCount("post");
+		// create a new Post and insert to into mySQL
+		$postId = generateUuidV4();
+		$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+		$post->insert($this->getPDO());
 
-			// create a new Post and insert to into mySQL
-			$postId = generateUuidV4();
-			$post = new Post($postId, $this->VALID_ORGANIZATION->getpostOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
-			$post->insert($this->getPDO());
+		// delete the Post from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+		$post->delete($this->getPDO());
 
-			// grab the data from mySQL and enforce the fields match our expectations
-			$results = Post::getPostByPostOrganizationId($this->getPDO(), $post->getPostOrganizationId());
-			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-			$this->assertCount(1, $results);
-			$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\~Test\\PostTest", $results);
+		// grab the data from mySQL and enforce the Post does not exist
+		$pdoPost = Post::getPostByPostId($this->getPDO(), $post->getPostId());
+		$this->assertNull($pdoPost);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("post"));
+	}
 
-			// grab the result from the array and validate it
-			$pdoPost = $results[0];
-			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-			$this->assertEquals($pdoPost->getPostId(), $postId);
-			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
-			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
-			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
-			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
-			$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
-			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
-		}
+
+	/**
+	 * test grabbing a Post that does not exist
+	 **/
+	public
+	function testGetInvalidPostByPostId(): void {
+		// grab a profile id that exceeds the maximum allowable profile id
+		$post = Post::getPostByPostId($this->getPDO(), generateUuidV4());
+		$this->assertNull($post);
+	}
+
+	/**
+	 * test inserting a Post and regrabbing it from mySQL
+	 **/
+	public
+	function testGetValidPostByPostOrganizationId() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("post");
+
+		// create a new Post and insert to into mySQL
+		$postId = generateUuidV4();
+		$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+		$post->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Post::getPostByPostOrganizationId($this->getPDO(), $post->getPostOrganizationId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Post", $results);
+
+		// grab the result from the array and validate it
+		$pdoPost = $results[0];
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+		$this->assertEquals($pdoPost->getPostId(), $postId);
+		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->organization->getOrganizationId());
+		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT);
+		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
+		$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
+		$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
+		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
+	}
 
 
 	/**
@@ -227,82 +228,8 @@ class PostTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidPostByPostOrganizationId(): void {
 		// grab a profile id that exceeds the maximum allowable profile id
-		$post = Post::getPostByPostOrganizationId()($this->getPDO(), generateUuidV4());
+		$post = Post::getPostByPostOrganizationId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $post);
-	}
-
-	/**
-	 * test grabbing a Post by post content
-	 **/
-	public function testGetValidPostByPostContent(): void {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("post");
-
-		// create a new Post and insert to into mySQL
-		$postId = generateUuidV4();
-		$post = new Post($postId, $this->profile->getPostOrganizationId(), $this->VALID_CONTENT, $this->VALID_TITLE);
-		$post->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Post::getPostByPostContent($this->getPDO(), $post->getPostContent());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-		$this->assertCount(1, $results);
-
-		// ensure no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\~Test\\FeedPastTest", $results);
-
-		// grab the result from the array and validate it
-		$pdoPost = $results[0];
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-		$this->assertEquals($pdoPost->getPostId(), $postId);
-		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
-		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT1);
-		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
-		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
-		$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
-		$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
-		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
-	}
-
-	/**
-	 * test grabbing Post by content that does not exist
-	 **/
-	public function testGetInvalidPostByPostContent(): void {
-		// grab a post by content that does not exist
-		$post = Post::getPostByPostContent($this->getPDO(), "Rhinos make great pets!");
-		$this->assertCount(0, $post);
-	}
-
-
-	/**
-	 * test grabbing all Posts
-	 **/
-	public function testGetAllValidPosts(): void {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("post");
-
-		// create a new Post and insert to into mySQL
-		$PostId = generateUuidV4();
-		$Post = new Post($PostId, $this->organization->getPostOrganizationId(), $this->VALID_CONTENT, $this->VALID_TITLE);
-		$Post->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Post::getAllPosts($this->getPDO());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\~Test\\PostTest", $results);
-
-		// grab the result from the array and validate it
-		$pdoPost = $results[0];
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
-		$this->assertEquals($pdoPost->getPostId(), $PostId);
-		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->VALID_ORGANIZATION);
-		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT2);
-		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
-		$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
-		$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
-		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
 	}
 }
-
 
