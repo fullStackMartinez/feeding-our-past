@@ -515,8 +515,9 @@ class Post implements \JsonSerializable {
 		$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime > now()";
 		$statement = $pdo->prepare($query);
 		// bind the content to the place holder in the template
-		$parameters = ["postEndDateTime" => $postEndDateTime];
-
+		//$parameters = ["postEndDateTime" => $postEndDateTime];
+		$formattedDate = $postEndDateTime->format(“Y-m-d H:i:s.u”);
+		$parameters = [“postEndDateTime” => $formattedDate];
 		$statement->execute($parameters);
 		// build an array of posts
 		$posts = new \SplFixedArray($statement->rowCount());
