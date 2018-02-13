@@ -2,7 +2,7 @@
 
 namespace Edu\Cnm\FeedPast\Test;
 
-use Edu\Cnm\FeedPast\{Favorite, Volunteer, Post};
+use Edu\Cnm\FeedPast\{Favorite, Volunteer, Post, Organization};
 
 // grab the class under scrunity
 require_once(dirname(__DIR__, 1) . "/autoload.php");
@@ -34,6 +34,9 @@ class FavoriteTest extends FeedPastTest {
 	 * @var Volunteer $volunteer
 	 **/
 	protected $volunteer;
+
+
+	protected $organization;
 
 	/**
 	 * valid hash to use
@@ -81,7 +84,7 @@ class FavoriteTest extends FeedPastTest {
 		$this->VALID_SUNSETDATE = new \DateTime();
 
 		// create and insert the mocked post
-		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId, "some post content", $this->VALID_SUNSETDATE, null, $this->VALID_SUNRISEDATE, "Food drive coming up");
+		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), "some post content", $this->VALID_SUNSETDATE, null, $this->VALID_SUNRISEDATE, "Food drive coming up");
 		$this->post->insert($this->getPDO());
 
 		//create and insert the mocked volunteer
