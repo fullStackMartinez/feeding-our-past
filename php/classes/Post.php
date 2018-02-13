@@ -239,6 +239,38 @@ class Post implements \JsonSerializable {
 			return;
 		}
 
+		/**
+		 * test inserting a Post and regrabbing it from mySQL
+		 **/
+		public
+		function testGetValidPostByPostOrganizationId() {
+			// count the number of rows and save it for later
+			$numRows = $this->getConnection()->getRowCount("post");
+
+			// create a new Post and insert to into mySQL
+			$postId = generateUuidV4();
+			$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+			$post->insert($this->getPDO());
+
+			// grab the data from mySQL and enforce the fields match our expectations
+			$results = Post::getPostByPostOrganizationId($this->getPDO(), $post->getPostOrganizationId());
+			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+			$this->assertCount(1, $results);
+			$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Post", $results);
+
+			// grab the result from the array and validate it
+			$pdoPost = $results[0];
+			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+			$this->assertEquals($pdoPost->getPostId(), $postId);
+			$this->assertEquals($pdoPost->getPostOrganizationId(), $this->organization->getOrganizationId());
+			$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT);
+			$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
+			$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
+			$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
+			$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
+		}
+
+
 		try {
 			$newPostEndDateTime = self::validateDateTime($newPostEndDateTime);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
@@ -472,11 +504,19 @@ class Post implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getPostByPostEndDateTime(\PDO $pdo): ?\DateTime {
+	public static function getPostByPostEndDateTime(\PDO $pdo, $postEndDateTime) : \SplFixedArray {
+
+		try {
+			$postEndDateTime = self::validateDate($postEndDateTime);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
 
 		$query = "SELECT postId, postOrganizationID, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime > now()";
 		$statement = $pdo->prepare($query);
 		// bind the content to the place holder in the template
+		$parameters = ["postEndDateTime" => $postEndDateTime];
+
 		$statement->execute($parameters);
 		// build an array of posts
 		$posts = new \SplFixedArray($statement->rowCount());

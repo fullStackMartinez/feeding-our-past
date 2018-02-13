@@ -222,6 +222,36 @@ class PostTest extends FeedPastTest {
 		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
 	}
 
+	/**
+	 * test inserting a Post and regrabbing it from mySQL
+	 **/
+	public function testGetValidPostByPostEndDateTime() {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("post");
+
+		// create a new Post and insert to into mySQL
+		$postId = generateUuidV4();
+		$post = new Post($postId, $this->organization->getOrganizationId(), $this->VALID_CONTENT, $this->VALID_ENDDATETIME, $this->VALID_IMAGEURL, $this->VALID_STARTDATETIME, $this->VALID_TITLE);
+		$post->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Post::getPostByPostEndDateTime($this->getPDO(), $this->VALID_ENDDATETIME);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Post", $results);
+
+		// grab the result from the array and validate it
+		$pdoPost = $results[0];
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
+		$this->assertEquals($pdoPost->getPostId(), $postId);
+		$this->assertEquals($pdoPost->getPostOrganizationId(), $this->organization->getOrganizationId());
+		$this->assertEquals($pdoPost->getPostContent(), $this->VALID_CONTENT);
+		$this->assertEquals($pdoPost->getPostEndDateTime(), $this->VALID_ENDDATETIME);
+		$this->assertEquals($pdoPost->getPostImageUrl(), $this->VALID_IMAGEURL);
+		$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
+		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
+	}
+
 
 	/**
 	 * test grabbing a Post that does not exist
