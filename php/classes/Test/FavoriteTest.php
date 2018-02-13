@@ -2,9 +2,7 @@
 
 namespace Edu\Cnm\FeedPast\Test;
 
-use Edu\Cnm\feedpast\{
-	Favorite, Post, Volunteer
-};
+use Edu\Cnm\FeedPast\{Favorite, Volunteer, Post};
 
 // grab the class under scrunity
 require_once(dirname(__DIR__, 1) . "/autoload.php");
@@ -79,15 +77,17 @@ class FavoriteTest extends FeedPastTest {
 		$this->VALID_HASH = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
+		$this->VALID_SUNRISEDATE = new \DateTime();
+		$this->VALID_SUNSETDATE = new \DateTime();
 
 		// create and insert the mocked post
-		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), "some post content", "2018-02-02 2000:00.0.0", null,
-			"2018-02-01 2000:00.0.0", "Food drive coming up");
+		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId, "some post content", $this->VALID_SUNSETDATE, null, $this->VALID_SUNRISEDATE, "Food drive coming up");
 		$this->post->insert($this->getPDO());
 
 		//create and insert the mocked volunteer
 		$this->volunteer = new Volunteer(generateUuidV4(), null, "Fridays at 5pm", 	"phillyonfire@burn.com", $this->VALID_HASH, "Ted Random", "719-367-9856", $this->VALID_SALT);
 		$this->volunteer->insert($this->getPDO());
+
 	}
 
 	/**
@@ -127,7 +127,7 @@ class FavoriteTest extends FeedPastTest {
 	/**
 	 * test inserting a Favorite and regrabbing it from mySQL
 	 **/
-	public function testGetValidFavoriteByPostIDAndVolunteerId(): void {
+	public function testGetValidFavoriteByPostIdAndVolunteerId(): void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("favorite");
 
@@ -182,8 +182,8 @@ class FavoriteTest extends FeedPastTest {
 	 **/
 	public function testGetInvalidFavoriteByVolunteerId(): void {
 		// grab a Volunteer id that exceeds the maximum allowable volunteer id
-		$Favorite = Favorite::getFavoriteByFavoriteVolunteerId($this->getPDO(), generateUuidV4());
-		$this->assertCount(0, $Favorite);
+		$favorite = Favorite::getFavoriteByFavoriteVolunteerId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $favorite);
 	}
 
 
