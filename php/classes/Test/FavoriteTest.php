@@ -74,19 +74,19 @@ class FavoriteTest extends FeedPastTest {
 		parent::setUp();
 
 		// create a salt and hash for the mocked post
-		$password = "abc123";
+		$password = "abbadabba";
 		$this->VALID_SALT = bin2hex(random_bytes(32));
 		$this->VALID_HASH = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
 		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 
 		// create and insert the mocked post
-		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), "some-post-content", "2018-02-02 2000:00.0.0", null,
+		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), "some post content", "2018-02-02 2000:00.0.0", null,
 			"2018-02-01 2000:00.0.0", "Food drive coming up");
 		$this->post->insert($this->getPDO());
 
 		//create and insert the mocked volunteer
-		$this->volunteer = new Volunteer(generateUuidV4(), null, "Fridays at 5pm", "phillyonfire@burn.com", $this->VALID_HASH, "Ted Random", "719-367-9856", $this->VALID_SALT);
+		$this->volunteer = new Volunteer(generateUuidV4(), null, "Fridays at 5pm", 	"phillyonfire@burn.com", $this->VALID_HASH, "Ted Random", "719-367-9856", $this->VALID_SALT);
 		$this->volunteer->insert($this->getPDO());
 	}
 
