@@ -106,7 +106,7 @@ class Post implements \JsonSerializable {
 	 * @param string $newPostOrganizationId is the posting organization's unique and required id
 	 * @param string $newPostContent is the content of the post
 	 * @param \DateTime $newPostEndDateTime is the required date and time the post may be removed
-	 * @param string $newPostImageUrl is the location of the image that may accompany the post
+	 * @param ?string $newPostImageUrl is the location of the image that may accompany the post
 	 * @param |DateTime $newPostStartDateTime is the required date and time the post may be added
 	 * @param string $newPostTitle is the title of the post
 	 * @throws \InvalidArgumentException if data types are not valid
@@ -116,7 +116,7 @@ class Post implements \JsonSerializable {
 	 * @Documentation <https://php.net/manual/en/language.oop5.decon.php>
 	 * Exceptions code is straight from Dylan McDonald's code
 	 */
-	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, $newPostEndDateTime, string $newPostImageUrl, $newPostStartDateTime, string $newPostTitle) {
+	public function __construct($newPostId, string $newPostOrganizationId, string $newPostContent, $newPostEndDateTime, ?string $newPostImageUrl, $newPostStartDateTime, string $newPostTitle) {
 		try {
 			$this->setPostId($newPostId);
 			$this->setPostOrganizationId($newPostOrganizationId);
@@ -238,6 +238,14 @@ class Post implements \JsonSerializable {
 			$this->postEndDateTime = new \DateTime();
 			return;
 		}
+		try {
+			$newPostEndDateTime = self::validateDateTime($newPostEndDateTime);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->postEndDateTime = $newPostEndDateTime;
+	}
 
 		/**
 		 * test inserting a Post and regrabbing it from mySQL
@@ -271,14 +279,6 @@ class Post implements \JsonSerializable {
 		}
 
 
-		try {
-			$newPostEndDateTime = self::validateDateTime($newPostEndDateTime);
-		} catch(\InvalidArgumentException | \RangeException $exception) {
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
-		}
-		$this->postEndDateTime = $newPostEndDateTime;
-	}
 
 
 	/**
