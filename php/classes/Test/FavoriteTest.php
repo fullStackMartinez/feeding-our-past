@@ -35,7 +35,10 @@ class FavoriteTest extends FeedPastTest {
 	 **/
 	protected $volunteer;
 
-
+	/**
+	 * Organization that created the post
+	 * $var Organization $organization
+	 **/
 	protected $organization;
 
 	/**
@@ -82,6 +85,10 @@ class FavoriteTest extends FeedPastTest {
 
 		$this->VALID_SUNRISEDATE = new \DateTime();
 		$this->VALID_SUNSETDATE = new \DateTime();
+
+		//creat and insert a mocked organization
+		$this->organization = new Organization(generateUuidV4(), $this->VALID_ACTIVATION, "albuquerque", "NM", "555 San Mateo NE", "87110", "yes", "php@organization.com", $this->VALID_HASH, "8 to 5", "45", "110", "phporganization", "+5055555555", $this->VALID_SALT, null);
+		$this->organization->insert($this->getPDO());
 
 		// create and insert the mocked post
 		$this->post = new Post(generateUuidV4(), $this->organization->getOrganizationId(), "some post content", $this->VALID_SUNSETDATE, null, $this->VALID_SUNRISEDATE, "Food drive coming up");
