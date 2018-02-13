@@ -225,7 +225,7 @@ class PostTest extends FeedPastTest {
 	/**
 	 * test inserting a Post and regrabbing it from mySQL
 	 **/
-	public function testGetValidPostByPostEndDateTime() {
+	public function testGetValidPostByPostEndDateTime() : \DateTime {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("post");
 
@@ -236,6 +236,7 @@ class PostTest extends FeedPastTest {
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Post::getPostByPostEndDateTime($this->getPDO(), $this->VALID_ENDDATETIME);
+//$post->getPostEndDateTime());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\FeedPast\\Post", $results);
