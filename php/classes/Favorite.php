@@ -19,10 +19,12 @@ use Ramsey\Uuid\Uuid;
 class Favorite implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
+
 	/**
 	 * id of the post that this favorite is for;  this is a foriegn key
 	 * @var Uuid $favoritePostId ;
 	 **/
+
 	private $favoritePostId;
 
 	/**
@@ -123,11 +125,11 @@ class Favorite implements \JsonSerializable {
 	 **/
 	public function insert(\PDO $pdo) : void {
 		// create query template
-		$query = "INSERT INTO `favorite`(favoritePostId, favoriteVolunteerId) VALUES(:favoritePostId, :favoriteVolunteerId)";
-		$statement = $pdo->prepare($query);
+			$query = "INSERT INTO favorite (favoritePostId, favoriteVolunteerId) VALUES(:favoritePostId, :favoriteVolunteerId)";
+				$statement = $pdo->prepare($query);
 		// bind the member variables to the place holders in the template
-		$parameters = ["favoritePostId" => $this->favoritePostId->getBytes(), "favoriteVolunteerId" => $this->favoriteVolunteerId->getBytes()];
-		$statement->execute($parameters);
+					$parameters = ["favoritePostId" => $this->favoritePostId->getBytes(), "favoriteVolunteerId" => $this->favoriteVolunteerId->getBytes()];
+						$statement->execute($parameters);
 	}
 
 	/**
@@ -136,13 +138,14 @@ class Favorite implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 **/
+
 	public function delete(\PDO $pdo) : void {
 		// create query template
-		$query = "DELETE FROM favorite WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId = :favoriteVolunteerId";
-		$statement = $pdo->prepare($query);
+			$query = "DELETE FROM favorite WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId = :favoriteVolunteerId";
+				$statement = $pdo->prepare($query);
 		//bind the member variables to the placeholders in the template
-		$parameters = ["favoritePostId" => $this->favoritePostId->getBytes(), "favoriteVolunteerId" => 	$this->favoriteVolunteerId->getBytes()];
-		$statement->execute($parameters);
+					$parameters = ["favoritePostId" => $this->favoritePostId->getBytes(), "favoriteVolunteerId" => 	$this->favoriteVolunteerId->getBytes()];
+						$statement->execute($parameters);
 	}
 
 	/**
@@ -168,21 +171,23 @@ class Favorite implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId = :favoriteVolunteerId";
-		$statement = $pdo->prepare($query);
+			$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoritePostId = :favoritePostId AND favoriteVolunteerId = :favoriteVolunteerId";
+				$statement = $pdo->prepare($query);
 		// bind the volunteer id and post id to the place holder in the template
-		$parameters = ["favoritePostId" => $favoritePostId->getBytes(), "favoriteVolunteerId" => $favoriteVolunteerId->getBytes()];
-		$statement->execute($parameters);
+					$parameters = ["favoritePostId" => $favoritePostId->getBytes(), "favoriteVolunteerId" => $favoriteVolunteerId->getBytes()];
+						$statement->execute($parameters);
 
 		// grab the favorite from mySQL
 		try {
 			$favorite = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$favorite = new favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
+					$row = $statement->fetch();
+					if($row !== false) {
+						$favorite = new favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
 			}
-		} catch(\Exception $exception) {
+		}
+
+		catch(\Exception $exception) {
 			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
@@ -205,22 +210,25 @@ class Favorite implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoritePostId = :favoriteVolunteerId";
-		$statement = $pdo->prepare($query);
+			$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoritePostId = :favoriteVolunteerId";
+				$statement = $pdo->prepare($query);
 		// bind the member variables to the place holders in the template
-		$parameters = ["favoritePostId" => $favoritePostId->getBytes()];
-		$statement->execute($parameters);
+					$parameters = ["favoritePostId" => $favoritePostId->getBytes()];
+						$statement->execute($parameters);
 
 		// build an array of favorites
-		$favorites = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$favorites = new \SplFixedArray($statement->rowCount());
+				$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
+
 			try {
 				$favorite = new Favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
-				$favorites[$favorites->key()] = $favorite;
-				$favorites->next();
-			} catch(\Exception $exception) {
+					$favorites[$favorites->key()] = $favorite;
+						$favorites->next();
+			}
+			catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
+
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
@@ -244,24 +252,27 @@ class Favorite implements \JsonSerializable {
 
 		// create query template
 		$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoriteVolunteerId = :favoriteVolunteerId";
-		$statement = $pdo->prepare($query);
+			$statement = $pdo->prepare($query);
 		// bind the member variables to the place holders in the template
-		$parameters = ["favoriteVolunteerId" => $favoriteVolunteerId->getBytes()];
-		$statement->execute($parameters);
+				$parameters = ["favoriteVolunteerId" => $favoriteVolunteerId->getBytes()];
+					$statement->execute($parameters);
 
 		// build the array of favorites
 		$favorites = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
+
 			try {
 				$favorite = new Favorite($row["favoritePostId"], $row["favoriteVolunteerId"]);
-				$favorites[$favorites->key()] = $favorite;
-				$favorites->next();
-			} catch(\Exception $exception) {
+					$favorites[$favorites->key()] = $favorite;
+						$favorites->next();
+			}
+			catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
+
 		return ($favorites);
 	 }
 
