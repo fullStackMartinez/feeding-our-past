@@ -225,7 +225,7 @@ class PostTest extends FeedPastTest {
 	/**
 	 * test inserting a Post and regrabbing it from mySQL
 	 **/
-	public function testGetValidPostByPostEndDateTime() : \DateTime {
+	public function testGetValidPostByPostEndDateTime(): void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("post");
 
@@ -252,7 +252,6 @@ class PostTest extends FeedPastTest {
 		$this->assertEquals($pdoPost->getPostStartDateTime(), $this->VALID_STARTDATETIME);
 		$this->assertEquals($pdoPost->getPostTitle(), $this->VALID_TITLE);
 	}
-
 
 	/**
 	 * test grabbing a Post that does not exist

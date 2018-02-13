@@ -296,9 +296,6 @@ class Post implements \JsonSerializable {
 	public function setPostImageUrl($newPostImageUrl): void {
 		$newPostImageUrl = trim($newPostImageUrl);
 		$newPostImageUrl = filter_var($newPostImageUrl, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newPostImageUrl) === true) {
-			throw(new \InvalidArgumentException("Post Image URL is empty"));
-		}
 		if(strlen($newPostImageUrl) > 255) {
 			throw(new \RangeException("Post Image URL is too Long"));
 		}
