@@ -813,7 +813,6 @@ class Organization implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				var_dump($row);
 				$organization = new Organization($row["organizationId"], $row["organizationActivationToken"], $row["organizationAddressCity"], $row["organizationAddressState"], $row["organizationAddressStreet"], $row["organizationAddressZip"], $row["organizationDonationAccepted"], $row["organizationEmail"], $row["organizationHash"], $row["organizationHoursOpen"], $row["organizationLatX"], $row["organizationLongY"], $row["organizationName"], $row["organizationPhone"], $row["organizationSalt"], $row["organizationUrl"]);
 				$organizations[$organizations->key()] = $organization;
 				$organizations->next();
