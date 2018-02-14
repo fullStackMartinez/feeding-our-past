@@ -109,12 +109,11 @@ class FavoriteTest extends FeedPastTest {
 		$numRows = $this->getConnection()->getRowCount("favorite");
 
 		// create a new Favorite and insert to into mySQL
-		$favorite = new Favorite($this->favorite->getPostId(), $this->volunteer->getVolunteerId());
+		$favorite = new Favorite($this->post->getPostId(), $this->volunteer->getVolunteerId());
 		$favorite->insert($this->getPDO());
 
 	// grab the data from mySQL and enforce the fields match our expectations
-$pdoFavorite = Favorite::testInsertValidFavorite($this->getPDO(), $this->post->getPostId(), $this->volunteer
-->getVolunteerId());
+$pdoFavorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($this->getPDO(), $this->post->getPostId(), $this->volunteer->getVolunteerId());
 $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("favorite"));
 $this->assertEquals($pdoFavorite->getFavoritePostId(), $this->post->getPostId());
 $this->assertEquals($pdoFavorite->getFavoriteVolunteerId(), $this->volunteer->getVolunteerId());
