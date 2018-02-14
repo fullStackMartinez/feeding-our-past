@@ -210,7 +210,7 @@ class Favorite implements \JsonSerializable {
 		}
 
 		// create query template
-			$query = "SELECT favoritePostId, favoriteVolunteerId FROM `favorite` WHERE favoritePostId = :favoriteVolunteerId";
+			$query = "SELECT favoritePostId, favoriteVolunteerId FROM favorite WHERE favoritePostId = :favoritePostId";
 				$statement = $pdo->prepare($query);
 		// bind the member variables to the place holders in the template
 					$parameters = ["favoritePostId" => $favoritePostId->getBytes()];
