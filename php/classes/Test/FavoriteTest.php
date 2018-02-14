@@ -22,8 +22,9 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  **/
 class FavoriteTest extends FeedPastTest {
 
+
 	/**
-	 * Post that was favorited, this is for foriegn Key relations
+	 * Post that was favorite, this is for foriegn Key relations
 	 * @var Post $post
 	 **/
 	protected $post;
