@@ -16,9 +16,9 @@ use Ramsey\Uuid\Uuid;
 
 
 
-class Favorite implements \JsonSerializable {
-	use ValidateDate;
-	use ValidateUuid;
+	class Favorite implements \JsonSerializable {
+		use ValidateDate;
+		use ValidateUuid;
 
 	/**
 	 * id of the post that this favorite is for;  this is a foriegn key
