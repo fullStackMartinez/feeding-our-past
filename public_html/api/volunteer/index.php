@@ -26,3 +26,30 @@ $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
 
+try {
+	// grab the mySQL connection
+	$pdo = connectToEncryptedMySQL("etc/apache2/capstone-mysql/feedkitty.ini");
+
+	// determine HTTP method used
+	// shorthand: $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
+	if(array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER)) {
+		$method = $_SERVER["HTTP_X_HTTP_METHOD"];
+	} else {
+		$method = $_SERVER["REQUEST_METHOD"];
+	}
+
+	// sanitize the input
+	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$volunteerEmail = filter_input(INPUT_GET, "volunteerEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$volunteerName = filter_input(INPUT_GET, "volunteerName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+	// make sure the id is valid
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
+		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+	}
+
+
+} catch() {
+
+
+}
