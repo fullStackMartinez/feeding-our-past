@@ -45,7 +45,7 @@ try {
 
 	// make sure the id is valid
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
-		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+		throw(new \InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
 	if($method === "GET") {
@@ -69,9 +69,59 @@ try {
 				$reply->data = $volunteer;
 			}
 		}
-	} else if($method === "PUT" {
+	} else if($method === "PUT") {
+		// enforce that the XSRF token is present in the header
+		verifyXsrf();
 
-	})
+		// enforce the volunteer is signed in and only trying to edit their own info
+		if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId()->toString() !== $id) {
+			throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+		}
+
+		// enforce the volunteer has a JWT token
+		validateJwtHeader();
+
+		//decode the response from the front end
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
+
+		// retrieve the volunteer profile to be updated
+		$volunteer = Volunteer::getVolunteerByVolunteerId($pdo, $id);
+		if($volunteer === null) {
+			throw(new \RuntimeException("Profile does not exist", 404));
+		}
+
+		// volunteer profile availability (can be null)
+		if(empty($requestObject->volunteerAvailability) === true) {
+			$requestObject->volunteerAvailability = $volunteer->getVolunteerAvailability();
+		}
+
+		// volunteer profile email (required)
+		if(empty($requestObject->volunteerEmail) === true) {
+			throw(new \InvalidArgumentException("No profile email present", 405));
+		}
+
+		// volunteer profile name (required)
+		if(empty($requestObject->volunteerName) === true) {
+			throw(new \InvalidArgumentException("No profile name present", 405));
+		}
+
+		// volunteer profile phone (required)
+		if(empty($requestObject->volunteerPhone) === true) {
+			throw(new \InvalidArgumentException("No profile phone number present", 405));
+		}
+
+		// update the volunteer profile information
+		$volunteer->setVolunteerAvailability($requestObject->volunteerAvailability);
+		$volunteer->setVolunteerEmail($requestObject->volunteerEmail);
+		$volunteer->setVolunteerName($requestObject->volunteerName);
+		$volunteer->setVolunteerPhone($requestObject->volunteerPhone);
+		$volunteer->update($pdo);
+
+		// update reply message
+		$reply->message = "Volunteer profile information updated";
+
+	}
 
 
 } catch() {
