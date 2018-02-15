@@ -68,6 +68,24 @@ try {
 				$reply->data = $organization;
 			}
 		}
+	} elseif($method === "PUT") {
+		//enforce that the XSRF token is present in the header
+		verifyXsrf();
+
+		//enforce the end user is signed in and only trying to edit their own profile
+		if(empty($_SESSION["organization"]) === true || $_SESSION["organization"]->getOrganizationId()->toString() !== $id) {
+			throw(new \InvalidArgumentException("Sorry but you are not allowed to access this profile", 403));
+		}
+
+		//enforce the end user has a JWT token
+		validateJWTHeader();
+
+		//decode the response from the front end
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
+
+		//retrieve the organizations profile that will be updated
+
 	}
 
 }
