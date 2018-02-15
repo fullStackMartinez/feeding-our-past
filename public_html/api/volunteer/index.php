@@ -48,6 +48,31 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
+	if($method === "GET") {
+		// set XSRF cookie
+		setXsrfCookie();
+
+		// get a volunteer by id
+		if(empty($id) === false) {
+			$volunteer = Volunteer::getVolunteerByVolunteerId($pdo, $id);
+			if($volunteer !== null) {
+				$reply->data = $volunteer;
+			}
+		} else if(empty($volunteerEmail) === false) {
+			$volunteer = Volunteer::getVolunteerByVolunteerEmail($pdo, $volunteerEmail);
+			if($volunteer !== null) {
+				$reply->data = $volunteer;
+			}
+		} else if(empty($profileName) === false) {
+			$volunteer = Volunteer::getVolunteerByVolunteerName($pdo, $volunteerName);
+			if($volunteer !== null) {
+				$reply->data = $volunteer;
+			}
+		}
+	} else if($method === "PUT" {
+
+	})
+
 
 } catch() {
 
