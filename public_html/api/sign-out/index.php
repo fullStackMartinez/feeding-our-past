@@ -15,6 +15,7 @@ require_once ("/etc/apache2/capstone-mysql/encrypted-config.php");
  * @author Gkephart
  * @version 1.0
  **/
+
 //verify the xsrf challenge
 if(session_status() !== PHP_SESSION_ACTIVE){
 	session_start();
