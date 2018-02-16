@@ -91,7 +91,7 @@ try {
 			throw(new \RuntimeException("Profile does not exist", 404));
 		}
 
-		// volunteer profile availability (can be null)
+		// volunteer profile availability (can be null, if null use the availability in the database)
 		if(empty($requestObject->volunteerAvailability) === true) {
 			$requestObject->volunteerAvailability = $volunteer->getVolunteerAvailability();
 		}
@@ -121,10 +121,41 @@ try {
 		// update reply message
 		$reply->message = "Volunteer profile information updated";
 
+	} elseif($method === "DELETE") {
+
+		// verify the XSRF Token
+		verifyXsrf();
+
+		$volunteer = Volunteer::getVolunteerByVolunteerId($pdo, $id);
+		if($volunteer === null) {
+			throw(new \RuntimeException("Volunteer profile does not exist"));
+		}
+
+		// enforce the volunteer is signed in and only trying to edit their own info
+		if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId()->toString() !== $volunteer->getVolunteerId()->toString()) {
+			throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+		}
+
+		// enforce the volunteer has a JWT token
+		validateJwtHeader();
+
+		// delete this volunteer from the database
+		$volunteer->delete($pdo);
+		$reply->message = "Volunteer profile deleted";
+
+	} else {
+		throw(new \InvalidArgumentException("Invalid HTTP request", 400));
 	}
-
-
-} catch() {
-
-
+	// catch any exceptions that were thrown and update the status and message state variable fields
+} catch(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
+
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+
+// encode and return reply to the front end caller
+echo json_encode($reply);
