@@ -140,6 +140,19 @@ try {
 			$requestObject->OrganizationUrl = $organization->getOrganizationUrl();
 		}
 
+		$organization->setOrganizationAddressCity($requestObject->organizationAddressCity);
+		$organization->setOrganizationAddressState($requestObject->organizationAddressState);
+		$organization->setOrganizationAddressStreet($requestObject->organizationAddressStreet);
+		$organization->setOrganizationAddressZip($requestObject->organizationAddressZip);
+		$organization->setOrganizationDonationAccepted($requestObject->organizationDonationAccepted);
+		$organization->setOrganizationEmail($requestObject->organizationEmail);
+		$organization->setOrganizationHoursOpen($requestObject->organizationHoursOpen);
+		$organization->setOrganizationName($requestObject->organizationName);
+		$organization->setOrganizationPhone($requestObject->organizationPhone);
+		$organization->setOrganizationUrl($requestObject->organizationUrl);
+
+
+
 	}
 
 }
