@@ -76,7 +76,37 @@ try {
 			throw(new \InvalidArgumentException("Passwords do not match"));
 		}
 
-		$salt =
+		$salt = bin2hex(random_bytes(32));
+		$hash = hash_pbkdf2("sha512", $requestObject->volunteerPassword, $salt, 262144);
+
+		$volunteerActivationToken = bin2hex(random_bytes(16));
+
+		// create the volunteer object and prepare to insert into the database
+		$volunteer = new Volunteer(generateUuidV4(), $volunteerActivationToken, $requestObject->volunteerAvailability, $requestObject->volunteerEmail, $hash, $requestObject->volunteerName, $requestObject->volunteerPhone, $salt);
+
+		// insert the volunteer profile into the database
+		$volunteer->insert($pdo);
+
+		// compose the email message to send with the activation token
+		$messageSubject = "One step closer to Stop Senior Hunger -- Account Activation";
+
+		// building the activation link that will be clicked to confirm the account
+		// make sure URL is /public_html/api/activation/$activation
+		$basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
+
+		// create the path
+		$urlglue = $basePath . "/api/activation/?activation=" . $volunteerActivationToken;
+
+		// create the redirect link
+		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
+
+		// compose message to send with email
+		$message = <<< EOF
+
+EOF;
+
+
+
 
 	}
 
