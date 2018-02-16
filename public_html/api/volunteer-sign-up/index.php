@@ -125,6 +125,17 @@ EOF;
 		// attach the subject line to the email message
 		$swiftMessage->setSubject($messageSubject);
 
+		/*
+		 * attach the message to the email
+		 * set two versions of the message: a html formatted version and a filter_var()ed version, plain text
+		 * the tactic is to display the entire $confirmLink to plain text
+		 * this lets users who are not viewing the html content to still access the link
+		 */
+		// attach the html version of the message
+		$swiftMessage->setBody($message, "text/html");
+
+		// attach the plain text version of the message
+		$swiftMessage->addPart(html_entity_decode($message), "text/plain");
 
 
 
