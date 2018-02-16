@@ -88,7 +88,7 @@ try {
 		$volunteer->insert($pdo);
 
 		// compose the email message to send with the activation token
-		$messageSubject = "One step closer to Stop Senior Hunger -- Account Activation";
+		$messageSubject = "One step closer to Feeding Our Past -- Account Activation";
 
 		// building the activation link that will be clicked to confirm the account
 		// make sure URL is /public_html/api/activation/$activation
@@ -102,8 +102,30 @@ try {
 
 		// compose message to send with email
 		$message = <<< EOF
-
+<h2>Welcome to Feeding Our Past.</h2>
+<p>Thank you for your interest in our initiative to help stop senior hunger.</p>
+<p>In order to continue with a volunteer profile, you must confirm your account.</p>
+<p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
+
+		// create swift email
+		$swiftMessage = new Swift_Message();
+
+		// attach the sender to the message
+		// this takes the form of an associative array where the email is the key to a real name
+		$swiftMessage->setFrom(["?? TO DO ??"]);
+
+		/*
+		 * attach recipients to the message - this is an array that can include or omit the recipient's name
+		 * use the real name where possible to reduce the possibility of the email being marked as spam
+		 */
+		// define who the recipient is
+		$recipients = [$requestObject->volunteerEmail];
+
+		// attach the subject line to the email message
+		$swiftMessage->setSubject($messageSubject);
+
+
 
 
 
