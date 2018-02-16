@@ -61,6 +61,11 @@ try {
 			if($organization !== null) {
 				$reply->data = $organization;
 			}
+		} else if(empty($distance) === false) {
+			$organization = Organization::getOrganizationByDistance($pdo, $distance, $userLatX, $userLongY);
+			if($organization !== null) {
+				$reply->data = $organization;
+			}
 		} else if(empty($organizationEmail) === false) {
 			$organization = Organization::getOrganizationByOrganizationEmail($pdo, $organizationEmail);
 			if($organization !== null) {
