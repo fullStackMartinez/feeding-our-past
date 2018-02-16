@@ -39,8 +39,12 @@ try {
 
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$distance = filter_input(INPUT_GET, "distance", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
 	$organizationEmail = filter_input(INPUT_GET, "organizationEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$organizationName = filter_input(INPUT_GET, "organizationName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$userLatX = filter_input(INPUT_GET, "userLatX", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+	$userLongY = filter_input(INPUT_GET, "userLongY", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_THOUSAND);
+
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
