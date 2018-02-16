@@ -133,13 +133,12 @@ try {
 		}
 		//organization phone
 		if(empty($requestObject->organizationPhone) === true) {
-			$requestObject->OrganizationPhone = $organization->getOrganizationPhone();
+			throw(new \InvalidArgumentException("Sorry, no phone number present", 405));
 		}
 		//organization url
 		if(empty($requestObject->organizationUrl) === true) {
-			throw(new \InvalidArgumentException("Sorry, no url present", 405));
+			$requestObject->OrganizationUrl = $organization->getOrganizationUrl();
 		}
-
 
 	}
 
