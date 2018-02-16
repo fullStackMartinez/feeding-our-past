@@ -94,6 +94,52 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		//retrieve the organizations profile that will be updated
+		$organization = Organization::getOrganizationByOrganizationId($pdo, $id);
+		if($organization === null) {
+			throw(new RunTimeException("Sorry but organization profile does not exist", 404));
+		}
+
+		//organization address city
+		if(empty($requestObject->organizationAddressCity) === true) {
+			throw(new \InvalidArgumentException("Sorry, there is no organization city address", 405));
+		}
+		//organization address state
+		if(empty($requestObject->organizationAddressState) === true) {
+			throw(new \InvalidArgumentException("Sorry, there is no organization state address", 405));
+		}
+		//organization street address
+		if(empty($requestObject->organizationAddressStreet) === true) {
+			throw(new \InvalidArgumentException("Sorry, there is no organization street address", 405));
+		}
+		//organization address zip code
+		if(empty($requestObject->organizationAddressZip) === true) {
+			throw(new \InvalidArgumentException("Sorry, there is no organization zip code", 405));
+		}
+		//organization donation accepted
+		if(empty($requestObject->organizationDonationAccepted) === true) {
+			throw(new \InvalidArgumentException("sorry, we are not sure if donations are accepted", 405));
+		}
+		//organization email
+		if(empty($requestObject->organizationEmail) === true) {
+			throw(new \InvalidArgumentException("Sorry, but no organization email is present", 405));
+		}
+		//organization hours of operation
+		if(empty($requestObject->organizationHoursOpen) === true) {
+			throw(new \InvalidArgumentException("Sorry, no hours of operation present", 405));
+		}
+		//organization name
+		if(empty($requestObject->organizationName) === true) {
+			throw(new \InvalidArgumentException("Sorry, no organization name present", 405));
+		}
+		//organization phone
+		if(empty($requestObject->organizationPhone) === true) {
+			$requestObject->OrganizationPhone = $organization->getOrganizationPhone();
+		}
+		//organization url
+		if(empty($requestObject->organizationUrl) === true) {
+			throw(new \InvalidArgumentException("Sorry, no url present", 405));
+		}
+
 
 	}
 
