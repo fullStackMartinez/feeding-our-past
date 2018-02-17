@@ -68,6 +68,16 @@ try {
 			throw(new \InvalidArgumentException("Sign in not allowed until account has been activated.", 403));
 		}
 
+		// hash the password given to make sure it matches
+		$hash = hash_pbkdf2("sha512", $volunteerPassword, $volunteer->getVolunteerSalt(), 262144);
+
+		// verify the hash is correct
+		if($hash !== $volunteer->getVolunteerHash()) {
+			throw(new \InvalidArgumentException("Email address or password is incorrect.", 401));
+		}
+
+
+
 	}
 
 }
