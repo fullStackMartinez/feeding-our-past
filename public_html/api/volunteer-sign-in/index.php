@@ -44,6 +44,21 @@ try {
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
+		// check to make sure the password and email fields are not empty
+		if(empty($requestObject->volunteerEmail) === true) {
+			throw(new \InvalidArgumentException("Must enter an email address.", 401));
+		} else {
+			$volunteerEmail = filter_var($requestObject->volunteerEmail, FILTER_SANITIZE_EMAIL);
+		}
+
+		if(empty($requestObject->volunteerPassword) === true) {
+			throw(new \InvalidArgumentException("Must enter a password.", 401));
+		} else {
+			$volunteerPassword = $requestObject->volunteerPassword;
+		}
+
+
+
 
 
 	}
