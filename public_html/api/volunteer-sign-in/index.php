@@ -76,8 +76,31 @@ try {
 			throw(new \InvalidArgumentException("Email address or password is incorrect.", 401));
 		}
 
+		// grab the volunteer profile from the database and put into a session
+		$volunteer = Volunteer::getVolunteerByVolunteerId($pdo, $volunteer->getVolunteerId());
 
+		$_SESSION["volunteer"] = $volunteer;
 
+		// create the Auth payload
+		$authObject = (object) [
+			"volunteerId" => $volunteer->getVolunteerId(),
+			"volunteerName" => $volunteer->getVolunteerName()
+		];
+
+		// create and set the JWT Token
+		setJwtAndAuthHeader("auth", $authObject);
+
+		$reply->message = "Sign in was successful.";
+
+	} else {
+		throw(new \InvalidArgumentException("Invalid HTTP method request", 418));
 	}
 
+	// if an exception is thrown, update the status and message state variable fields
+} catch(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
+
+header("Content-type: application/json");
+echo json_encode($reply);
