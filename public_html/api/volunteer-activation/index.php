@@ -48,6 +48,37 @@ try {
 		throw(new \InvalidArgumentException("activation is empty or has invalid contents", 405));
 	}
 
+	if($method === "GET") {
+
+		// set XSRF Cookie
+		setXsrfCookie();
+
+		// find volunteer profile associated with the activation token
+		$volunteer = Volunteer::getVolunteerByVolunteerActivationToken($pdo, $activation);
+
+		// verify the volunteer profile is not null
+		if($volunteer !== null) {
+
+			// make sure the activation token matches
+			if($activation === $volunteer->getVolunteerActivationToken()) {
+
+				// set activation token to null
+				$volunteer->setVolunteerActivationToken(null);
+
+				//update the volunteer profile in the database
+				$volunteer->update($pdo);
+
+				// set the reply for the end user
+				$reply->data = "Thank you for activating your account, you will be auto-redirected to your volunteer profile shortly.";
+			}
+		} else {
+
+			// throw an exception if the HTTP request is not a GET
+			throw(new \InvalidArgumentException("Invalid HTTP method request", 403));
+		}
+
+	}
+
 
 
 
