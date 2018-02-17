@@ -57,9 +57,16 @@ try {
 			$volunteerPassword = $requestObject->volunteerPassword;
 		}
 
+		// grab the volunteer profile from the database by the email provided
+		$volunteer = Volunteer::getVolunteerByVolunteerEmail($pdo, $volunteerEmail);
+		if(empty($volunteer) === true) {
+			throw(new \InvalidArgumentException("Invalid email address", 401));
+		}
 
-
-
+		// if the volunteer profile activation is not null, throw an error
+		if($volunteer->getVolunteerActivationToken() !== null) {
+			throw(new \InvalidArgumentException("Sign in not allowed until account has been activated.", 403));
+		}
 
 	}
 
