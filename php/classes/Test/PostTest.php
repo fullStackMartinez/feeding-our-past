@@ -235,7 +235,7 @@ class PostTest extends FeedPastTest {
 		$post->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Post::getPostByPostEndDateTime($this->getPDO(), $this->VALID_ENDDATETIME);
+		$results = Post::getPostByPostEndDateTime($this->getPDO(), $this->VALID_ENDDATETIME->getTimestamp());
 //$post->getPostEndDateTime());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("post"));
 		$this->assertCount(1, $results);
