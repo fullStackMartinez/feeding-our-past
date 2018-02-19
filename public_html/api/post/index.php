@@ -19,9 +19,6 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 
 use Edu\Cnm\FeedPast\{
 	Post,
-	/**
-	 * Use Organization class for testing purposes only
-	 **/
 	Organization
 };
 
@@ -70,72 +67,85 @@ try {
 				$reply->data = $post;
 			}
 		} else if(empty($postOrganizationId) === false) {
-			$post = post::getPostByPostOrganizationId($pdo, $postOrganizationId)->toArray();
+			$post = Post::getPostByPostOrganizationId($pdo, $_SESSION["organization"]->getOrganizationId())->toArray();
 			if($post !== null) {
 				$reply->data = $post;
 			}
-		} else if(empty($postEndDateTime) === false) {
-			$post = post::getPostByPostEndDateTime($pdo, $postEndDateTime);
+		} else if(empty($postContent) === false) {
+			$post = Post::getPostByPostContent($pdo, $postContent)->toArray();
 			if($post !== null) {
-				$reply->data = $post;
+				$reply->data = $posts;
 			}
-
-
 		} else {
-			throw new InvalidArgumentException("incorrect search parameters ", 404);
+			$posts = Post::getAllPosts($pdo)->toArray();
+			if($posts !== null) {
+				$reply->data = $posts;
+			}
 		}
-
-		validateJwtHeader();
-
+	} else if($method === "PUT" || $method === "POST") {
+		if(empty($_SESSION["profile"]) === true) {
+			throw (new \InvalidArgumentException("You Must Be Logged In to Post", 401));
+		}
+		verifyXsrf();
 		//decode the response from the front end
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
-		if(empty($requestObject->postOrganizationId) === true) {
-			throw (new \InvalidArgumentException("No Organization linked to the Post", 405));
+		if(empty($requestObject->postContent) === true) {
+			throw (new \InvalidArgumentException("No Content In Post", 405));
 		}
 		if(empty($requestObject->postId) === true) {
-			throw (new \InvalidArgumentException("No Post linked to the Id", 405));
+			$requestObject->postEndDateTime = null;
 		}
-		if(empty($requestObject->postEndDateTime) === true) {
-			$requestObject->PostEndDateTime = date("y-m-d H:i:s");
+		if($method === "PUT") {
+			$post = Post::getPostByPostId($pdo, $id);
+			if($tweet === null) {
+				throw (new \RuntimeException("Post Does Not Exist", 404));
+			}
+
+			if(empty($_SESSION["post"]) === true || $_SESSION["post"]->getOrganizationId()
+					->toString() !== $post->getPostOrganizationId()->toString()) {
+				throw(new \InvalidArgumentException("You Are Not Allowed to Edit this Post", 403));
+			}
+//validateJwtHeader();
+			// update all attributes
+			//$post->setPostEndDateTime($requestObject->postEndDateTime);
+			$post->setPostContent($requestObject->postContent);
+			$post->update($pdo);
+			// update reply
+			$reply->message = "Post updated OK";
+		} else if($method === "POST") {
+			// enforce the user is signed in
+			if(empty($_SESSION["organization"]) === true) {
+				throw(new \InvalidArgumentException("you must be logged in to post", 403));
+			}
+			//enforce the end user has a JWT token
+			//validateJwtHeader();
+			// create new tweet and insert into the database
+			$post = new Post(generateUuidV4(), $_SESSION["organization"]->getOrganizationId(), $requestObject->postContent, null);
+			$post->insert($pdo);
+			// update reply
+			$reply->message = "Post created OK";
 		}
-		if($method === "POST") {
+	} else if($method === "DELETE") {
 			//enforce that the end user has a XSRF token.
 			verifyXsrf();
+	//retreive deleted post
+		$post = Post::getPostbyPostID($pdo,$id);
+if($post === null) {
+	throw(new RuntimeException("Post does not exisit", 404));
+}
+						if(empty($_SESSION["organization"]) === true || $_SESSION["organization"]->getOrganizationId()->toString()) {
+				throw(new \InvalidArgumentException("you are not allowed to delete this post", 403));
+			}
 			//enforce the end user has a JWT token
 			//validateJwtHeader();
-			// enforce the user is signed in
-			if(empty($_SESSION["post"]) === true) {
-				throw(new \InvalidArgumentException("you must be logged in to posts", 403));
-			}
-			//validateJwtHeader();
-			$post = new Post($_SESSION["post"]->getpostId(), $requestObject->postOrganizationId);
-			$post->insert($pdo);
-			$reply->message = "Post successful";
-		} else if($method === "PUT") {
 			//enforce the end user has a XSRF token.
-			verifyXsrf();
-			//enforce the end user has a JWT token
-			//validateJwtHeader();
-			//grab the like by its composite key
-			$like = Post::getPostByPostIdAndPostOrganizationId($pdo, $requestObject->postId, $requestObject->postOrganizationId);
-			if($like === null) {
-				throw (new RuntimeException("Post does not exist"));
-			}
-			//enforce the user is signed in and only trying to edit their own post
-			if(empty($_SESSION["post"]) === true || $_SESSION["post"]->getPostId() !== $post->getPostId()) {
-				throw(new \InvalidArgumentException("You are not allowed to delete this post", 403));
-			}
-			//validateJwtHeader();
-			//preform the actual delete
-			$like->delete($pdo);
-			//update the message
-			$reply->message = "Post has been successfully deleted";
-		}
-		// if any other HTTP request is sent throw an exception
+			//elete post
+			$post->delete($pdo);
+$reply->message = "Post Deleted";
 	} else {
-		throw new \InvalidArgumentException("invalid http request", 400);
+		throw (new InvalidArgumentException("invalid http request", 408));
 	}
 	//catch any exceptions that is thrown and update the reply status and message
 } catch(\Exception | \TypeError $exception) {
@@ -148,9 +158,3 @@ if($reply->data === null) {
 }
 // encode and return reply to front end caller
 echo json_encode($reply);
-/**
- * Created by PhpStorm.
- * User: petersdata
- * Date: 2/15/18
- * Time: 3:18 PM
- */
