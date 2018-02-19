@@ -150,9 +150,46 @@ try {
 		$organization->setOrganizationName($requestObject->organizationName);
 		$organization->setOrganizationPhone($requestObject->organizationPhone);
 		$organization->setOrganizationUrl($requestObject->organizationUrl);
+		$organization->update($pdo);
 
+		//update reply
+		$reply->message = "Organization profile information updated";
 
+		} elseif($method === "DELETE") {
 
+		//verify the XSRF token
+		verifyXsrf();
+
+		$organization = Organization::getOrganizationByOrganizationId($pdo, $id);
+		if($organization === null) {
+			throw (new RuntimeException("Organization profile does not exist"));
+		}
+
+		//enforce the organization is signed in and only trying to edit their own profile
+		if(empty($_SESSION["organization"]) === true || $_SESSION["organization"]->getOrganizationId()->toString() !==$organization->getOrganizationId()->toString()) {
+			throw(new \InvalidArgumentException("Sorry, but you are not allowed to access this profile", 403));
+		}
+
+		//enforce the end user has a JWT token
+		validateJwtHeader();
+
+		//delete the organization from the database
+		$organization->delete($pdo);
+		$reply->message = "Organization Successfully Deleted";
+	} else {
+		throw (new InvalidArgumentException("Invalid HTTP request", 400));
 	}
+	//catch any exceptions that were thrown and update the status and message state variable field
 
+} catch(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
+
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+
+//encode and return reply to front end caller
+echo json_encode($reply);
