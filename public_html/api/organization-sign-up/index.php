@@ -103,7 +103,20 @@ try {
 		$organization->insert($pdo);
 
 		//compose email message to send activation token to organization
-		$messageSubject = ""
+		$messageSubject = "Thank you for taking the next step to helping stop Senior Hunger. One more step to activate";
+
+		//build activation link that can travel to another server and still work. This link will confirm the organization account.
+		//make sure url is /public_html/api/activation/$activation
+		$basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
+
+		//create path
+		$urlglue = $basePath . "/api/activation/?activation=" . $organizationActivationToken;
+
+		//create the redirect link
+		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
+
+		//compose message to send with email
+
 
 
 	}
