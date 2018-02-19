@@ -116,8 +116,6 @@ try {
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
 
 		//compose message to send with email
-
-
-
+		$message = <<< EOF <h2> 
 	}
 	}

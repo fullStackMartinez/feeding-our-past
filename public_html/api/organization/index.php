@@ -98,9 +98,9 @@ try {
 		if($organization === null) {
 			throw(new RunTimeException("Sorry but organization profile does not exist", 404));
 		}
-
+		//COMMENTED OUT UPDATE BY LOCATION PER BRIDGE SUGGESTION
 		//organization address city
-		if(empty($requestObject->organizationAddressCity) === true) {
+		/*if(empty($requestObject->organizationAddressCity) === true) {
 			throw(new \InvalidArgumentException("Sorry, there is no organization city address", 405));
 		}
 		//organization address state
@@ -114,7 +114,7 @@ try {
 		//organization address zip code
 		if(empty($requestObject->organizationAddressZip) === true) {
 			throw(new \InvalidArgumentException("Sorry, there is no organization zip code", 405));
-		}
+		}*/
 		//organization donation accepted
 		if(empty($requestObject->organizationDonationAccepted) === true) {
 			throw(new \InvalidArgumentException("sorry, we are not sure if donations are accepted", 405));
