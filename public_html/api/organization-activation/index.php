@@ -2,23 +2,23 @@
 require_once dirname(__DIR__,3)."/php/classes/autoload.php";
 require_once dirname(__DIR__,3)."/php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\FeedKitty\Organization;
+use Edu\Cnm\FeedPast\Organization;
 /**
  * API to check organization activation status
  * @auther JBrink  <JeffreyBrink@GMX>
  * @author Gkephart
  */
 		// Check the session. If it is not active, start the session.
-		if(session_status() !== PHP_SESSION_ACTIVE){
+		if(session_status() !== PHP_SESSION_ACTIVE) {
 			session_start();
-	}
+		}
 		//prepare an empty reply
 		$reply = new stdClass();
 		$reply->status = 200;
 		$reply->data = null;
 	try {
 		// grab the MySQL connection
-		$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/FeedKitty.ini");
+		$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/feedkitty.ini");
 		//check the HTTP method being used
 		$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
@@ -46,36 +46,35 @@ use Edu\Cnm\FeedKitty\Organization;
 			//verify the profile is not null
 			if($organization !== null) {
 
-
 				//make sure the organization activation token matches
 				if($activation === $organization->getOrganizationActivationToken()) {
 
 					//set activation to null
 					$organization->setOrganizationActivationToken(null);
+
 					//update the profile in the database
-
 					$organization->update($pdo);
+
 					//set the reply for the end user
-
 					$reply->data = "Thank you for activating your account, you will be auto-redirected to your profile shortly.";
-
-				} else {
-
-					//throw an exception if the activation token does not exist
-					throw(new RuntimeException("Profile with this activation code does not exist", 404));
 				}
 			} else {
-
-				// update the reply object's status and message state variables if an exception or type exception was thrown
+					//throw an exception if the activation token does not exist
+					throw(new RuntimeException("Profile with this activation code does not exist", 404));
 			}
-		catch
-			(\Exception $exception); {
+		} else {
+				// throw an exception if the4 HTTP request is not a GET
+				throw(new \InvalidArgumentException("Invalid HTTP method request", 403));
+		}
+
+			// update the reply object's status and message state variables if an exception or type exception was thrown
+	} catch (\Exception $exception) {
 				$reply->status = $exception->getCode();
 				$reply->message = $exception->getMessage();
-			} catch(\TypeError $typeError) {
-				$reply->status = $typeError->getCode();
-				$reply->message = $typeError->getMessage();
-			}
+	} catch (\TypeError $typeError) {
+		$reply->status = $typeError->getCode();
+		$reply->message = $typeError->getMessage();
+	}
 
 // prepare and send the reply
 header("Content-type: application/json");
@@ -83,8 +82,7 @@ if($reply->data === null) {
 	unset($reply->data);
 }
 echo json_encode($reply);
-}
-	}
+
 
 
 
