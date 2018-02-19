@@ -94,6 +94,17 @@ try {
 		$salt = bin2hex(random_bytes(32));
 		$hash = hash_pbkdf2("sha512", $requestObject->organizationPassword, $salt, 262144);
 
+		$organizationActivationToken = bin2hex(random_bytes(16));
+
+		//create the organization object and prepare it to be inserted into our database
+		$organization = new Organization(generateUuidV4(), $organizationActivationToken, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressStreet, $requestObject->organizationAddressZip, $requestObject->organizationDonationAccepted, $requestObject->organizationEmail, $hash, $requestObject->organizationHoursOpen, $requestObject->organizationLatX, $requestObject->organizationLongY, $requestObject->organizationName, $requestObject->organizationPhone, $salt, $requestObject->organizationUrl);
+
+		//insert the organization into the database
+		$organization->insert($pdo);
+
+		//compose email message to send activation token to organization
+		$messageSubject = ""
+
 
 	}
 	}
