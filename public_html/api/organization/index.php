@@ -48,7 +48,7 @@ try {
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
-		throw(new InvalidArgumentException("sorry but your ID cannot be empty or negative", 405));
+		throw(new \InvalidArgumentException("sorry but your ID cannot be empty or negative", 405));
 	}
 
 	if($method === "GET") {
@@ -96,7 +96,7 @@ try {
 		//retrieve the organizations profile that will be updated
 		$organization = Organization::getOrganizationByOrganizationId($pdo, $id);
 		if($organization === null) {
-			throw(new RunTimeException("Sorry but organization profile does not exist", 404));
+			throw(new \RunTimeException("Sorry but organization profile does not exist", 404));
 		}
 		//COMMENTED OUT UPDATE BY LOCATION PER BRIDGE SUGGESTION
 		//organization address city
@@ -163,7 +163,7 @@ try {
 
 		$organization = Organization::getOrganizationByOrganizationId($pdo, $id);
 		if($organization === null) {
-			throw (new RuntimeException("Organization profile does not exist"));
+			throw (new \RuntimeException("Organization profile does not exist"));
 		}
 
 		//enforce the organization is signed in and only trying to edit their own profile
@@ -178,7 +178,7 @@ try {
 		$organization->delete($pdo);
 		$reply->message = "Organization Successfully Deleted";
 	} else {
-		throw (new InvalidArgumentException("Invalid HTTP request", 400));
+		throw (new \InvalidArgumentException("Invalid HTTP request", 400));
 	}
 	//catch any exceptions that were thrown and update the status and message state variable field
 
