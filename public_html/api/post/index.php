@@ -110,8 +110,8 @@ try {
 				throw(new \InvalidArgumentException("you must be logged in to posts", 403));
 			}
 			//validateJwtHeader();
-			$like = new Like($_SESSION["post"]->getpostId(), $requestObject->postOrganizationId);
-			$like->insert($pdo);
+			$post = new Post($_SESSION["post"]->getpostId(), $requestObject->postOrganizationId);
+			$post->insert($pdo);
 			$reply->message = "Post successful";
 		} else if($method === "PUT") {
 			//enforce the end user has a XSRF token.
@@ -123,8 +123,8 @@ try {
 			if($like === null) {
 				throw (new RuntimeException("Post does not exist"));
 			}
-			//enforce the user is signed in and only trying to edit their own like
-			if(empty($_SESSION["post"]) === true || $_SESSION["post"]->getPostId() !== $like->getPostId()) {
+			//enforce the user is signed in and only trying to edit their own post
+			if(empty($_SESSION["post"]) === true || $_SESSION["post"]->getPostId() !== $post->getPostId()) {
 				throw(new \InvalidArgumentException("You are not allowed to delete this post", 403));
 			}
 			//validateJwtHeader();

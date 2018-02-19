@@ -281,6 +281,7 @@ class Post implements \JsonSerializable {
 	 * mutator method for postStartDateTime
 	 * @param \DateTime|string $newPostStartDateTime is the time that the post may be removed
 	 * @param \DateTime|string $newPostStartDateTime date to validate
+	 * @throws
 	 * @throws \InvalidArgumentException if $newPostStartDateTime is a date that does not exist
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is a date that does not exist
@@ -476,7 +477,8 @@ class Post implements \JsonSerializable {
 		}
 		$query = "SELECT postId, postOrganizationId, postContent, postEndDateTime, postImageUrl, postStartDateTime, postTitle FROM post WHERE postEndDateTime > now()";
 		$statement = $pdo->prepare($query);
-		$statement->execute();
+		$parameters = ["postEndDateTime" => $postEndDateTime];
+		$statement->execute($parameters);
 		// build an array of posts
 		$posts = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
