@@ -16,8 +16,13 @@ require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
+
 use Edu\Cnm\FeedPast\{
-	Post
+	Post,
+	/**
+	 * Use Organization class for testing purposes only
+	 **/
+	Organization
 };
 
 /**
@@ -42,46 +47,40 @@ try {
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	//sanitize the search parameters
-	$postId = $id = filter_input(INPUT_GET, "postId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$postOrganizationId = $orgid = filter_input(INPUT_GET, "postOrganizationId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$postContent = $content = filter_input(INPUT_GET, "postContent", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$postEndDateTime = $enddatetime = filter_input(INPUT_GET, "postEndDateTime", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$postImageUrl = $imageurl = filter_input(INPUT_GET, "postImageUrl", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$postStartDateTime = $startdatetime = filter_input(INPUT_GET, "postStartDateTime", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$postTitle = $title = filter_input(INPUT_GET, "postTitle", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$postOrganizationId = filter_input(INPUT_GET, "postOrganizationId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$postContent = filter_input(INPUT_GET, "postContent", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$postEndDateTime = filter_input(INPUT_GET, "postEndDateTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$postImageUrl = filter_input(INPUT_GET, "postImageUrl", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$postStartDateTime = filter_input(INPUT_GET, "postStartDateTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$postTitle = filter_input(INPUT_GET, "postTitle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	// make sure the id is valid
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
-		throw(new \InvalidArgumentException("id cannot be empty or negative", 405));
+		throw(new \InvalidArgumentException("id cannot be empty or negative", 402));
 	}
 
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie();
 		//gets  a specific post associated based on its primary kdy
-		if (empty($id) === flase) {
-			$post = Post::getPostByPostId($pdo,$id);
-				if($post !== null) {
-				$reply->data = $post;
-				}
-} else if(empty($postOrganizationId) === flase) {
-			$post =
-				Post::getPostByPostOrganizationId($pdo, $postOrganizationId);
+		if(empty($id) === false) {
+			$post = Post::getPostByPostId($pdo, $id);
 			if($post !== null) {
 				$reply->data = $post;
 			}
-			//if none of the search parameters are met throw an exception
-		} else if(empty($postContent) === false) {
-			$post = Post::getPostByPostContent($pdo, $postContent)->toArray();
-			if($post !== null) {
-				$reply->data = $post;
-			}
-			//get all the post associated with the postId
 		} else if(empty($postOrganizationId) === false) {
-			$like = Like::getPostByPostOrganizationId($pdo, $postOrganizationId)->toArray();
-			if($like !== null) {
+			$post = post::getPostByPostOrganizationId($pdo, $postOrganizationId)->toArray();
+			if($post !== null) {
 				$reply->data = $post;
 			}
+		} else if(empty($postEndDateTime) === false) {
+			$post = post::getPostByPostEndDateTime($pdo, $postEndDateTime);
+			if($post !== null) {
+				$reply->data = $post;
+			}
+
+
 		} else {
 			throw new InvalidArgumentException("incorrect search parameters ", 404);
 		}
@@ -99,7 +98,7 @@ try {
 			throw (new \InvalidArgumentException("No Post linked to the Id", 405));
 		}
 		if(empty($requestObject->postEndDateTime) === true) {
-			$requestObject->PostEndDateTime =  date("y-m-d H:i:s");
+			$requestObject->PostEndDateTime = date("y-m-d H:i:s");
 		}
 		if($method === "POST") {
 			//enforce that the end user has a XSRF token.
