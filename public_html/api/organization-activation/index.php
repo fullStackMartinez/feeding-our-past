@@ -5,7 +5,7 @@ require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\FeedPast\Organization;
 /**
  * API to check organization activation status
- * @auther JBrink  <JeffreyBrink@GMX>
+ * @auther JBrink  <JeffreyBrink@GMX.com>
  * @author Gkephart
  */
 		// Check the session. If it is not active, start the session.

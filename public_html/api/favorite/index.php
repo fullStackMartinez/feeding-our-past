@@ -37,7 +37,7 @@ try {
 
 	//sanitize the search parameters
 	$favoritevolunteerId= $id = filter_input(INPUT_GET, "favoritevolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$favoritePostId = $id = filter_input(INPUT_GET, "likeTweetId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoritePostId = $id = filter_input(INPUT_GET, "favoritePostId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	if($method === "GET") {
 		//set XSRF cookie
@@ -45,7 +45,7 @@ try {
 
 		//gets a specific favorite associated based on its composit key
 		if ($favoritevolunteerId !== null && $favoritePostId !== null) {
-			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $favoritevolunteerId, $favoritePostId);
+			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $favoritePostId, $favoriteVolunteerId);
 
 			if($favorite!== null) {
 				$reply->data = $favorite;
@@ -83,11 +83,6 @@ try {
 			throw (new \InvalidArgumentException("No post linked to the Favorite", 405));
 		}
 
-		if(empty($requestObject->favoriteDate) === true) {
-			$requestObject->FavoriteDate = date("y-m-d H:i:s");
-		}
-
-
 		if($method === "POST") {
 
 			//enforce that the end user has a XSRF token.
@@ -97,15 +92,15 @@ try {
 			//validateJwtHeader();
 
 			// enforce the user is signed in
-			if(empty($_SESSION["Volunteer"]) === true) {
-				throw(new \InvalidArgumentException("you must be logged in too favorite posts", 403));
+			if(empty($_SESSION["volunteer"]) === true) {
+				throw(new \InvalidArgumentException("you must be logged in to favorite posts", 403));
 			}
 
 			//validateJwtHeader();
 
-			$favorite= new favorite($_SESSION["volunteer"]->getVolunteerId(), $requestObject->likeTweetId);
+			$favorite= new Favorite($_SESSION["volunteer"]->getVolunteerId(), $requestObject->favoritePostId);
 			$favorite->insert($pdo);
-			$reply->message = "favorite post successful";
+			$reply->message = "post favorited successfully";
 
 
 		} else if($method === "PUT") {
@@ -117,14 +112,14 @@ try {
 			//validateJwtHeader();
 
 			//grab the favorite by its composite key
-			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $requestObject->favoriteVolunteerId, $requestObject->likeTweetId);
+			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $requestObject->favoriteVolunteerId, $requestObject->fovoritePostId);
 			if($favorite=== null) {
-				throw (new RuntimeException("Favorite does not exist"));
+				throw (new \RuntimeException("Favorite does not exist"));
 			}
 
 			//enforce the user is signed in and only trying to edit their own like
 			if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId() !== $favorite->getFavoriteVolunteerId()) {
-				throw(new \InvalidArgumentException("You are not allowed to delete this tweet", 403));
+				throw(new \InvalidArgumentException("You are not allowed to delete this post", 403));
 			}
 
 			//validateJwtHeader();
