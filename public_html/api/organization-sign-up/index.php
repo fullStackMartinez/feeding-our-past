@@ -103,7 +103,7 @@ try {
 		$organization->insert($pdo);
 
 		//compose email message to send activation token to organization
-		$messageSubject = "Thank you for taking the next step to helping stop Senior Hunger. One more step to activate";
+		$messageSubject = "This organization, $organization, is interested in helping";
 
 		//build activation link that can travel to another server and still work. This link will confirm the organization account.
 		//make sure url is /public_html/api/activation/$activation
@@ -118,8 +118,71 @@ try {
 		//compose message to send with email
 		$message = <<< EOF
  <h2>Welcome to Feeding Our Past!</h2>
- <p>Thank you for your interested in helping stomp our Senior Hunger in the Albuquerque area. In order to start advertising events and finding committed volunteers, you must first confirm your account</p>
+ <p>This organization is interested in helping</p>
  <p><a href="$confirmLink">$confirmLink</a></p>
+EOF;
+		//create swift email
+		$swiftMessage = new Swift_Message();
+
+		//attach the sender to the message
+		//this takes the form of an associative array where the email is the key to a real name
+		$swiftMessage->setFrom(["feedingourpast@gmail.com" => "Feeding Our Past"]);
+
+		/**
+		 * attach recipients to the message
+		 * notice this is an array that can include or omit the recipient's name
+		 * use the recipient's real name where possible;
+		 * this reduces the probability that the email will be marked as spam
+		 **/
+		//define who the recipient is
+		$recipients = ["feedingourpast@gmail.com" => "Feeding Our Past"];
+
+		//set the recipient to the swift message
+
+		//attach the subject line to the email message
+		$swiftMessage->setSubject($messageSubject);
+
+		/**
+		 * attach the message tot he email
+		 * set two versions of the message: a html formatted version and a filter_var()ed version of the message, which is just plain text
+		 * notice the tactic used is to display the entire $confirmLink to plain text
+		 * This lets users who are not viewing the html content to still access the link
+		 **/
+		//attach the html version of the message
+		$swiftMessage->setBody($message, "text/html");
+
+		//attach the plain text version of the message
+		$swiftMessage->addPart(html_entity_decode($message), "text/plain");
+
+		/**
+		 * send the email via SMTP; the SMTP server here is configured to relay everything upstream via CNM
+		 * this default may or may not be available on all web hosts; consult their documentation/support for details
+		 * swiftMailer supports many different transport methods; SMTP was chosen because it's the most compatible and has the best error handling
+		 * @see http://swiftmailer.org/docs/sending.html Sending Messages - Documentation - SwitftMailer
+		 **/
+		//setup SMTP
+		$smtp = new Swift_SmtpTransport("localhost", 25);
+		$mailer = new Swift_Mailer($smtp);
+
+		//send the message
+		$numSent = $mailer->send($swiftMessage, $failedRecipients);
+
+		/**
+		 * the send method returns the number of recipients that accepted the Email
+		 * so, if the number attempted is not the number accepted, this is an Exception
+		 **/
+		/*if($numSent !== count($recipients)) {
+			// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
+			throw(new RuntimeException("unable to send email", 400));
+		} **/
+//THIS IS WHERE WE PUT THE NEW OBJECT FOR ORGANIZATIONS EMAIL, THE EMAIL THEY WILL GET WITHOUT ACTIVATION LINK
+		//compose email subject that will be sent to interested organization
+		$messageSubject = "Thank you for your interest in Feeding Our Past. Your account is awaiting approval";
+		//compose message to send with email
+		$message = <<< EOF
+ <h2>Welcome to Feeding Our Past!</h2>
+ <p>Thank You for your interest in helping stomp out Senior Hunger in the Albuquerque area. We have received your profile request and will contact you shortly with confirmation that your profile is ready to go. Thank you!</p>
+ <p>Sincerely, <br> The Feeding Our Past Development Team</p>
 EOF;
 		//create swift email
 		$swiftMessage = new Swift_Message();
@@ -175,9 +238,8 @@ EOF;
 			// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
 			throw(new RuntimeException("unable to send email", 400));
 		} **/
-
 		//update reply
-		$reply->message = "Thank you for your commitment to our local Seniors by creaing an account with Feeding Our Past";
+		$reply->message = "Thank you for your interest in requesting an account with Feeding Our Past";
 		} else {
 		throw (new \InvalidArgumentException("invalid HTTP request"));
 	}
