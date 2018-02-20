@@ -68,90 +68,90 @@ try {
 				$reply->data = $post;
 			}
 		} else if(empty($postOrganizationId) === false) {
-			$post = Post::getPostByPostOrganizationId($pdo, $_SESSION["organization"]->getOrganizationId())->toArray();
-			if($post !== null) {
-				$reply->data = $post;
+			$posts = Post::getPostByPostOrganizationId($pdo, $_SESSION["organization"]->getOrganizationId())->toArray();
+			if($posts !== null) {
+				$reply->data = $posts;
 			}
-		} else if(empty($postEndDateTime) === false) {
-			$post = Post::getPostByPostEndDateTime($_SESSION["organization"]->getPostEndDateTime())->toArray();
-			if($post !== null) {
-				$reply->data = $post;
-
-					} else if($method === "PUT" || $method === "POST") {
-				if(empty($_SESSION["profile"]) === true) {
-
-					throw (new \InvalidArgumentException("You Must Be Logged In to Post", 401));
-				}
-
-				verifyXsrf();
-				//decode the response from the front end
-				$requestContent = file_get_contents("php://input");
-				$requestObject = json_decode($requestContent);
-
-				if(empty($requestObject->postContent) === true) {
-					throw (new \InvalidArgumentException("No Content In Post", 405));
-				}
-				if(empty($requestObject->postEndDateTime) === true) {
-					$requestObject->postEndDateTime = null;
-				}
-				if($method === "PUT") {
-					$post = Post::getPostByPostId($pdo, $id);
-					if($post === null) {
-						throw (new \RuntimeException("Post Does Not Exist", 404));
-					}
-
-					if(empty($_SESSION["post"]) === true || $_SESSION["post"]->getOrganizationId()
-							->toString() !== $post->getPostOrganizationId()->toString()) {
-						throw(new \InvalidArgumentException("You Are Not Allowed to Edit this Post", 403));
-					}
-//validateJwtHeader();
-					// update all attributes
-					//$post->setPostEndDateTime($requestObject->postEndDateTime);
-					$post->setPostContent($requestObject->postContent);
-					$post->update($pdo);
-					// update reply
-					$reply->message = "Post updated OK";
-				} else if($method === "POST") {
-					// enforce the user is signed in
-					if(empty($_SESSION["organization"]) === true) {
-						throw(new \InvalidArgumentException("you must be logged in to post", 403));
-					}
-					//enforce the end user has a JWT token
-					//validateJwtHeader();
-					// create new post and insert into the database
-					$post = new Post(generateUuidV4(), $_SESSION["organization"]->getOrganizationId(), $requestObject->postContent, $requestObject->EndDateTime, $requestObject->postImageUrl,  $requestObject->postStartDateTime, $requestObject->postTitle);
-					$post->insert($pdo);
-					// update reply
-					$reply->message = "Post created OK";
-				}
+		} else {
+			$posts = Post::getPostByPostEndDateTime($pdo)->toArray();
+			if($posts !== null) {
+				$reply->data = $posts;
 			}
-		} else if($method === "DELETE") {
-			//enforce that the end user has a XSRF token.
-			verifyXsrf();
-			//retreive deleted post
-			$post = Post::getPostbyPostID($pdo, $id);
+		}
+	} else if($method === "PUT" || $method === "POST") {
+		if(empty($_SESSION["profile"]) === true) {
+
+			throw (new \InvalidArgumentException("You Must Be Logged In to Post", 401));
+		}
+
+		verifyXsrf();
+		//decode the response from the front end
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
+
+		if(empty($requestObject->postContent) === true) {
+			throw (new \InvalidArgumentException("No Content In Post", 405));
+		}
+		if(empty($requestObject->postEndDateTime) === true) {
+			$requestObject->postEndDateTime = null;
+		}
+
+		if($method === "PUT") {
+			$post = Post::getPostByPostId($pdo, $id);
 			if($post === null) {
-				throw(new RuntimeException("Post does not exisit", 404));
+				throw (new \RuntimeException("Post Does Not Exist", 404));
 			}
-			if(empty($_SESSION["organization"]) === true || $_SESSION["organization"]->getOrganizationId()->toString()) {
-				throw(new \InvalidArgumentException("you are not allowed to delete this post", 403));
+
+			if(empty($_SESSION["post"]) === true || $_SESSION["post"]->getOrganizationId()
+					->toString() !== $post->getPostOrganizationId()->toString()) {
+				throw(new \InvalidArgumentException("You Are Not Allowed to Edit this Post", 403));
+			}
+//validateJwtHeader();
+			// update all attributes
+			//$post->setPostEndDateTime($requestObject->postEndDateTime);
+			$post->setPostContent($requestObject->postContent);
+			$post->update($pdo);
+			// update reply
+			$reply->message = "Post updated OK";
+		} else if($method === "POST") {
+			// enforce the user is signed in
+			if(empty($_SESSION["organization"]) === true) {
+				throw(new \InvalidArgumentException("you must be logged in to post", 403));
 			}
 			//enforce the end user has a JWT token
 			//validateJwtHeader();
-			//enforce the end user has a XSRF token.
-			//elete post
-			$post->delete($pdo);
-			$reply->message = "Post Deleted";
-		} else {
-			throw (new InvalidArgumentException("invalid http request", 418));
+			// create new post and insert into the database
+			$post = new Post(generateUuidV4(), $_SESSION["organization"]->getOrganizationId(), $requestObject->postContent, $requestObject->EndDateTime, $requestObject->postImageUrl, $requestObject->postStartDateTime, $requestObject->postTitle);
+			$post->insert($pdo);
+			// update reply
+			$reply->message = "Post created OK";
 		}
-		//catch any exceptions that is thrown and update the reply status and message
+	} else if($method === "DELETE") {
+		//enforce that the end user has a XSRF token.
+		verifyXsrf();
+		//retreive deleted post
+		$post = Post::getPostbyPostID($pdo, $id);
+		if($post === null) {
+			throw(new RuntimeException("Post does not exisit", 404));
+		}
+		if(empty($_SESSION["organization"]) === true || $_SESSION["organization"]->getOrganizationId()->toString()) {
+			throw(new \InvalidArgumentException("you are not allowed to delete this post", 403));
+		}
+		//enforce the end user has a JWT token
+		//validateJwtHeader();
+		//enforce the end user has a XSRF token.
+		//elete post
+		$post->delete($pdo);
+		$reply->message = "Post Deleted";
+	} else {
+		throw (new InvalidArgumentException("invalid http request", 418));
 	}
+	//catch any exceptions that is thrown and update the reply status and message
 } catch
-	(\Exception | \TypeError $exception) {
-		$reply->status = $exception->getCode();
-		$reply->message = $exception->getMessage();
-	}
+(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+}
 header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
