@@ -57,10 +57,64 @@ use Edu\Cnm\FeedPast\Organization;
 
 					//set the reply for the end user
 					$reply->data = "Thank you for activating your account, you will be auto-redirected to your profile shortly.";
+
+\					//compose email subject that will be sent to interested organization
+					$messageSubject = "Great News! You have been approved to join Feeding Our Past";
+					//compose message to send with email
+					$message = <<< EOF
+ <h2>Welcome to Feeding Our Past!</h2>
+ <p>Our team has reviewed your request to join our site, and we are pleased to announce that you have been added to our community! It is our honor to be working with an organization who joins our passion and dedication to helping stop Senior Hunger in Albuquerque. Feel free to check out our community and make/edit posts that will advertise upcoming events so that our volunteers can see and express their interest!</p>
+ <p>Sincerely, <br> The Feeding Our Past Development Team</p>
+EOF;
+					//create swift email
+					$swiftMessage = new Swift_Message();
+
+					//attach the sender to the message
+					//this takes the form of an associative array where the email is the key to a real name
+					$swiftMessage->setFrom(["feedingourpast@gmail.com" => "Feeding Our Past"]);
+
+					/**
+					 * attach recipients to the message
+					 * notice this is an array that can include or omit the recipient's name
+					 * use the recipient's real name where possible;
+					 * this reduces the probability that the email will be marked as spam
+					 **/
+					//define who the recipient is
+					$recipients = [$organization->getOrganizationEmail()];
+
+					//set the recipient to the swift message
+
+					//attach the subject line to the email message
+					$swiftMessage->setSubject($messageSubject);
+
+					/**
+					 * attach the message tot he email
+					 * set two versions of the message: a html formatted version and a filter_var()ed version of the message, which is just plain text
+					 * notice the tactic used is to display the entire $confirmLink to plain text
+					 * This lets users who are not viewing the html content to still access the link
+					 **/
+					//attach the html version of the message
+					$swiftMessage->setBody($message, "text/html");
+
+					//attach the plain text version of the message
+					$swiftMessage->addPart(html_entity_decode($message), "text/plain");
+
+					/**
+					 * send the email via SMTP; the SMTP server here is configured to relay everything upstream via CNM
+					 * this default may or may not be available on all web hosts; consult their documentation/support for details
+					 * swiftMailer supports many different transport methods; SMTP was chosen because it's the most compatible and has the best error handling
+					 * @see http://swiftmailer.org/docs/sending.html Sending Messages - Documentation - SwitftMailer
+					 **/
+					//setup SMTP
+					$smtp = new Swift_SmtpTransport("localhost", 25);
+					$mailer = new Swift_Mailer($smtp);
+
+					//send the message
+					$numSent = $mailer->send($swiftMessage, $failedRecipients);
 				}
 			} else {
 					//throw an exception if the activation token does not exist
-					throw(new RuntimeException("Profile with this activation code does not exist", 404));
+					throw(new \RuntimeException("Profile with this activation code does not exist", 404));
 			}
 		} else {
 				// throw an exception if the4 HTTP request is not a GET
