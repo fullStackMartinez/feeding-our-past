@@ -58,7 +58,7 @@ use Edu\Cnm\FeedPast\Organization;
 					//set the reply for the end user
 					$reply->data = "Thank you for activating your account, you will be auto-redirected to your profile shortly.";
 
-\					//compose email subject that will be sent to interested organization
+					//compose email subject that will be sent to interested organization
 					$messageSubject = "Great News! You have been approved to join Feeding Our Past";
 					//compose message to send with email
 					$message = <<< EOF
