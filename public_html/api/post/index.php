@@ -71,17 +71,13 @@ try {
 			if($post !== null) {
 				$reply->data = $post;
 			}
-		} else if(empty($postContent) === false) {
-			$post = Post::getPostByPostContent($pdo, $postContent)->toArray();
-			if($post !== null) {
-				$reply->data = $posts;
-			}
-		} else {
-			$posts = Post::getAllPosts($pdo)->toArray();
-			if($posts !== null) {
-				$reply->data = $posts;
-			}
 		}
+	} else(empty($postEndDateTime) === false) {
+	$post = Post::getPostByPostEndDateTime($pdo, $_SESSION["organization"]->getOrganizationId())->toArray();
+	if($post !== null) {
+		$reply->data = $post;
+	}
+
 	} else if($method === "PUT" || $method === "POST") {
 		if(empty($_SESSION["profile"]) === true) {
 			throw (new \InvalidArgumentException("You Must Be Logged In to Post", 401));
@@ -99,7 +95,7 @@ try {
 		}
 		if($method === "PUT") {
 			$post = Post::getPostByPostId($pdo, $id);
-			if($tweet === null) {
+			if($post === null) {
 				throw (new \RuntimeException("Post Does Not Exist", 404));
 			}
 
