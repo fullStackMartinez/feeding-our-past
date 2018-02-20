@@ -138,7 +138,7 @@ EOF;
 		$recipients = ["feedingourpast@gmail.com" => "Feeding Our Past"];
 
 		//set the recipient to the swift message
-
+		$swiftMessage->setTo($recipients);
 		//attach the subject line to the email message
 		$swiftMessage->setSubject($messageSubject);
 
@@ -171,10 +171,10 @@ EOF;
 		 * the send method returns the number of recipients that accepted the Email
 		 * so, if the number attempted is not the number accepted, this is an Exception
 		 **/
-		/*if($numSent !== count($recipients)) {
+		if($numSent !== count($recipients)) {
 			// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
 			throw(new RuntimeException("unable to send email", 400));
-		} **/
+		}
 //THIS IS WHERE WE PUT THE NEW OBJECT FOR ORGANIZATIONS EMAIL, THE EMAIL THEY WILL GET WITHOUT ACTIVATION LINK
 		//compose email subject that will be sent to interested organization
 		$messageSubject = "Thank you for your interest in Feeding Our Past. Your account is awaiting approval";
@@ -201,6 +201,7 @@ EOF;
 		$recipients = [$requestObject->organizationEmail];
 
 		//set the recipient to the swift message
+		$swiftMessage->setTo($recipients);
 
 		//attach the subject line to the email message
 		$swiftMessage->setSubject($messageSubject);
@@ -234,10 +235,11 @@ EOF;
 		 * the send method returns the number of recipients that accepted the Email
 		 * so, if the number attempted is not the number accepted, this is an Exception
 		 **/
-		/*if($numSent !== count($recipients)) {
+		if($numSent !== count($recipients)) {
+
 			// the $failedRecipients parameter passed in the send() method now contains contains an array of the Emails that failed
 			throw(new RuntimeException("unable to send email", 400));
-		} **/
+		}
 		//update reply
 		$reply->message = "Thank you for your interest in requesting an account with Feeding Our Past";
 		} else {
