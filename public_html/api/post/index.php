@@ -143,7 +143,7 @@ try {
 			$post->delete($pdo);
 			$reply->message = "Post Deleted";
 		} else {
-			throw (new InvalidArgumentException("invalid http request", 408));
+			throw (new InvalidArgumentException("invalid http request", 418));
 		}
 		//catch any exceptions that is thrown and update the reply status and message
 	}
