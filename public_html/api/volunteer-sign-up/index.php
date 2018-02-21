@@ -95,7 +95,7 @@ try {
 		$basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
 
 		// create the path
-		$urlglue = $basePath . "/api/activation/?activation=" . $volunteerActivationToken;
+		$urlglue = $basePath . "/api/volunteer-activation/?activation=" . $volunteerActivationToken;
 
 		// create the redirect link
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
