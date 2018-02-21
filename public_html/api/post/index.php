@@ -51,6 +51,10 @@ try {
 	$postImageUrl = filter_input(INPUT_GET, "postImageUrl", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$postStartDateTime = filter_input(INPUT_GET, "postStartDateTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$postTitle = filter_input(INPUT_GET, "postTitle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$config = readConfig("/etc/apache2/capstone-mysql/feedkitty.ini");
+	$cloudinary = json_decode($config["cloudinary"]);
+	\Cloudinary::config(["cloud_name" => $cloudinary->cloudName, "api_key" => $cloudinary->apiKey, "api_secret" => $cloudinary->apiSecret]);
+
 
 	// make sure the id is valid
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
@@ -146,6 +150,15 @@ try {
 	} else {
 		throw (new InvalidArgumentException("invalid http request", 418));
 	}
+	// assigning variable to the user profile, add image extension
+	$tempUserFileName = $_FILES["image"]["tmp_name"];
+	// upload image to cloudinary and get public id
+	$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, array("width" => 500, "crop" => "scale"));
+	// after sending the image to Cloudinary, create a new image
+	$image = new Image(generateUuidV4(), $postId, $cloudinaryResult["signature"], $cloudinaryResult["secure_url"]);
+	$image->update($pdo);
+	// update reply
+	$reply->message = "Image uploaded Ok";
 	//catch any exceptions that is thrown and update the reply status and message
 } catch
 (\Exception | \TypeError $exception) {
