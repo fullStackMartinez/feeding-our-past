@@ -4,7 +4,8 @@
     "phpunit/phpunit": "@stable",
     "swiftmailer/swiftmailer": "@stable",
     "lcobucci/jwt": "3.2",
-    "ramsey/uuid": "@stable"
+    "ramsey/uuid": "@stable",
+    "cloudinary/cloudinary_php": "dev-master"
   },
 
   "scripts":{
