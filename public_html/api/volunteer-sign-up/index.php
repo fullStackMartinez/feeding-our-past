@@ -91,7 +91,7 @@ try {
 		$messageSubject = "One step closer to Feeding Our Past -- Account Activation";
 
 		// building the activation link that will be clicked to confirm the account
-		// make sure URL is /public_html/api/activation/$activation
+		// make sure URL is /public_html/api/volunteer-activation/$activation
 		$basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
 
 		// create the path
