@@ -4,6 +4,8 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
+require_once dirname(__DIR__, 3) . "/php/lib/geocode.php";
+
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\FeedPast\Organization;
 
@@ -15,7 +17,7 @@ use Edu\Cnm\FeedPast\Organization;
  **/
 
 //verify the session, start if not active
-if(session_status() !== PHP_SESSEION_ACTIVE) {
+if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
 
@@ -66,6 +68,15 @@ try {
 		if(empty($requestObject->organizationHoursOpen) === true) {
 			throw(new \InvalidArgumentException("Operating hours not present", 405));
 		}
+		/**organization latitude
+		if(empty($requestObject->organizationLatX) === true) {
+			throw(new \InvalidArgumentException("Organization latitude is not present", 405));
+		}
+		//organization longitude
+		if(empty($requestObject->organizationLongY) === true) {
+			throw(new \InvalidArgumentException("Organization longitude is not present", 405));
+		}
+		 */
 		//organization name is required
 		if(empty($requestObject->organizationName) === true) {
 			throw(new \InvalidArgumentException("Organization name is not present", 405));
@@ -96,21 +107,28 @@ try {
 
 		$organizationActivationToken = bin2hex(random_bytes(16));
 
+		//call to getLatLongByAddress(returns an object)
+		$address = $requestObject->organizationAddressStreet . " " . $requestObject->organizationAddressCity . " " . $requestObject->organizationAddressState . " " . $requestObject->organizationAddressZip;
+		$address = getLatLongByAddress($address);
+		//var_dump($address);
+
+		 //add lat long to organization constructor (done)
+
 		//create the organization object and prepare it to be inserted into our database
-		$organization = new Organization(generateUuidV4(), $organizationActivationToken, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressStreet, $requestObject->organizationAddressZip, $requestObject->organizationDonationAccepted, $requestObject->organizationEmail, $hash, $requestObject->organizationHoursOpen, $requestObject->organizationLatX, $requestObject->organizationLongY, $requestObject->organizationName, $requestObject->organizationPhone, $salt, $requestObject->organizationUrl);
+		$organization = new Organization(generateUuidV4(), $organizationActivationToken, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressStreet, $requestObject->organizationAddressZip, $requestObject->organizationDonationAccepted, $requestObject->organizationEmail, $hash, $requestObject->organizationHoursOpen, $address->lat, $address->long, $requestObject->organizationName, $requestObject->organizationPhone, $salt, $requestObject->organizationUrl);
 
 		//insert the organization into the database
 		$organization->insert($pdo);
 
 		//compose email message to send activation token to organization
-		$messageSubject = "This organization, $organization, is interested in helping";
+		$messageSubject = "This organization is interested in helping";
 
 		//build activation link that can travel to another server and still work. This link will confirm the organization account.
 		//make sure url is /public_html/api/activation/$activation
 		$basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
 
 		//create path
-		$urlglue = $basePath . "/api/activation/?activation=" . $organizationActivationToken;
+		$urlglue = $basePath . "/api/organization-activation/?activation=" . $organizationActivationToken;
 
 		//create the redirect link
 		$confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
