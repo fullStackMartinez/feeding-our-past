@@ -47,7 +47,7 @@ try {
 	if(ctype_xdigit($activation) === false) {
 		throw(new \InvalidArgumentException("activation is empty or has invalid contents", 405));
 	}
-	var_dump();
+	//var_dump();
 	if($method === "GET") {
 
 		// set XSRF Cookie
@@ -55,13 +55,13 @@ try {
 
 		// find volunteer profile associated with the activation token
 		$volunteer = Volunteer::getVolunteerByVolunteerActivationToken($pdo, $activation);
-		var_dump($volunteer);
+		//var_dump($volunteer);
 		// verify the volunteer profile is not null
 		if($volunteer !== null) {
-			var_dump();
+			//var_dump();
 			// make sure the activation token matches
 			if($activation === $volunteer->getVolunteerActivationToken()) {
-				var_dump();
+				//var_dump();
 				// set activation token to null
 				$volunteer->setVolunteerActivationToken(null);
 
@@ -70,33 +70,33 @@ try {
 
 				// set the reply for the end user
 				$reply->data = "Thank you for activating your account, you will be auto-redirected to your volunteer profile shortly.";
-				var_dump();
+				//var_dump();
 			}
 		} else {
 			// throw an exception if the activation token does not exist
 			throw(new \RuntimeException("A volunteer profile with this activation code does not exist", 404));
-			var_dump();
+			//var_dump();
 		}
 	} else {
 		// throw an exception if the HTTP request is not a GET
 		throw(new \InvalidArgumentException("Invalid HTTP method request", 403));
 	}
-	var_dump();
+	//var_dump();
 	// update the reply object's status and message state variables if an exception or type exception was thrown
 } catch(\Exception $exception) {
-	var_dump();
+	//var_dump();
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 } catch(\TypeError $typeError) {
-	var_dump();
+	//var_dump();
 	$reply->status = $typeError->getCode();
 	$reply->message = $typeError->getMessage();
 }
-var_dump();
+//var_dump();
 // prepare and send the reply
 header("Content-type: application/json");
 if($reply->data === null) {
 	unset($reply->data);
-	var_dump();
+	//var_dump();
 }
 echo json_encode($reply);
