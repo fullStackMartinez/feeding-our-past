@@ -1,0 +1,15 @@
+//all
+[
+  {"postId":"123","postOrganizationId":"321","postContent":"PostContet","postEndDateTime":"04/01/2018","postImageUrl":"www.PostImageUrl.com","postStartDateTime":"03/01/2018","postTitle":"PostTitle"}
+]
+//post get
+[
+{"postId":"123","postOrganizationId":"321","postContent":"PostContet","postEndDateTime":"04/01/2018"}
+]
+//post put and post
+[
+  {"postId":"123","postOrganizationId":"321","postContent":"PostContet","postEndDateTime":"04/01/2018","postImageUrl":"www.PostImageUrl.com","postStartDateTime":"03/01/2018","postTitle":"PostTitle"}
+]
+
+
+
