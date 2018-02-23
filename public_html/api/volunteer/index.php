@@ -63,7 +63,7 @@ try {
 			if($volunteer !== null) {
 				$reply->data = $volunteer;
 			}
-		} else if(empty($profileName) === false) {
+		} else if(empty($volunteerName) === false) {
 			$volunteer = Volunteer::getVolunteerByVolunteerName($pdo, $volunteerName);
 			if($volunteer !== null) {
 				$reply->data = $volunteer;
@@ -75,7 +75,7 @@ try {
 
 		// enforce the volunteer is signed in and only trying to edit their own info
 		if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId()->toString() !== $id) {
-			throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+			throw(new \InvalidArgumentException("You are not allowed to access this volunteer profile", 403));
 		}
 
 		// enforce the volunteer has a JWT token
@@ -88,7 +88,7 @@ try {
 		// retrieve the volunteer profile to be updated
 		$volunteer = Volunteer::getVolunteerByVolunteerId($pdo, $id);
 		if($volunteer === null) {
-			throw(new \RuntimeException("Profile does not exist", 404));
+			throw(new \RuntimeException("Volunteer profile does not exist", 404));
 		}
 
 		// volunteer profile availability (can be null, if null use the availability in the database)
@@ -98,17 +98,17 @@ try {
 
 		// volunteer profile email (required)
 		if(empty($requestObject->volunteerEmail) === true) {
-			throw(new \InvalidArgumentException("No profile email present", 405));
+			throw(new \InvalidArgumentException("No volunteer profile email present", 405));
 		}
 
 		// volunteer profile name (required)
 		if(empty($requestObject->volunteerName) === true) {
-			throw(new \InvalidArgumentException("No profile name present", 405));
+			throw(new \InvalidArgumentException("No volunteer profile name present", 405));
 		}
 
 		// volunteer profile phone (required)
 		if(empty($requestObject->volunteerPhone) === true) {
-			throw(new \InvalidArgumentException("No profile phone number present", 405));
+			throw(new \InvalidArgumentException("No volunteer profile phone number present", 405));
 		}
 
 		// update the volunteer profile information
@@ -133,7 +133,7 @@ try {
 
 		// enforce the volunteer is signed in and only trying to edit their own info
 		if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId()->toString() !== $volunteer->getVolunteerId()->toString()) {
-			throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+			throw(new \InvalidArgumentException("You are not allowed to access this volunteer profile", 403));
 		}
 
 		// enforce the volunteer has a JWT token
