@@ -96,7 +96,10 @@ try {
 			throw (new \InvalidArgumentException("No Content In Post", 405));
 		}
 		if(empty($requestObject->postEndDateTime) === true) {
-			$requestObject->postEndDateTime = null;
+			throw (new \InvalidArgumentException("End Date Time", 405));
+		}
+		if(empty($requestObject->postStartDateTime) === true) {
+			throw (new \InvalidArgumentException("End Date Time", 405));
 		}
 
 		if($method === "PUT") {
