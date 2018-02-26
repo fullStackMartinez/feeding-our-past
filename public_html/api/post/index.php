@@ -19,7 +19,7 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 
 use Edu\Cnm\FeedPast\{
 	Post,
-	Organization
+	Organization,
 };
 
 /**
@@ -52,9 +52,9 @@ try {
 	$postStartDateTime = filter_input(INPUT_GET, "postStartDateTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$postTitle = filter_input(INPUT_GET, "postTitle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$config = readConfig("/etc/apache2/capstone-mysql/feedkitty.ini");
-	$cloudinary = json_decode($config["cloudinary"]);
+/**	$cloudinary = json_decode($config["cloudinary"]);
 	\Cloudinary::config(["cloud_name" => $cloudinary->cloudName, "api_key" => $cloudinary->apiKey, "api_secret" => $cloudinary->apiSecret]);
-
+*/
 
 	// make sure the id is valid
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
@@ -83,7 +83,7 @@ try {
 			}
 		}
 	} else if($method === "PUT" || $method === "POST") {
-		if(empty($_SESSION["profile"]) === true) {
+		if(empty($_SESSION["organization"]) === true) {
 
 			throw (new \InvalidArgumentException("You Must Be Logged In to Post", 401));
 		}
@@ -92,7 +92,6 @@ try {
 		//decode the response from the front end
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
-
 		if(empty($requestObject->postContent) === true) {
 			throw (new \InvalidArgumentException("No Content In Post", 405));
 		}
@@ -110,7 +109,7 @@ try {
 					->toString() !== $post->getPostOrganizationId()->toString()) {
 				throw(new \InvalidArgumentException("You Are Not Allowed to Edit this Post", 403));
 			}
-//validateJwtHeader();
+		validateJwtHeader();
 			// update all attributes
 			//$post->setPostEndDateTime($requestObject->postEndDateTime);
 			$post->setPostContent($requestObject->postContent);
@@ -123,11 +122,13 @@ try {
 				throw(new \InvalidArgumentException("you must be logged in to post", 403));
 			}
 			//enforce the end user has a JWT token
-			//validateJwtHeader();
-			// assigning variable to the user profile, add image extension
+			validateJwtHeader();
+			// assigning variable to the organization, add image extension
+			/**
 			$tempUserFileName = $_FILES["image"]["tmp_name"];
 			// upload image to cloudinary and get public id
 			$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, array("width" => 500, "crop" => "scale"));
+			*/
 			// create new post and insert into the database
 			$post = new Post(generateUuidV4(), $_SESSION["organization"]->getOrganizationId(), $requestObject->postContent, $requestObject->EndDateTime, $requestObject->postImageUrl, $requestObject->postStartDateTime, $requestObject->postTitle);
 			$post->insert($pdo);
