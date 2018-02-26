@@ -101,6 +101,8 @@ try {
 		if(empty($requestObject->postStartDateTime) === true) {
 			throw (new \InvalidArgumentException("End Date Time", 405));
 		}
+		$requestObject->postEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
+		$requestObject->postStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
 
 		if($method === "PUT") {
 			$post = Post::getPostByPostId($pdo, $id);
