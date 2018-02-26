@@ -22,6 +22,7 @@ use Edu\Cnm\FeedPast\{
 	Organization,
 };
 
+
 /**
  * Api for the Post class
  * @author Peter Street <peterBStreet@gmail.com>
@@ -52,9 +53,9 @@ try {
 	$postStartDateTime = filter_input(INPUT_GET, "postStartDateTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$postTitle = filter_input(INPUT_GET, "postTitle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$config = readConfig("/etc/apache2/capstone-mysql/feedkitty.ini");
-/**	$cloudinary = json_decode($config["cloudinary"]);
+$cloudinary = json_decode($config["cloudinary"]);
 	\Cloudinary::config(["cloud_name" => $cloudinary->cloudName, "api_key" => $cloudinary->apiKey, "api_secret" => $cloudinary->apiSecret]);
-*/
+
 
 	// make sure the id is valid
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
@@ -101,8 +102,8 @@ try {
 		if(empty($requestObject->postStartDateTime) === true) {
 			throw (new \InvalidArgumentException("End Date Time", 405));
 		}
-		$requestObject->postEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
-		$requestObject->postStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
+$formatPostEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
+$formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
 
 		if($method === "PUT") {
 			$post = Post::getPostByPostId($pdo, $id);
@@ -129,13 +130,13 @@ try {
 			//enforce the end user has a JWT token
 			validateJwtHeader();
 			// assigning variable to the organization, add image extension
-			/**
+
 			$tempUserFileName = $_FILES["image"]["tmp_name"];
 			// upload image to cloudinary and get public id
 			$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, array("width" => 500, "crop" => "scale"));
-			*/
+
 			// create new post and insert into the database
-			$post = new Post(generateUuidV4(), $_SESSION["organization"]->getOrganizationId(), $requestObject->postContent, $requestObject->EndDateTime, $requestObject->postImageUrl, $requestObject->postStartDateTime, $requestObject->postTitle);
+			$post = new Post(generateUuidV4(), $_SESSION["organization"]->getOrganizationId(), $requestObject->postContent, $formatPostEndDateTime, $cloudinaryResult["secure_url"], $formatPostEndDateTime, $requestObject->postTitle);
 			$post->insert($pdo);
 			// update reply
 			$reply->message = "Post created OK";
