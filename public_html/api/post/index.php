@@ -117,7 +117,8 @@ $formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime
 			}
 		validateJwtHeader();
 			// update all attributes
-			//$post->setPostEndDateTime($requestObject->postEndDateTime);
+			$post->setPostEndDateTime($formatPostEndDateTime);
+			$post->setPostStartDateTime($formatPostStartDateTime);
 			$post->setPostContent($requestObject->postContent);
 			$post->update($pdo);
 			// update reply
