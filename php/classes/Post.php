@@ -233,11 +233,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is a date that does not exist
 	 **/
-	public function setPostEndDateTime($newPostEndDateTime = null): void {
-		if($newPostEndDateTime === null) {
-			$this->postEndDateTime = new \DateTime();
-			return;
-		}
+	public function setPostEndDateTime($newPostEndDateTime): void {
 		try {
 			$newPostEndDateTime = self::validateDateTime($newPostEndDateTime);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
@@ -286,12 +282,7 @@ class Post implements \JsonSerializable {
 	 * @throws \InvalidArgumentException if the date is in an invalid format
 	 * @throws \RangeException if the date is a date that does not exist
 	 **/
-	public function setPostStartDateTime($newPostStartDateTime = null): void {
-		if($newPostStartDateTime === null) {
-			$this->postStartDateTime = new \DateTime();
-			return;
-		}
-
+	public function setPostStartDateTime($newPostStartDateTime): void {
 		try {
 			$newPostStartDateTime = self::validateDateTime($newPostStartDateTime);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
