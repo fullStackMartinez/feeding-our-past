@@ -86,14 +86,14 @@ try {
 			verifyXsrf();
 
 			//enforce the end user has a JWT token
-			//validateJwtHeader();
+			validateJwtHeader();
 
 			// enforce the user is signed in
 			if(empty($_SESSION["volunteer"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to favorite posts", 403));
 			}
 
-			//validateJwtHeader();
+			validateJwtHeader();
 
 			$favorite= new Favorite($requestObject->favoritePostId, $_SESSION["volunteer"]->getVolunteerId());
 			$favorite->insert($pdo);
@@ -106,20 +106,20 @@ try {
 			verifyXsrf();
 
 			//enforce the end user has a JWT token
-			//validateJwtHeader();
+			validateJwtHeader();
 
 			//grab the favorite by its composite key
-			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $requestObject->favoriteVolunteerId, $requestObject->fovoritePostId);
+			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo,  $requestObject->favoritePostId, $requestObject->favoriteVolunteerId);
 			if($favorite=== null) {
 				throw (new \RuntimeException("Favorite does not exist"));
 			}
-
+var_dump($_SESSION);
 			//enforce the user is signed in and only trying to edit their own like
-			if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId() !== $favorite->getFavoriteVolunteerId()) {
-				throw(new \InvalidArgumentException("You are not allowed to delete this post", 403));
+			if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId()->toString() !== $favorite->getFavoriteVolunteerId()->toString()) {
+				throw(new \InvalidArgumentException("You are not allowed to delete this post", 405));
 			}
 
-			//validateJwtHeader();
+			validateJwtHeader();
 
 			//preform the actual delete
 			$favorite->delete($pdo);
