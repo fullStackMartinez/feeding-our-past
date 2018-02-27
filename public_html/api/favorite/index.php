@@ -4,7 +4,7 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
-require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
+require_once dirname(__DIR__, 3) . "/feeding-our-past/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 
 
@@ -29,7 +29,7 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
-			$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/feedkitty.ini");
+			$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/feedpast.ini");
 
 			//determine which HTTP method was used
 			$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"]: $_SERVER["REQUEST_METHOD"];
@@ -44,17 +44,17 @@ try {
 		setXsrfCookie();
 
 		//gets a specific favorite associated based on its composit key
-		if ($favoritevolunteerId !== null && $favoritePostId !== null) {
+		if ($favoriteVolunteerId !== null && $favoritePostId !== null) {
 			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $favoritePostId, $favoriteVolunteerId);
 
 			if($favorite!== null) {
 				$reply->data = $favorite;
 			}
 			//if none of the search parameters are met throw an exception
-		} else if(empty($favoritevolunteerId) === false) {
-			$like = Favorite::getFavoriteByFavoriteVolunteerId($pdo, $favoritevolunteerId)->toArray();
-			if($like !== null) {
-				$reply->data = $like;
+		} else if(empty($favoriteVolunteerId) === false) {
+			$favorite = Favorite::getFavoriteByFavoriteVolunteerId($pdo )->toArray();
+			if($favorite !== null) {
+				$reply->data = $favorite;
 			}
 
 			//get all the favorites associated with the post Id
@@ -117,7 +117,7 @@ try {
 				throw (new \RuntimeException("Favorite does not exist"));
 			}
 
-			//enforce the user is signed in and only trying to edit their own like
+			//enforce the user is signed in and only trying to edit their own favorite
 			if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId() !== $favorite->getFavoriteVolunteerId()) {
 				throw(new \InvalidArgumentException("You are not allowed to delete this post", 403));
 			}
