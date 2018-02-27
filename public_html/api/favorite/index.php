@@ -36,7 +36,7 @@ try {
 
 
 	//sanitize the search parameters
-	$favoritevolunteerId= $id = filter_input(INPUT_GET, "favoritevolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteVolunteerId= $id = filter_input(INPUT_GET, "favoriteVolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 	$favoritePostId = $id = filter_input(INPUT_GET, "favoritePostId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	if($method === "GET") {
