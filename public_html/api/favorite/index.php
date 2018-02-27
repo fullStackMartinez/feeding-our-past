@@ -4,7 +4,7 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
-require_once dirname(__DIR__, 3) . "/feeding-our-past/php/lib/jwt.php";
+require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 
 
@@ -29,15 +29,15 @@ $reply->status = 200;
 $reply->data = null;
 
 try {
-			$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/feedpast.ini");
+			$pdo = connectToEncryptedMySql("/etc/apache2/capstone-mysql/feedkitty.ini");
 
 			//determine which HTTP method was used
 			$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"]: $_SERVER["REQUEST_METHOD"];
 
 
 	//sanitize the search parameters
-	$favoriteVolunteerId= $id = filter_input(INPUT_GET, "favoriteVolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$favoritePostId = $id = filter_input(INPUT_GET, "favoritePostId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteVolunteerId= filter_input(INPUT_GET, "favoriteVolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoritePostId = filter_input(INPUT_GET, "favoritePostId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	if($method === "GET") {
 		//set XSRF cookie
@@ -52,7 +52,7 @@ try {
 			}
 			//if none of the search parameters are met throw an exception
 		} else if(empty($favoriteVolunteerId) === false) {
-			$favorite = Favorite::getFavoriteByFavoriteVolunteerId($pdo )->toArray();
+			$favorite = Favorite::getFavoriteByFavoriteVolunteerId($pdo, $favoriteVolunteerId)->toArray();
 			if($favorite !== null) {
 				$reply->data = $favorite;
 			}
@@ -75,9 +75,6 @@ try {
 				$requestContent = file_get_contents("php://input");
 				$requestObject = json_decode($requestContent);
 
-		if(empty($requestObject->favoriteVolunteerId) === true) {
-			throw (new \InvalidArgumentException("No Volunteer linked to the Favorite", 405));
-		}
 
 		if(empty($requestObject->favoritePostId) === true) {
 			throw (new \InvalidArgumentException("No post linked to the Favorite", 405));
@@ -98,7 +95,7 @@ try {
 
 			//validateJwtHeader();
 
-			$favorite= new Favorite($_SESSION["volunteer"]->getVolunteerId(), $requestObject->favoritePostId);
+			$favorite= new Favorite($requestObject->favoritePostId, $_SESSION["volunteer"]->getVolunteerId());
 			$favorite->insert($pdo);
 			$reply->message = "post favorited successfully";
 
@@ -117,7 +114,7 @@ try {
 				throw (new \RuntimeException("Favorite does not exist"));
 			}
 
-			//enforce the user is signed in and only trying to edit their own favorite
+			//enforce the user is signed in and only trying to edit their own like
 			if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId() !== $favorite->getFavoriteVolunteerId()) {
 				throw(new \InvalidArgumentException("You are not allowed to delete this post", 403));
 			}
