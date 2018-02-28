@@ -45,7 +45,7 @@
 				</div>
 				<div class="form-group">
 					<label for="organizationPhone">Phone number <span class="text-danger">*</span></label>
-					<input type="text" class="form-control" id="organizationPhone" placeholder="Phone number (xxx-xxx-xxxx)">
+					<input type="text" class="form-control" id="organizationPhone" placeholder="xxx-xxx-xxxx">
 				</div>
 				<div class="form-group">
 					<label for="organizationHoursOpen">Days/Hours Open <span class="text-danger">*</span></label>
@@ -53,7 +53,7 @@
 				</div>
 				<div class="form-group">
 					<label for="organizationDonationsAccepted">Food donations accepted? <span class="text-danger">*</span></label>
-					<input type="text" class="form-control" id="organizationDonationsAccepted" placeholder="(yes/no)">
+					<input type="text" class="form-control" id="organizationDonationsAccepted" placeholder="Yes or No">
 				</div>
 				<div class="form-group">
 					<label for="organizationUrl">Website</label>
