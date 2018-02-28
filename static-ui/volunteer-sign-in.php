@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+	<?php require_once ("head-utils.php");?>
+	<body>
+		<div class="container">
 <form>
 	<div class="form-group">
 		<label for="inputEmail">Email address</label>
@@ -8,6 +13,11 @@
 		<label for="inputPassword">Password</label>
 		<input type="password" class="form-control" id="inputPassword" placeholder="Password">
 	</div>
+	<div class="text-center">
 	<button type="submit" class="btn btn-primary">Log in</button>
+	</div>
 </form>
-<h4><em>Not yet registered?</em>| <a href=""><strong>Sign Up</strong></a> </h4>
+<h6 class="text-center"><em>Not yet registered?</em>| <a href=""><strong>Sign Up</strong></a> </h6>
+		</div>
+	</body>
+</html>
