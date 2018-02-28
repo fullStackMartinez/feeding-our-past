@@ -9,25 +9,26 @@
 				<h2>Volunteer Sign-Up</h2>
 			</div>
 				<form>
+					<small id="formRequired" class="form-text text-danger">*Required fields</small>
 					<div class="form-group">
-						<label for="volunteerName">Name</label>
+						<label for="volunteerName">Name <span class="text-danger">*</span></label>
 						<input type="text" class="form-control" id="volunteerName" placeholder="Full name">
 					</div>
 					<div class="form-group">
-						<label for="volunteerEmail">Email address</label>
+						<label for="volunteerEmail">Email address <span class="text-danger">*</span></label>
 						<input type="email" class="form-control" id="volunteerEmail" aria-describedby="emailHelp" placeholder="Enter email">
 						<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 					</div>
 					<div class="form-group">
-						<label for="volunteerPassword">Password</label>
+						<label for="volunteerPassword">Password <span class="text-danger">*</span></label>
 						<input type="password" class="form-control" id="volunteerPassword" placeholder="Password">
 					</div>
 					<div class="form-group">
-						<label for="volunteerPasswordConfirm">Confirm password</label>
+						<label for="volunteerPasswordConfirm">Confirm password <span class="text-danger">*</span></label>
 						<input type="password" class="form-control" id="volunteerPasswordConfirm" placeholder="Confirm password">
 					</div>
 					<div class="form-group">
-						<label for="volunteerPhone">Phone number</label>
+						<label for="volunteerPhone">Phone number <span class="text-danger">*</span></label>
 						<input type="text" class="form-control" id="volunteerPhone" placeholder="Phone number (xxx-xxx-xxxx)">
 					</div>
 					<div class="form-group">
