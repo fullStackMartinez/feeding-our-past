@@ -2,25 +2,43 @@
 <html lang="en">
 	<?php require_once ("head-utils.php");?>
 	<body>
-		<div class="container">
-		<div class="text-center">
-			<h2>Sign into your account</h2>
+		<nav class="navbar float-top navbar-dark bg-info justify-content-center ">
+			<a class="navbar-brand" href="#">Feeding Our Past</a>
+		</nav>
 		</div>
-			<form>
-				<div class="form-group">
-					<label for="inputEmail">Email address</label>
-					<input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter organization email">
-					<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+
+		<!--Here I created a div and created a container. my is margins top and bottom mx is margins left to right -->
+		<div class="container my-3 mx-5">
+			<!-- navbar with "Bootstrap Challenge" Title and 4 "links" aligned right.
+			 Here I created a navbar that will expanded when medium. with light text and background and rounded border-->
+			<nav class="navbar navbar-expand-md navbar-info justify-content-center bg-light border rounded">
+				<!-- the  navbar-brand gets our text in the nav bar -->
+				<a class="navbar-brand" href="#">Feeding Our Past</a>
+				<!--Here I created buttons that collapse in white. Again sample  -->
+				<button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarToggler">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<!-- Here I continue the with the collapsable button "elements" and order them from left to right and justify them on the right or end -->
+				<div class="collapse navbar-collapse justify-content-center" id="navbarToggler">
+					<!-- Here I create the unordered list which creates the "links"
+					The mt settings affect the thickness of the navbar-->
+					<ul class="navbar-nav ml-auto mt-0 mt-sm-0">
+						<li class="nav-item">
+							<a class="nav-link" href="#">We Help</a>
+						</li>
+						<li class="nav-item align-items-center">
+							<a class="nav-link" href="#">I Need Help</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#">I Want to Help</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Contact Us</a>
+						</li>
+					</ul>
 				</div>
-				<div class="form-group">
-					<label for="inputPassword">Password</label>
-					<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-				</div>
-				<div class="text-center">
-					<button type="submit" class="btn btn-primary">Log in</button>
-				</div>
-			</form>
-			<h6 class="text-center mt-2"><em>Not yet registered?</em>| <a href=""><strong>Sign Up</strong></a> </h6>
-		</div>
+			</nav>
 	</body>
 </html>
