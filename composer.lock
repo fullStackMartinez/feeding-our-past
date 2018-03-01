@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "658962014339ac21e8cab6f7cde6a73a5636d826"
+                "reference": "3966a0162101b36baea612684682a6d1eb2fc01f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/658962014339ac21e8cab6f7cde6a73a5636d826",
-                "reference": "658962014339ac21e8cab6f7cde6a73a5636d826",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/3966a0162101b36baea612684682a6d1eb2fc01f",
+                "reference": "3966a0162101b36baea612684682a6d1eb2fc01f",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "5.7.*"
+                "phpunit/phpunit": "4.8.*"
             },
             "type": "library",
             "autoload": {
@@ -56,7 +56,7 @@
                 "image management",
                 "sdk"
             ],
-            "time": "2018-02-21T09:12:34+00:00"
+            "time": "2018-03-01T15:59:04+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -994,16 +994,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.0.1",
+            "version": "7.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "316555dbd0ed4097bbdd17c65ab416bf27a472e9"
+                "reference": "e2f8aa21bc54b6ba218bdd4f9e0dac1e9bc3b4e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/316555dbd0ed4097bbdd17c65ab416bf27a472e9",
-                "reference": "316555dbd0ed4097bbdd17c65ab416bf27a472e9",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e2f8aa21bc54b6ba218bdd4f9e0dac1e9bc3b4e9",
+                "reference": "e2f8aa21bc54b6ba218bdd4f9e0dac1e9bc3b4e9",
                 "shasum": ""
             },
             "require": {
@@ -1070,7 +1070,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-02-13T06:08:08+00:00"
+            "time": "2018-02-26T07:03:12+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
