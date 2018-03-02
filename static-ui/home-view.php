@@ -5,13 +5,9 @@
 
 <?php require_once ("head-utils.php");?>
 
-	<body>
-		<div class="container bg-secondary">
-			<div class="row">
-				testing testing
-			</div>
-		</div>
 
+
+	<body>
 		<div class="container p-4 bg-info">
 			<div class="row" style="padding-top:  150px">
 				<div class="col-md-4">
