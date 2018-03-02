@@ -36,25 +36,25 @@ try {
 
 
 	//sanitize the search parameters
-	$favoriteVolunteerId= filter_input(INPUT_GET, "favoriteVolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$favoritePostId = filter_input(INPUT_GET, "favoritePostId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoritevolunteerId= $id = filter_input(INPUT_GET, "favoritevolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoritePostId = $id = filter_input(INPUT_GET, "favoritePostId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie();
 
 		//gets a specific favorite associated based on its composit key
-		if ($favoriteVolunteerId !== null && $favoritePostId !== null) {
+		if ($favoritevolunteerId !== null && $favoritePostId !== null) {
 			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $favoritePostId, $favoriteVolunteerId);
 
 			if($favorite!== null) {
 				$reply->data = $favorite;
 			}
 			//if none of the search parameters are met throw an exception
-		} else if(empty($favoriteVolunteerId) === false) {
-			$favorite = Favorite::getFavoriteByFavoriteVolunteerId($pdo, $favoriteVolunteerId)->toArray();
-			if($favorite !== null) {
-				$reply->data = $favorite;
+		} else if(empty($favoritevolunteerId) === false) {
+			$like = Favorite::getFavoriteByFavoriteVolunteerId($pdo, $favoritevolunteerId)->toArray();
+			if($like !== null) {
+				$reply->data = $like;
 			}
 
 			//get all the favorites associated with the post Id
@@ -75,6 +75,9 @@ try {
 				$requestContent = file_get_contents("php://input");
 				$requestObject = json_decode($requestContent);
 
+		if(empty($requestObject->favoriteVolunteerId) === true) {
+			throw (new \InvalidArgumentException("No Volunteer linked to the Favorite", 405));
+		}
 
 		if(empty($requestObject->favoritePostId) === true) {
 			throw (new \InvalidArgumentException("No post linked to the Favorite", 405));
@@ -86,16 +89,16 @@ try {
 			verifyXsrf();
 
 			//enforce the end user has a JWT token
-			validateJwtHeader();
+			//validateJwtHeader();
 
 			// enforce the user is signed in
 			if(empty($_SESSION["volunteer"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to favorite posts", 403));
 			}
 
-			validateJwtHeader();
+			//validateJwtHeader();
 
-			$favorite= new Favorite($requestObject->favoritePostId, $_SESSION["volunteer"]->getVolunteerId());
+			$favorite= new Favorite($_SESSION["volunteer"]->getVolunteerId(), $requestObject->favoritePostId);
 			$favorite->insert($pdo);
 			$reply->message = "post favorited successfully";
 
@@ -106,20 +109,20 @@ try {
 			verifyXsrf();
 
 			//enforce the end user has a JWT token
-			validateJwtHeader();
+			//validateJwtHeader();
 
 			//grab the favorite by its composite key
-			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo,  $requestObject->favoritePostId, $requestObject->favoriteVolunteerId);
+			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $requestObject->favoriteVolunteerId, $requestObject->fovoritePostId);
 			if($favorite=== null) {
 				throw (new \RuntimeException("Favorite does not exist"));
 			}
-var_dump($_SESSION);
+
 			//enforce the user is signed in and only trying to edit their own like
-			if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId()->toString() !== $favorite->getFavoriteVolunteerId()->toString()) {
-				throw(new \InvalidArgumentException("You are not allowed to delete this post", 405));
+			if(empty($_SESSION["volunteer"]) === true || $_SESSION["volunteer"]->getVolunteerId() !== $favorite->getFavoriteVolunteerId()) {
+				throw(new \InvalidArgumentException("You are not allowed to delete this post", 403));
 			}
 
-			validateJwtHeader();
+			//validateJwtHeader();
 
 			//preform the actual delete
 			$favorite->delete($pdo);
