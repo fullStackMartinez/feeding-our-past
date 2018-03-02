@@ -5,7 +5,7 @@
 		<nav class="navbar float-top navbar-dark bg-info justify-content-center ">
 			<a class="navbar-brand" href="#">Feeding Our Past</a>
 		</nav>
-		</div>
+
 
 
 		<!--Here I created a div and created a container. my is margins top and bottom mx is margins left to right -->
