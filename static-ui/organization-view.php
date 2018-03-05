@@ -4,7 +4,7 @@
 	<?php require_once("head-utils.php"); ?>
 
 	<body>
-		<?php require_once("headder.php"); ?>
+		<?php require_once("header.php"); ?>
 		<section>
 			<div class="container mt-5 pt-5">
 				<div class="row justify-content-center">

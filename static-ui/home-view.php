@@ -7,7 +7,7 @@
 
 
 	<body>
-		<?php require_once ("headder.php");?>
+		<?php require_once("header.php");?>
 		<div class="container bg-info">
 			<div class="row" style="padding-top:  150px">
 				<div class="col-md-4">
