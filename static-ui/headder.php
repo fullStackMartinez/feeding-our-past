@@ -10,7 +10,7 @@
 
 		<!--Here I created a div and created a container. my is margins top and bottom mx is margins left to right -->
 		<div class="container">
-			<nav class="navbar navbar-expand-md navbar-info justify-content-center navbar-light bg-light border rounded fixed-top">
+			<nav class="navbar navbar-expand-md navbar-info navbar-light bg-light border rounded fixed-top">
 				<!-- the  navbar-brand gets our text in the nav bar -->
 				<a class="navbar-brand" href="#">Feeding Our Past</a>
 				<!--Here I created buttons that collapse in white. Again sample  -->
@@ -38,5 +38,6 @@
 					</ul>
 				</div>
 			</nav>
+	</div>
 	</body>
 </html>
