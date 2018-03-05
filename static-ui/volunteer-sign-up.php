@@ -34,7 +34,7 @@
 					</div>
 					<div class="form-group">
 						<label for="volunteerAvailability">Availability</label>
-						<input type="text" class="form-control" id="volunteerAvailability" placeholder="Availability">
+						<input type="text" class="form-control" rows="3" id="volunteerAvailability" placeholder="Days/times available">
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
