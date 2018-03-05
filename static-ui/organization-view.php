@@ -9,7 +9,8 @@
 			<div class="container mt-5 pt-5">
 				<div class="row justify-content-center">
 					<!-- left column for new post form -->
-					<div class="col-md-6">
+					<div class="col-lg-5">
+						<h3>Create a New Event Post</h3>
 						<form id="new-post" action="../public_html/api/post/index.php" method="post">
 							<small id="formRequired" class="form-text text-danger">*Required fields</small>
 							<div class="form-group">
@@ -35,9 +36,13 @@
 							<button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 					</div>
+					<hr>
+
+					<!-- empty middle column for spacing -->
+					<div class="col-lg-1"></div>
 
 					<!-- right column for list of posts -->
-					<div class="col-md-6">
+					<div class="col-lg-6">
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Upcoming Events</h2>
