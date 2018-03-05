@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <?php require_once ("head-utils.php");?>
 
@@ -42,7 +41,7 @@
 				</div>
 			</div>
 		</div>
-
+		<section>
 		<div class="container mt-5">
 			<div class="row justify-content-center">
 				<div class="col-md-6">
@@ -54,8 +53,20 @@
 						</div>
 					</div>
 				</div>
+				<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="card mb-4">
+						<div class="card-body text-center">
+							<h2 class="card-title">Upcoming Events</h2>
+							<p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+								additional content. This content is a little bit longer.</p>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>
+		</section>
 
 
 	</body>
