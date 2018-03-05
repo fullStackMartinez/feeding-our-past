@@ -1,12 +1,10 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: petersdata
  * Date: 2/15/18
  * Time: 3:18 PM
  */
-
 /**
  * Here we load the packages required for this API
  */
@@ -16,29 +14,23 @@ require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
-
 use Edu\Cnm\FeedPast\{
 	Post,
 	Organization,
 };
-
-
 /**
  * Api for the Post class
  * @author Peter Street <peterBStreet@gmail.com>
  * @author george kephart
  */
-
 //Start the session if not active
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
-
 //prepare an empty reply
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
-
 try {
 	//Connect to encrypted MySQL
 	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/feedkitty.ini");
@@ -52,28 +44,25 @@ try {
 	$postImageUrl = filter_input(INPUT_GET, "postImageUrl", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$postStartDateTime = filter_input(INPUT_GET, "postStartDateTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$postTitle = filter_input(INPUT_GET, "postTitle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$config = readConfig("/etc/apache2/capstone-mysql/feedkitty.ini");
-$cloudinary = json_decode($config["cloudinary"]);
+/**	$config = readConfig("/etc/apache2/capstone-mysql/feedkitty.ini");
+	$cloudinary = json_decode($config["cloudinary"]);
 	\Cloudinary::config(["cloud_name" => $cloudinary->cloudName, "api_key" => $cloudinary->apiKey, "api_secret" => $cloudinary->apiSecret]);
-
-
 	// make sure the id is valid
+ **/
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
 		throw(new \InvalidArgumentException("id cannot be empty or negative", 402));
 	}
-
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie();
 		//gets  a specific post associated based on its primary key
 		if(empty($id) === false) {
 			$post = Post::getPostByPostId($pdo, $id);
-
 			if($post !== null) {
 				$reply->data = $post;
 			}
 		} else if(empty($postOrganizationId) === false) {
-			$posts = Post::getPostByPostOrganizationId($pdo, $_SESSION["organization"]->getOrganizationId())->toArray();
+			$posts = Post::getPostByPostOrganizationId($pdo, $postOrganizationId);
 			if($posts !== null) {
 				$reply->data = $posts;
 			}
@@ -85,10 +74,8 @@ $cloudinary = json_decode($config["cloudinary"]);
 		}
 	} else if($method === "PUT" || $method === "POST") {
 		if(empty($_SESSION["organization"]) === true) {
-
 			throw (new \InvalidArgumentException("You Must Be Logged In to Post", 401));
 		}
-
 		verifyXsrf();
 		//decode the response from the front end
 		$requestContent = file_get_contents("php://input");
@@ -102,20 +89,18 @@ $cloudinary = json_decode($config["cloudinary"]);
 		if(empty($requestObject->postStartDateTime) === true) {
 			throw (new \InvalidArgumentException("End Date Time", 405));
 		}
-$formatPostEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
-$formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
-
+		$formatPostEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
+		$formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
 		if($method === "PUT") {
 			$post = Post::getPostByPostId($pdo, $id);
 			if($post === null) {
 				throw (new \RuntimeException("Post Does Not Exist", 404));
 			}
-
 			if(empty($_SESSION["post"]) === true || $_SESSION["post"]->getOrganizationId()
 					->toString() !== $post->getPostOrganizationId()->toString()) {
 				throw(new \InvalidArgumentException("You Are Not Allowed to Edit this Post", 403));
 			}
-		validateJwtHeader();
+			validateJwtHeader();
 			// update all attributes
 			$post->setPostEndDateTime($formatPostEndDateTime);
 			$post->setPostStartDateTime($formatPostStartDateTime);
@@ -131,11 +116,11 @@ $formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime
 			//enforce the end user has a JWT token
 			validateJwtHeader();
 			// assigning variable to the organization, add image extension
-
+/**
 			$tempUserFileName = $_FILES["image"]["tmp_name"];
 			// upload image to cloudinary and get public id
 			$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, array("width" => 500, "crop" => "scale"));
-
+**/
 			// create new post and insert into the database
 			$post = new Post(generateUuidV4(), $_SESSION["organization"]->getOrganizationId(), $requestObject->postContent, $formatPostEndDateTime, $cloudinaryResult["secure_url"], $formatPostEndDateTime, $requestObject->postTitle);
 			$post->insert($pdo);
@@ -162,7 +147,6 @@ $formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime
 	} else {
 		throw (new InvalidArgumentException("invalid http request", 418));
 	}
-
 	//catch any exceptions that is thrown and update the reply status and message
 } catch
 (\Exception | \TypeError $exception) {
