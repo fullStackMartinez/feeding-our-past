@@ -36,7 +36,7 @@ try {
 
 
 	//sanitize the search parameters
-	$favoritevolunteerId= $id = filter_input(INPUT_GET, "favoritevolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$favoriteVolunteerId= $id = filter_input(INPUT_GET, "favoriteVolunteerId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 	$favoritePostId = $id = filter_input(INPUT_GET, "favoritePostId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	if($method === "GET") {
@@ -44,15 +44,15 @@ try {
 		setXsrfCookie();
 
 		//gets a specific favorite associated based on its composit key
-		if ($favoritevolunteerId !== null && $favoritePostId !== null) {
+		if ($favoriteVolunteerId !== null && $favoritePostId !== null) {
 			$favorite = Favorite::getFavoriteByFavoritePostIdAndFavoriteVolunteerId($pdo, $favoritePostId, $favoriteVolunteerId);
 
 			if($favorite!== null) {
 				$reply->data = $favorite;
 			}
 			//if none of the search parameters are met throw an exception
-		} else if(empty($favoritevolunteerId) === false) {
-			$like = Favorite::getFavoriteByFavoriteVolunteerId($pdo, $favoritevolunteerId)->toArray();
+		} else if(empty($favoriteVolunteerId) === false) {
+			$like = Favorite::getFavoriteByFavoriteVolunteerId($pdo, $favoriteVolunteerId)->toArray();
 			if($like !== null) {
 				$reply->data = $like;
 			}
