@@ -112,7 +112,7 @@ try {
 			$post->update($pdo);
 			// update reply
 			$reply->message = "Post updated OK";
-		} else if($method === "POST") {,
+		} else if($method === "POST") {
 			// enforce the user is signed in
 			if(empty($_SESSION["organization"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to post", 403));
