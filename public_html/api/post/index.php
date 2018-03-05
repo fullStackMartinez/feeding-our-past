@@ -89,6 +89,9 @@ try {
 		if(empty($requestObject->postStartDateTime) === true) {
 			throw (new \InvalidArgumentException("End Date Time", 405));
 		}
+		if(empty($requestObject->postTitle) === true) {
+			throw (new \InvalidArgumentException("No Post Title", 405));
+		}
 		$formatPostEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
 		$formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
 		if($method === "PUT") {
@@ -104,11 +107,12 @@ try {
 			// update all attributes
 			$post->setPostEndDateTime($formatPostEndDateTime);
 			$post->setPostStartDateTime($formatPostStartDateTime);
+			$post->setPostTitle($requestObject->postTitle);
 			$post->setPostContent($requestObject->postContent);
 			$post->update($pdo);
 			// update reply
 			$reply->message = "Post updated OK";
-		} else if($method === "POST") {
+		} else if($method === "POST") {,
 			// enforce the user is signed in
 			if(empty($_SESSION["organization"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to post", 403));
