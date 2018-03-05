@@ -2,19 +2,19 @@
 <html lang="en">
 	<?php require_once ("head-utils.php");?>
 	<body>
-		<nav class="navbar float-top navbar-dark bg-info justify-content-center ">
+		<!--<nav class="navbar float-top navbar-dark bg-info justify-content-center ">
 			<a class="navbar-brand" href="#">Feeding Our Past</a>
-		</nav>
+		</nav>-->
 
 
 
 		<!--Here I created a div and created a container. my is margins top and bottom mx is margins left to right -->
 		<div class="container">
-			<nav class="navbar navbar-expand-md navbar-info justify-content-center bg-light border rounded">
+			<nav class="navbar navbar-expand-md navbar-info justify-content-center navbar-light bg-light border rounded fixed-top">
 				<!-- the  navbar-brand gets our text in the nav bar -->
 				<a class="navbar-brand" href="#">Feeding Our Past</a>
 				<!--Here I created buttons that collapse in white. Again sample  -->
-				<button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarToggler">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<!-- Here I continue the with the collapsable button "elements" and order them from left to right and justify them on the right or end -->
