@@ -8,7 +8,8 @@
 			<div class="row justify-content-center">
 				<h2>Volunteer Sign-Up</h2>
 			</div>
-				<form>
+			<div class="col-lg-8 offset-lg-2">
+				<form id="vol-sign-up" action="../public_html/api/volunteer-sign-up/index.php" method="post">
 					<small id="formRequired" class="form-text text-danger">*Required fields</small>
 					<div class="form-group">
 						<label for="volunteerName">Name <span class="text-danger">*</span></label>
@@ -29,7 +30,7 @@
 					</div>
 					<div class="form-group">
 						<label for="volunteerPhone">Phone number <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="volunteerPhone" placeholder="Phone number (xxx-xxx-xxxx)">
+						<input type="text" class="form-control" id="volunteerPhone" placeholder="xxx-xxx-xxxx">
 					</div>
 					<div class="form-group">
 						<label for="volunteerAvailability">Availability</label>
@@ -37,6 +38,7 @@
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
+			</div>
 
 		</div>
 
