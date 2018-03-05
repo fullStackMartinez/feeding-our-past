@@ -5,12 +5,11 @@
 		<nav class="navbar float-top navbar-dark bg-info justify-content-center ">
 			<a class="navbar-brand" href="#">Feeding Our Past</a>
 		</nav>
-		</div>
+
 
 
 		<!--Here I created a div and created a container. my is margins top and bottom mx is margins left to right -->
-		<div class="container my-3 mx-5">
-			 Here I created a navbar that will expanded when medium. with light text and background and rounded border-->
+		<div class="container">
 			<nav class="navbar navbar-expand-md navbar-info justify-content-center bg-light border rounded">
 				<!-- the  navbar-brand gets our text in the nav bar -->
 				<a class="navbar-brand" href="#">Feeding Our Past</a>
