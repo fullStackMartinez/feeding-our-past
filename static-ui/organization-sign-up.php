@@ -53,7 +53,7 @@
 					</div>
 					<div class="form-group">
 						<label for="organizationHoursOpen">Days/Hours Open <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="organizationHoursOpen" placeholder="Hours open">
+						<input type="text" class="form-control" rows="2" id="organizationHoursOpen" placeholder="Days/hours open">
 					</div>
 					<div class="form-group">
 						<label for="organizationDonationsAccepted">Food donations accepted? <span class="text-danger">*</span></label>
