@@ -1,16 +1,16 @@
 import {RouterModule, Routes} from "@angular/router";
-import {SplashComponent} from "./splash/splash.component";
-import {UserService} from "./shared/services/user.service";
+import {HomeComponent} from "./home/home.component";
+import {OrganizationService} from "./shared/services/organization.service";
 
 
-export const allAppComponents = [SplashComponent];
+export const allAppComponents = [HomeComponent];
 
 export const routes: Routes = [
-	{path: "", component: SplashComponent}
+	{path: "", component: HomeComponent}
 ];
 
 export const appRoutingProviders: any[] = [
-	UserService
+	OrganizationService
 ];
 
 export const routing = RouterModule.forRoot(routes);
