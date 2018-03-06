@@ -20,7 +20,7 @@ export class TweetService {
 
 	// call to the post API and edit the post in question
 	editPost(post : Post) : Observable<Status> {
-		return(this.http.put<Status>(this.postUrl + post.postId, post));
+		return(this.http.put<Status>(this.postUrl + post.id, post));
 	}
 
 	// call to the post API and create the post in question
