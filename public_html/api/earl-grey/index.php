@@ -1,7 +1,8 @@
 <?php
 require_once dirname(__DIR__,2 ) .  "/php/lib/xsrf.php";
 require_once dirname(__DIR__,2 ) .  "/php/lib/jwt.php";
-use Edu\Cnm\feeding-our-past;
+use Edu\Cnm\FeedPast;
+
 $reply = new stdClass();
 $reply->status = 200;
 $reply->data = null;
