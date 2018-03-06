@@ -84,10 +84,10 @@ try {
 			throw (new \InvalidArgumentException("No Content In Post", 405));
 		}
 		if(empty($requestObject->postEndDateTime) === true) {
-			throw (new \InvalidArgumentException("End Date Time", 405));
+			throw (new \InvalidArgumentException("No End Date Time", 405));
 		}
 		if(empty($requestObject->postStartDateTime) === true) {
-			throw (new \InvalidArgumentException("End Date Time", 405));
+			throw (new \InvalidArgumentException("No Start Date Time", 405));
 		}
 		if(empty($requestObject->postTitle) === true) {
 			throw (new \InvalidArgumentException("No Post Title", 405));
@@ -107,8 +107,8 @@ try {
 			// update all attributes
 			$post->setPostEndDateTime($formatPostEndDateTime);
 			$post->setPostStartDateTime($formatPostStartDateTime);
-			$post->setPostTitle($requestObject->postTitle);
 			$post->setPostContent($requestObject->postContent);
+			$post->setPostTitle($requestObject->postTitle);
 			$post->update($pdo);
 			// update reply
 			$reply->message = "Post updated OK";
