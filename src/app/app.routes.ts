@@ -1,3 +1,4 @@
+///<reference path="../../node_modules/@angular/common/http/src/interceptor.d.ts"/>
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuardService, AuthGuardService as AuthGuard} from "./shared/guards/auth.guard";
 import {AuthService} from "./shared/services/auth.service";
@@ -11,15 +12,18 @@ import {SessionService} from "./shared/services/session.service";
 import {VolunteerService} from "./shared/services/volunteer.service";
 import {VolunteerSignInService} from "./shared/services/volunteer.sign.in.service";
 import {VolunteerSignUpService} from "./shared/services/volunteer.sign.up.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 
 
 export const allAppComponents = [HomeComponent];
 
 export const routes: Routes = [
+	//{path: "here", component : yourComponent}
 	{path: "", component: HomeComponent}
 ];
 
-export const appRoutingProviders: any[] = [
+const services: any[] = [
 	AuthService,
 	AuthGuardService,
 	FavoriteService,
@@ -32,5 +36,11 @@ export const appRoutingProviders: any[] = [
 	VolunteerSignUpService,
 	SessionService
 ];
+
+const providers : any[] = [
+	{provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true}
+];
+
+export const appRoutingProviders: any[] = [providers, services];
 
 export const routing = RouterModule.forRoot(routes);

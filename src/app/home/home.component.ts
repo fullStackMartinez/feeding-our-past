@@ -4,7 +4,7 @@ import {Status} from "../shared/classes/status";
 import {PostService} from "../shared/services/post.service";
 
 @Component({
-	template: require("./home.html")
+	template: require("./home.component.html")
 })
 
 export class HomeComponent implements OnInit {
@@ -21,7 +21,9 @@ export class HomeComponent implements OnInit {
 
 	listPosts(): void {
 		this.postService.getPostByPostEndDateTime()
-			.subscribe(posts => this.posts = posts);
+			.subscribe(posts =>  {this.posts = posts
+			console.log(this.posts)
+			});
 	}
 }
 
