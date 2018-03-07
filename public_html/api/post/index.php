@@ -14,6 +14,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
+require_once dirname(__DIR__, 3) . "/php/lib/post-author.php";
 use Edu\Cnm\FeedPast\{
 	Post,
 	Organization,
@@ -62,8 +63,9 @@ try {
 				$reply->data = $post;
 			}
 		} else if(empty($postOrganizationId) === false) {
-			$posts = Post::getPostByPostOrganizationId($pdo, $postOrganizationId);
+			$posts = Post::getPostByPostOrganizationId($pdo, $postOrganizationId)->toArray();
 			if($posts !== null) {
+				$posts = addAuthorToPost($pdo, $posts);
 				$reply->data = $posts;
 			}
 		} else {
