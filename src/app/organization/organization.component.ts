@@ -4,8 +4,8 @@ import {Status} from "../shared/classes/status";
 import {Organization} from "../shared/classes/organization";
 import {OrganizationService} from "../shared/services/organization.service";
 import {PostService} from "../shared/services/post.service";
-import {Post} from "../shared/classes/post"
-import {PostAuthor} from "../shared/classes/post.author"
+import {Post} from "../shared/classes/post";
+import {PostAuthor} from "../shared/classes/post.author";
 
 import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";

@@ -16,9 +16,11 @@ import {VolunteerSignInService} from "./shared/services/volunteer.sign.in.servic
 import {VolunteerSignUpService} from "./shared/services/volunteer.sign.up.service";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
+import {NavbarComponent} from "./shared/components/main-nav.component";
 
 
-export const allAppComponents = [HomeComponent,VolunteerComponent,OrganizationComponent];
+
+export const allAppComponents = [HomeComponent,VolunteerComponent,OrganizationComponent, NavbarComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
