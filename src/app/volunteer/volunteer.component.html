@@ -1,0 +1,30 @@
+<section>
+	<div class="container mt-5 pt-5">
+		<div class="row justify-content-center">
+			<!-- left column for list of organizations or list of favorited posts -->
+			<div class="col-md-6">
+				<div class="card mb-4">
+					<div class="card-body text-center">
+						<h2 class="card-title">Organization List</h2>
+						<p class="card-text">This card will have list of organizations.</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<!-- begin post item -->
+				<div *ngFor="let post of posts" class="card">
+					<div class="card-body">
+						<h4 class="card-title">{{ post.postTitle }}</h4>
+						<p class="card-text">{{ post.postContent }}</p>
+						<div class="small text-muted">@{{ post.postOrganizationId }} | {{ post.postEndDateTime |
+							date:'M/d/yy h:mm a' }}
+						</div>
+						<button class="post-delete btn btn-sm btn-danger">x</button>
+					</div>
+				</div>
+				<!-- end post item -->
+			</div>
+		</div>
+	</div>
+</section>

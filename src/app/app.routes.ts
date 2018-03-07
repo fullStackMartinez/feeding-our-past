@@ -9,6 +9,7 @@ import {OrganizationSignInService} from "./shared/services/organization.sign.in.
 import {OrganizationSignUpService} from "./shared/services/organization.sign.up.service";
 import {PostService} from "./shared/services/post.service";
 import {SessionService} from "./shared/services/session.service";
+import {VolunteerComponent} from "./volunteer/volunteer.component";
 import {VolunteerService} from "./shared/services/volunteer.service";
 import {VolunteerSignInService} from "./shared/services/volunteer.sign.in.service";
 import {VolunteerSignUpService} from "./shared/services/volunteer.sign.up.service";
@@ -20,7 +21,8 @@ export const allAppComponents = [HomeComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
-	{path: "", component: HomeComponent}
+	{path: "", component: HomeComponent},
+	{path: "/volunteer", component: VolunteerComponent}
 ];
 
 const services: any[] = [
