@@ -5,6 +5,7 @@ import {Organization} from "../shared/classes/organization";
 import {OrganizationService} from "../shared/services/organization.service";
 import {PostService} from "../shared/services/post.service";
 import {Post} from "../shared/classes/post"
+import {PostAuthor} from "../shared/classes/post.author"
 
 import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";
@@ -16,7 +17,7 @@ import "rxjs/add/operator/switchMap";
 })
 
 export class OrganizationComponent implements OnInit {
-	posts: Post[] = [];
+	posts: PostAuthor[] = [];
 	organization: Organization = new Organization(null, null, null, null, null, null, null, null, null, null);
 	status: Status = null;
 

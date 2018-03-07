@@ -7,6 +7,7 @@ import {Volunteer} from "../shared/classes/volunteer";
 import {VolunteerService} from "../shared/services/volunteer.service";
 import {PostService} from "../shared/services/post.service";
 import {Post} from "../shared/classes/post"
+import {PostAuthor} from "../shared/classes/post.author"
 
 import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";
@@ -18,7 +19,7 @@ import "rxjs/add/operator/switchMap";
 })
 
 export class VolunteerComponent implements OnInit{
-	posts: Post[] = [];
+	posts: PostAuthor[] = [];
 	organization: Organization[] = [];
 	volunteer: Volunteer = new Volunteer(null, null, null, null, null);
 	status: Status = null;

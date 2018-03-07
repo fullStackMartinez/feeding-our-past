@@ -36,7 +36,7 @@
 					<div class="card-body">
 						<h4 class="card-title">{{ post.postTitle }}</h4>
 						<p class="card-text">{{ post.postContent }}</p>
-						<div class="small text-muted">@{{ post.postOrganizationId }} | {{ post.postEndDateTime |
+						<div class="small text-muted">@{{ post.postWriter }} | {{ post.postEndDateTime |
 							date:'M/d/yy h:mm a' }}
 						</div>
 						<button class="post-delete btn btn-sm btn-danger">x</button>
