@@ -1,5 +1,5 @@
 import {RouterModule, Routes} from "@angular/router";
-import {AuthGuardService as AuthGuard} from "./shared/guards/auth.guard";
+import {AuthGuardService, AuthGuardService as AuthGuard} from "./shared/guards/auth.guard";
 import {AuthService} from "./shared/services/auth.service";
 import {FavoriteService} from "./shared/services/favorite.service";
 import {HomeComponent} from "./home/home.component";
@@ -20,7 +20,17 @@ export const routes: Routes = [
 ];
 
 export const appRoutingProviders: any[] = [
-	OrganizationService
+	AuthService,
+	AuthGuardService,
+	FavoriteService,
+	OrganizationService,
+	OrganizationSignInService,
+	OrganizationSignUpService,
+	PostService,
+	VolunteerService,
+	VolunteerSignInService,
+	VolunteerSignUpService,
+	SessionService
 ];
 
 export const routing = RouterModule.forRoot(routes);
