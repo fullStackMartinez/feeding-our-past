@@ -4,6 +4,7 @@ import {AuthGuardService, AuthGuardService as AuthGuard} from "./shared/guards/a
 import {AuthService} from "./shared/services/auth.service";
 import {FavoriteService} from "./shared/services/favorite.service";
 import {HomeComponent} from "./home/home.component";
+import {OrganizationComponent} from "./organization/organization.component";
 import {OrganizationService} from "./shared/services/organization.service";
 import {OrganizationSignInService} from "./shared/services/organization.sign.in.service";
 import {OrganizationSignUpService} from "./shared/services/organization.sign.up.service";
@@ -17,12 +18,13 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 
 
-export const allAppComponents = [HomeComponent, VolunteerComponent];
+export const allAppComponents = [HomeComponent,VolunteerComponent,OrganizationComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
 	{path: "", component: HomeComponent},
-	{path: "volunteer", component: VolunteerComponent}
+	{path: "volunteer", component: VolunteerComponent},
+	{path: "organization", component: OrganizationComponent}
 ];
 
 const services: any[] = [
