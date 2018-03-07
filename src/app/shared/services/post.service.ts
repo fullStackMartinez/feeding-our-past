@@ -35,7 +35,7 @@ export class PostService {
 	}
 
 	// call to the API and get an array of posts based off the postOrganizationId
-	getPostbyPostOrganizationId(postOrganizationId : number) : Observable<Post[]> {
+	getPostByPostOrganizationId(postOrganizationId : number) : Observable<Post[]> {
 		return(this.http.get<Post[]>(this.postUrl + postOrganizationId));
 
 	}

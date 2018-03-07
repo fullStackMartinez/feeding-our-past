@@ -34,7 +34,6 @@ export class OrganizationComponent implements OnInit {
 		this.postService.getPostByPostEndDateTime()
 			.subscribe(posts => {
 				this.posts = posts;
-				console.log(this.posts)
 			});
 	}
 

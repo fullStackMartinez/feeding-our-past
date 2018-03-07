@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 //import {JwtHelperService} from "@auth0/angular-jwt";
+import {OrganizationService} from "../shared/services/organization.service";
+import {Organization} from "../shared/classes/organization";
 import {Status} from "../shared/classes/status";
 import {Volunteer} from "../shared/classes/volunteer";
 import {VolunteerService} from "../shared/services/volunteer.service";
@@ -17,13 +19,16 @@ import "rxjs/add/operator/switchMap";
 
 export class VolunteerComponent implements OnInit{
 	posts: Post[] = [];
-	volunteer: Volunteer = new Volunteer(null,null, null, null, null);
+	organization: Organization[] = [];
+	volunteer: Volunteer = new Volunteer(null, null, null, null, null);
 	status: Status = null;
 
 	constructor(
 		private volunteerService: VolunteerService,
 //		private jwtHelper : JwtHelperService,
-		private postService: PostService) {}
+		private postService: PostService,
+		private organizationService: OrganizationService
+	) {}
 
 	ngOnInit(): void {
 		this.listPosts();
