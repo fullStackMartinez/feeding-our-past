@@ -17,12 +17,12 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 
 
-export const allAppComponents = [HomeComponent];
+export const allAppComponents = [HomeComponent, VolunteerComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
 	{path: "", component: HomeComponent},
-	{path: "/volunteer", component: VolunteerComponent}
+	{path: "volunteer", component: VolunteerComponent}
 ];
 
 const services: any[] = [

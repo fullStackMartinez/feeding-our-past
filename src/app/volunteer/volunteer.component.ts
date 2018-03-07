@@ -18,6 +18,7 @@ import "rxjs/add/operator/switchMap";
 	
 	`
 })
+
 export class VolunteerComponent implements OnInit{
 	posts: Post[] = [];
 	volunteer: Volunteer = new Volunteer(null,null, null, null, null);
@@ -26,16 +27,15 @@ export class VolunteerComponent implements OnInit{
 	constructor(
 		private volunteerService: VolunteerService,
 		private jwtHelper : JwtHelperService,
-		private postService: PostService
-	) {}
+		private postService: PostService) {}
 
 	ngOnInit(): void {
-		this.listPosts(),
+		this.listPosts();
 		this.currentlySignedIn()
 	}
 	listPosts(): void {
 		this.postService.getPostByPostEndDateTime()
-			.subscribe(posts =>  {this.posts = posts
+			.subscribe(posts =>  {this.posts = posts;
 				console.log(this.posts)
 			});
 	}
