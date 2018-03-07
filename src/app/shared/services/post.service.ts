@@ -5,7 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable ()
-export class TweetService {
+export class PostService {
 
 	constructor(protected http : HttpClient ) {}
 
