@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {Post} from "../shared/classes/post";
+import {PostAuthor} from "../shared/classes/post.author"
 import {Status} from "../shared/classes/status";
 import {PostService} from "../shared/services/post.service";
 
@@ -8,7 +9,7 @@ import {PostService} from "../shared/services/post.service";
 })
 
 export class HomeComponent implements OnInit {
-	posts: Post[] = [];
+	posts: PostAuthor[] = [];
 	status: Status = null;
 
 	constructor(

@@ -8,20 +8,23 @@
  * @author Esteban Martinez
  **/
 
-function addAuthorToPost ($pdo, $posts) : array {
+function addAuthorToPost($pdo, $posts): array {
 	$postAuthor = [];
 	foreach($posts as $post) {
 		$postWriter = \Edu\Cnm\FeedPast\Organization::getOrganizationByOrganizationId($pdo, $post->getPostOrganizationId());
-$tempPost = (object)[
-	"postId" => $post->getPostId(),
-	"postOrganizationId" => $post->getPostOrganizationId(),
-	"postContent" => $post->getPostContent(),
-	"postEndDateTime" => $post->getPostEndDateTime(),
-	"postImageUrl" =>$post->getPostImageUrl(),
-	"postStartDateTime" => $post->getPostStartDateTime(),
-	"postTitle" => $post->getPostTitle(),
-	"postWriter" => $postWriter];
-$postAuthor[] = $tempPost;
+		$postEndDateTime = round(floatval($post->getPostEndDateTime()->format("U.u")) * 1000);
+		$postStartDateTime = round(floatval($post->getPostStartDateTime()->format("U.u")) * 1000);
+
+		$tempPost = (object)[
+			"postId" => $post->getPostId(),
+			"postOrganizationId" => $post->getPostOrganizationId(),
+			"postContent" => $post->getPostContent(),
+			"postEndDateTime" => $postEndDateTime,
+			"postImageUrl" => $post->getPostImageUrl(),
+			"postStartDateTime" => $postStartDateTime,
+			"postTitle" => $post->getPostTitle(),
+			"postWriter" => $postWriter->getOrganizationName()];
+		$postAuthor[] = $tempPost;
 	}
 	return $postAuthor;
 }

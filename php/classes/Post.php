@@ -491,6 +491,7 @@ class Post implements \JsonSerializable {
 		$fields["postId"] = $this->postId->toString();
 		$fields["postOrganizationId"] = $this->postOrganizationId->toString();
 		$fields["postEndDateTime"] = round(floatval($this->postEndDateTime->format("U.u")) * 1000);
+		$fields["postStartDateTime"] = round(floatval($this->postStartDateTime->format("U.u")) * 1000);
 		return ($fields);
 	}
 }

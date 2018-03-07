@@ -71,6 +71,7 @@ try {
 		} else {
 			$posts = Post::getPostByPostEndDateTime($pdo)->toArray();
 			if($posts !== null) {
+				$posts = addAuthorToPost($pdo, $posts);
 				$reply->data = $posts;
 			}
 		}

@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Status} from "../classes/status";
 import {Post} from "../classes/post";
+import {PostAuthor} from "../classes/post.author"
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 
@@ -35,14 +36,14 @@ export class PostService {
 	}
 
 	// call to the API and get an array of posts based off the postOrganizationId
-	getPostByPostOrganizationId(postOrganizationId : number) : Observable<Post[]> {
-		return(this.http.get<Post[]>(this.postUrl + postOrganizationId));
+	getPostByPostOrganizationId(postOrganizationId : number) : Observable<PostAuthor[]> {
+		return(this.http.get<PostAuthor[]>(this.postUrl + postOrganizationId));
 
 	}
 
 	// call to post API and get an array of posts based off the postEndDateTime
-	getPostByPostEndDateTime() : Observable<Post[]> {
-		return(this.http.get<Post[]>(this.postUrl));
+	getPostByPostEndDateTime() : Observable<PostAuthor[]> {
+		return(this.http.get<PostAuthor[]>(this.postUrl));
 
 	}
 
