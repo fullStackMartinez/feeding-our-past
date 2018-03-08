@@ -1,56 +1,50 @@
 import {Component, OnInit} from "@angular/core";
-import {router} from "@angular/router";
-import {status} from "../..classes/status";
+import {CookieService} from "ng2-cookies";
+import {Router} from "@angular/router";
+import {Status} from "../shared/classes/status";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {cookieService} from "ng-cookies";
-
-import {SessionService} from "../..services/session.service";
-import {signIn} from "../../classes/sign-in";
+import {SessionService} from "../shared/services/session.service";
+import {OrganizationSignInService} from "../shared/services/organization.sign.in.service";
+import {OrganizationSignIn} from "../shared/classes/organization.sign.in";
 
 //enable jquery $ alias
 declare const $: any;
 
 @Component({
-		template: require("./organization.sign.in.component.html"),
-		selector: "sign-in"
+	template: require("./organization.sign.in.component.html"),
+	selector: "organization-sign-in"
 })
 
-export class SignInComponent implements OnInit {
+export class OrganizationSignInComponent implements OnInit {
 
-	signInForm: FormGroup:
-	signin: Signin = new SignIn(null, null);
+	organizationSignInForm: FormGroup;
+	organization: OrganizationSignIn = new OrganizationSignIn(null, null);
 	status: Status = null;
 
 
 	constructor(
-		private cookieService: CookieService
-		private sessionService: sessionService,
+		private cookieService: CookieService,
+		private sessionService: SessionService,
 		private formBuilder: FormBuilder,
-		private signInService: SignInService,
-		private router: Router) {}
-		ngOnINIT() : void{
-		this.signInForm = this.formBuilder.group({
-	profileEmail: ["", [Validators.maxLength(64), Validators.required]],
-		});
-		this.applyFormChanges();
+		private organizationSignInService: OrganizationSignInService,
+		private router: Router) {
 	}
 
-	applyFormChanges() : void {
-		this.signInForm.valueChanges.subscribe(values) => {
-	for(let field in values) {
-		this.signin[field] = values[field];
-			}
+	ngOnInit(): void {
+		this.organizationSignInForm = this.formBuilder.group({
+			organizationEmail: ["", [Validators.maxLength(128), Validators.required]],
+			organizationPassword: ["", [Validators.maxLength(128), Validators.required]]
 		});
-}
+	}
 
-signIn() : void {
-	this.signInService.postSignIn(this.signin)
+organizationSignIn() : void {
+	this.organizationSignInService.postOrganizationSignIn(this.organization)
 	.subscribe(status => {
 		this.status = status;
 		if(this.status.status === 200) {
 			this.sessionService.setSession();
-			this.signInForm.reset();
-			this.router.navigate(["posts"]);
+			this.organizationSignInForm.reset();
+			this.router.navigate(["organization"]);
 			location.reload();
 			console.log("signin successful");
 		} else {
@@ -59,7 +53,9 @@ signIn() : void {
 	});
 }
 
-signOut() :void {
-	this.signInService.getSignOut();
+signOut()
+:
+void {
+	this.organizationSignInService.organizationSignOut();
 }
 }
