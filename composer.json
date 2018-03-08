@@ -5,7 +5,8 @@
     "swiftmailer/swiftmailer": "@stable",
     "lcobucci/jwt": "3.2",
     "ramsey/uuid": "@stable",
-    "cloudinary/cloudinary_php": "dev-master"
+    "cloudinary/cloudinary_php": "dev-master",
+    "guzzlehttp/guzzle": "@stable"
   },
 
   "scripts":{
