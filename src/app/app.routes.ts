@@ -7,7 +7,7 @@ import {HomeComponent} from "./home/home.component";
 import {OrganizationComponent} from "./organization/organization.component";
 import {OrganizationService} from "./shared/services/organization.service";
 import {OrganizationSignInService} from "./shared/services/organization.sign.in.service";
-import {OrganizationSignUpComponent} from "./organization.sign.up/organization.sign.up.component";
+import {OrganizationSignUpComponent} from "./organization-sign-up/organization.sign.up.component";
 import {OrganizationSignUpService} from "./shared/services/organization.sign.up.service";
 import {PostService} from "./shared/services/post.service";
 import {SeniorComponent} from "./senior/senior.component";
