@@ -1,0 +1,36 @@
+<navbar></navbar>
+
+<section>
+	<div class="container mt-5 pt-5">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				MAP
+			</div>
+
+			<!-- right column for list of organizations -->
+			<div class="col-md-4">
+				<h3>Organizations</h3>
+				<!-- begin organization item -->
+				<div *ngFor="let organization of organizations" class="card">
+					<div class="card-body">
+						<h4 class="card-title">{{ organization.organizationName }}</h4>
+						<p class="card-text">{{ organization.organizationAddressStreet }}</p>
+						<p class="card-text">{{ organization.organizationAddressCity }}</p>
+						<p class="card-text">{{ organization.organizationAddressZip }}</p>
+						<p class="card-text">{{ organization.organizationPhone }}</p>
+						<p class="card-text">Hours Open: {{ organization.organizationHoursOpen }}</p>
+						<p class="card-text">Donations Accepted: {{ organization.organizationDonationAccepted }}</p>
+					</div>
+				</div>
+				<!-- end organization item -->
+
+<!--				<div class="card mb-4">
+					<div class="card-body text-center">
+						<h2 class="card-title">Organization List</h2>
+						<p class="card-text">This card will have list of organizations.</p>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</section>

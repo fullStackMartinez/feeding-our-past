@@ -9,6 +9,7 @@ import {OrganizationService} from "./shared/services/organization.service";
 import {OrganizationSignInService} from "./shared/services/organization.sign.in.service";
 import {OrganizationSignUpService} from "./shared/services/organization.sign.up.service";
 import {PostService} from "./shared/services/post.service";
+import {SeniorComponent} from "./senior/senior.component";
 import {SessionService} from "./shared/services/session.service";
 import {VolunteerComponent} from "./volunteer/volunteer.component";
 import {VolunteerService} from "./shared/services/volunteer.service";
@@ -20,13 +21,14 @@ import {NavbarComponent} from "./shared/components/main-nav.component";
 
 
 
-export const allAppComponents = [HomeComponent,VolunteerComponent,OrganizationComponent, NavbarComponent];
+export const allAppComponents = [HomeComponent,NavbarComponent,OrganizationComponent,SeniorComponent,VolunteerComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
 	{path: "", component: HomeComponent},
-	{path: "volunteer", component: VolunteerComponent},
-	{path: "organization", component: OrganizationComponent}
+	{path: "organization", component: OrganizationComponent},
+	{path: "senior", component: SeniorComponent},
+	{path: "volunteer", component: VolunteerComponent}
 ];
 
 const services: any[] = [
