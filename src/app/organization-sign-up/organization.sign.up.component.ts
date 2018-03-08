@@ -62,7 +62,7 @@ export class OrganizationSignUpComponent implements OnInit{
 					this.organizationSignUpService.createOrganization(this.organization);
 					this.organizationSignUpForm.reset();
 					console.log("sign-up successful");
-					setTimeout(function(){$("#signup-modal").modal("hide");}, 5000);
+					//setTimeout(function(){$("#signup-modal").modal("hide");}, 5000);
 				} else {
 					console.log("sign-up fail");
 				}
