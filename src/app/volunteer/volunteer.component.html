@@ -19,12 +19,12 @@
 					</div>
 				</div>
 				<!-- end organization item -->
-<!--				<div class="card mb-4">
-					<div class="card-body text-center">
-						<h2 class="card-title">Organization List</h2>
-						<p class="card-text">This card will have list of organizations.</p>
-					</div>
-				</div> -->
+				<!--				<div class="card mb-4">
+									<div class="card-body text-center">
+										<h2 class="card-title">Organization List</h2>
+										<p class="card-text">This card will have list of organizations.</p>
+									</div>
+								</div> -->
 			</div>
 
 			<!-- empty middle column for spacing -->
@@ -37,14 +37,23 @@
 					<div class="card-body">
 						<h4 class="card-title">{{ post.postTitle }}</h4>
 						<p class="card-text">{{ post.postContent }}</p>
-						<div class="small text-muted">@{{ post.postWriter }} | {{ post.postEndDateTime |
-							date:'M/d/yy h:mm a' }}
+						<div class="small text-muted">
+							<p>
+								Organization: {{ post.postWriter }}<br>
+								Event Start Date: {{ post.postStartDateTime | date:'M/d/yy' }}<br>
+								Event End Date: {{ post.postEndDateTime | date:'M/d/yy' }}
+							</p>
 						</div>
-						<button class="post-delete btn btn-sm btn-danger">x</button>
+						<div class="btn-group-toggle" data-toggle="buttons">
+							<label class="post-favorite btn btn-sm btn-outline-success">
+								<input type="checkbox" checked autocomplete="off" class="btn-success"> Favorite
+							</label>
+						</div>
+						<!--<button class="post-favorite btn btn-sm btn-outline-success">Favorite</button> -->
 					</div>
 				</div>
-				<!-- end post item -->
 			</div>
+			<!-- end post item -->
 		</div>
 	</div>
 </section>
