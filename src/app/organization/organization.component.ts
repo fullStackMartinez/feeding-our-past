@@ -18,7 +18,7 @@ import "rxjs/add/operator/switchMap";
 
 export class OrganizationComponent implements OnInit {
 	posts: PostAuthor[] = [];
-	organization: Organization = new Organization(null, null, null, null, null, null, null, null, null, null);
+	organization: Organization = new Organization(null, null, null, null, null, null, null, null, null, null, null, null, null, null );
 	status: Status = null;
 
 	constructor(private organizationService: OrganizationService,

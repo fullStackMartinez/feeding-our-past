@@ -20,7 +20,7 @@ import "rxjs/add/operator/switchMap";
 
 export class VolunteerComponent implements OnInit{
 	posts: PostAuthor[] = [];
-	organization: Organization[] = [];
+	organizations: Organization[] = [];
 	volunteer: Volunteer = new Volunteer(null, null, null, null, null);
 	status: Status = null;
 
@@ -33,14 +33,21 @@ export class VolunteerComponent implements OnInit{
 
 	ngOnInit(): void {
 		this.listPosts();
+		this.listOrganizations();
 //		this.currentlySignedIn()
 	}
+
 	listPosts(): void {
 		this.postService.getPostByPostEndDateTime()
 			.subscribe(posts =>  {this.posts = posts;
 				console.log(this.posts)
 			});
 	}
+
+	listOrganizations(): void {
+
+	}
+
 /*	currentlySignedIn() : void {
 
 		const decodedJwt = this.jwtHelper.decodeToken(localStorage.getItem('jwt-token'));
