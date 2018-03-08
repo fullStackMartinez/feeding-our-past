@@ -17,6 +17,7 @@ import {SessionService} from "./shared/services/session.service";
 import {VolunteerComponent} from "./volunteer/volunteer.component";
 import {VolunteerService} from "./shared/services/volunteer.service";
 import {VolunteerSignInService} from "./shared/services/volunteer.sign.in.service";
+import {VolunteerSignUpComponent} from "./volunteer-sign-up/volunteer.sign.up.component";
 import {VolunteerSignUpService} from "./shared/services/volunteer.sign.up.service";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
@@ -24,7 +25,7 @@ import {NavbarComponent} from "./shared/components/main-nav.component";
 
 
 
-export const allAppComponents = [HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent];
+export const allAppComponents = [HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignUpComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
@@ -33,7 +34,8 @@ export const routes: Routes = [
 	{path: "organization-sign-up", component: OrganizationSignUpComponent},
 	{path: "organization-sign-in", component: OrganizationSignInComponent},
 	{path: "senior", component: SeniorComponent},
-	{path: "volunteer", component: VolunteerComponent}
+	{path: "volunteer", component: VolunteerComponent},
+	{path: "volunteer-sign-up", component: VolunteerSignUpComponent}
 ];
 
 const services: any[] = [
