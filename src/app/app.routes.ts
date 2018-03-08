@@ -7,6 +7,7 @@ import {HomeComponent} from "./home/home.component";
 import {OrganizationComponent} from "./organization/organization.component";
 import {OrganizationService} from "./shared/services/organization.service";
 import {OrganizationSignInService} from "./shared/services/organization.sign.in.service";
+import {OrganizationSignUpComponent} from "./organization.sign.up/organization.sign.up.component";
 import {OrganizationSignUpService} from "./shared/services/organization.sign.up.service";
 import {PostService} from "./shared/services/post.service";
 import {SeniorComponent} from "./senior/senior.component";
@@ -21,12 +22,13 @@ import {NavbarComponent} from "./shared/components/main-nav.component";
 
 
 
-export const allAppComponents = [HomeComponent,NavbarComponent,OrganizationComponent,SeniorComponent,VolunteerComponent];
+export const allAppComponents = [HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
 	{path: "", component: HomeComponent},
 	{path: "organization", component: OrganizationComponent},
+	{path: "organization-sign-up", component: OrganizationSignUpComponent},
 	{path: "senior", component: SeniorComponent},
 	{path: "volunteer", component: VolunteerComponent}
 ];

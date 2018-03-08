@@ -54,7 +54,7 @@ export class OrganizationSignUpComponent implements OnInit{
 		});
 	}
 
-	signUp() : void {
+	organizationSignUp() : void {
 		this.organizationSignUpService.createOrganization(this.organization)
 			.subscribe(status => {
 				this.status = status;
