@@ -3,9 +3,12 @@
 	<?php require_once("head-utils.php"); ?>
 	<body>
 		<div >
+			<!--
 			<nav class="navbar float-top navbar-dark bg-info justify-content-center fixed-top">
 				<a class="navbar-brand" href="#">Feeding Our Past</a>
 			</nav>
+			-->
+
 		</div>
 		<div class="container">
 			<nav class="navbar float navbar-expand-md navbar-info justify-content-center navbar-light bg-light border rounded">
