@@ -19,7 +19,7 @@ declare const $: any;
 export class OrganizationSignUpComponent implements OnInit{
 
 	organizationSignUpForm: FormGroup;
-	organization: Organization = new Organization(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
 	status: Status = null;
 
 	constructor(
@@ -33,7 +33,7 @@ export class OrganizationSignUpComponent implements OnInit{
 			organizationName: ["", [Validators.maxLength(255), Validators.required]],
 			organizationEmail: ["", [Validators.maxLength(128), Validators.required]],
 			organizationPassword: ["", [Validators.maxLength(128), Validators.required]],
-			organizationConfirmPassword: ["", [Validators.maxLength(128), Validators.required]],
+			organizationPasswordConfirm: ["", [Validators.maxLength(128), Validators.required]],
 			organizationAddressStreet: ["", [Validators.maxLength(32), Validators.required]],
 			organizationAddressCity: ["", [Validators.maxLength(32), Validators.required]],
 			organizationAddressState: ["", [Validators.maxLength(32), Validators.required]],
@@ -43,23 +43,18 @@ export class OrganizationSignUpComponent implements OnInit{
 			organizationDonationAccepted: ["", [Validators.maxLength(32), Validators.required]],
 			organizationUrl: ["", [Validators.maxLength(255)]]
 		});
-		this.applyFormChanges();
 	}
 
-	applyFormChanges() : void {
-		this.organizationSignUpForm.valueChanges.subscribe(values => {
-			for(let field in values) {
-				this.organization[field] = values[field];
-			}
-		});
-	}
 
 	organizationSignUp() : void {
-		this.organizationSignUpService.createOrganization(this.organization)
+
+		let 	organization: OrganizationSignUp = new OrganizationSignUp(this.organizationSignUpForm.value.organizationName, this.organizationSignUpForm.value.organizationEmail, this.organizationSignUpForm.value.organizationPassword, this.organizationSignUpForm.value.organizationPasswordConfirm, this.organizationSignUpForm.value.organizationAddressStreet, this.organizationSignUpForm.value.organizationAddressCity, this.organizationSignUpForm.value.organizationAddressState, this.organizationSignUpForm.value.organizationAddressZip, this.organizationSignUpForm.value.organizationPhone, this.organizationSignUpForm.value.organizationHoursOpen, this.organizationSignUpForm.value.organizationDonationAccepted, this.organizationSignUpForm.value.organizationUrl);
+
+		this.organizationSignUpService.createOrganization(organization)
 			.subscribe(status => {
 				this.status = status;
 				if(this.status.status === 200) {
-					this.organizationSignUpService.createOrganization(this.organization);
+					this.organizationSignUpService.createOrganization(organization);
 					this.organizationSignUpForm.reset();
 					console.log("sign-up successful");
 					//setTimeout(function(){$("#signup-modal").modal("hide");}, 5000);
