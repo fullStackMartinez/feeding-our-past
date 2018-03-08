@@ -1,25 +1,61 @@
 <navbar></navbar>
 
-<div class="container">
+<div class="container m-5">
 	<div class="text-center">
 		<h2>Organization: Sign In to your account</h2>
 	</div>
-	<form #organizationSignInForm="ngForm" class="form-horizontal" name="organizationSignInForm" novalidate
-			(ngSubmit)="organizationSignIn();">
+	<div class="col-lg-6 offset-lg-3">
+	<form name="organizationSignInForm" id="organizationSignInForm" [formGroup]="organizationSignInForm"
+			(submit)="organizationSignIn();" class="" novalidate>
 
 		<!-- username here -->
 		<div class="form-group">
-			<label for="inputEmail">Email address</label>
-			<input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter organization email">
-			<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			<label for="organizationEmail">Email address</label>
+			<div class="input-group">
+				<input type="email" class="form-control" id="organizationEmail" name="organizationEmail"
+						 formControlName="organizationEmail" placeholder="Email">
+			</div>
+			<div
+				*ngIf="organizationSignInForm.controls.organizationEmail?.invalid && organizationSignInForm.controls.organizationEmail?.touched"
+				class="alert alert-danger" role="alert">
+				<div *ngIf="organizationSignInForm.controls.organizationEmail?.errors.required">Email is required.</div>
+				<div *ngIf="organizationSignInForm.controls.organizationEmail?.errors.maxlength">Email is too long.
+					{{organizationSignInForm.controls.organizationEmail?.errors.maxlength.actualLength -
+					organizationSignInForm.controls.organizationEmail?.errors.maxlength.requiredLength}} too many characters.
+				</div>
+			</div>
+		</div>
+		<!-- end username section -->
+
+		<!-- password here -->
+		<div class="form-group">
+			<label for="organizationPassword">Password</label>
+			<div class="input-group">
+				<input type="password" class="form-control" id="organizationPassword" name="organizationPassword"
+						 formControlName="organizationPassword" placeholder="Password">
+			</div>
+			<div
+				*ngIf="organizationSignInForm.controls.organizationPassword?.invalid && organizationSignInForm.controls.organizationPassword?.touched"
+				class="alert alert-danger" role="alert">
+				<div *ngIf="organizationSignInForm.controls.organizationPassword?.errors.required">Password is required.
+				</div>
+				<div *ngIf="organizationSignInForm.controls.organizationPassword?.errors.maxlength">Password is too long.
+					{{organizationSignInForm.controls.organizationPassword?.errors.maxlength.actualLength -
+					organizationSignInForm.controls.organizationPassword?.errors.maxlength.requiredLength}} too many
+					characters.
+				</div>
+			</div>
 		</div>
 		<div class="form-group">
-			<label for="inputPassword">Password</label>
-			<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-		</div>
-		<div class="text-center">
-			<button type="submit" class="btn btn-primary">Log in</button>
+			<button type="submit" id="submit" [disabled]="organizationSignInForm.invalid" class="btn btn-primary">Sign In</button>
 		</div>
 	</form>
-	<h6 class="text-center mt-2"><em>Not yet registered?</em>| <a href=""><strong>Sign Up</strong></a> </h6>
+
+	<div *ngIf="status !== null" class="alert alert-secondary alert-dismissible" [ngClass]="status.type" role="alert">
+		<button type="button" class="close" aria-label="Close" (click)="status = null;"><span aria-hidden="true">&times;</span></button>
+		{{ status.message }}
+	</div>
+
+	<h6 class="text-center mt-2"><em>Not yet registered?</em>| <a class="signup" routerLink="../organization-sign-up"><strong>Sign Up</strong></a></h6>
+	</div>
 </div>

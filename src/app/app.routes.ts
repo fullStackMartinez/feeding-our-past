@@ -2,6 +2,7 @@
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuardService, AuthGuardService as AuthGuard} from "./shared/guards/auth.guard";
 import {AuthService} from "./shared/services/auth.service";
+import {CookieService} from "ng2-cookies";
 import {FavoriteService} from "./shared/services/favorite.service";
 import {HomeComponent} from "./home/home.component";
 import {OrganizationComponent} from "./organization/organization.component";
@@ -38,6 +39,7 @@ export const routes: Routes = [
 const services: any[] = [
 	AuthService,
 	AuthGuardService,
+	CookieService,
 	FavoriteService,
 	OrganizationService,
 	OrganizationSignInService,
