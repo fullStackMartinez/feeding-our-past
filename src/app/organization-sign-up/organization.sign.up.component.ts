@@ -5,7 +5,7 @@ import {Status} from "../shared/classes/status";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {OrganizationSignUp} from "../shared/classes/organization.sign.up";
 import {OrganizationSignUpService} from "../shared/services/organization.sign.up.service";
-import {Organization} from "../shared/classes/organization";
+
 
 //enable jquery $ alias
 declare const $: any;
@@ -48,7 +48,7 @@ export class OrganizationSignUpComponent implements OnInit{
 
 	organizationSignUp() : void {
 
-		let 	organization: OrganizationSignUp = new OrganizationSignUp(this.organizationSignUpForm.value.organizationName, this.organizationSignUpForm.value.organizationEmail, this.organizationSignUpForm.value.organizationPassword, this.organizationSignUpForm.value.organizationPasswordConfirm, this.organizationSignUpForm.value.organizationAddressStreet, this.organizationSignUpForm.value.organizationAddressCity, this.organizationSignUpForm.value.organizationAddressState, this.organizationSignUpForm.value.organizationAddressZip, this.organizationSignUpForm.value.organizationPhone, this.organizationSignUpForm.value.organizationHoursOpen, this.organizationSignUpForm.value.organizationDonationAccepted, this.organizationSignUpForm.value.organizationUrl);
+		let 	organization: OrganizationSignUp = new OrganizationSignUp(this.organizationSignUpForm.value.organizationAddressCity, this.organizationSignUpForm.value.organizationAddressState, this.organizationSignUpForm.value.organizationAddressStreet, this.organizationSignUpForm.value.organizationAddressZip, this.organizationSignUpForm.value.organizationDonationAccepted, this.organizationSignUpForm.value.organizationEmail, this.organizationSignUpForm.value.organizationHoursOpen, this.organizationSignUpForm.value.organizationName, this.organizationSignUpForm.value.organizationPassword, this.organizationSignUpForm.value.organizationPasswordConfirm, this.organizationSignUpForm.value.organizationPhone, this.organizationSignUpForm.value.organizationUrl);
 
 		this.organizationSignUpService.createOrganization(organization)
 			.subscribe(status => {
@@ -58,6 +58,7 @@ export class OrganizationSignUpComponent implements OnInit{
 					this.organizationSignUpForm.reset();
 					console.log("sign-up successful");
 					//setTimeout(function(){$("#signup-modal").modal("hide");}, 5000);
+					this.router.navigate([""]);
 				} else {
 					console.log("sign-up fail");
 				}
