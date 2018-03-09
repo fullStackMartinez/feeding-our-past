@@ -1,0 +1,61 @@
+<navbar></navbar>
+
+<div class="container m-5">
+	<div class="text-center">
+		<h2>Volunteer: Sign In to your account</h2>
+	</div>
+	<div class="col-lg-6 offset-lg-3">
+		<form name="volunteerSignInForm" id="volunteerSignInForm" [formGroup]="volunteerSignInForm"
+				(submit)="volunteerSignIn();" class="" novalidate>
+
+			<!-- username here -->
+			<div class="form-group">
+				<label for="volunteerEmail">Email address</label>
+				<div class="input-group">
+					<input type="email" class="form-control" id="volunteerEmail" name="volunteerEmail"
+							 formControlName="volunteerEmail" placeholder="Email">
+				</div>
+				<div
+					*ngIf="volunteerSignInForm.controls.volunteerEmail?.invalid && volunteerSignInForm.controls.volunteerEmail?.touched"
+					class="alert alert-danger" role="alert">
+					<div *ngIf="volunteerSignInForm.controls.volunteerEmail?.errors.required">Email is required.</div>
+					<div *ngIf="volunteerSignInForm.controls.volunteerEmail?.errors.maxlength">Email is too long.
+						{{volunteerSignInForm.controls.volunteerEmail?.errors.maxlength.actualLength -
+						volunteerSignInForm.controls.volunteerEmail?.errors.maxlength.requiredLength}} too many characters.
+					</div>
+				</div>
+			</div>
+			<!-- end username section -->
+
+			<!-- password here -->
+			<div class="form-group">
+				<label for="volunteerPassword">Password</label>
+				<div class="input-group">
+					<input type="password" class="form-control" id="volunteerPassword" name="volunteerPassword"
+							 formControlName="volunteerPassword" placeholder="Password">
+				</div>
+				<div
+					*ngIf="volunteerSignInForm.controls.volunteerPassword?.invalid && volunteerSignInForm.controls.volunteerPassword?.touched"
+					class="alert alert-danger" role="alert">
+					<div *ngIf="volunteerSignInForm.controls.volunteerPassword?.errors.required">Password is required.
+					</div>
+					<div *ngIf="volunteerSignInForm.controls.volunteerPassword?.errors.maxlength">Password is too long.
+						{{volunteerSignInForm.controls.volunteerPassword?.errors.maxlength.actualLength -
+						volunteerSignInForm.controls.volunteerPassword?.errors.maxlength.requiredLength}} too many
+						characters.
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<button type="submit" id="submit" [disabled]="volunteerSignInForm.invalid" class="btn btn-primary">Sign In</button>
+			</div>
+		</form>
+
+		<div *ngIf="status !== null" class="alert alert-secondary alert-dismissible" [ngClass]="status.type" role="alert">
+			<button type="button" class="close" aria-label="Close" (click)="status = null;"><span aria-hidden="true">&times;</span></button>
+			{{ status.message }}
+		</div>
+
+		<h6 class="text-center mt-2"><em>Not yet registered?</em>| <a class="signup" routerLink="../volunteer-sign-up"><strong>Sign Up</strong></a></h6>
+	</div>
+</div>
