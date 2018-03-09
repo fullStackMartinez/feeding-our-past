@@ -70,11 +70,13 @@ try {
 		}
 		//organization latitude
 		if(empty($requestObject->organizationLatX) === true) {
-			throw(new \InvalidArgumentException("Organization latitude is not present", 405));
+			//throw(new \InvalidArgumentException("Organization latitude is not present", 405));
+			$requestObject->organizationLatX = null;
 		}
 		//organization longitude
 		if(empty($requestObject->organizationLongY) === true) {
-			throw(new \InvalidArgumentException("Organization longitude is not present", 405));
+			//throw(new \InvalidArgumentException("Organization longitude is not present", 405));
+			$requestObject->organizationLongY = null;
 		}
 		//organization name is required
 		if(empty($requestObject->organizationName) === true) {
@@ -109,12 +111,12 @@ try {
 		//call to getLatLongByAddress(returns an object)
 		/*$address = $requestObject->organizationAddressStreet . " " . $requestObject->organizationAddressCity . " " . $requestObject->organizationAddressState . " " . $requestObject->organizationAddressZip;*/
 		$latLongCoordinates = getLatLongByAddress($requestObject->organizationAddressStreet, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressZip);
-		//var_dump($address);
+		//var_dump($latLongCoordinates);
 
 		 //add lat long to organization constructor (done)
 
 		//create the organization object and prepare it to be inserted into our database
-		$organization = new Organization(generateUuidV4(), $organizationActivationToken, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressStreet, $requestObject->organizationAddressZip, $requestObject->organizationDonationAccepted, $requestObject->organizationEmail, $hash, $requestObject->organizationHoursOpen, $latLongCoordinates->lat, $latLongCoordinates->long, $requestObject->organizationName, $requestObject->organizationPhone, $salt, $requestObject->organizationUrl);
+		$organization = new Organization(generateUuidV4(), $organizationActivationToken, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressStreet, $requestObject->organizationAddressZip, $requestObject->organizationDonationAccepted, $requestObject->organizationEmail, $hash, $requestObject->organizationHoursOpen, $latLongCoordinates["lat"], $latLongCoordinates["lng"], $requestObject->organizationName, $requestObject->organizationPhone, $salt, $requestObject->organizationUrl);
 
 		//insert the organization into the database
 		$organization->insert($pdo);

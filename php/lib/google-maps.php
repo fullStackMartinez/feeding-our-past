@@ -6,7 +6,7 @@
  * @throws \InvalidArgumentException if $address is not a string or insecure
  *
  **/
-function getLatLongByAddress ($organizationStreet, $organizationCity, $organizationState, $organizationZip) : object {
+function getLatLongByAddress ($organizationStreet, $organizationCity, $organizationState, $organizationZip) : array {
 	if(empty($organizationStreet) === true || (empty($organizationCity) === true) || (empty($organizationState) === true) || (empty($organizationZip) === true)) {
 		throw(new \InvalidArgumentException("address content is empty or insecure"));
 	}
@@ -19,7 +19,7 @@ function getLatLongByAddress ($organizationStreet, $organizationCity, $organizat
 	/*
 	 * Builds the URL and request to the Google Maps API
 	 */
-	$url = 'https://maps.googleapis.com/maps/api/geocode/json?address=$organizationStreet+$organizationCity+$orgnizationState+$organizationZip&key=AIzaSyCu77ktLC6OfKCexHk-uQvpJdxL6gq3dd4';
+	$url = 'https://maps.googleapis.com/maps/api/geocode/json?address='. $organizationStreet . $organizationCity . $organizationState . $organizationZip . '&key=AIzaSyCu77ktLC6OfKCexHk-uQvpJdxL6gq3dd4';
 
 		/*
 		 * Creates a Guzzle client to make the Google Maps request
@@ -35,7 +35,6 @@ function getLatLongByAddress ($organizationStreet, $organizationCity, $organizat
 		 * JSON decodes the response
 		 */
 		$geocodeData = json_decode($geocodeResponse);
-
 		/*
 		 * Initializes the response for the GeoCode Location
 		 */
