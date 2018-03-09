@@ -38,7 +38,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Intro</h2>
-								<p class="card-text">Intro Content</p>
+								<p class="card-text">Welcome to Feeding Our Past! We provide easy to use resources that help stop senior hunger in ABQ by connecting civic minded volunteers to community engagement partners who in turn serve food insecure seniors</p>
 							</div>
 						</div>
 					</div>
@@ -46,7 +46,8 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">What we are doing</h2>
-								<p class="card-text">What we are doing content</p>
+								<p class="card-text">		<h1>Feeding Our Past: Executive Summary</h1>
+								<p> The website will allow volunteers and organizations to connect and help seniors seeking food assistance. </p>
 							</div>
 						</div>
 					</div>
@@ -88,25 +89,25 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Jeff Brink</h2>
-								<p class="card-text">Jeff's Personal Statement</p>
+								<p class="card-text">For all of your Visual, Front-End, and Security needs.</p>
 							</div>
 						</div>
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Esteban Martinez</h2>
-								<p class="card-text">Esteban's Personal Statement</p>
+								<p class="card-text">Putting Successful Completion in Team Lead </p>
 							</div>
 						</div>
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Jolynn Pruitt</h2>
-								<p class="card-text">Jolynn's Personal Statement</p>
+								<p class="card-text">Project MVP</p>
 							</div>
 						</div>
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Peter Street</h2>
-								<p class="card-text">Peter's Personal Statment</p>
+								<p class="card-text">Team Anchor</p>
 							</div>
 						</div>
 					</div>

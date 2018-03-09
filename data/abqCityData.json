@@ -1,0 +1,597 @@
+{
+  "displayFieldName": "FACILITYNAME",
+  "fieldAliases": {
+    "OBJECTID": "OBJECTID",
+    "FACILITYNAME": "FACILITYNAME",
+    "ADDRESS": "ADDRESS",
+    "DROPOFFTYPE": "DROPOFFTYPE",
+    "PROGRAMNAME": "PROGRAMNAME",
+    "FOODITEMSACCEPTED": "FOODITEMSACCEPTED",
+    "LOCATIONSTARTDATESTR": "LOCATIONSTARTDATESTR",
+    "LOCATIONENDDATESTR": "LOCATIONENDDATESTR",
+    "ISOPENSUNDAY": "ISOPENSUNDAY",
+    "ISOPENMONDAY": "ISOPENMONDAY",
+    "ISOPENTUESDAY": "ISOPENTUESDAY",
+    "ISOPENWEDNESDAY": "ISOPENWEDNESDAY",
+    "ISOPENTHURSDAY": "ISOPENTHURSDAY",
+    "ISOPENFRIDAY": "ISOPENFRIDAY",
+    "ISOPENSATURDAY": "ISOPENSATURDAY",
+    "OPENTIMESUNDAY": "OPENTIMESUNDAY",
+    "OPENTIMEMONDAY": "OPENTIMEMONDAY",
+    "OPENTIMETUESDAY": "OPENTIMETUESDAY",
+    "OPENTIMEWEDNESDAY": "OPENTIMEWEDNESDAY",
+    "OPENTIMETHURSDAY": "OPENTIMETHURSDAY",
+    "OPENTIMEFRIDAY": "OPENTIMEFRIDAY",
+    "OPENTIMESATURDAY": "OPENTIMESATURDAY",
+    "CLOSETIMESUNDAY": "CLOSETIMESUNDAY",
+    "CLOSETIMEMONDAY": "CLOSETIMEMONDAY",
+    "CLOSETIMETUESDAY": "CLOSETIMETUESDAY",
+    "CLOSETIMEWEDNESDAY": "CLOSETIMEWEDNESDAY",
+    "CLOSETIMETHURSDAY": "CLOSETIMETHURSDAY",
+    "CLOSETIMEFRIDAY": "CLOSETIMEFRIDAY",
+    "CLOSETIMESATURDAY": "CLOSETIMESATURDAY",
+    "PROGRAMURL": "PROGRAMURL",
+    "LOCATIONURL": "LOCATIONURL",
+    "NOTES": "NOTES"
+  },
+  "geometryType": "esriGeometryPoint",
+  "spatialReference": {
+    "wkid": 102100,
+    "latestWkid": 3857
+  },
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "type": "esriFieldTypeOID",
+      "alias": "OBJECTID"
+    },
+    {
+      "name": "FACILITYNAME",
+      "type": "esriFieldTypeString",
+      "alias": "FACILITYNAME",
+      "length": 40
+    },
+    {
+      "name": "ADDRESS",
+      "type": "esriFieldTypeString",
+      "alias": "ADDRESS",
+      "length": 40
+    },
+    {
+      "name": "DROPOFFTYPE",
+      "type": "esriFieldTypeString",
+      "alias": "DROPOFFTYPE",
+      "length": 255
+    },
+    {
+      "name": "PROGRAMNAME",
+      "type": "esriFieldTypeString",
+      "alias": "PROGRAMNAME",
+      "length": 255
+    },
+    {
+      "name": "FOODITEMSACCEPTED",
+      "type": "esriFieldTypeString",
+      "alias": "FOODITEMSACCEPTED",
+      "length": 255
+    },
+    {
+      "name": "LOCATIONSTARTDATESTR",
+      "type": "esriFieldTypeString",
+      "alias": "LOCATIONSTARTDATESTR",
+      "length": 255
+    },
+    {
+      "name": "LOCATIONENDDATESTR",
+      "type": "esriFieldTypeString",
+      "alias": "LOCATIONENDDATESTR",
+      "length": 255
+    },
+    {
+      "name": "ISOPENSUNDAY",
+      "type": "esriFieldTypeString",
+      "alias": "ISOPENSUNDAY",
+      "length": 255
+    },
+    {
+      "name": "ISOPENMONDAY",
+      "type": "esriFieldTypeString",
+      "alias": "ISOPENMONDAY",
+      "length": 255
+    },
+    {
+      "name": "ISOPENTUESDAY",
+      "type": "esriFieldTypeString",
+      "alias": "ISOPENTUESDAY",
+      "length": 255
+    },
+    {
+      "name": "ISOPENWEDNESDAY",
+      "type": "esriFieldTypeString",
+      "alias": "ISOPENWEDNESDAY",
+      "length": 255
+    },
+    {
+      "name": "ISOPENTHURSDAY",
+      "type": "esriFieldTypeString",
+      "alias": "ISOPENTHURSDAY",
+      "length": 255
+    },
+    {
+      "name": "ISOPENFRIDAY",
+      "type": "esriFieldTypeString",
+      "alias": "ISOPENFRIDAY",
+      "length": 255
+    },
+    {
+      "name": "ISOPENSATURDAY",
+      "type": "esriFieldTypeString",
+      "alias": "ISOPENSATURDAY",
+      "length": 255
+    },
+    {
+      "name": "OPENTIMESUNDAY",
+      "type": "esriFieldTypeString",
+      "alias": "OPENTIMESUNDAY",
+      "length": 255
+    },
+    {
+      "name": "OPENTIMEMONDAY",
+      "type": "esriFieldTypeString",
+      "alias": "OPENTIMEMONDAY",
+      "length": 255
+    },
+    {
+      "name": "OPENTIMETUESDAY",
+      "type": "esriFieldTypeString",
+      "alias": "OPENTIMETUESDAY",
+      "length": 255
+    },
+    {
+      "name": "OPENTIMEWEDNESDAY",
+      "type": "esriFieldTypeString",
+      "alias": "OPENTIMEWEDNESDAY",
+      "length": 255
+    },
+    {
+      "name": "OPENTIMETHURSDAY",
+      "type": "esriFieldTypeString",
+      "alias": "OPENTIMETHURSDAY",
+      "length": 255
+    },
+    {
+      "name": "OPENTIMEFRIDAY",
+      "type": "esriFieldTypeString",
+      "alias": "OPENTIMEFRIDAY",
+      "length": 255
+    },
+    {
+      "name": "OPENTIMESATURDAY",
+      "type": "esriFieldTypeString",
+      "alias": "OPENTIMESATURDAY",
+      "length": 255
+    },
+    {
+      "name": "CLOSETIMESUNDAY",
+      "type": "esriFieldTypeString",
+      "alias": "CLOSETIMESUNDAY",
+      "length": 255
+    },
+    {
+      "name": "CLOSETIMEMONDAY",
+      "type": "esriFieldTypeString",
+      "alias": "CLOSETIMEMONDAY",
+      "length": 255
+    },
+    {
+      "name": "CLOSETIMETUESDAY",
+      "type": "esriFieldTypeString",
+      "alias": "CLOSETIMETUESDAY",
+      "length": 255
+    },
+    {
+      "name": "CLOSETIMEWEDNESDAY",
+      "type": "esriFieldTypeString",
+      "alias": "CLOSETIMEWEDNESDAY",
+      "length": 255
+    },
+    {
+      "name": "CLOSETIMETHURSDAY",
+      "type": "esriFieldTypeString",
+      "alias": "CLOSETIMETHURSDAY",
+      "length": 255
+    },
+    {
+      "name": "CLOSETIMEFRIDAY",
+      "type": "esriFieldTypeString",
+      "alias": "CLOSETIMEFRIDAY",
+      "length": 255
+    },
+    {
+      "name": "CLOSETIMESATURDAY",
+      "type": "esriFieldTypeString",
+      "alias": "CLOSETIMESATURDAY",
+      "length": 255
+    },
+    {
+      "name": "PROGRAMURL",
+      "type": "esriFieldTypeString",
+      "alias": "PROGRAMURL",
+      "length": 255
+    },
+    {
+      "name": "LOCATIONURL",
+      "type": "esriFieldTypeString",
+      "alias": "LOCATIONURL",
+      "length": 255
+    },
+    {
+      "name": "NOTES",
+      "type": "esriFieldTypeString",
+      "alias": "NOTES",
+      "length": 255
+    }
+  ],
+  "features": [
+    {
+      "attributes": {
+        "OBJECTID": 1,
+        "FACILITYNAME": "BEAR CANYON SENIOR CENTER",
+        "ADDRESS": "4645 PITT ST NE",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "y",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": "08:00",
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": "17:00",
+        "CLOSETIMETUESDAY": "17:00",
+        "CLOSETIMEWEDNESDAY": "19:00",
+        "CLOSETIMETHURSDAY": "17:00",
+        "CLOSETIMEFRIDAY": "17:00",
+        "CLOSETIMESATURDAY": "17:00",
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/bear-canyon-senior-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11858946.8686,
+        "y": 4182095.6094999984
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 2,
+        "FACILITYNAME": "HIGHLAND SENIOR CENTER",
+        "ADDRESS": "131 MONROE ST NE",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "y",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": "10:00",
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": "17:00",
+        "CLOSETIMETUESDAY": "17:00",
+        "CLOSETIMEWEDNESDAY": "17:00",
+        "CLOSETIMETHURSDAY": "17:00",
+        "CLOSETIMEFRIDAY": "17:00",
+        "CLOSETIMESATURDAY": "16:00",
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/highland-senior-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11865780.307300001,
+        "y": 4174733.9692000002
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 3,
+        "FACILITYNAME": "PALO DURO SENIOR CENTER",
+        "ADDRESS": "5221 PALO DURO AV NE",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "y",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": "09:00",
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": "17:00",
+        "CLOSETIMETUESDAY": "17:00",
+        "CLOSETIMEWEDNESDAY": "19:00",
+        "CLOSETIMETHURSDAY": "17:00",
+        "CLOSETIMEFRIDAY": "17:00",
+        "CLOSETIMESATURDAY": "13:00",
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/palo-duro-senior-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11864989.315200001,
+        "y": 4180852.6824999973
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 4,
+        "FACILITYNAME": "MANZANO MESA MULTIGEN CENTER",
+        "ADDRESS": "501 ELIZABETH ST SE",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "y",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": "09:00",
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": "21:00",
+        "CLOSETIMETUESDAY": "21:00",
+        "CLOSETIMEWEDNESDAY": "21:00",
+        "CLOSETIMETHURSDAY": "21:00",
+        "CLOSETIMEFRIDAY": "21:00",
+        "CLOSETIMESATURDAY": "15:00",
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/manzano-mesa-multigenerational-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11858359.7349,
+        "y": 4172925.5002999976
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 5,
+        "FACILITYNAME": "BARELAS SENIOR CENTER",
+        "ADDRESS": "714 7TH ST SW",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "n",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": null,
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": "17:00",
+        "CLOSETIMETUESDAY": "17:00",
+        "CLOSETIMEWEDNESDAY": "17:00",
+        "CLOSETIMETHURSDAY": "17:00",
+        "CLOSETIMEFRIDAY": "17:00",
+        "CLOSETIMESATURDAY": null,
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/barelas-senior-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11872856.547899999,
+        "y": 4174640.9680000022
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 6,
+        "FACILITYNAME": "NORTH VALLEY SENIOR CENTER",
+        "ADDRESS": "3825 4TH ST NW",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "y",
+        "OPENTIMESUNDAY": "12:30",
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": null,
+        "CLOSETIMESUNDAY": "16:30",
+        "CLOSETIMEMONDAY": "17:00",
+        "CLOSETIMETUESDAY": "20:00",
+        "CLOSETIMEWEDNESDAY": "17:00",
+        "CLOSETIMETHURSDAY": "17:00",
+        "CLOSETIMEFRIDAY": "17:00",
+        "CLOSETIMESATURDAY": null,
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/north-valley-senior-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11871729.213,
+        "y": 4180528.6547000036
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 7,
+        "FACILITYNAME": "LOS VOLCANES SENIOR CENTER",
+        "ADDRESS": "6500 LOS VOLCANES RD NW",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "y",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": "09:00",
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": "17:00",
+        "CLOSETIMETUESDAY": "17:00",
+        "CLOSETIMEWEDNESDAY": "17:00",
+        "CLOSETIMETHURSDAY": "17:00",
+        "CLOSETIMEFRIDAY": "17:00",
+        "CLOSETIMESATURDAY": "13:00",
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/los-volcanes-senior-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11879288.485399999,
+        "y": 4176212.2998000011
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 8,
+        "FACILITYNAME": "NORTH DOMINGO BACA MULTGEN CENTER",
+        "ADDRESS": "7521 CARMEL AV NE",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "y",
+        "ISOPENMONDAY": "y",
+        "ISOPENTUESDAY": "y",
+        "ISOPENWEDNESDAY": "y",
+        "ISOPENTHURSDAY": "y",
+        "ISOPENFRIDAY": "y",
+        "ISOPENSATURDAY": "n",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": "08:00",
+        "OPENTIMETUESDAY": "08:00",
+        "OPENTIMEWEDNESDAY": "08:00",
+        "OPENTIMETHURSDAY": "08:00",
+        "OPENTIMEFRIDAY": "08:00",
+        "OPENTIMESATURDAY": "09:00",
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": "21:00",
+        "CLOSETIMETUESDAY": "20:00",
+        "CLOSETIMEWEDNESDAY": "21:00",
+        "CLOSETIMETHURSDAY": "21:00",
+        "CLOSETIMEFRIDAY": "21:00",
+        "CLOSETIMESATURDAY": "15:00",
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://www.cabq.gov/seniors/centers/north-domingo-baca-multigenerational-center",
+        "NOTES": null
+      },
+      "geometry": {
+        "x": -11862264.5349,
+        "y": 4188029.7668000013
+      }
+    },
+    {
+      "attributes": {
+        "OBJECTID": 9,
+        "FACILITYNAME": "Silver Horizons",
+        "ADDRESS": "3540 Pan American FWY NE",
+        "DROPOFFTYPE": "Permanent",
+        "PROGRAMNAME": "STOPHunger",
+        "FOODITEMSACCEPTED": "All",
+        "LOCATIONSTARTDATESTR": null,
+        "LOCATIONENDDATESTR": null,
+        "ISOPENSUNDAY": "n",
+        "ISOPENMONDAY": "n",
+        "ISOPENTUESDAY": "n",
+        "ISOPENWEDNESDAY": "n",
+        "ISOPENTHURSDAY": "n",
+        "ISOPENFRIDAY": "n",
+        "ISOPENSATURDAY": "n",
+        "OPENTIMESUNDAY": null,
+        "OPENTIMEMONDAY": null,
+        "OPENTIMETUESDAY": null,
+        "OPENTIMEWEDNESDAY": null,
+        "OPENTIMETHURSDAY": null,
+        "OPENTIMEFRIDAY": null,
+        "OPENTIMESATURDAY": null,
+        "CLOSETIMESUNDAY": null,
+        "CLOSETIMEMONDAY": null,
+        "CLOSETIMETUESDAY": null,
+        "CLOSETIMEWEDNESDAY": null,
+        "CLOSETIMETHURSDAY": null,
+        "CLOSETIMEFRIDAY": null,
+        "CLOSETIMESATURDAY": null,
+        "PROGRAMURL": "http://www.cabq.gov/seniors/stop-senior-hunger",
+        "LOCATIONURL": "http://silverhorizons.org/",
+        "NOTES": "By appointment only. Please call (505) 800-1400"
+      },
+      "geometry": {
+        "x": -11869101.839600001,
+        "y": 4180454.5913999975
+      }
+    }
+  ]
+}
