@@ -6,7 +6,7 @@
  * @throws \InvalidArgumentException if $address is not a string or insecure
  *
  **/
-function getLatLongByAddress ($organizationStreet, $organizationCity, $organizationState, $organizationZip) : \stdClass {
+function getLatLongByAddress ($organizationStreet, $organizationCity, $organizationState, $organizationZip) : object {
 	if(empty($organizationStreet) === true || (empty($organizationCity) === true) || (empty($organizationState) === true) || (empty($organizationZip) === true)) {
 		throw(new \InvalidArgumentException("address content is empty or insecure"));
 	}
@@ -48,6 +48,7 @@ function getLatLongByAddress ($organizationStreet, $organizationCity, $organizat
 		if(!empty($geocodeData) && $geocodeData->status != 'ZERO_RESULTS' && isset($geocodeData->results) && isset($geocodeData->results[0])) {
 			$coordinates['lat'] = $geocodeData->results[0]->geometry->location->lat;
 			$coordinates['lng'] = $geocodeData->results[0]->geometry->location->lng;
+
 		}
 
 		/*

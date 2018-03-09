@@ -68,7 +68,7 @@ try {
 		if(empty($requestObject->organizationHoursOpen) === true) {
 			throw(new \InvalidArgumentException("Operating hours not present", 405));
 		}
-		/**organization latitude
+		//organization latitude
 		if(empty($requestObject->organizationLatX) === true) {
 			throw(new \InvalidArgumentException("Organization latitude is not present", 405));
 		}
@@ -76,7 +76,6 @@ try {
 		if(empty($requestObject->organizationLongY) === true) {
 			throw(new \InvalidArgumentException("Organization longitude is not present", 405));
 		}
-		 */
 		//organization name is required
 		if(empty($requestObject->organizationName) === true) {
 			throw(new \InvalidArgumentException("Organization name is not present", 405));
