@@ -9,28 +9,51 @@
 			<small id="formRequired" class="form-text text-danger">*Required fields</small>
 			<div class="form-group">
 				<label for="volunteerName">Name <span class="text-danger">*</span></label>
-				<input type="text" class="form-control" id="volunteerName" placeholder="Full name">
+				<input type="text" class="form-control" id="volunteerName" placeholder="Full name" formControlName="volunteerName">
+			</div>
+			<div class="alert alert-danger" *ngIf="volunteerSignUpForm.controls.volunteerName?.invalid && volunteerSignUpForm.controls.volunteerName?.touched">
+				<p *ngIf="volunteerSignUpForm.controls.volunteerName?.errors.maxlength">Volunteer name is too long</p>
+				<p *ngIf="volunteerSignUpForm.controls.volunteerName?.errors.required">Volunteer name is required</p>
 			</div>
 			<div class="form-group">
 				<label for="volunteerEmail">Email address <span class="text-danger">*</span></label>
-				<input type="email" class="form-control" id="volunteerEmail" aria-describedby="emailHelp" placeholder="Enter email">
+				<input type="email" class="form-control" id="volunteerEmail" aria-describedby="emailHelp" placeholder="Enter email" formControlName="volunteerEmail">
 				<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+			</div>
+			<div class="alert alert-danger" *ngIf="volunteerSignUpForm.controls.volunteerEmail?.invalid && volunteerSignUpForm.controls.volunteerEmail?.touched">
+				<p *ngIf="volunteerSignUpForm.controls.volunteerEmail?.errors.maxlength">Volunteer email is too long</p>
+				<p *ngIf="volunteerSignUpForm.controls.volunteerEmail?.errors.required">Volunteer email is required</p>
 			</div>
 			<div class="form-group">
 				<label for="volunteerPassword">Password <span class="text-danger">*</span></label>
-				<input type="password" class="form-control" id="volunteerPassword" placeholder="Password">
+				<input type="password" class="form-control" id="volunteerPassword" placeholder="Password" formControlName="volunteerPassword">
+			</div>
+			<div class="alert alert-danger" *ngIf="volunteerSignUpForm.controls.volunteerPassword?.invalid && volunteerSignUpForm.controls.volunteerPassword?.touched">
+				<p *ngIf="volunteerSignUpForm.controls.volunteerPassword?.errors.maxlength">Volunteer password is too long</p>
+				<p *ngIf="volunteerSignUpForm.controls.volunteerPassword?.errors.required">Volunteer password is required</p>
 			</div>
 			<div class="form-group">
 				<label for="volunteerPasswordConfirm">Confirm password <span class="text-danger">*</span></label>
-				<input type="password" class="form-control" id="volunteerPasswordConfirm" placeholder="Confirm password">
+				<input type="password" class="form-control" id="volunteerPasswordConfirm" placeholder="Confirm password" formControlName="volunteerPasswordConfirm">
+			</div>
+			<div class="alert alert-danger" *ngIf="volunteerSignUpForm.controls.volunteerPasswordConfirm?.invalid && volunteerSignUpForm.controls.volunteerPasswordConfirm?.touched">
+				<p *ngIf="volunteerSignUpForm.controls.volunteerPasswordConfirm?.errors.maxlength">Volunteer password is too long</p>
+				<p *ngIf="volunteerSignUpForm.controls.volunteerPasswordConfirm?.errors.required">Volunteer password is required</p>
 			</div>
 			<div class="form-group">
 				<label for="volunteerPhone">Phone number <span class="text-danger">*</span></label>
-				<input type="text" class="form-control" id="volunteerPhone" placeholder="xxx-xxx-xxxx">
+				<input type="text" class="form-control" id="volunteerPhone" placeholder="xxx-xxx-xxxx" formControlName="volunteerPhone">
+			</div>
+			<div class="alert alert-danger" *ngIf="volunteerSignUpForm.controls.volunteerPhone?.invalid && volunteerSignUpForm.controls.volunteerPhone?.touched">
+				<p *ngIf="volunteerSignUpForm.controls.volunteerPhone?.errors.maxlength">Volunteer phone number is too long</p>
+				<p *ngIf="volunteerSignUpForm.controls.volunteerPhone?.errors.required">Volunteer phone number is required</p>
 			</div>
 			<div class="form-group">
 				<label for="volunteerAvailability">Availability</label>
-				<textarea class="form-control" rows="3" id="volunteerAvailability" placeholder="Days/times available"></textarea>
+				<textarea class="form-control" rows="3" id="volunteerAvailability" placeholder="Days/times available" formControlName="volunteerAvailability"></textarea>
+			</div>
+			<div class="alert alert-danger" *ngIf="volunteerSignUpForm.controls.volunteerAvailability?.invalid && volunteerSignUpForm.controls.volunteerAvailability?.touched">
+				<p *ngIf="volunteerSignUpForm.controls.volunteerAvailability?.errors.maxlength">Text given exceeds our character limit</p>
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
