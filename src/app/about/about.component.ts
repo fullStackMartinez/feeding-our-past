@@ -4,7 +4,7 @@ import "rxjs/add/observable/from";
 import "rxjs/add/operator/switchMap";
 
 @Component({
-	template: require("./about.html")
+	template: require("./about.component.html")
 })
 
 export class AboutComponent {}

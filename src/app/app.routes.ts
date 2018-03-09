@@ -1,4 +1,5 @@
 ///<reference path="../../node_modules/@angular/common/http/src/interceptor.d.ts"/>
+import {AboutComponent} from "./about/about.component";
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuardService, AuthGuardService as AuthGuard} from "./shared/guards/auth.guard";
 import {AuthService} from "./shared/services/auth.service";
@@ -25,11 +26,12 @@ import {NavbarComponent} from "./shared/components/main-nav.component";
 
 
 
-export const allAppComponents = [HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignUpComponent];
+export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignUpComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
 	{path: "", component: HomeComponent},
+	{path: "about", component: AboutComponent},
 	{path: "organization", component: OrganizationComponent},
 	{path: "organization-sign-up", component: OrganizationSignUpComponent},
 	{path: "organization-sign-in", component: OrganizationSignInComponent},
