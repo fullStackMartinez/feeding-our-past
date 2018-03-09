@@ -38,7 +38,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Intro</h2>
-								<p class="card-text">Welcome to Feeding Our Past! We provide easy to use resources that help stop senior hunger in ABQ by connecting civic minded volunteers to community engagement partners who in turn serve food insecure seniors</p>
+								<p class="card-text">Welcome to Feeding Our Past! We provide an easy to use resource that helps stop senior hunger in ABQ by connecting civic minded volunteers to community engagement partners who in turn serve food insecure seniors</p>
 							</div>
 						</div>
 					</div>
@@ -46,8 +46,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">What we are doing</h2>
-								<p class="card-text">		<h1>Feeding Our Past: Executive Summary</h1>
-								<p> The website will allow volunteers and organizations to connect and help seniors seeking food assistance. </p>
+								<p class="card-text"><p>Our website will allow seniors to search for food resources,volunteers to find organizations looking for workers and organizations to post event notices to recruit volunteers.</p>
 							</div>
 						</div>
 					</div>
@@ -55,7 +54,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Why are we doing this</h2>
-								<p class="card-text">Why are we doing this content</p>
+								<p class="card-text">The Road Runner Food Bank of New Mexico succinctly outlines the need for "Feeding Our Past" stating, "Seniors have said to us one of the first expenses they cut from their monthly expenses is food...seniors, limiting their food intake can drastically alter their health and significantly impact their quality of life."</p>
 							</div>
 						</div>
 					</div>
@@ -63,7 +62,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Problem Solution Fit</h2>
-								<p class="card-text">Problem solution fit content</p>
+								<p class="card-text">There are dozens of community engagement partners working to solve senior hunger in Albuquerque. Almost </p>
 							</div>
 						</div>
 					</div>
@@ -71,7 +70,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Next Steps</h2>
-								<p class="card-text">Next steps content</p>
+								<p class="card-text">Deploy an active site, add a </p>
 							</div>
 						</div>
 					</div>
@@ -79,7 +78,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Challenges</h2>
-								<p class="card-text">Challenges content</p>
+								<p class="card-text">Grow the base of community engagement partners using the site. Additionally, we are seeking funding to cover basic hosting and business development expenses. We would love to partner with you. Contact Us!</p>
 							</div>
 						</div>
 					</div>
