@@ -4,7 +4,7 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
-require_once dirname(__DIR__, 3) . "/php/lib/geocode.php";
+require_once dirname(__DIR__, 3) . "/php/lib/google-maps.php";
 
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\FeedPast\Organization;
@@ -108,14 +108,14 @@ try {
 		$organizationActivationToken = bin2hex(random_bytes(16));
 
 		//call to getLatLongByAddress(returns an object)
-		$address = $requestObject->organizationAddressStreet . " " . $requestObject->organizationAddressCity . " " . $requestObject->organizationAddressState . " " . $requestObject->organizationAddressZip;
-		$address = getLatLongByAddress($address);
+		/*$address = $requestObject->organizationAddressStreet . " " . $requestObject->organizationAddressCity . " " . $requestObject->organizationAddressState . " " . $requestObject->organizationAddressZip;*/
+		$latLongCoordinates = getLatLongByAddress($requestObject->organizationAddressStreet, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressZip);
 		//var_dump($address);
 
 		 //add lat long to organization constructor (done)
 
 		//create the organization object and prepare it to be inserted into our database
-		$organization = new Organization(generateUuidV4(), $organizationActivationToken, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressStreet, $requestObject->organizationAddressZip, $requestObject->organizationDonationAccepted, $requestObject->organizationEmail, $hash, $requestObject->organizationHoursOpen, $address->lat, $address->long, $requestObject->organizationName, $requestObject->organizationPhone, $salt, $requestObject->organizationUrl);
+		$organization = new Organization(generateUuidV4(), $organizationActivationToken, $requestObject->organizationAddressCity, $requestObject->organizationAddressState, $requestObject->organizationAddressStreet, $requestObject->organizationAddressZip, $requestObject->organizationDonationAccepted, $requestObject->organizationEmail, $hash, $requestObject->organizationHoursOpen, $latLongCoordinates->lat, $latLongCoordinates->long, $requestObject->organizationName, $requestObject->organizationPhone, $salt, $requestObject->organizationUrl);
 
 		//insert the organization into the database
 		$organization->insert($pdo);

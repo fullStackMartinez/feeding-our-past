@@ -100,7 +100,7 @@ try {
 		}
 		//COMMENTED OUT UPDATE BY LOCATION PER BRIDGE SUGGESTION
 		//organization address city
-		/*if(empty($requestObject->organizationAddressCity) === true) {
+		if(empty($requestObject->organizationAddressCity) === true) {
 			throw(new \InvalidArgumentException("Sorry, there is no organization city address", 405));
 		}
 		//organization address state
@@ -114,7 +114,7 @@ try {
 		//organization address zip code
 		if(empty($requestObject->organizationAddressZip) === true) {
 			throw(new \InvalidArgumentException("Sorry, there is no organization zip code", 405));
-		}*/
+		}
 		//organization donation accepted
 		if(empty($requestObject->organizationDonationAccepted) === true) {
 			throw(new \InvalidArgumentException("sorry, we are not sure if donations are accepted", 405));
@@ -141,10 +141,10 @@ try {
 		}
 
 		//COMMENTED OUT LOCATION
-		/*$organization->setOrganizationAddressCity($requestObject->organizationAddressCity);
+		$organization->setOrganizationAddressCity($requestObject->organizationAddressCity);
 		$organization->setOrganizationAddressState($requestObject->organizationAddressState);
 		$organization->setOrganizationAddressStreet($requestObject->organizationAddressStreet);
-		$organization->setOrganizationAddressZip($requestObject->organizationAddressZip);*/
+		$organization->setOrganizationAddressZip($requestObject->organizationAddressZip);
 		$organization->setOrganizationDonationAccepted($requestObject->organizationDonationAccepted);
 		$organization->setOrganizationEmail($requestObject->organizationEmail);
 		$organization->setOrganizationHoursOpen($requestObject->organizationHoursOpen);
