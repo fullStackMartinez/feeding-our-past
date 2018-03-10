@@ -6,12 +6,20 @@
 			<!-- left column for new post form -->
 			<div class="col-lg-5">
 				<h3>Create a New Event Post</h3>
-				<form id="new-post" action="../../../public_html/api/post/index.php" method="post">
+				<form id="createPostForm" name="createPostForm" [formGroup]="createPostForm" (submit)="createPost();" class="form-horizontal" novalidate>
 					<small id="formRequired" class="form-text text-danger">*Required fields</small>
+
+					<!-- post title group -->
 					<div class="form-group">
 						<label for="postTitle">Event Title <span class="text-danger">*</span></label>
-						<input type="text" class="form-control" id="postTitle" placeholder="Title of event">
+						<input type="text" formControlName="postTitle" class="form-control" id="postTitle" placeholder="Title of event">
+						<div *ngIf="createPostForm.controls.postTitle?.invalid && createPostForm.controls.postTitle?.touched" class="alert alert-danger" role="alert">
+							<div *ngIf="createPostForm.controls.postTitle?.errors.required">Title is required.</div>
+							<div *ngIf="createPostForm.controls.postTitle?.errors.maxlength">Title is too long. {{createPostForm.controls.postTitle?.errors.maxlength.actualLength - createPostForm.controls.postTitle?.errors.maxlength.requiredLength}} too many characters.</div>
+						</div>
 					</div>
+
+					<!-- post start date group -->
 					<div class="form-group">
 						<label for="postStartDate">Event Start Date <span class="text-danger">*</span></label>
 						<input type="text" class="form-control" id="postStartDate" placeholder="Start date">
@@ -24,10 +32,10 @@
 						<label for="postContent">Event Description <span class="text-danger">*</span></label>
 						<textarea class="form-control" rows="10" id="postContent" placeholder="Description of event"></textarea>
 					</div>
-					<div class="form-group">
+<!--					<div class="form-group">
 						<label for="postImageUrl">Image?? </label>
 						<input type="text" class="form-control" id="postImageUrl" placeholder="URL for image??">
-					</div>
+					</div> -->
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 			</div>
