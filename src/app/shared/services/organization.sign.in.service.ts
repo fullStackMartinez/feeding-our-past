@@ -17,7 +17,7 @@ export class OrganizationSignInService {
 
 	//perform the post to initiate sign in
 	postOrganizationSignIn(organizationSignIn:OrganizationSignIn) : Observable<Status> {
-		return(this.http.post<Status>(this.organizationSignOutUrl, organizationSignIn));
+		return(this.http.post<Status>(this.organizationSignInUrl, organizationSignIn));
 	}
 
 	organizationSignOut() : Observable<Status> {

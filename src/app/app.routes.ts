@@ -1,29 +1,35 @@
 ///<reference path="../../node_modules/@angular/common/http/src/interceptor.d.ts"/>
-import {AboutComponent} from "./about/about.component";
-import {RouterModule, Routes} from "@angular/router";
+
+// services
 import {AuthGuardService, AuthGuardService as AuthGuard} from "./shared/guards/auth.guard";
 import {AuthService} from "./shared/services/auth.service";
 import {CookieService} from "ng2-cookies";
 import {FavoriteService} from "./shared/services/favorite.service";
-import {HomeComponent} from "./home/home.component";
-import {OrganizationComponent} from "./organization/organization.component";
 import {OrganizationService} from "./shared/services/organization.service";
-import {OrganizationSignInComponent} from "./organization-sign-in/organization.sign.in.component"
 import {OrganizationSignInService} from "./shared/services/organization.sign.in.service";
-import {OrganizationSignUpComponent} from "./organization-sign-up/organization.sign.up.component";
 import {OrganizationSignUpService} from "./shared/services/organization.sign.up.service";
 import {PostService} from "./shared/services/post.service";
-import {SeniorComponent} from "./senior/senior.component";
 import {SessionService} from "./shared/services/session.service";
-import {VolunteerComponent} from "./volunteer/volunteer.component";
 import {VolunteerService} from "./shared/services/volunteer.service";
 import {VolunteerSignInService} from "./shared/services/volunteer.sign.in.service";
-import {VolunteerSignUpComponent} from "./volunteer-sign-up/volunteer.sign.up.component";
 import {VolunteerSignUpService} from "./shared/services/volunteer.sign.up.service";
+
+// components
+import {AboutComponent} from "./about/about.component";
+import {HomeComponent} from "./home/home.component";
+import {NavbarComponent} from "./shared/components/main-nav.component";
+import {OrganizationComponent} from "./organization/organization.component";
+import {OrganizationSignInComponent} from "./organization-sign-in/organization.sign.in.component"
+import {OrganizationSignUpComponent} from "./organization-sign-up/organization.sign.up.component";
+import {SeniorComponent} from "./senior/senior.component";
+import {VolunteerComponent} from "./volunteer/volunteer.component";
+import {VolunteerSignInComponent} from "./volunteer-sign-in/volunteer.sign.in.component";
+import {VolunteerSignUpComponent} from "./volunteer-sign-up/volunteer.sign.up.component";
+
+
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
-import {NavbarComponent} from "./shared/components/main-nav.component";
-
+import {RouterModule, Routes} from "@angular/router";
 
 
 export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignUpComponent];

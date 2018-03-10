@@ -42,7 +42,7 @@
 					<!-- post content group -->
 					<div class="form-group">
 						<label for="postContent">Event Description <span class="text-danger">*</span></label>
-						<textarea class="form-control" rows="10" id="postContent" formControl="postContent" placeholder="Description of event"></textarea>
+						<textarea class="form-control" rows="10" id="postContent" formControlName="postContent" placeholder="Description of event"></textarea>
 						<div *ngIf="createPostForm.controls.postContent?.invalid && createPostForm.controls.postContent?.touched" class="alert alert-danger" role="alert">
 							<div *ngIf="createPostForm.controls.postContent?.errors.required">Content is required.</div>
 							<div *ngIf="createPostForm.controls.postContent?.errors.maxlength">Content is too long. {{createPostForm.controls.postContent?.errors.maxlength.actualLength - createPostForm.controls.postContent?.errors.maxlength.requiredLength}} too many characters.</div>
