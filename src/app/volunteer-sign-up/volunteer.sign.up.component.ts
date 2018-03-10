@@ -12,7 +12,7 @@ import {Organization} from "../shared/classes/organization";
 declare const $: any;
 
 @Component({
-	//templateUrl: "./sign-up.html",
+
 	template: require("./volunteer.sign.up.component.html"),
 	selector: "volunteer-sign-up"
 })

@@ -40,7 +40,6 @@ export class VolunteerComponent implements OnInit{
 	listPosts(): void {
 		this.postService.getPostByPostEndDateTime()
 			.subscribe(posts =>  {this.posts = posts;
-				console.log(this.posts)
 			});
 	}
 

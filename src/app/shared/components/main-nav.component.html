@@ -13,10 +13,12 @@
 					<a class="dropdown-toggle btn btn-outline-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fab fa-fort-awesome"></i>
 						Organization
 					</a>
+
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item btn btn-outline-light" routerLink="../organization-sign-in"><i class="fa fa-clipboard"></i>&nbsp;Sign In</a>
+
 						<div class="dropdown-divider"></div>
-						<button (click)="signOut();" class="btn btn-outline-light dropdown-item" href="#"><i class="fa fa-sign-out-alt"></i>&nbsp;Log Out</button>
+						<button (click)="signOut();" class="btn btn-outline-light dropdown-item" href="#" routerLink="../home"><i class="fa fa-sign-out-alt"></i>&nbsp;Sign Out</button>
 					</div>
 
 
@@ -26,8 +28,10 @@
 					<a class="dropdown-toggle btn btn-outline-light" href="#" id="navbar-Dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-child"></i>
 						Volunteer
 					</a>
+
 					<div class="dropdown-menu" aria-labelledby="navbar-Dropdown">
-						<a class="dropdown-item btn btn-outline-light" href="#"><i class="fa fa-clipboard"></i>&nbsp;Sign In</a>
+						<a class="dropdown-item btn btn-outline-light" href="#" routerLink="../organization-sign-in"><i class="fa fa-clipboard"></i>&nbsp;Sign In</a>
+
 						<div class="dropdown-divider"></div>
 						<button (click)="signOut();" class="btn btn-outline-light dropdown-item" href="#"><i class="fa fa-sign-out-alt"></i>&nbsp;Sign Out</button>
 					</div>

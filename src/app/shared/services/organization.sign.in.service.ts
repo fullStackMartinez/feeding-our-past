@@ -20,7 +20,7 @@ export class OrganizationSignInService {
 		return(this.http.post<Status>(this.organizationSignInUrl, organizationSignIn));
 	}
 
-	organizationSignOut() : Observable<Status> {
+	SignOut() : Observable<Status> {
 		return(this.http.get<Status>(this.organizationSignOutUrl));
 	}
 

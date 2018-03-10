@@ -20,7 +20,7 @@ export class VolunteerSignInService {
 		return(this.http.post<Status>(this.volunteerSignInUrl, volunteerSignIn));
 	}
 
-	volunteerSignOut() : Observable<Status> {
+	SignOut() : Observable<Status> {
 		return(this.http.get<Status>(this.volunteerSignOutUrl));
 	}
 
