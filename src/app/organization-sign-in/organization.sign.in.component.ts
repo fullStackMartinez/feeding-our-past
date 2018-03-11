@@ -46,7 +46,7 @@ organizationSignIn() : void {
 			this.organizationSignInForm.reset();
 			this.router.navigate(["organization"]);
 			location.reload();
-			console.log("signin successful");
+			console.log("sign in successful");
 		} else {
 			console.log("failed login");
 		}
@@ -56,6 +56,6 @@ organizationSignIn() : void {
 signOut()
 :
 void {
-	this.organizationSignInService.organizationSignOut();
+	this.organizationSignInService.SignOut();
 }
 }
