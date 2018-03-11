@@ -38,7 +38,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Intro</h2>
-								<p class="card-text">Welcome to Feeding Our Past! We provide an easy to use resource that helps stop senior hunger in ABQ by connecting civic minded volunteers to community engagement partners who in turn serve food insecure seniors</p>
+								<p class="card-text">Welcome to Feeding Our Past! We provide an easy to use web-site that helps mitigate senior hunger in Albuquerque by connecting civic minded volunteers to community engagement partners who in turn serve Albuquerque's food insecure seniors</p>
 							</div>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">What we are doing</h2>
-								<p class="card-text"><p>Our website will allow seniors to search for food resources,volunteers to find organizations looking for workers and organizations to post event notices to recruit volunteers.</p>
+								<p class="card-text"><p>Our website allows seniors to search for local food resources, volunteers to find organizations looking for workers, and organizations to post event notices and recruit volunteers.</p>
 							</div>
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Why are we doing this</h2>
-								<p class="card-text">The Road Runner Food Bank of New Mexico succinctly outlines the need for "Feeding Our Past" stating, "Seniors have said to us one of the first expenses they cut from their monthly expenses is food...seniors, limiting their food intake can drastically alter their health and significantly impact their quality of life."</p>
+								<p class="card-text">According to the City of Albuquerque, The Road Runner Food Bank of New Mexico succinctly outlines the need for "Feeding Our Past" stating, "Seniors have said to us one of the first expenses they cut from their monthly expenses is food...seniors, limiting their food intake can drastically alter their health and significantly impact their quality of life." NM is number 2 nationally in terms of food insecurity and 2 worst rate of poeverty. 5.4M  </p>
 							</div>
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Problem Solution Fit</h2>
-								<p class="card-text">There are dozens of community engagement partners working to solve senior hunger in Albuquerque. Almost </p>
+								<p class="card-text">There are dozens of community engagement partners working to solve senior hunger in Albuquerque. Our goal is to tie the technology used to each of these Name  Almost all of these  </p>
 							</div>
 						</div>
 					</div>
