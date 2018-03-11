@@ -13,6 +13,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/switchMap";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
 	template: require("./volunteer.component.html")
@@ -26,7 +27,7 @@ export class VolunteerComponent implements OnInit{
 
 	constructor(
 		private volunteerService: VolunteerService,
-//		private jwtHelper : JwtHelperService,
+		private jwtHelper : JwtHelperService,
 		private postService: PostService,
 		private organizationService: OrganizationService
 	) {}
@@ -34,7 +35,7 @@ export class VolunteerComponent implements OnInit{
 	ngOnInit(): void {
 		this.listPosts();
 		this.listOrganizations();
-//		this.currentlySignedIn()
+		this.currentlySignedIn()
 	}
 
 	listPosts(): void {
@@ -47,10 +48,10 @@ export class VolunteerComponent implements OnInit{
 
 	}
 
-/*	currentlySignedIn() : void {
+	currentlySignedIn() : void {
 
 		const decodedJwt = this.jwtHelper.decodeToken(localStorage.getItem('jwt-token'));
 		this.volunteerService.getVolunteer(decodedJwt.auth.volunteerId)
 			.subscribe(volunteer => this.volunteer = volunteer)
-	}*/
+	}
 }

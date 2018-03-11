@@ -12,6 +12,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/switchMap";
+import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Component({
 	template: require("./organization.component.html")
@@ -29,13 +30,13 @@ export class OrganizationComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private authService: AuthService,
 		private organizationService: OrganizationService,
-		//private jwtHelper : JwtHelperService,
+		private jwtHelper : JwtHelperService,
 		private postService: PostService) {
 	}
 
 	ngOnInit(): void {
 		this.listPosts();
-//		this.currentlySignedIn()
+		this.currentlySignedIn();
 
 		this.createPostForm = this.formBuilder.group({
 			postTitle: ["", [Validators.maxLength(255), Validators.required]],
@@ -52,23 +53,23 @@ export class OrganizationComponent implements OnInit {
 			});
 	}
 
-/*	getJwtProfileId() : any {
+	getJwtProfileId() : any {
 		if(this.authService.decodeJwt()) {
 			return this.authService.decodeJwt().auth.organizationId;
 		} else {
 			return false
 		}
-	}*/
+	}
 
-	createPost(): void {
+	createPost() {
 
-/*		// if no JWT organizationId, return false (must be logged in to post)
+		// if no JWT organizationId, return false (must be logged in to post)
 		if(!this.getJwtProfileId()) {
-			return false
+			return false;
 		}
 
 		// grab organizationId off of JWT
-		let newPostOrganizationId = this.getJwtProfileId(); */
+		let newPostOrganizationId = this.getJwtProfileId();
 
 		// create new post
 		let newPost = new Post(null, null, this.createPostForm.value.postContent, this.createPostForm.value.postEndDateTime, null, this.createPostForm.value.postStartDateTime, this.createPostForm.value.postTitle);
@@ -85,10 +86,10 @@ export class OrganizationComponent implements OnInit {
 			});
 	}
 
-	/*	currentlySignedIn() : void {
+	currentlySignedIn() : void {
 
 			const decodedJwt = this.jwtHelper.decodeToken(localStorage.getItem('jwt-token'));
 			this.organizationService.getOrganization(decodedJwt.auth.organizationId)
 				.subscribe(organization => this.organization = organization)
-		}*/
+		}
 }
