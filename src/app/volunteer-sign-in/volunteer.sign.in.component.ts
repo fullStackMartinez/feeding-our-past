@@ -18,7 +18,6 @@ declare const $: any;
 export class VolunteerSignInComponent implements OnInit {
 
 	volunteerSignInForm: FormGroup;
-	volunteer: VolunteerSignIn = new VolunteerSignIn(null, null);
 	status: Status = null;
 
 
@@ -38,7 +37,10 @@ export class VolunteerSignInComponent implements OnInit {
 	}
 
 	volunteerSignIn() : void {
-		this.volunteerSignInService.postVolunteerSignIn(this.volunteer)
+
+		let volunteer: VolunteerSignIn = new VolunteerSignIn(this.volunteerSignInForm.value.volunteerEmail, this.volunteerSignInForm.value.volunteerPassword);
+
+		this.volunteerSignInService.postVolunteerSignIn(volunteer)
 			.subscribe(status => {
 				this.status = status;
 				if(this.status.status === 200) {
