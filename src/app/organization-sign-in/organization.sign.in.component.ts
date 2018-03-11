@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SessionService} from "../shared/services/session.service";
 import {OrganizationSignInService} from "../shared/services/organization.sign.in.service";
 import {OrganizationSignIn} from "../shared/classes/organization.sign.in";
+import {OrganizationSignUp} from "../shared/classes/organization.sign.up";
 
 //enable jquery $ alias
 declare const $: any;
@@ -18,7 +19,6 @@ declare const $: any;
 export class OrganizationSignInComponent implements OnInit {
 
 	organizationSignInForm: FormGroup;
-	organization: OrganizationSignIn = new OrganizationSignIn(null, null);
 	status: Status = null;
 
 
@@ -38,7 +38,10 @@ export class OrganizationSignInComponent implements OnInit {
 	}
 
 organizationSignIn() : void {
-	this.organizationSignInService.postOrganizationSignIn(this.organization)
+
+	let organization: OrganizationSignIn = new OrganizationSignIn(this.organizationSignInForm.value.organizationEmail, this.organizationSignInForm.value.organizationPassword);
+
+	this.organizationSignInService.postOrganizationSignIn(organization)
 	.subscribe(status => {
 		this.status = status;
 		if(this.status.status === 200) {
