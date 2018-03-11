@@ -32,9 +32,10 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 import {RouterModule, Routes} from "@angular/router";
 import {APP_BASE_HREF} from "@angular/common";
+import {FooterComponent} from "./shared/components/footer.component";
 
 
-export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignInComponent, VolunteerSignUpComponent];
+export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignInComponent, VolunteerSignUpComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}

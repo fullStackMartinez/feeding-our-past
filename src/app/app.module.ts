@@ -8,6 +8,7 @@ import {JwtModule} from "@auth0/angular-jwt";
 import {NguiMapModule} from "@ngui/map";
 
 
+
 const moduleDeclarations = [AppComponent];
 
 //configure the parameters fot the JwtModule
