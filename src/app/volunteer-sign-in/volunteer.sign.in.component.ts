@@ -56,6 +56,6 @@ export class VolunteerSignInComponent implements OnInit {
 	signOut()
 	:
 	void {
-		this.volunteerSignInService.volunteerSignOut();
+		this.volunteerSignInService.SignOut();
 	}
 }

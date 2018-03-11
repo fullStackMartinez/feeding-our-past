@@ -30,6 +30,7 @@ import {VolunteerSignUpComponent} from "./volunteer-sign-up/volunteer.sign.up.co
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 import {RouterModule, Routes} from "@angular/router";
+import {APP_BASE_HREF} from "@angular/common";
 
 
 export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignUpComponent];
@@ -62,6 +63,7 @@ const services: any[] = [
 ];
 
 const providers : any[] = [
+	{provide: APP_BASE_HREF, useValue: window["_base_href"]},
 	{provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true}
 ];
 

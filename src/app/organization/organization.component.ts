@@ -21,7 +21,7 @@ export class OrganizationComponent implements OnInit {
 
 	createPostForm: FormGroup;
 	posts: PostAuthor[] = [];
-	newpost: Post[] = []
+	newpost: Post[] = [];
 	organization: Organization = new Organization(null, null, null, null, null, null, null, null, null, null, null, null, null, null );
 	status: Status = null;
 
