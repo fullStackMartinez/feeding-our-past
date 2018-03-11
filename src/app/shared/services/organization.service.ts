@@ -16,7 +16,7 @@ export class OrganizationService  {
 	private organizationUrl = "api/organization/";
 
 	//reach out to the organization profile API and delete the organization profile in question
-	deleteOrganization(id : number) : Observable<Status> {
+	deleteOrganization(id : string) : Observable<Status> {
 		return(this.http.delete<Status>(this.organizationUrl + id));
 	}
 
@@ -26,14 +26,14 @@ export class OrganizationService  {
 	}
 
 	// call to the Organization Profile API and get a Organization Profile object by its id
-	getOrganization(id: number) : Observable<Organization> {
+	getOrganization(id: string) : Observable<Organization> {
 		return(this.http.get<Organization>(this.organizationUrl + id));
 
 	}
 
 	//call to the organization profile API and grab the corresponding organization profile by its distance
-	getOrganizationByDistance(organizationDistance: number) :Observable<Organization[]> {
-		return(this.http.get<Organization[]>(this.organizationUrl + "?organizationDistance=" + organizationDistance));
+	getOrganizationByDistance(organizationDistance: number, userLatX: number, userLongY: number) :Observable<Organization[]> {
+		return(this.http.get<Organization[]>(this.organizationUrl + "?distance=" + organizationDistance + "&userLatX=" + userLatX + "&userLongY=" + userLongY));
 	}
 
 	//call to the organization profile API and grab the corresponding organization profile by its email

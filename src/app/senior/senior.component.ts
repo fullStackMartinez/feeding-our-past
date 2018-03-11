@@ -9,6 +9,8 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/switchMap";
+import {LocationService} from "../shared/services/location.service";
+import {Point} from "../shared/classes/point";
 
 @Component({
 	template: require("./senior.component.html")
@@ -16,27 +18,30 @@ import "rxjs/add/operator/switchMap";
 
 export class SeniorComponent implements OnInit {
 	organizations: Organization [];
+	organization: Organization;
 	status: Status = null;
 
 	constructor(
 		private organizationService: OrganizationService,
-					//		private jwtHelper : JwtHelperService,
-) {
+		private locationService: LocationService
+	) {
 	}
 
 	ngOnInit(): void {
 		this.listOrganizations();
-//		this.currentlySignedIn()
 	}
 
 	listOrganizations(): void {
-		//TO DO: figure out how to list all organizations
+		let location = this.locationService.getCurrentPosition();
+		this.organizationService.getOrganizationByDistance(25, location.lat, location.lng)
+			.subscribe(organizations=>{
+			this.organizations = organizations;
+			console.log(this.organization);
+		})
 	}
 
-	/*	currentlySignedIn() : void {
-
-			const decodedJwt = this.jwtHelper.decodeToken(localStorage.getItem('jwt-token'));
-			this.organizationService.getOrganization(decodedJwt.auth.organizationId)
-				.subscribe(organization => this.organization = organization)
-		}*/
+	extractPoints(organization:Organization) {
+		let point = new Point(organization.organizationLongY, organization.organizationLatX);
+		console.log(point);
+	}
 }

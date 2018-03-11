@@ -908,6 +908,9 @@ class Organization implements \JsonSerializable {
 
 		$fields["organizationId"] = $this->organizationId->toString();
 
+		unset($fields["organizationActivationToken"]);
+		unset($fields["organizationHash"]);
+		unset($fields["organizationSalt"]);
 		//format the date so that the front end can consume it
 		return ($fields);
 	}

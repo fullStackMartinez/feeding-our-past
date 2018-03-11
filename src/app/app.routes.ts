@@ -5,6 +5,7 @@ import {AuthGuardService, AuthGuardService as AuthGuard} from "./shared/guards/a
 import {AuthService} from "./shared/services/auth.service";
 import {CookieService} from "ng2-cookies";
 import {FavoriteService} from "./shared/services/favorite.service";
+import {LocationService} from "./shared/services/location.service";
 import {OrganizationService} from "./shared/services/organization.service";
 import {OrganizationSignInService} from "./shared/services/organization.sign.in.service";
 import {OrganizationSignUpService} from "./shared/services/organization.sign.up.service";
@@ -33,7 +34,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {APP_BASE_HREF} from "@angular/common";
 
 
-export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignUpComponent];
+export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent,OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignInComponent, VolunteerSignUpComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}
@@ -44,6 +45,7 @@ export const routes: Routes = [
 	{path: "organization-sign-in", component: OrganizationSignInComponent},
 	{path: "senior", component: SeniorComponent},
 	{path: "volunteer", component: VolunteerComponent},
+	{path: "volunteer-sign-in", component: VolunteerSignInComponent},
 	{path: "volunteer-sign-up", component: VolunteerSignUpComponent}
 ];
 
@@ -52,6 +54,7 @@ const services: any[] = [
 	AuthGuardService,
 	CookieService,
 	FavoriteService,
+	LocationService,
 	OrganizationService,
 	OrganizationSignInService,
 	OrganizationSignUpService,

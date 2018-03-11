@@ -61,8 +61,8 @@ try {
 			if($organization !== null) {
 				$reply->data = $organization;
 			}
-		} else if(empty($distance) === false || (empty($userLatX) === false) || (empty($userLongY) === false)) {
-			$organization = Organization::getOrganizationByDistance($pdo, $distance, $userLatX, $userLongY);
+		} else if(empty($distance) === false && (empty($userLatX) === false) && (empty($userLongY) === false)) {
+			$organization = Organization::getOrganizationByDistance($pdo, $distance, $userLatX, $userLongY)->toArray();
 			if($organization !== null) {
 				$reply->data = $organization;
 			}

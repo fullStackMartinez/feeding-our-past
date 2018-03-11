@@ -12,7 +12,7 @@ export class Organization {
 		public organizationName: string,
 		public organizationPhone: string,
 		public organizationUrl: string,
-		public userLatX: number,
-		public userLongY: number
+		public organizationLatX: number,
+		public organizationLongY: number
 	) {}
 }

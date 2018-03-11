@@ -4,14 +4,17 @@
 	<div class="container mt-5 pt-5">
 		<div class="row justify-content-center">
 			<div class="col-md-8">
-				MAP
+				<!-- this is the google map :P~ -->
+				<ngui-map zoom="13" center="Albuquerque, NM">
+					<marker *ngFor="let organization of organizations" [position]="[organization.organizationLatX, organization.organizationLongY]"></marker>
+				</ngui-map>
 			</div>
 
 			<!-- right column for list of organizations -->
 			<div class="col-md-4">
 				<h3>Organizations</h3>
 				<!-- begin organization item -->
-				<div *ngFor="let organization of organizations" class="card">
+				 <div *ngFor="let organization of organizations" class="card">
 					<div class="card-body">
 						<h4 class="card-title">{{ organization.organizationName }}</h4>
 						<p class="card-text">{{ organization.organizationAddressStreet }}</p>
