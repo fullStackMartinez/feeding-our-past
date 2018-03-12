@@ -3,10 +3,12 @@
 	<div class="container mt-5 pt-5">
 		<div class="row justify-content-center">
 			<!-- left column for list of events -->
-			<div class="col-md-6">
+			<div class="col-lg-6">
+				<div class="row mb-2">
 				<h3>Upcoming Events</h3>
+				</div>
 				<!-- begin post item -->
-				<div *ngFor="let post of posts" class="card">
+				<div *ngFor="let post of posts" class="card mb-4">
 					<div class="card-body">
 						<h4 class="card-title">{{ post.postTitle }}</h4>
 						<p class="card-text">{{ post.postContent }}</p>
@@ -31,10 +33,12 @@
 			<div class="col-lg-1"></div>
 
 			<!-- right column for list of organizations -->
-			<div class="col-md-5">
+			<div class="col-lg-5">
+				<div class="row mb-2">
 				<h3>Organizations</h3>
+				</div>
 				<!-- begin organization item -->
-				<div *ngFor="let organization of organizations" class="card">
+				<div *ngFor="let organization of organizations" class="card mb-4">
 					<div class="card-body">
 						<h4 class="card-title">{{ organization.organizationName }}</h4>
 						<p class="card-text">{{ organization.organizationAddressStreet }}<br>
