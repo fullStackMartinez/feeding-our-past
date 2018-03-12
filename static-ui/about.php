@@ -16,7 +16,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">What we are doing</h2>
-								<p class="card-text"><p>Our website allows food insecure seniors to search for local food resources via a user friendly, mobile ready, google map enabled, UI/UX built on HTML, CSS, and Bootstrap. Organizations serving seniors can create an account, sign into their account, as well as post events and recruit volunteers. Volunteers can create and sign into an account as well as favorite posts they like. A PHP fronted SQL database houses the organization and volunteer information while Angular makes the site truly dynamic.
+								<p class="card-text"><p>Our website allows food insecure seniors to search for local food resources via a mobile ready, google map enabled, user friendly UI/UX built on HTML, and Bootstrap. Organizations serving seniors can create an account, sign into their account, as well as post events and recruit volunteers. Volunteers can create and sign into an account as well as favorite posts they like. A PHP fronted secure SQL database houses the organization and volunteer information while Angular makes the site truly dynamic.
 								</p>
 							</div>
 						</div>
@@ -41,7 +41,7 @@
 						<div class="card mb-4">
 							<div class="card-body text-center">
 								<h2 class="card-title">Next Steps</h2>
-								<p class="card-text">We have covered a lot of ground, in the last 6 weeks. Next we would like to deploy an active site, grow our community engagement partner participation, and create an a matching application. Ultimatly, we would like to formalize our business structure, create a growth based business plan, and penetrate major SouthWest MSA markets.</p>
+								<p class="card-text">We have covered a lot of ground, in the last 6 weeks. Next, we would like to deploy an active site, grow our community engagement partner participation, and create an a matching application. Ultimately, we would like to formalize our business structure, create a growth based business plan, and penetrate major Southwest MSA markets.</p>
 							</div>
 						</div>
 					</div>
