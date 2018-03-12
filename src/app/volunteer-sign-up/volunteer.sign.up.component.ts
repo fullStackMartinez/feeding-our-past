@@ -5,7 +5,7 @@ import {Status} from "../shared/classes/status";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {VolunteerSignUp} from "../shared/classes/volunteer.sign.up";
 import {VolunteerSignUpService} from "../shared/services/volunteer.sign.up.service";
-import {Organization} from "../shared/classes/organization";
+import {Volunteer} from "../shared/classes/volunteer";
 
 
 //enable jquery $ alias
