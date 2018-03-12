@@ -33,8 +33,8 @@ export class NavbarComponent /*implements OnInit*/ {
 
 
 	signOut() : void {
-		this.volunteerSignInService.SignOut()
-		this.organizationSignInService.SignOut()
+		this.volunteerSignInService.getSignOut()
+//		this.organizationSignInService.SignOut()
 
 			.subscribe(status => {
 				this.status = status;
