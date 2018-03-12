@@ -56,9 +56,7 @@ organizationSignIn() : void {
 	});
 }
 
-signOut()
-:
-void {
+signOut() : void {
 	this.organizationSignInService.SignOut();
 }
 }
