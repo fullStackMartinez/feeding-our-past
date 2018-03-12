@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
 	listPosts(): void {
 		this.postService.getPostByPostEndDateTime()
-			.subscribe(posts =>  {this.posts = posts
+			.subscribe(posts =>  {this.posts = posts;
 			console.log(this.posts)
 			});
 	}

@@ -17,6 +17,7 @@ import {VolunteerSignUpService} from "./shared/services/volunteer.sign.up.servic
 
 // components
 import {AboutComponent} from "./about/about.component";
+import {FooterComponent} from "./shared/components/footer.component";
 import {HomeComponent} from "./home/home.component";
 import {NavbarComponent} from "./shared/components/main-nav.component";
 import {OrganizationComponent} from "./organization/organization.component";
@@ -27,15 +28,14 @@ import {VolunteerComponent} from "./volunteer/volunteer.component";
 import {VolunteerSignInComponent} from "./volunteer-sign-in/volunteer.sign.in.component";
 import {VolunteerSignUpComponent} from "./volunteer-sign-up/volunteer.sign.up.component";
 
-
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep.dive.interceptor";
 import {RouterModule, Routes} from "@angular/router";
 import {APP_BASE_HREF} from "@angular/common";
-import {FooterComponent} from "./shared/components/footer.component";
 
 
-export const allAppComponents = [AboutComponent, HomeComponent,NavbarComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent,VolunteerComponent, VolunteerSignInComponent, VolunteerSignUpComponent];
+
+export const allAppComponents = [AboutComponent, FooterComponent, HomeComponent, NavbarComponent, OrganizationComponent, OrganizationSignInComponent, OrganizationSignUpComponent, SeniorComponent, VolunteerComponent, VolunteerSignInComponent, VolunteerSignUpComponent];
 
 export const routes: Routes = [
 	//{path: "here", component : yourComponent}

@@ -17,9 +17,8 @@
 				 <div *ngFor="let organization of organizations" class="card">
 					<div class="card-body">
 						<h4 class="card-title">{{ organization.organizationName }}</h4>
-						<p class="card-text">{{ organization.organizationAddressStreet }}</p>
-						<p class="card-text">{{ organization.organizationAddressCity }}</p>
-						<p class="card-text">{{ organization.organizationAddressZip }}</p>
+						<p class="card-text">{{ organization.organizationAddressStreet }}<br>
+						{{ organization.organizationAddressCity }}, {{organization.organizationAddressState}}  {{organization.organizationAddressZip }}</p>
 						<p class="card-text">{{ organization.organizationPhone }}</p>
 						<p class="card-text">Hours Open: {{ organization.organizationHoursOpen }}</p>
 						<p class="card-text">Donations Accepted: {{ organization.organizationDonationAccepted }}</p>

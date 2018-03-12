@@ -1,6 +1,5 @@
 import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-//import {JwtHelperService} from "@auth0/angular-jwt";
 import {Status} from "../shared/classes/status";
 import {Organization} from "../shared/classes/organization";
 import {OrganizationService} from "../shared/services/organization.service";
