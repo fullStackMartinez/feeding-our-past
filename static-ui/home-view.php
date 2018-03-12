@@ -9,7 +9,7 @@
 	<body>
 		<?php require_once("header.php");?>
 		<div class="container bg-info">
-			<div class="row" style="padding-top:  150px">
+			<div class="row" style="padding-top: 50px">
 				<div class="col-md-4">
 					<div class="card mb-4">
 						<div class="card-body bg-white">
