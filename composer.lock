@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cloudinary/cloudinary_php.git",
-                "reference": "3966a0162101b36baea612684682a6d1eb2fc01f"
+                "reference": "3f76261e342de120c20355df9e61370a1434cdfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/3966a0162101b36baea612684682a6d1eb2fc01f",
-                "reference": "3966a0162101b36baea612684682a6d1eb2fc01f",
+                "url": "https://api.github.com/repos/cloudinary/cloudinary_php/zipball/3f76261e342de120c20355df9e61370a1434cdfd",
+                "reference": "3f76261e342de120c20355df9e61370a1434cdfd",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "image management",
                 "sdk"
             ],
-            "time": "2018-03-01T15:59:04+00:00"
+            "time": "2018-03-12T15:33:59+00:00"
         },
         {
             "name": "doctrine/instantiator",
