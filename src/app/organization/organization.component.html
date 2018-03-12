@@ -21,7 +21,7 @@
 					<!-- post start date group -->
 					<div class="form-group">
 						<label for="postStartDateTime">Event Start Date <span class="text-danger">*</span></label>
-						<input type="text" formControlName="postStartDateTime" class="form-control" id="postStartDateTime" placeholder="Start date">
+						<input type="datetime-local" formControlName="postStartDateTime" class="form-control" id="postStartDateTime" placeholder="Start date">
 						<div *ngIf="createPostForm.controls.postStartDateTime?.invalid && createPostForm.controls.postStartDateTime?.touched" class="alert alert-danger" role="alert">
 							<div *ngIf="createPostForm.controls.postStartDateTime?.errors.required">Start Date is required.</div>
 							<div *ngIf="createPostForm.controls.postStartDateTime?.errors.maxlength">Start Date is too long. {{createPostForm.controls.postStartDateTime?.errors.maxlength.actualLength - createPostForm.controls.postStartDateTime?.errors.maxlength.requiredLength}} too many characters.</div>
@@ -31,7 +31,7 @@
 					<!-- post end date group -->
 					<div class="form-group">
 						<label for="postEndDateTime">Event End Date <span class="text-danger">*</span></label>
-						<input type="text" formControlName="postEndDateTime" class="form-control" id="postEndDateTime" placeholder="End date">
+						<input type="datetime-local" formControlName="postEndDateTime" class="form-control" id="postEndDateTime" placeholder="End date">
 						<div *ngIf="createPostForm.controls.postEndDateTime?.invalid && createPostForm.controls.postEndDateTime?.touched" class="alert alert-danger" role="alert">
 							<div *ngIf="createPostForm.controls.postEndDateTime?.errors.required">End Date is required.</div>
 							<div *ngIf="createPostForm.controls.postEndDateTime?.errors.maxlength">End Date is too long. {{createPostForm.controls.postEndDateTime?.errors.maxlength.actualLength - createPostForm.controls.postEndDateTime?.errors.maxlength.requiredLength}} too many characters.</div>
@@ -65,10 +65,10 @@
 			<div class="col-lg-1"></div>
 
 			<!-- right column for event posts -->
-			<div class="col-md-6 mt-5">
+			<div class="col-lg-6 mt-5">
 				<h2>Upcoming Events</h2>
 				<!-- begin post item -->
-				<div *ngFor="let post of posts" class="card">
+				<div *ngFor="let post of posts" class="card mb-4">
 					<div class="card-body">
 						<h4 class="card-title">{{ post.postTitle }}</h4>
 						<p class="card-text">{{ post.postContent }}</p>

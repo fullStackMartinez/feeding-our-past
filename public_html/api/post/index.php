@@ -95,8 +95,16 @@ try {
 		if(empty($requestObject->postTitle) === true) {
 			throw (new \InvalidArgumentException("No Post Title", 405));
 		}
-		$formatPostEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
-		$formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
+
+		//$formatPostEndDateTime = date("Y-m-d H:i:s", $requestObject->postEndDateTime/1000);
+		//$formatPostStartDateTime = date("Y-m-d H:i:s", $requestObject->postStartDateTime/1000);
+
+		var_dump($requestObject);
+		$secondsEnd = $requestObject->postEndDateTime;
+		$formatPostEndDateTime= date("Y-m-d H:i:s", $secondsEnd/1000);
+		$secondsStart = $requestObject->postStartDateTime;
+		$formatPostStartDateTime= date("Y-m-d H:i:s", $secondsStart/1000);
+
 		if($method === "PUT") {
 			$post = Post::getPostByPostId($pdo, $id);
 			if($post === null) {

@@ -12,6 +12,7 @@ import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/switchMap";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {getTime} from 'date-fns';
 
 @Component({
 	template: require("./organization.component.html")
@@ -71,7 +72,7 @@ export class OrganizationComponent implements OnInit {
 		let newPostOrganizationId = this.getJwtProfileId();
 
 		// create new post
-		let newPost = new Post(null, null, this.createPostForm.value.postContent, this.createPostForm.value.postEndDateTime, null, this.createPostForm.value.postStartDateTime, this.createPostForm.value.postTitle);
+		let newPost = new Post(null, null, this.createPostForm.value.postContent, getTime(this.createPostForm.value.postEndDateTime), null, getTime(this.createPostForm.value.postStartDateTime), this.createPostForm.value.postTitle);
 
 		this.postService.createPost(newPost)
 			.subscribe(status => {
@@ -80,7 +81,7 @@ export class OrganizationComponent implements OnInit {
 					this.listPosts();
 					this.createPostForm.reset();
 				}else{
-					console.log('no valid login');
+					console.log('create post failed');
 				}
 			});
 	}

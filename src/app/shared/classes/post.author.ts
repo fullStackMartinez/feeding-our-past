@@ -3,9 +3,9 @@ export class PostAuthor {
 		public id: number,
 		public postOrganizationId: number,
 		public postContent: string,
-		public postEndDateTime: Date,
+		public postEndDateTime: any,
 		public postImageUrl: string,
-		public postStartDateTime: Date,
+		public postStartDateTime: any,
 		public postTitle: string,
 		public postWriter: string
 	) {}
