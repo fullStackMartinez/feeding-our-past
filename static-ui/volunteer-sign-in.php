@@ -20,7 +20,7 @@
 	<button type="submit" class="btn btn-primary">Log in</button>
 	</div>
 </form>
-<h6 class="text-center mt-2"><em>Not yet registered?</em>| <a href=""><strong>Sign Up</strong></a> </h6>
+<h6 class="text-center mt-2"><em>Not yet registered?</em> <a href=""><strong>Sign Up</strong></a> </h6>
 		</div>
 	</body>
 </html>
