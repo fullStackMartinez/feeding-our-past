@@ -2,33 +2,7 @@
 <section>
 	<div class="container mt-5 pt-5">
 		<div class="row justify-content-center">
-			<!-- left column for list of organizations -->
-			<div class="col-md-5">
-				<h3>Organizations</h3>
-				<!-- begin organization item -->
-				<div *ngFor="let organization of organizations" class="card">
-					<div class="card-body">
-						<h4 class="card-title">{{ organization.organizationName }}</h4>
-						<p class="card-text">{{ organization.organizationAddressStreet }}</p>
-						<p class="card-text">{{ organization.organizationAddressCity }}</p>
-						<p class="card-text">{{ organization.organizationAddressZip }}</p>
-						<p class="card-text">{{ organization.organizationPhone }}</p>
-						<p class="card-text">Hours Open: {{ organization.organizationHoursOpen }}</p>
-						<p class="card-text">Donations Accepted: {{ organization.organizationDonationAccepted }}</p>
-					</div>
-				</div>
-				<!-- end organization item -->
-				<!--				<div class="card mb-4">
-									<div class="card-body text-center">
-										<h2 class="card-title">Organization List</h2>
-										<p class="card-text">This card will have list of organizations.</p>
-									</div>
-								</div> -->
-			</div>
-
-			<!-- empty middle column for spacing -->
-			<div class="col-lg-1"></div>
-
+			<!-- left column for list of events -->
 			<div class="col-md-6">
 				<h3>Upcoming Events</h3>
 				<!-- begin post item -->
@@ -49,6 +23,25 @@
 							</label>
 						</div>
 						<!--<button class="post-favorite btn btn-sm btn-outline-success">Favorite</button> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- empty middle column for spacing -->
+			<div class="col-lg-1"></div>
+
+			<!-- right column for list of organizations -->
+			<div class="col-md-5">
+				<h3>Organizations</h3>
+				<!-- begin organization item -->
+				<div *ngFor="let organization of organizations" class="card">
+					<div class="card-body">
+						<h4 class="card-title">{{ organization.organizationName }}</h4>
+						<p class="card-text">{{ organization.organizationAddressStreet }}<br>
+							{{ organization.organizationAddressCity }}, {{organization.organizationAddressState}}  {{organization.organizationAddressZip }}</p>
+						<p class="card-text">{{ organization.organizationPhone }}</p>
+						<p class="card-text">Hours Open: {{ organization.organizationHoursOpen }}</p>
+						<p class="card-text">Donations Accepted: {{ organization.organizationDonationAccepted }}</p>
 					</div>
 				</div>
 			</div>

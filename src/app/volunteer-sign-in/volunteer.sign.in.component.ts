@@ -6,8 +6,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SessionService} from "../shared/services/session.service";
 import {VolunteerSignInService} from "../shared/services/volunteer.sign.in.service";
 import {VolunteerSignIn} from "../shared/classes/volunteer.sign.in";
-import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
 
 //enable jquery $ alias
 declare const $: any;

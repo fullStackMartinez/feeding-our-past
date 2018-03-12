@@ -11,11 +11,9 @@ import {OrganizationSignInService} from "../services/organization.sign.in.servic
 				selector: "navbar"
 })
 
-export class NavbarComponent /*implements OnInit*/ {
+export class NavbarComponent implements OnInit {
 			status: Status = null;
 			isAuthenticated: any = null;
-			//organizationUsername: string = null;
-			//organizationId: string = null;
 
 			constructor(
 				private organizationSignInService: OrganizationSignInService,
@@ -25,11 +23,9 @@ export class NavbarComponent /*implements OnInit*/ {
 				private router: Router
 			){}
 
-			/*ngOnInit(): void {
+			ngOnInit(): void {
 				this.isAuthenticated = this.authService.loggedIn();
-				this.organizationId  = this.getOrganizationId();
-				//this.organizationName = this.getOrganizationName();
-			}*/
+			}
 
 
 	signOut() : void {
@@ -51,20 +47,6 @@ export class NavbarComponent /*implements OnInit*/ {
 				}
 			});
 	}
-
-
-
-	/*	getOrganizationName() : string {
-	if(this.authService.decodeJwt()) {
-		return this.authService.decode.Jwt().auth.organizationName;
-	} else {
-			return ''
-	} */
-
-
-
-
-
 }
 
 

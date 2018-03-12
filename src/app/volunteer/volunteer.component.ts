@@ -14,6 +14,7 @@ import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 import "rxjs/add/operator/switchMap";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {LocationService} from "../shared/services/location.service";
 
 @Component({
 	template: require("./volunteer.component.html")
@@ -22,6 +23,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class VolunteerComponent implements OnInit{
 	posts: PostAuthor[] = [];
 	organizations: Organization[] = [];
+	organization: Organization;
 	volunteer: Volunteer = new Volunteer(null, null, null, null, null);
 	status: Status = null;
 
@@ -29,7 +31,8 @@ export class VolunteerComponent implements OnInit{
 		private volunteerService: VolunteerService,
 		private jwtHelper : JwtHelperService,
 		private postService: PostService,
-		private organizationService: OrganizationService
+		private organizationService: OrganizationService,
+		private locationService: LocationService
 	) {}
 
 	ngOnInit(): void {
@@ -45,7 +48,12 @@ export class VolunteerComponent implements OnInit{
 	}
 
 	listOrganizations(): void {
-
+		let location = this.locationService.getCurrentPosition();
+		this.organizationService.getOrganizationByDistance(25, location.lat, location.lng)
+			.subscribe(organizations=>{
+				this.organizations = organizations;
+				console.log(this.organization);
+			})
 	}
 
 	currentlySignedIn() : void {

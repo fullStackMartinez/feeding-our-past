@@ -35,7 +35,7 @@ export class OrganizationComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.listPosts();
-		this.currentlySignedIn();
+		//this.currentlySignedIn();
 
 		this.createPostForm = this.formBuilder.group({
 			postTitle: ["", [Validators.maxLength(255), Validators.required]],
@@ -64,7 +64,7 @@ export class OrganizationComponent implements OnInit {
 
 		// if no JWT organizationId, return false (must be logged in to post)
 		if(!this.getJwtProfileId()) {
-			return false;
+			console.log("I die");
 		}
 
 		// grab organizationId off of JWT

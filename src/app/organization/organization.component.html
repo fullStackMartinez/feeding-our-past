@@ -56,7 +56,7 @@
 							<div *ngIf="createPostForm.controls.postImageUrl?.errors.maxlength">Image URL is too long. {{createPostForm.controls.postImageUrl?.errors.maxlength.actualLength - createPostForm.controls.postImageUrl?.errors.maxlength.requiredLength}} too many characters.</div>
 						</div>
 					</div> -->
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" id="createPost" name="createPostForm" class="btn btn-primary">Submit</button>
 					<!-- <pre>{{ organizationSignUpForm.value | json }}</pre> -->
 				</form>
 			</div>
