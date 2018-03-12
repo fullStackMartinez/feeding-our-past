@@ -4,7 +4,6 @@
 		<section>
 			<div class="container mt-5 pt-5 mb-5 pb-5">
 				<div class="row justify-content-center">
-					<!-- left column for list of organizations or list of favorited posts -->
 					<div class="col-md-6">
 						<div class="card mb-4">
 							<div class="card-body text-center">
@@ -54,8 +53,9 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- right column for list of posts -->
+					<section>
+						<img src="./data/feedthekittywithdylan.jpeg" alt="Feeding Our Past Who Are We Group Picture" width=500 height=400>
+					</section>
 					<div class="col-md-6">
 						<div class="card mb-4">
 							<div class="card-body text-center">

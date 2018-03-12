@@ -8,7 +8,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm">
-				Feeding Our Past
+				FeedingOurPast@gmail.com https://github.com/fullStackMartinez/feeding-our-past
 			</div>
 			<div class="col-sm text-right">
 			</div>
