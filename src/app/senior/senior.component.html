@@ -1,9 +1,13 @@
 
 <section>
-	<div class="container mt-5 pt-5">
+	<div class="container mt-3 pt-5">
 		<div class="row justify-content-center">
-			<div class="col-lg-6">
-				<!-- this is the google map :P~ -->
+			<!-- left column for map -->
+			<div class="col-lg-6 mb-4">
+				<div class="row justify-content-center mb-2">
+					<h3>Find Locations Near You</h3>
+				</div>
+				<!-- this is the google map -->
 				<ngui-map zoom="11" center="Albuquerque, NM">
 					<marker *ngFor="let organization of organizations" [position]="[organization.organizationLatX, organization.organizationLongY]" (click)="clicked($event)" (click)="displayOrg(organization)"></marker>
 					<info-window id="org-details">
@@ -16,7 +20,12 @@
 					</info-window>
 				</ngui-map>
 			</div>
-			<div class="col-lg-4">
+
+			<!-- empty middle column for spacing -->
+			<div class="col-lg-1"></div>
+
+			<!-- right column for list of organizations -->
+			<div class="col-lg-5">
 				<div class="row justify-content-center mb-2">
 				<h3>Organizations</h3>
 				</div>
