@@ -2,6 +2,7 @@
 <html lang="en">
 	<?php require_once("head-utils.php"); ?>
 
+	<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 
 	<body>
 		<div >
