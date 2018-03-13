@@ -40,7 +40,7 @@ use Edu\Cnm\FeedPast\Organization;
 
 				//check to make sure the password and email field is not empty
 				if(empty($requestObject->organizationEmail) === true) {
-					throw(new \InvalidArgumentException("Wrong email address.", 401));
+					throw(new \InvalidArgumentException("Must enter an email address.", 401));
 				} else {
 					$organizationEmail = filter_var($requestObject->organizationEmail, FILTER_SANITIZE_EMAIL);
 				}
@@ -54,12 +54,12 @@ use Edu\Cnm\FeedPast\Organization;
 				//grab the organization profile from the database by the email provided
 				$organization = Organization::getOrganizationByOrganizationEmail($pdo, $organizationEmail);
 				if(empty($organization) === true) {
-					throw(new \InvalidArgumentException("Invalid Email", 401));
+					throw(new \InvalidArgumentException("Email address or password is incorrect.", 401));
 				}
 
 				//if the organization profile activation is not null throw an error
 				if($organization->getOrganizationActivationToken() !== null){
-					throw (new \InvalidArgumentException ("you are not allowed to sign in unless you have activated your account", 403));
+					throw (new \InvalidArgumentException ("Sign in not allowed until account has been activated.", 403));
 				}
 
 				//hash the password given to make sure it matches.
@@ -67,7 +67,7 @@ use Edu\Cnm\FeedPast\Organization;
 
 				//verify hash is correct
 				if($hash !== $organization->getOrganizationHash()) {
-					throw(new \InvalidArgumentException("Password or email is incorrect.", 401));
+					throw(new \InvalidArgumentException("Email address or password is incorrect.", 401));
 				}
 
 				//grab organization profile from database and put into a session
