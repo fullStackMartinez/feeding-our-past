@@ -1,10 +1,12 @@
 
-<section>
+<section class="mb-5">
 	<div class="container mt-5 pt-5">
 		<div class="row justify-content-center">
 			<!-- left column for new post form -->
-			<div class="col-lg-5">
-				<h3>Create a New Event Post</h3>
+			<div class="col-lg-5 mb-4">
+				<div class="row justify-content-center mb-2">
+					<h3>Create a New Event Post</h3>
+				</div>
 				<form id="createPostForm" name="createPostForm" [formGroup]="createPostForm" (submit)="createPost();" class="form-horizontal" novalidate>
 					<small id="formRequired" class="form-text text-danger">*Required fields</small>
 
@@ -65,8 +67,10 @@
 			<div class="col-lg-1"></div>
 
 			<!-- right column for event posts -->
-			<div class="col-lg-6 mt-5">
-				<h2>Upcoming Events</h2>
+			<div class="col-lg-6">
+				<div class="row justify-content-center mb-2">
+					<h2>Upcoming Events</h2>
+				</div>
 				<!-- begin post item -->
 				<div *ngFor="let post of posts" class="card mb-4">
 					<div class="card-body">

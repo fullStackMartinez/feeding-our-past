@@ -58,6 +58,7 @@ export class OrganizationSignUpComponent implements OnInit{
 					this.organizationSignUpService.createOrganization(organization);
 					this.organizationSignUpForm.reset();
 					console.log("sign-up successful");
+
 					this.router.navigate([""]);
 				} else {
 					console.log("sign-up fail");
