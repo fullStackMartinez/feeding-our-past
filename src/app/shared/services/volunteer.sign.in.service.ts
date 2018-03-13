@@ -11,7 +11,7 @@ export class VolunteerSignInService {
 	}
 
 	private volunteerSignInUrl = "api/volunteer-sign-in/";
-	private volunteerSignOutUrl = "api/sign-out";
+	private signOutUrl = "api/sign-out";
 
 
 
@@ -21,7 +21,7 @@ export class VolunteerSignInService {
 	}
 
 	getSignOut() : Observable<Status> {
-		return(this.http.get<Status>(this.volunteerSignOutUrl));
+		return(this.http.get<Status>(this.signOutUrl));
 	}
 
 }

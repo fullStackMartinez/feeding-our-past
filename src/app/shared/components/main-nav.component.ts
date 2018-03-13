@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit {
 
 	signOut() : void {
 		this.volunteerSignInService.getSignOut()
-//		this.organizationSignInService.SignOut()
 
 			.subscribe(status => {
 				this.status = status;
@@ -41,8 +40,8 @@ export class NavbarComponent implements OnInit {
 					localStorage.clear();
 
 					// send user back home, refresh page
-					this.router.navigate([""]);
 					location.reload();
+					this.router.navigate([""]);
 					console.log("goodbye");
 				}
 			});

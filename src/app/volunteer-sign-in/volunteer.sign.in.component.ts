@@ -55,9 +55,9 @@ export class VolunteerSignInComponent implements OnInit {
 			});
 	}
 
-	signOut() :void {
+/*	signOut() :void {
 		this.volunteerSignInService.getSignOut();
-	}
+	}*/
 
 
 }

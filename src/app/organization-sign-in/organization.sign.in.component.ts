@@ -7,6 +7,7 @@ import {SessionService} from "../shared/services/session.service";
 import {OrganizationSignInService} from "../shared/services/organization.sign.in.service";
 import {OrganizationSignIn} from "../shared/classes/organization.sign.in";
 import {OrganizationSignUp} from "../shared/classes/organization.sign.up";
+import {VolunteerSignInService} from "../shared/services/volunteer.sign.in.service";
 
 //enable jquery $ alias
 declare const $: any;
@@ -27,6 +28,7 @@ export class OrganizationSignInComponent implements OnInit {
 		private sessionService: SessionService,
 		private formBuilder: FormBuilder,
 		private organizationSignInService: OrganizationSignInService,
+		private volunteerSignInService: VolunteerSignInService,
 		private router: Router) {
 	}
 
@@ -56,7 +58,7 @@ organizationSignIn() : void {
 	});
 }
 
-signOut() : void {
-	this.organizationSignInService.SignOut();
-}
+/*signOut() : void {
+	this.volunteerSignInService.getSignOut();
+}*/
 }
