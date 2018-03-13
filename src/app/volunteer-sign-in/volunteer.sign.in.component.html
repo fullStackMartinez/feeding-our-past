@@ -1,7 +1,7 @@
 
-<div class="container m-5">
-	<div class="text-center">
-		<h2>Volunteer: Sign In to your account</h2>
+<div class="container p-5">
+	<div class="row justify-content-center">
+		<h4>Volunteer: Sign In to your account</h4>
 	</div>
 	<div class="col-lg-6 offset-lg-3">
 		<form name="volunteerSignInForm" id="volunteerSignInForm" [formGroup]="volunteerSignInForm"
@@ -49,6 +49,7 @@
 				<button type="submit" id="submit" [disabled]="volunteerSignInForm.invalid" class="btn btn-primary">Sign In</button>
 			</div>
 		</form>
+	</div>
 
 		<div *ngIf="status !== null" class="alert alert-secondary alert-dismissible" [ngClass]="status.type" role="alert">
 			<button type="button" class="close" aria-label="Close" (click)="status = null;"><span aria-hidden="true">&times;</span></button>
@@ -56,5 +57,5 @@
 		</div>
 
 		<h6 class="text-center mt-2"><em>Not yet registered?</em> <a class="signup" routerLink="../volunteer-sign-up"><strong>Sign Up</strong></a></h6>
-	</div>
+
 </div>
