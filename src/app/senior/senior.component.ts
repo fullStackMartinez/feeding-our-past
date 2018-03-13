@@ -18,8 +18,9 @@ import {Point} from "../shared/classes/point";
 
 export class SeniorComponent implements OnInit {
 	organizations: Organization [];
-	organization: Organization;
+	organization: Organization = new Organization(null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 	status: Status = null;
+	pnt: any;
 
 	constructor(
 		private organizationService: OrganizationService,
@@ -44,4 +45,18 @@ export class SeniorComponent implements OnInit {
 		let point = new Point(organization.organizationLongY, organization.organizationLatX);
 		console.log(point);
 	}
+
+	clicked({target: marker} : any, organization : Organization) {
+		this.organization = marker;
+		marker.nguiMapComponent.openInfoWindow('org-details', marker);
+	}
+	hideMarkerInfo() {
+		this.pnt.display = !this.pnt.display;
+	}
+
+	displayOrg(organization: Organization) {
+		this.organization = organization;
+	}
 }
+
+

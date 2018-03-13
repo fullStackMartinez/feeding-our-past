@@ -5,7 +5,15 @@
 			<div class="col-lg-6">
 				<!-- this is the google map :P~ -->
 				<ngui-map zoom="11" center="Albuquerque, NM">
-					<marker *ngFor="let organization of organizations" [position]="[organization.organizationLatX, organization.organizationLongY]"></marker>
+					<marker *ngFor="let organization of organizations" [position]="[organization.organizationLatX, organization.organizationLongY]" (click)="clicked($event)" (click)="displayOrg(organization)"></marker>
+					<info-window id="org-details">
+						<div class="map-text p-1 ml-1 text-center">
+							<strong> {{ organization.organizationName }} </strong><br>
+							{{ organization.organizationAddressStreet}}<br>
+							{{ organization.organizationAddressCity }}, {{organization.organizationAddressState}}  {{organization.organizationAddressZip }}<br>
+							{{ organization.organizationPhone }}
+						</div>
+					</info-window>
 				</ngui-map>
 			</div>
 
