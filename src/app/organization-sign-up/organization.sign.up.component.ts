@@ -55,10 +55,11 @@ export class OrganizationSignUpComponent implements OnInit{
 				this.status = status;
 
 				if(this.status.status === 200) {
-					this.organizationSignUpService.createOrganization(organization);
 					this.organizationSignUpForm.reset();
 					console.log("sign-up successful");
-
+					setTimeout(function() {
+						alert("Thank you for signing up. Please check your email.");
+					}, 500);
 					this.router.navigate([""]);
 				} else {
 					console.log("sign-up fail");
