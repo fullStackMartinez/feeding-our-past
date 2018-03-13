@@ -60,7 +60,7 @@ try {
 		// grab the volunteer profile from the database by the email provided
 		$volunteer = Volunteer::getVolunteerByVolunteerEmail($pdo, $volunteerEmail);
 		if(empty($volunteer) === true) {
-			throw(new \InvalidArgumentException("Invalid email address", 401));
+			throw(new \InvalidArgumentException("Email address or password is incorrect", 401));
 		}
 
 		// if the volunteer profile activation is not null, throw an error
