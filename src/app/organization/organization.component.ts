@@ -13,6 +13,7 @@ import "rxjs/add/observable/from";
 import "rxjs/add/operator/switchMap";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {getTime} from 'date-fns';
+import {Router} from "@angular/router";
 
 @Component({
 	template: require("./organization.component.html")
@@ -31,8 +32,9 @@ export class OrganizationComponent implements OnInit {
 		private authService: AuthService,
 		private organizationService: OrganizationService,
 		private jwtHelper : JwtHelperService,
-		private postService: PostService) {
-	}
+		private postService: PostService,
+		private router: Router
+	){}
 
 	ngOnInit(): void {
 		this.listPosts();
@@ -77,9 +79,15 @@ export class OrganizationComponent implements OnInit {
 		this.postService.createPost(newPost)
 			.subscribe(status => {
 				this.status = status;
+
 				if(status.status === 200) {
-					this.listPosts();
 					this.createPostForm.reset();
+					console.log("create post successful");
+					this.listPosts();
+					setTimeout(function() {
+						alert("Thank you for creating a new post!");
+					}, 500);
+					this.router.navigate(["organization"]);
 				}else{
 					console.log('create post failed');
 				}
