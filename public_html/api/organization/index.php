@@ -64,6 +64,9 @@ try {
 		} else if(empty($distance) === false && (empty($userLatX) === false) && (empty($userLongY) === false)) {
 			$organization = Organization::getOrganizationByDistance($pdo, $distance, $userLatX, $userLongY)->toArray();
 			if($organization !== null) {
+				usort($organization, function($firstOrg, $secondOrg) {
+					return($firstOrg->getOrganizationName() <=> $secondOrg->getOrganizationName());
+				});
 				$reply->data = $organization;
 			}
 		} else if(empty($organizationEmail) === false) {

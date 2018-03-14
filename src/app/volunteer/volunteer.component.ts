@@ -53,6 +53,7 @@ export class VolunteerComponent implements OnInit{
 			.subscribe(organizations=>{
 				this.organizations = organizations;
 				console.log(this.organization);
+
 			})
 	}
 

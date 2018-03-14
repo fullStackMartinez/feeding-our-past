@@ -84,9 +84,9 @@ export class OrganizationComponent implements OnInit {
 					this.createPostForm.reset();
 					console.log("create post successful");
 					this.listPosts();
-					setTimeout(function() {
+/*					setTimeout(function() {
 						alert("Thank you for creating a new post!");
-					}, 500);
+					}, 500); */
 					this.router.navigate(["organization"]);
 				}else{
 					console.log('create post failed');
