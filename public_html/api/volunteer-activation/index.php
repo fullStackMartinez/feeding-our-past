@@ -69,7 +69,7 @@ try {
 				$volunteer->update($pdo);
 
 				// set the reply for the end user
-				$reply->data = "Thank you for activating your account, you will be auto-redirected to your volunteer profile shortly.";
+				$reply->data = "Thank you for activating your account, please click the following link to be redirected to the volunteer page.";
 				//var_dump();
 			}
 		} else {
